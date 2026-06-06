@@ -288,8 +288,13 @@ export class ServiceNowClient {
           });
         }
 
-        const data = await response.json();
-        return data as T;
+        // 204 No Content or empty body (e.g. a successful DELETE) has nothing to parse.
+        // Parsing it as JSON would throw, get caught below, and trigger a spurious retry
+        // whose second DELETE then 404s — making a successful delete report NOT_FOUND.
+        if (response.status === 204) return undefined as T;
+        const body = await response.text();
+        if (!body) return undefined as T;
+        try { return JSON.parse(body) as T; } catch { return body as unknown as T; }
 
       } catch (error) {
         lastError = error instanceof Error ? error : new Error('Unknown error');
