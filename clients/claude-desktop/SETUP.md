@@ -80,6 +80,8 @@ Use the ready-to-edit file at [`claude_desktop_config.oauth.json`](claude_deskto
 
 > **Important**: Replace `/ABSOLUTE/PATH/TO` with the real path on your system. On macOS this might be `/Users/yourname/projects/servicenow-mcp/dist/server.js`.
 
+> **Global install alternative**: if you installed the package globally (`npm install -g servicenow-mcp`), skip the absolute path and use the dedicated server binary — set `"command": "npx"` and `"args": ["-y", "servicenow-mcp-server"]` (keep the same `env` block).
+
 ## Step 4: Restart Claude Desktop
 
 Fully quit and reopen Claude Desktop.

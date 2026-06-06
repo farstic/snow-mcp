@@ -27,7 +27,7 @@ import { writeClientConfig } from './writers/index.js';
 import type { InstanceConfig, IntegrationMode } from './config-store.js';
 import type { LlmProvider } from '../direct/llm-client.js';
 
-// ─── Brand colors (matches nowaitkit.com — teal/navy palette) ───────────────
+// ─── Brand colors — teal/navy palette ───────────────
 // NOTE: `white` and `subtle` use terminal-adaptive styles so text remains
 //       visible on both dark *and* light (bright-white) terminal backgrounds.
 const teal    = chalk.hex('#00D4AA');        // teal-500 — primary brand
@@ -98,23 +98,15 @@ function progressBar(current: number, total: number): string {
 
 // ─── Logo + Banner ────────────────────────────────────────────────────────────
 function logoText(): string {
-  return white('Now') + teal.bold('AI') + white('Kit');
+  return white('ServiceNow') + teal.bold(' MCP');
 }
 
 function banner(): void {
   console.log('');
-  // ASCII art logo — "ServiceNow MCP Toolkit" in block thick style, NOW/KIT teal, AI gray
-  console.log(teal.bold('  ███╗  ██╗ ██████╗ ██╗    ██╗') + '   ' + gray(' █████╗ ██╗') + '   ' + teal.bold('██╗  ██╗██╗████████╗'));
-  console.log(teal.bold('  ████╗ ██║██╔═══██╗██║    ██║') + '   ' + gray('██╔══██╗██║') + '   ' + teal.bold('██║ ██╔╝██║╚══██╔══╝'));
-  console.log(teal.bold('  ██╔██╗██║██║   ██║██║ █╗ ██║') + '   ' + gray('███████║██║') + '   ' + teal.bold('█████╔╝ ██║   ██║'));
-  console.log(teal.bold('  ██║╚████║██║   ██║██║███╗██║') + '   ' + gray('██╔══██║██║') + '   ' + teal.bold('██╔═██╗ ██║   ██║'));
-  console.log(teal.bold('  ██║ ╚███║╚██████╔╝╚███╔███╔╝') + '   ' + gray('██║  ██║██║') + '   ' + teal.bold('██║  ██╗██║   ██║'));
-  console.log(teal.bold('  ╚═╝  ╚══╝ ╚═════╝  ╚══╝╚══╝') + '   ' + gray('╚═╝  ╚═╝╚═╝') + '   ' + teal.bold('╚═╝  ╚═╝╚═╝   ╚═╝') + '  ' + teal('✦'));
-  console.log('');
   console.log(`  ${logoText()}  ${dim('—')} ${subtle('Setup Wizard')}`);
   console.log('');
-  console.log(dim('  Connect ') + teal.bold('Any AI') + dim(' to ServiceNow. Instantly.'));
-  console.log(dim('  400+ tools  ·  All modules  ·  Any AI client'));
+  console.log(dim('  Connect ') + teal.bold('any AI') + gray(' to ServiceNow.'));
+  console.log(dim('  394 tools  ·  All modules  ·  Any AI client'));
   console.log('');
   divider();
   console.log('');

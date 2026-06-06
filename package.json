@@ -24,7 +24,8 @@
     }
   },
   "bin": {
-    "servicenow-mcp": "dist/cli/index.js"
+    "servicenow-mcp": "dist/cli/index.js",
+    "servicenow-mcp-server": "dist/server.js"
   },
   "type": "module",
   "files": [

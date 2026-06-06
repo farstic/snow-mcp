@@ -45,8 +45,15 @@ Other useful settings: `MCP_TOOL_PACKAGE`, `TRANSPORT` (`stdio`/`sse`/`http`), `
 ## Run
 
 ```bash
-npm start            # stdio transport
-TRANSPORT=http PORT=3000 npm start
+npm start            # stdio transport (local dev)
+TRANSPORT=http PORT=3000 npm start   # HTTP server + REST API + dashboard
+```
+
+After building, the stdio server is also available through the bundled binaries — handy for global installs and MCP client configs:
+
+```bash
+npx servicenow-mcp start       # via the CLI (safely spawns the server)
+npx -y servicenow-mcp-server   # dedicated stdio server binary
 ```
 
 ## Tool naming

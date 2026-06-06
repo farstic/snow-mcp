@@ -29,7 +29,7 @@ const __pkgJson = JSON.parse(readFileSync(path.resolve(__cliDir, '..', '..', 'pa
 const CLI_VERSION: string = __pkgJson.version;
 import { runShortcuts } from './shortcuts.js';
 
-// Brand colors (matches nowaitkit.com — teal/navy palette)
+// Brand colors — teal/navy palette
 // Terminal-adaptive: white/subtle/dim use chalk built-ins so text stays visible
 // on both dark and light (bright-white) terminal backgrounds.
 const teal    = chalk.hex('#00D4AA');
@@ -43,20 +43,13 @@ const success = chalk.hex('#10B981');
 const err     = chalk.hex('#E8466A');
 
 function logoText(): string {
-  return white('Now') + teal.bold('AI') + white('Kit');
+  return white('ServiceNow') + teal.bold(' MCP');
 }
 
 function cliBanner(): void {
   console.log('');
-  console.log(teal.bold('  ███╗  ██╗ ██████╗ ██╗    ██╗') + '   ' + gray(' █████╗ ██╗') + '   ' + teal.bold('██╗  ██╗██╗████████╗'));
-  console.log(teal.bold('  ████╗ ██║██╔═══██╗██║    ██║') + '   ' + gray('██╔══██╗██║') + '   ' + teal.bold('██║ ██╔╝██║╚══██╔══╝'));
-  console.log(teal.bold('  ██╔██╗██║██║   ██║██║ █╗ ██║') + '   ' + gray('███████║██║') + '   ' + teal.bold('█████╔╝ ██║   ██║'));
-  console.log(teal.bold('  ██║╚████║██║   ██║██║███╗██║') + '   ' + gray('██╔══██║██║') + '   ' + teal.bold('██╔═██╗ ██║   ██║'));
-  console.log(teal.bold('  ██║ ╚███║╚██████╔╝╚███╔███╔╝') + '   ' + gray('██║  ██║██║') + '   ' + teal.bold('██║  ██╗██║   ██║'));
-  console.log(teal.bold('  ╚═╝  ╚══╝ ╚═════╝  ╚══╝╚══╝') + '   ' + gray('╚═╝  ╚═╝╚═╝') + '   ' + teal.bold('╚═╝  ╚═╝╚═╝   ╚═╝') + '  ' + teal('✦'));
-  console.log('');
-  console.log(`  ${logoText()}  ${dim('—')} ${subtle('The #1 AI App for ServiceNow')}`);
-  console.log(dim('  Connect ') + teal.bold('Any AI') + dim(' to ServiceNow. Instantly.'));
+  console.log(`  ${logoText()}  ${dim('—')} ${subtle('The most comprehensive ServiceNow AI toolkit')}`);
+  console.log(dim('  Connect ') + teal.bold('any AI') + gray(' to ServiceNow.'));
   console.log('');
 }
 
@@ -91,8 +84,10 @@ async function checkForUpdate(): Promise<void> {
   }
 }
 
-// Fire update check in background (non-blocking — doesn't delay CLI startup)
-const updateCheckPromise = checkForUpdate();
+// When starting the MCP server, suppress all CLI stdout (update notice/banner) so the
+// JSON-RPC stdio stream stays clean — the server is spawned as a child process below.
+const isServerStart = ['start', 'serve'].includes(process.argv[2]);
+const updateCheckPromise = isServerStart ? Promise.resolve() : checkForUpdate();
 
 const program = new Command();
 
@@ -113,6 +108,24 @@ program
   .option('--add', 'Add another instance without overwriting existing config')
   .action(async (opts: { add?: boolean }) => {
     await runSetup({ add: opts.add });
+  });
+
+// ─── start ──────────────────────────────────────────────────────────────────
+program
+  .command('start')
+  .alias('serve')
+  .description('Start the MCP server (stdio by default; set TRANSPORT=sse|http for the HTTP server)')
+  .action(() => {
+    // Spawn the server as a child so the CLI process never writes to the JSON-RPC stdout stream.
+    const serverPath = path.resolve(__cliDir, '..', 'server.js');
+    const child = spawn(process.execPath, [serverPath], { stdio: 'inherit', env: process.env });
+    const forward = (sig: NodeJS.Signals) => { if (!child.killed) child.kill(sig); };
+    process.on('SIGINT', () => forward('SIGINT'));
+    process.on('SIGTERM', () => forward('SIGTERM'));
+    child.on('exit', (code, signal) => {
+      if (signal) process.kill(process.pid, signal);
+      else process.exit(code ?? 0);
+    });
   });
 
 // ─── auth ─────────────────────────────────────────────────────────────────────

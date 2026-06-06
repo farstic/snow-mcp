@@ -10,7 +10,6 @@ const bright = chalk.hex('#00B899');
 const dim    = chalk.gray;
 const white  = chalk.bold;
 const subtle = chalk.dim;
-const gray   = chalk.hex('#8B949E');
 const accent = teal;
 const brand  = teal;
 
@@ -34,14 +33,7 @@ function row(left: string, right: string, leftWidth = 28): void {
 
 export function runShortcuts(): void {
   console.log('');
-  console.log(teal.bold('  ███╗  ██╗ ██████╗ ██╗    ██╗') + '   ' + gray(' █████╗ ██╗') + '   ' + teal.bold('██╗  ██╗██╗████████╗'));
-  console.log(teal.bold('  ████╗ ██║██╔═══██╗██║    ██║') + '   ' + gray('██╔══██╗██║') + '   ' + teal.bold('██║ ██╔╝██║╚══██╔══╝'));
-  console.log(teal.bold('  ██╔██╗██║██║   ██║██║ █╗ ██║') + '   ' + gray('███████║██║') + '   ' + teal.bold('█████╔╝ ██║   ██║'));
-  console.log(teal.bold('  ██║╚████║██║   ██║██║███╗██║') + '   ' + gray('██╔══██║██║') + '   ' + teal.bold('██╔═██╗ ██║   ██║'));
-  console.log(teal.bold('  ██║ ╚███║╚██████╔╝╚███╔███╔╝') + '   ' + gray('██║  ██║██║') + '   ' + teal.bold('██║  ██╗██║   ██║'));
-  console.log(teal.bold('  ╚═╝  ╚══╝ ╚═════╝  ╚══╝╚══╝') + '   ' + gray('╚═╝  ╚═╝╚═╝') + '   ' + teal.bold('╚═╝  ╚═╝╚═╝   ╚═╝') + '  ' + teal('✦'));
-  console.log('');
-  console.log(`  ${white('Now') + teal.bold('AI') + white('Kit')}  ${dim('—')} ${subtle('All Commands & Shortcuts')}`);
+  console.log(`  ${white('ServiceNow') + teal.bold(' MCP')}  ${dim('—')} ${subtle('All Commands & Shortcuts')}`);
   console.log('');
   divider();
 

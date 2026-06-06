@@ -48,6 +48,8 @@ Edit `.vscode/mcp.json`:
 }
 ```
 
+> **Global install alternative**: with the package installed globally (`npm install -g servicenow-mcp`), set `"command": "npx"` and `"args": ["-y", "servicenow-mcp-server"]` instead of `node` + the absolute path (keep `"type": "stdio"` and the same `env`).
+
 ### OAuth
 
 ```json

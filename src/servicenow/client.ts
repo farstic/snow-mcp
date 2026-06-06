@@ -350,7 +350,9 @@ export class ServiceNowClient {
     if (params.limit !== undefined && params.limit > 0) {
       queryParams.set('sysparm_limit', Math.min(params.limit, 1000).toString());
     } else {
-      queryParams.set('sysparm_limit', '10'); // Default limit
+      // Default page size from MAX_RECORDS (capped at 1000), falling back to 10.
+      const defaultLimit = Math.min(Number(process.env.MAX_RECORDS) || 10, 1000);
+      queryParams.set('sysparm_limit', defaultLimit.toString());
     }
 
     if (params.offset !== undefined) {

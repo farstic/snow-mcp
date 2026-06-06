@@ -142,6 +142,25 @@ Add to your AI client config (`dist/server.js` is the MCP entry point):
 }
 ```
 
+The block above is the **local/dev path** — `node` runs the built `dist/server.js`. For a **global install**, point your client at the dedicated server binary instead (after `npm install -g servicenow-mcp`, or let `npx` fetch it):
+
+```json
+{
+  "mcpServers": {
+    "servicenow-mcp": {
+      "command": "npx",
+      "args": ["-y", "servicenow-mcp-server"],
+      "env": {
+        "SERVICENOW_INSTANCE_URL": "https://yourcompany.service-now.com",
+        "SERVICENOW_AUTH_METHOD": "basic",
+        "SERVICENOW_BASIC_USERNAME": "admin",
+        "SERVICENOW_BASIC_PASSWORD": "your_password"
+      }
+    }
+  }
+}
+```
+
 Config file locations by client:
 
 | Client | Config path |

@@ -69,6 +69,8 @@ Edit `.cursor/mcp.json`:
 
 > **Important**: Use the absolute path to `dist/server.js` — relative paths may not work.
 
+> **Global install alternative**: with the package installed globally (`npm install -g servicenow-mcp`), use `"command": "npx"`, `"args": ["-y", "servicenow-mcp-server"]` instead of the `node` + absolute-path form (keep the same `env`).
+
 ## Step 3: Add Cursor Rules (Optional)
 
 Copy the `.cursorrules` file to help Cursor understand when to use ServiceNow tools:
