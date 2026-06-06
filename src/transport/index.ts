@@ -160,7 +160,7 @@ async function setupStreamableHttpTransport(createServerFn: () => Server, httpSe
 }
 
 /** Host/Origin allowlists for DNS-rebinding protection, from bind config + ALLOWED_ORIGINS env. */
-function getOriginPolicy(): { allowedHosts: string[]; allowedOrigins: string[] } {
+export function getOriginPolicy(): { allowedHosts: string[]; allowedOrigins: string[] } {
   const port = process.env.PORT || '3000';
   const host = process.env.HOST || '0.0.0.0';
   const hosts = new Set<string>([`localhost:${port}`, `127.0.0.1:${port}`, `[::1]:${port}`, `${host}:${port}`]);
