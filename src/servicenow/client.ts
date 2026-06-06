@@ -227,6 +227,7 @@ export class ServiceNowClient {
     let lastError: Error | undefined;
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
+      let retryAfterMs: number | undefined; // set from a 429/503 Retry-After header
       try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), this.requestTimeoutMs);
@@ -280,6 +281,16 @@ export class ServiceNowClient {
             errorCode = 'NOT_FOUND';
           } else if (response.status === 400) {
             errorCode = 'INVALID_REQUEST';
+          } else if (response.status === 429 || response.status === 503) {
+            errorCode = 'RATE_LIMITED';
+            // Honor Retry-After (delta-seconds or HTTP-date) for the backoff below.
+            const ra = response.headers.get('retry-after');
+            if (ra) {
+              const secs = Number(ra);
+              retryAfterMs = Number.isFinite(secs)
+                ? secs * 1000
+                : Math.max(0, new Date(ra).getTime() - Date.now());
+            }
           }
 
           throw new ServiceNowError(errorMessage, errorCode, {
@@ -306,9 +317,11 @@ export class ServiceNowClient {
           }
         }
 
-        // Retry on network errors or server errors
+        // Retry on network errors, rate limits, or server errors
         if (attempt < this.maxRetries) {
-          const delay = this.retryDelayMs * Math.pow(2, attempt); // Exponential backoff
+          const backoff = this.retryDelayMs * Math.pow(2, attempt); // Exponential backoff
+          // A 429/503 Retry-After takes precedence over backoff (capped at 60s).
+          const delay = retryAfterMs !== undefined ? Math.min(retryAfterMs, 60000) : backoff;
           logger.warn(`Request failed, retrying in ${delay}ms (attempt ${attempt + 1}/${this.maxRetries})`);
           await new Promise(resolve => setTimeout(resolve, delay));
           continue;

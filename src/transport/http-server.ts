@@ -10,6 +10,7 @@ export interface HttpServerOptions {
   port: number;
   host: string;
   corsOrigin: string;
+  allowedOrigins: string[];
 }
 
 type Middleware = (req: AuthRequest, res: any, next: () => void) => void;
@@ -31,9 +32,11 @@ export class ServiceNowMcpHttpServer {
   private middlewares: Middleware[] = [];
   private server: HttpServer | null = null;
   private corsOrigin: string;
+  private allowedOrigins: string[];
 
   constructor(private options: HttpServerOptions) {
     this.corsOrigin = options.corsOrigin;
+    this.allowedOrigins = options.allowedOrigins;
   }
 
   /** Register a route. */
@@ -60,10 +63,18 @@ export class ServiceNowMcpHttpServer {
   /** Start listening. */
   async start(): Promise<void> {
     this.server = createServer(async (req: AuthRequest, res) => {
-      // CORS headers
-      res.setHeader('Access-Control-Allow-Origin', this.corsOrigin);
+      // CORS — reflect a request Origin only when it's allow-listed; otherwise fall back to the
+      // configured CORS_ORIGIN (default '*'). Avoids blindly echoing arbitrary origins.
+      const origin = Array.isArray(req.headers.origin) ? req.headers.origin[0] : req.headers.origin;
+      if (origin && this.allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Vary', 'Origin');
+      } else {
+        res.setHeader('Access-Control-Allow-Origin', this.corsOrigin);
+      }
       res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, mcp-session-id');
+      res.setHeader('Access-Control-Expose-Headers', 'mcp-session-id');
       res.setHeader('Access-Control-Max-Age', '86400');
 
       // Handle preflight
@@ -189,9 +200,13 @@ function extractParams(pattern: string, pathname: string): Record<string, string
 
 /** Create an HTTP server with defaults from env vars. */
 export function createHttpServer(): ServiceNowMcpHttpServer {
+  const port = process.env.PORT || '3000';
+  const allowedOrigins = new Set<string>([`http://localhost:${port}`, `http://127.0.0.1:${port}`]);
+  for (const o of (process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean)) allowedOrigins.add(o);
   return new ServiceNowMcpHttpServer({
-    port: parseInt(process.env.PORT || '3000', 10),
+    port: parseInt(port, 10),
     host: process.env.HOST || '0.0.0.0',
     corsOrigin: process.env.CORS_ORIGIN || '*',
+    allowedOrigins: [...allowedOrigins],
   });
 }

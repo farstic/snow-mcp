@@ -10,6 +10,7 @@ import type { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { logger } from '../utils/logging.js';
 import { createHttpServer, type ServiceNowMcpHttpServer } from './http-server.js';
+import { getPackageVersion } from '../utils/version.js';
 
 export type TransportType = 'stdio' | 'sse' | 'http';
 
@@ -26,6 +27,7 @@ export function getTransportType(): TransportType {
 export async function connectTransport(
   server: Server,
   toolCount: number,
+  createServerFn?: () => Server,
 ): Promise<ServiceNowMcpHttpServer | null> {
   const transportType = getTransportType();
 
@@ -42,7 +44,8 @@ export async function connectTransport(
   if (transportType === 'sse') {
     await setupSseTransport(server, httpServer);
   } else {
-    await setupStreamableHttpTransport(server, httpServer);
+    // Streamable HTTP isolates each session with its own server; fall back to the shared one.
+    await setupStreamableHttpTransport(createServerFn || (() => server), httpServer);
   }
 
   logger.info(`ServiceNow MCP Toolkit server running on ${transportType} [${toolCount} tools]`);
@@ -91,32 +94,82 @@ async function setupSseTransport(server: Server, httpServer: ServiceNowMcpHttpSe
 }
 
 /**
- * Streamable HTTP Transport — POST/GET/DELETE /mcp for all MCP communication.
+ * Streamable HTTP Transport — POST/GET/DELETE /mcp.
+ * One transport (with its own MCP Server) per session, keyed by the `mcp-session-id`
+ * header, so concurrent clients can't collide on a shared transport. DNS-rebinding
+ * protection validates Host/Origin against an allowlist.
  */
-async function setupStreamableHttpTransport(server: Server, httpServer: ServiceNowMcpHttpServer): Promise<void> {
+async function setupStreamableHttpTransport(createServerFn: () => Server, httpServer: ServiceNowMcpHttpServer): Promise<void> {
   const { StreamableHTTPServerTransport } = await import('@modelcontextprotocol/sdk/server/streamableHttp.js');
+  const { isInitializeRequest } = await import('@modelcontextprotocol/sdk/types.js');
   const { randomUUID } = await import('crypto');
 
-  const transport = new StreamableHTTPServerTransport({
-    sessionIdGenerator: () => randomUUID(),
-  });
+  type SHT = InstanceType<typeof StreamableHTTPServerTransport>;
+  const transports = new Map<string, SHT>();
+  const { allowedHosts, allowedOrigins } = getOriginPolicy();
+  const sessionOf = (req: { headers: Record<string, string | string[] | undefined> }): string | undefined => {
+    const raw = req.headers['mcp-session-id'];
+    return Array.isArray(raw) ? raw[0] : raw;
+  };
+  const badSession = (res: { writeHead: (n: number, h: Record<string, string>) => void; end: (b: string) => void }) => {
+    res.writeHead(400, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Invalid or missing session ID' }));
+  };
 
-  // Mount transport on /mcp
   httpServer.post('/mcp', async (req, res) => {
-    await transport.handleRequest(req, res);
+    const sid = sessionOf(req);
+    const body = (req as { body?: unknown }).body;
+    let transport = sid ? transports.get(sid) : undefined;
+
+    if (!transport) {
+      if (sid || !isInitializeRequest(body)) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ jsonrpc: '2.0', error: { code: -32000, message: 'Bad Request: no valid session ID, and not an initialize request' }, id: null }));
+        return;
+      }
+      const created: SHT = new StreamableHTTPServerTransport({
+        sessionIdGenerator: () => randomUUID(),
+        enableDnsRebindingProtection: true,
+        allowedHosts,
+        allowedOrigins,
+        onsessioninitialized: (id: string) => { transports.set(id, created); logger.info(`MCP session initialized: ${id}`); },
+      });
+      created.onclose = () => { if (created.sessionId) { transports.delete(created.sessionId); logger.info(`MCP session closed: ${created.sessionId}`); } };
+      await createServerFn().connect(created);
+      transport = created;
+    }
+    await transport.handleRequest(req, res, body);
   }, true);
 
   httpServer.get('/mcp', async (req, res) => {
+    const sid = sessionOf(req);
+    const transport = sid ? transports.get(sid) : undefined;
+    if (!transport) return badSession(res);
     await transport.handleRequest(req, res);
   }, true);
 
   httpServer.delete('/mcp', async (req, res) => {
+    const sid = sessionOf(req);
+    const transport = sid ? transports.get(sid) : undefined;
+    if (!transport) return badSession(res);
     await transport.handleRequest(req, res);
   }, true);
 
   addHealthRoute(httpServer);
-  await server.connect(transport);
   await httpServer.start();
+}
+
+/** Host/Origin allowlists for DNS-rebinding protection, from bind config + ALLOWED_ORIGINS env. */
+function getOriginPolicy(): { allowedHosts: string[]; allowedOrigins: string[] } {
+  const port = process.env.PORT || '3000';
+  const host = process.env.HOST || '0.0.0.0';
+  const hosts = new Set<string>([`localhost:${port}`, `127.0.0.1:${port}`, `[::1]:${port}`, `${host}:${port}`]);
+  const origins = new Set<string>([`http://localhost:${port}`, `http://127.0.0.1:${port}`]);
+  for (const extra of (process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean)) {
+    origins.add(extra);
+    try { hosts.add(new URL(extra).host); } catch { /* not a URL — skip */ }
+  }
+  return { allowedHosts: [...hosts], allowedOrigins: [...origins] };
 }
 
 /** Shared health endpoint — no auth required. */
@@ -128,7 +181,7 @@ function addHealthRoute(httpServer: ServiceNowMcpHttpServer): void {
     res.end(JSON.stringify({
       status: 'ok',
       name: 'servicenow-mcp',
-      version: '4.0.0',
+      version: getPackageVersion(),
       transport: getTransportType(),
       tools_count: tools.length,
       timestamp: new Date().toISOString(),

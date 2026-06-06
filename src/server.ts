@@ -15,6 +15,7 @@ import { getResources, readResource } from './resources/index.js';
 import { getPrompts, resolvePromptAsync } from './prompts/index.js';
 import { logger } from './utils/logging.js';
 import { ServiceNowError } from './utils/errors.js';
+import { getPackageVersion } from './utils/version.js';
 import { connectTransport } from './transport/index.js';
 
 dotenv.config();
@@ -34,7 +35,7 @@ export function createServer(): Server {
   const server = new Server(
     {
       name: 'servicenow-mcp',
-      version: '4.0.0',
+      version: getPackageVersion(),
     },
     {
       capabilities: {
@@ -155,7 +156,8 @@ export function createServer(): Server {
 async function main() {
   const server = createServer();
   const tools = collectToolCatalog();
-  const httpServer = await connectTransport(server, tools.length);
+  // Pass the factory so Streamable HTTP can create an isolated server per session.
+  const httpServer = await connectTransport(server, tools.length, createServer);
 
   // If HTTP-based transport, mount API routes and A2A
   if (httpServer) {
