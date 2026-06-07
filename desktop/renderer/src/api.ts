@@ -79,7 +79,7 @@ async function snowFetch(
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'X-ServiceNow MCP Toolkit-Proxy': '1',
+    'X-SNMCP-Proxy': '1',
   };
 
   if (instance.authMethod === 'basic' && instance.username && instance.password) {
@@ -522,7 +522,7 @@ const webApi: ElectronAPI = {
 
         const res = await fetch('/api/ai/anthropic/v1/messages', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'X-ServiceNow MCP Toolkit-Proxy': '1' },
+          headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'X-SNMCP-Proxy': '1' },
           body: JSON.stringify(body),
         });
         if (!res.ok) { const e = sanitizeError(`API error ${res.status}: ${await res.text()}`); logChat(provider, model, toolDefs?.length || 0, false, Date.now() - chatStart, undefined, e); return { error: e }; }
@@ -558,7 +558,7 @@ const webApi: ElectronAPI = {
         const directUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
         let res: Response;
         try {
-          res = await fetch(proxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-ServiceNow MCP Toolkit-Proxy': '1' }, body: JSON.stringify(body) });
+          res = await fetch(proxyUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-SNMCP-Proxy': '1' }, body: JSON.stringify(body) });
           // If proxy returns 404 or non-JSON, it means no proxy server — fall back to direct
           if (res.status === 404) throw new Error('proxy_not_available');
         } catch {
@@ -619,7 +619,7 @@ const webApi: ElectronAPI = {
         const openaiTools = toolDefs?.map(t => ({ type: 'function', function: { name: t.name, description: t.description, parameters: t.inputSchema || { type: 'object', properties: {} } } }));
         if (openaiTools && openaiTools.length > 0) body.tools = openaiTools;
 
-        const fetchHeaders: Record<string, string> = { 'Content-Type': 'application/json', 'X-ServiceNow MCP Toolkit-Proxy': '1' };
+        const fetchHeaders: Record<string, string> = { 'Content-Type': 'application/json', 'X-SNMCP-Proxy': '1' };
         if (apiKey) fetchHeaders['Authorization'] = `Bearer ${apiKey}`;
         const res = await fetch(url, {
           method: 'POST',

@@ -311,7 +311,7 @@ export default function Settings({ settings, onSave, activeInstance, onNavigate 
   // Fetch with proxy fallback: try proxy path first (browser mode), fall back to direct (Electron/CORS-allowed)
   async function localFetch(directUrl: string, proxyPath: string): Promise<Response> {
     try {
-      const res = await fetch(proxyPath, { signal: AbortSignal.timeout(5000), headers: { 'X-ServiceNow MCP Toolkit-Proxy': '1' } });
+      const res = await fetch(proxyPath, { signal: AbortSignal.timeout(5000), headers: { 'X-SNMCP-Proxy': '1' } });
       if (res.status === 404 || res.status === 403) throw new Error('proxy_unavailable');
       return res;
     } catch {

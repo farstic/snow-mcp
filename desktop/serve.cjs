@@ -9,7 +9,7 @@
  * Security:
  * - Binds to localhost only by default (set HOST=0.0.0.0 to expose)
  * - CORS restricted to same-origin (configurable via ALLOWED_ORIGINS)
- * - Requires X-ServiceNow MCP Toolkit-Proxy header on AI proxy requests (CSRF protection)
+ * - Requires X-SNMCP-Proxy header on AI proxy requests (CSRF protection)
  * - Path traversal and null-byte injection protection
  * - Only whitelisted headers forwarded to upstream providers
  * - API keys are never logged
@@ -179,7 +179,7 @@ function proxyRequest(req, res, proxyConfig) {
       if (allowedOrigin) {
         res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-api-key, anthropic-version, X-ServiceNow MCP Toolkit-Proxy');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-api-key, anthropic-version, X-SNMCP-Proxy');
       }
 
       // Forward response headers (skip upstream CORS headers)
@@ -293,7 +293,7 @@ function proxySnowRequest(req, res) {
       if (allowedOrigin) {
         res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-ServiceNow MCP Toolkit-Proxy');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-SNMCP-Proxy');
       }
 
       for (const [key, value] of Object.entries(proxyRes.headers)) {
@@ -471,7 +471,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': origin || '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-api-key, anthropic-version, X-ServiceNow MCP Toolkit-Proxy',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-api-key, anthropic-version, X-SNMCP-Proxy',
       'Access-Control-Max-Age': '86400',
     });
     res.end();
@@ -480,9 +480,9 @@ const server = http.createServer((req, res) => {
 
   // Common proxy security checks
   const proxySecurityCheck = () => {
-    if (!req.headers['x-servicenow-mcp-proxy']) {
+    if (!req.headers['x-snmcp-proxy']) {
       res.writeHead(403, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'Missing X-ServiceNow MCP Toolkit-Proxy header' }));
+      res.end(JSON.stringify({ error: 'Missing X-SNMCP-Proxy header' }));
       return false;
     }
     if (!allowed) {
