@@ -126,6 +126,63 @@ desktop/
 
 The MCP server is the same one used by Claude, Cursor, and all other AI clients. The desktop app just provides a visual management layer.
 
+## Testing
+
+The desktop app has a full test pyramid. Layers L0–L3 and L5 run anywhere; **L4 and L6 require a real Electron binary** (downloaded on `npm install`), so they only run on a developer machine — not in a sandboxed/CI environment where the Electron download is blocked.
+
+```bash
+cd desktop
+npm install                 # also downloads the Electron + Playwright binaries
+
+# L0 — build & strict typecheck
+npm run build
+npm run type-check
+
+# L1–L3 — unit (main process), IPC contract, renderer components (vitest)
+npm test                    # 44 tests; npm run coverage for V8 coverage
+
+# L5 — web-mode E2E (Playwright + chromium, browser deployment of the renderer)
+npm run test:e2e:web
+
+# L4 + L6 — Electron E2E and packaging smoke (need a real Electron binary)
+npm run test:e2e           # launches the built app via Playwright _electron
+```
+
+| Layer | What it covers | Command |
+|-------|----------------|---------|
+| L0 | Build + strict TS typecheck | `npm run build && npm run type-check` |
+| L1 | Main-process units (config-store encryption, server-manager, security helpers) | `npm test` |
+| L2 | IPC contract — preload channels ≡ main handlers | `npm test` |
+| L3 | Renderer component tests (all 7 pages + web-API fallback) | `npm test` |
+| L4 | Electron E2E — launch, navigate, gated live start-server flow | `npm run test:e2e` |
+| L5 | Web-mode E2E — serve.cjs renderer in a real browser | `npm run test:e2e:web` |
+| L6 | Packaging smoke — packaged `.app` launches + bundles the server | `npm run package:mac && npm run test:e2e` |
+
+### L4 live flow (optional)
+
+The Electron E2E suite includes a live "start the server and load tools" flow that is gated behind an env flag so it never runs by accident:
+
+```bash
+RUN_LIVE_E2E=1 \
+SERVICENOW_INSTANCE_URL=https://yourinstance.service-now.com \
+SERVICENOW_BASIC_USERNAME=admin \
+SERVICENOW_BASIC_PASSWORD=... \
+npm run test:e2e
+```
+
+Use read-only credentials; the flow creates no test data.
+
+### L6 packaging smoke
+
+`tests/e2e/package.spec.ts` **self-skips** until you have produced a package. To run it:
+
+```bash
+npm run package:mac        # electron-builder → release/<arch>/servicenow-mcp.app
+npm run test:e2e           # the package smoke test now finds and launches the .app
+```
+
+It launches the packaged bundle (not the dev build), asserts the window renders with no uncaught errors, and verifies the MCP server was bundled at `resources/server/server.js` (per `electron-builder.yml`). Code-signing/notarization are out of scope for this test.
+
 ## Troubleshooting
 
 ### "Server not found at ..."
