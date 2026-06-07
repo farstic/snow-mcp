@@ -41,6 +41,7 @@ playwright-report/
 
 # Desktop app build output (installers distributed via GitHub Releases)
 desktop/release/
+desktop/release-dev/
 desktop/node_modules/
 desktop/dist/
 

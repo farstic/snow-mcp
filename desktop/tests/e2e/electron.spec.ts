@@ -1,5 +1,5 @@
 import { test, expect, _electron as electron, type ElectronApplication } from '@playwright/test';
-import { mkdtempSync, writeFileSync, rmSync } from 'fs';
+import { mkdtempSync, writeFileSync, rmSync, realpathSync } from 'fs';
 import { tmpdir } from 'os';
 import { join, resolve } from 'path';
 
@@ -57,6 +57,20 @@ test.describe('Electron app E2E', () => {
       await win.getByText(label, { exact: false }).first().click().catch(() => {});
     }
     await expect(win.locator('body')).toContainText(/settings|providers|appearance/i);
+  });
+
+  test('DEV variant: renames the app yet --user-data-dir still wins (isolation precedence)', async () => {
+    dir = tempDir();
+    // SNMCP_VARIANT=dev triggers app.setName('servicenow-mcp-dev'). The --user-data-dir switch
+    // must STILL win (we never call setPath), so the test keeps its temp-dir isolation and a real
+    // ~/Library/Application Support/servicenow-mcp-dev is never touched.
+    app = await launchApp(dir, { SNMCP_VARIANT: 'dev' });
+    const win = await app.firstWindow();
+    await win.waitForLoadState('domcontentloaded');
+    const userData = await app.evaluate(({ app: a }) => a.getPath('userData'));
+    expect(realpathSync(userData)).toBe(realpathSync(dir));
+    const name = await app.evaluate(({ app: a }) => a.getName());
+    expect(name).toBe('servicenow-mcp-dev');
   });
 
   test('LIVE: start the server from the dashboard and load tools', async () => {

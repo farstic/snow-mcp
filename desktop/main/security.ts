@@ -35,3 +35,27 @@ export function isValidInstanceUrl(url: string): boolean {
     return false;
   }
 }
+
+export type BuildVariant = 'dev' | 'prod';
+
+/**
+ * Decide whether this process is the isolated DEV build or the production build.
+ * The result drives whether the app uses a separate Application Support directory.
+ * Resolution order (first match wins):
+ *   1. SNMCP_VARIANT=dev|prod — explicit override (CI, `SNMCP_VARIANT=prod npm run dev`).
+ *   2. Packaged DEV build — the bundled package.json name ends with "-dev", injected via
+ *      `-c.extraMetadata.name=servicenow-mcp-dev` in the package:*:dev scripts. This is the
+ *      LOAD-BEARING isolation signal — do not drop it from those scripts or dev silently
+ *      shares the production data directory.
+ *   3. Unpackaged development (`--dev`) — default to DEV so `npm run dev` never writes into a
+ *      real production install's data directory.
+ *   4. Otherwise — production. Production is never renamed, so its data dir is left untouched.
+ */
+export function resolveBuildVariant(opts: { envVariant?: string; appName?: string; isDev?: boolean }): BuildVariant {
+  const { envVariant, appName = '', isDev = false } = opts;
+  if (envVariant === 'dev') return 'dev';
+  if (envVariant === 'prod') return 'prod';
+  if (appName.toLowerCase().endsWith('-dev')) return 'dev';
+  if (isDev) return 'dev';
+  return 'prod';
+}

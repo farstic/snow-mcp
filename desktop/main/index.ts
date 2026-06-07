@@ -3,9 +3,22 @@ import { join } from 'path';
 import { existsSync } from 'fs';
 import { ServerManager } from './server-manager';
 import { ConfigStore } from './config-store';
-import { isSafeExternalUrl, sanitizeError, isValidInstanceUrl, CONFIG_SET_ALLOWLIST } from './security';
+import { isSafeExternalUrl, sanitizeError, isValidInstanceUrl, CONFIG_SET_ALLOWLIST, resolveBuildVariant } from './security';
 
 const isDev = process.argv.includes('--dev');
+
+// ─── Build-variant isolation ───────────────────────────────────────────────────
+// A "dev" build runs under a separate identity so it never shares its Application
+// Support directory — config, encrypted credentials, audit log — with a production
+// install. Only the DEV variant is renamed; production keeps its existing name so an
+// upgrade never moves/orphans real user data. This MUST run before ConfigStore is
+// built (below), which reads app.getPath('userData') at construction time. We call
+// setName but never setPath, so an explicit --user-data-dir switch (E2E/packaging
+// tests) still takes precedence and keeps their isolated temp dirs.
+if (resolveBuildVariant({ envVariant: process.env.SNMCP_VARIANT, appName: app.getName(), isDev }) === 'dev') {
+  app.setName('servicenow-mcp-dev');
+}
+
 let mainWindow: BrowserWindow | null = null;
 const serverManager = new ServerManager();
 const configStore = new ConfigStore();

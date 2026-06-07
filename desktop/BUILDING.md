@@ -43,6 +43,38 @@ npm run package:linux   # Linux (AppImage + .deb)
 
 Output goes to `desktop/release/`.
 
+## Separate DEV Build (parallel install)
+
+You can build and install a **completely independent "DEV" copy** that runs side-by-side with the production app and never touches its data. It gets its own:
+
+- **App identity** — `appId: com.servicenow-mcp.desktop.dev`, product name `servicenow-mcp-dev` (so macOS treats it as a distinct app, with its own Dock/Launch Services entry).
+- **Application Support directory** — `~/Library/Application Support/servicenow-mcp-dev/`, separate from the production app's own data directory (`…/servicenow-mcp-desktop/`). Instances, encrypted credentials, audit log, and the encryption key are fully isolated.
+- **Build output** — `desktop/release-dev/` (prod artifacts in `release/` are never overwritten).
+
+```bash
+npm run package:dev        # current platform
+npm run package:mac:dev    # macOS DMG  → release-dev/servicenow-mcp-dev-<version>.dmg
+npm run package:win:dev    # Windows installer
+npm run package:linux:dev  # Linux AppImage/.deb
+```
+
+Drag the DEV `.app` to `/Applications` (or anywhere) — it installs and updates independently of the production app. You can run both at the same time.
+
+### How the isolation works
+
+The data directory is keyed off the app's name, not the folder the `.app` lives in. Two pieces guarantee separation:
+
+1. **Packaging** — the `package:*:dev` scripts pass `-c.extraMetadata.name=servicenow-mcp-dev` (plus the distinct `appId`/`productName`), so the bundled `package.json` name carries the `dev` signal.
+2. **Runtime** (`main/index.ts` → `resolveBuildVariant` in `main/security.ts`) — before the config store is created, the app resolves its variant: a packaged build is "dev" when its bundled `package.json` name ends in `-dev`; `SNMCP_VARIANT=dev|prod` overrides; and unpackaged `npm run dev` defaults to dev. **Only the dev variant** calls `app.setName('servicenow-mcp-dev')` (which redirects `app.getPath('userData')`). **Production is never renamed**, so upgrading an existing install never moves or orphans its data — including the OS-keychain-bound encryption key. The code calls `setName` but never `setPath`, so an explicit `--user-data-dir` (E2E/packaging tests) still takes precedence.
+
+### DEV in development mode (no packaging)
+
+`npm run dev` already uses the `servicenow-mcp-dev` data directory, so day-to-day development never touches a production install's data. To point dev mode at the production data directory instead:
+
+```bash
+SNMCP_VARIANT=prod npm run dev
+```
+
 ## Windows-Specific Notes
 
 ### Building on Windows

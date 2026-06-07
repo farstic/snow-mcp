@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isSafeExternalUrl, sanitizeError, isValidInstanceUrl, CONFIG_SET_ALLOWLIST } from '../../main/security';
+import { isSafeExternalUrl, sanitizeError, isValidInstanceUrl, CONFIG_SET_ALLOWLIST, resolveBuildVariant } from '../../main/security';
 
 describe('main/security helpers', () => {
   it('isSafeExternalUrl allows http/https/mailto, rejects everything else', () => {
@@ -32,5 +32,31 @@ describe('main/security helpers', () => {
     expect(CONFIG_SET_ALLOWLIST.has('settings')).toBe(true);
     expect(CONFIG_SET_ALLOWLIST.has('password')).toBe(false);
     expect(CONFIG_SET_ALLOWLIST.has('instances')).toBe(false);
+  });
+});
+
+describe('resolveBuildVariant (DEV/prod data-dir isolation)', () => {
+  it('explicit SNMCP_VARIANT wins in both directions, over name and isDev', () => {
+    expect(resolveBuildVariant({ envVariant: 'dev', appName: 'servicenow-mcp-desktop' })).toBe('dev');
+    expect(resolveBuildVariant({ envVariant: 'prod', appName: 'servicenow-mcp-dev', isDev: true })).toBe('prod');
+  });
+
+  it('detects a packaged DEV build by its bundled name ending in -dev', () => {
+    expect(resolveBuildVariant({ appName: 'servicenow-mcp-dev' })).toBe('dev');
+  });
+
+  it('does NOT false-positive on prod names (no substring "dev" trap)', () => {
+    // The shipped prod name and a hypothetical "developer" rename must both resolve to prod.
+    expect(resolveBuildVariant({ appName: 'servicenow-mcp-desktop' })).toBe('prod');
+    expect(resolveBuildVariant({ appName: 'servicenow-mcp-developer-edition' })).toBe('prod');
+  });
+
+  it('unpackaged development (--dev) defaults to dev so `npm run dev` never touches prod data', () => {
+    expect(resolveBuildVariant({ appName: 'servicenow-mcp-desktop', isDev: true })).toBe('dev');
+  });
+
+  it('defaults to prod when nothing signals dev', () => {
+    expect(resolveBuildVariant({ appName: 'servicenow-mcp-desktop' })).toBe('prod');
+    expect(resolveBuildVariant({})).toBe('prod');
   });
 });

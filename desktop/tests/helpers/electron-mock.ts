@@ -1,7 +1,11 @@
 /** Lightweight manual mock of the `electron` module for main-process unit tests. */
 
+let _appName = 'servicenow-mcp-desktop';
 export const app = {
   getPath: (_key: string) => process.env.DESKTOP_TEST_USERDATA || '',
+  getName: () => _appName,
+  setName: (name: string) => { _appName = name; },
+  setPath: (_key: string, _path: string) => {},
   getVersion: () => '0.0.0-test',
   on: () => {},
   whenReady: () => Promise.resolve(),
