@@ -26,6 +26,7 @@ export default defineConfig({
           environment: 'jsdom',
           include: ['tests/renderer/**/*.test.{ts,tsx}'],
           setupFiles: [join(__dir, 'tests/renderer/setup.ts')],
+          clearMocks: true, // reset window.api call history between tests (keeps default impls)
         },
       },
     ],

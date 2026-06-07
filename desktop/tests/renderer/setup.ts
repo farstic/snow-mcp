@@ -1,5 +1,9 @@
 import '@testing-library/jest-dom/vitest';
-import { vi } from 'vitest';
+import { cleanup } from '@testing-library/react';
+import { afterEach, vi } from 'vitest';
+
+// Unmount React trees between tests so queries don't see leftover renders.
+afterEach(() => cleanup());
 
 /** Default window.api mock for renderer component tests (override per-test as needed). */
 export const makeApiMock = () => ({
