@@ -39,6 +39,9 @@ playwright-report/
 *.seed
 *.pid.lock
 
+# Docs marketing assets (kept local, not tracked in the repo)
+docs/assets/
+
 # Desktop app build output (installers distributed via GitHub Releases)
 desktop/release/
 desktop/release-dev/
