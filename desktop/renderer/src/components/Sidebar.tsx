@@ -96,15 +96,14 @@ export default function Sidebar({ currentPage, onNavigate, instanceName, instanc
       <div style={{ padding: '4px 18px 16px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
           <LogoIcon size={30} />
-          <span style={{ fontWeight: 700, fontSize: '1.05rem', letterSpacing: '-0.3px' }}>
-            <span style={{ color: 'var(--text)' }}>Now</span>
+          <span style={{ fontWeight: 700, fontSize: '1rem', letterSpacing: '-0.3px', whiteSpace: 'nowrap' }}>
+            <span style={{ color: 'var(--text)' }}>ServiceNow&nbsp;</span>
             <span style={{
               background: 'linear-gradient(135deg, #00D4AA 0%, #0F4C81 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               fontWeight: 800,
-            }}>AI</span>
-            <span style={{ color: 'var(--text)' }}>Kit</span>
+            }}>MCP</span>
           </span>
         </div>
         <div style={{ fontSize: '0.73rem', color: 'var(--dim)', paddingLeft: 40 }}>

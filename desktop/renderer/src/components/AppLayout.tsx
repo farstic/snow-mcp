@@ -27,7 +27,7 @@ export function AppLayout() {
               <line x1="23" y1="14.5" x2="23" y2="17.5" stroke="#fff" strokeWidth="1.5" opacity="0.6"/>
             </svg>
           </div>
-          <span className="logo-text">Now<span className="logo-accent">AI</span>Kit</span>
+          <span className="logo-text">ServiceNow <span className="logo-accent">MCP</span></span>
           {/* version hidden */}
         </div>
 
