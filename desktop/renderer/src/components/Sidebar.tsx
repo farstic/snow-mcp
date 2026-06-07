@@ -61,7 +61,7 @@ const ACCENTS: { id: ThemeAccent; color: string }[] = [
   { id: 'amber',   color: '#f59e0b' },
 ];
 
-// Inline SVG logo icon — circuit/node motif matching the brand
+// Inline SVG logo icon — hub-and-spoke node network (MCP connector motif)
 function LogoIcon({ size = 28 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
@@ -73,11 +73,16 @@ function LogoIcon({ size = 28 }: { size?: number }) {
         </linearGradient>
       </defs>
       <rect width="32" height="32" rx="8" fill="url(#logoGrad)" />
-      {/* Stylised "N" + circuit nodes */}
-      <path d="M9 23V9l7 10V9" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="23" cy="12" r="2.5" fill="#fff" opacity="0.9" />
-      <circle cx="23" cy="20" r="2.5" fill="#fff" opacity="0.9" />
-      <line x1="23" y1="14.5" x2="23" y2="17.5" stroke="#fff" strokeWidth="1.5" opacity="0.6" />
+      {/* Hub-and-spoke node network */}
+      <g stroke="#fff" strokeWidth="1.8" strokeLinecap="round" opacity="0.65">
+        <line x1="16" y1="16" x2="16" y2="8" />
+        <line x1="16" y1="16" x2="9" y2="22" />
+        <line x1="16" y1="16" x2="23" y2="22" />
+      </g>
+      <circle cx="16" cy="8" r="2.4" fill="#fff" opacity="0.92" />
+      <circle cx="9" cy="22" r="2.4" fill="#fff" opacity="0.92" />
+      <circle cx="23" cy="22" r="2.4" fill="#fff" opacity="0.92" />
+      <circle cx="16" cy="16" r="3.2" fill="#fff" />
     </svg>
   );
 }

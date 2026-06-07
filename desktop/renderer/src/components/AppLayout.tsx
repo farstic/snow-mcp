@@ -21,10 +21,15 @@ export function AppLayout() {
         <div className="sidebar-logo">
           <div className="logo-icon">
             <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
-              <path d="M9 23V9l7 10V9" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <circle cx="23" cy="12" r="2.5" fill="#fff" opacity="0.9"/>
-              <circle cx="23" cy="20" r="2.5" fill="#fff" opacity="0.9"/>
-              <line x1="23" y1="14.5" x2="23" y2="17.5" stroke="#fff" strokeWidth="1.5" opacity="0.6"/>
+              <g stroke="#fff" strokeWidth="1.8" strokeLinecap="round" opacity="0.65">
+                <line x1="16" y1="16" x2="16" y2="8"/>
+                <line x1="16" y1="16" x2="9" y2="22"/>
+                <line x1="16" y1="16" x2="23" y2="22"/>
+              </g>
+              <circle cx="16" cy="8" r="2.4" fill="#fff" opacity="0.92"/>
+              <circle cx="9" cy="22" r="2.4" fill="#fff" opacity="0.92"/>
+              <circle cx="23" cy="22" r="2.4" fill="#fff" opacity="0.92"/>
+              <circle cx="16" cy="16" r="3.2" fill="#fff"/>
             </svg>
           </div>
           <span className="logo-text">ServiceNow <span className="logo-accent">MCP</span></span>

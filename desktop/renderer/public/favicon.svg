@@ -8,11 +8,14 @@
   </defs>
   <!-- Squircle/rounded shape (rx = 256 for 1024px = same ratio as 24/96) -->
   <rect width="1024" height="1024" rx="256" fill="url(#iconG)"/>
-  <!-- N + AI sparkle, scaled to match original proportions (0.82 of 1024) -->
-  <g transform="translate(512, 512) scale(18.26) translate(-22, -23)">
-    <path d="M5 39V7l15 27V7" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M34 4l2 7 6 2-6 2-2 7-2-7-6-2 6-2z" fill="#fff" opacity="0.9"/>
-    <line x1="34" y1="19" x2="34" y2="28.5" stroke="#fff" stroke-width="1.8" opacity="0.5"/>
-    <circle cx="34" cy="34" r="4.5" fill="#fff" opacity="0.8"/>
+  <!-- Hub-and-spoke node network -->
+  <g stroke="#fff" stroke-width="58" stroke-linecap="round" opacity="0.65">
+    <line x1="512" y1="512" x2="512" y2="256"/>
+    <line x1="512" y1="512" x2="288" y2="704"/>
+    <line x1="512" y1="512" x2="736" y2="704"/>
   </g>
+  <circle cx="512" cy="256" r="77" fill="#fff" opacity="0.92"/>
+  <circle cx="288" cy="704" r="77" fill="#fff" opacity="0.92"/>
+  <circle cx="736" cy="704" r="77" fill="#fff" opacity="0.92"/>
+  <circle cx="512" cy="512" r="102" fill="#fff"/>
 </svg>
