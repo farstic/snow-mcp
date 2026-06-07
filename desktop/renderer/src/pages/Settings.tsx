@@ -834,7 +834,7 @@ export default function Settings({ settings, onSave, activeInstance, onNavigate 
             >GitHub</button>
             {' · '}
             <button
-              onClick={() => elApi()?.openExternal('https://nowaitkit.com')}
+              onClick={() => elApi()?.openExternal('https://github.com/cvetomirgrigorov/servicenow-mcp')}
               style={{ background:'none', border:'none', color:'var(--accent)', cursor:'pointer', padding:0, fontSize:'0.85rem' }}
             >Website</button>
           </div>
