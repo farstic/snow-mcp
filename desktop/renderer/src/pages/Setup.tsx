@@ -148,16 +148,16 @@ export default function Setup({ onComplete, onClose, existingGroups = [] }: Prop
   }
 
   const styles = {
-    container: { display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', padding: 24 } as React.CSSProperties,
-    card: { background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 0, padding: 40, width: '100%', maxWidth: 520, position: 'relative' } as React.CSSProperties,
-    title: { fontSize: '1.4rem', fontWeight: 700, marginBottom: 8 } as React.CSSProperties,
-    sub: { color: 'var(--text2)', marginBottom: 28, fontSize: '0.9rem' } as React.CSSProperties,
-    label: { display: 'block', fontSize: '0.8rem', color: 'var(--dim)', marginBottom: 6, textTransform: 'uppercase' as const, letterSpacing: '0.05em' },
-    input: { width: '100%', background: 'var(--surface2)', border: '1px solid var(--border)', borderRadius: 0, color: 'var(--text)', padding: '10px 12px', fontSize: '0.9rem', marginBottom: 16 } as React.CSSProperties,
-    btn: { background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 0, padding: '10px 20px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' } as React.CSSProperties,
-    btnGhost: { background: 'transparent', color: 'var(--text2)', border: '1px solid var(--border)', borderRadius: 0, padding: '10px 20px', fontSize: '0.9rem', cursor: 'pointer' } as React.CSSProperties,
-    row: { display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 24 } as React.CSSProperties,
-    progress: { display: 'flex', gap: 6, marginBottom: 28 } as React.CSSProperties,
+    container: { display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '24px 32px' } as React.CSSProperties,
+    card: { background: 'var(--paper-2)', border: 'var(--bw-2) solid var(--ink)', borderRadius: 0, boxShadow: 'var(--shadow-hard)', padding: '40px 44px', width: '100%', maxWidth: 560, position: 'relative' } as React.CSSProperties,
+    title: { fontFamily: 'var(--disp)', fontWeight: 900, fontSize: '2rem', lineHeight: 0.98, letterSpacing: '-0.03em', textTransform: 'uppercase' as const, marginBottom: 12 } as React.CSSProperties,
+    sub: { fontFamily: 'var(--mono)', color: 'var(--ink-2)', marginBottom: 28, fontSize: '0.8rem', lineHeight: 1.6 } as React.CSSProperties,
+    label: { display: 'block', fontFamily: 'var(--mono)', fontSize: '0.6875rem', color: 'var(--ink-3)', marginBottom: 6, textTransform: 'uppercase' as const, letterSpacing: '0.18em' },
+    input: { width: '100%', background: 'var(--paper)', border: 'var(--bw) solid var(--line)', borderRadius: 0, color: 'var(--text)', padding: '10px 12px', fontFamily: 'var(--mono)', fontSize: '0.85rem', marginBottom: 16 } as React.CSSProperties,
+    btn: { background: 'var(--accent)', color: 'var(--accent-ink)', border: 'var(--bw-2) solid var(--ink)', borderRadius: 0, padding: '10px 20px', fontFamily: 'var(--mono)', fontSize: '0.8125rem', fontWeight: 600, textTransform: 'uppercase' as const, letterSpacing: '0.04em', boxShadow: 'var(--shadow-hard-sm)', cursor: 'pointer' } as React.CSSProperties,
+    btnGhost: { background: 'transparent', color: 'var(--text)', border: 'var(--bw) solid var(--line)', borderRadius: 0, padding: '10px 20px', fontFamily: 'var(--mono)', fontSize: '0.8125rem', textTransform: 'uppercase' as const, letterSpacing: '0.04em', cursor: 'pointer' } as React.CSSProperties,
+    row: { display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 28 } as React.CSSProperties,
+    progress: { display: 'flex', gap: 6, marginBottom: 32 } as React.CSSProperties,
   };
 
   const stepIndex = STEPS.indexOf(step);
@@ -174,14 +174,14 @@ export default function Setup({ onComplete, onClose, existingGroups = [] }: Prop
         {step !== 'welcome' && step !== 'done' && (
           <div style={styles.progress}>
             {Array.from({ length: totalVisible }).map((_, i) => (
-              <div key={i} style={{ width: 8, height: 8, borderRadius: 0, background: i < stepIndex ? 'var(--accent)' : 'var(--border)' }} />
+              <div key={i} style={{ width: 11, height: 11, borderRadius: 0, background: i < stepIndex ? 'var(--accent)' : i === stepIndex ? 'var(--ink)' : 'var(--line-soft)' }} />
             ))}
           </div>
         )}
 
         {step === 'welcome' && (
           <>
-            <h1 style={styles.title}>Welcome to <span style={{ color: 'var(--accent)' }}>ServiceNow MCP Toolkit</span></h1>
+            <h1 style={{ ...styles.title, fontSize: '2.9rem', marginBottom: 14 }}>Welcome to <span style={{ color: 'var(--accent)' }}>ServiceNow MCP Toolkit</span></h1>
             <p style={styles.sub}>Connect Any AI to ServiceNow. Instantly.</p>
             <div style={{ display:'flex', gap:12 }}>
               <button style={styles.btn} onClick={next}>Get Started →</button>
