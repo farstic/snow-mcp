@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { AppSettings, AiProviderId, ThemeMode, ThemeAccent, AppInstance, Page } from '../App.js';
+import type { AppSettings, AiProviderId, ThemeMode, AppInstance, Page } from '../App.js';
 import { useTheme } from '../App.js';
 import { PROVIDER_ICONS } from '../components/ProviderIcons.js';
 import { api as unifiedApi } from '../api.js';
@@ -209,18 +209,10 @@ const MODELS_BY_PROVIDER: Record<AiProviderId, { value: string; label: string; d
   ],
 };
 
-const ACCENTS: { id: ThemeAccent; color: string; label: string }[] = [
-  { id: 'teal',    color: '#00D4AA', label: 'Teal (default)' },
-  { id: 'navy',    color: '#0F4C81', label: 'Navy'    },
-  { id: 'blue',    color: '#3b82f6', label: 'Blue'    },
-  { id: 'emerald', color: '#22c55e', label: 'Emerald' },
-  { id: 'amber',   color: '#f59e0b', label: 'Amber'   },
-];
-
 function elApi(): ElectronAPI { return unifiedApi; }
 
 export default function Settings({ settings, onSave, activeInstance, onNavigate }: Props): React.ReactElement {
-  const { mode, accent, setMode, setAccent } = useTheme();
+  const { mode, setMode } = useTheme();
 
   const [draft,      setDraft]      = useState<AppSettings>(settings);
   const [tab,        setTab]        = useState<AiProviderId>('' as AiProviderId);
@@ -785,18 +777,6 @@ export default function Settings({ settings, onSave, activeInstance, onNavigate 
             ))}
           </div>
         ))}
-        <div style={{ padding:'12px 0' }}>
-          <div style={{ fontWeight:500, marginBottom:10 }}>Accent Color</div>
-          <div style={{ display:'flex', gap:10 }}>
-            {ACCENTS.map(a => (
-              <button key={a.id} onClick={() => setAccent(a.id)} title={a.label} style={{
-                width:30, height:30, borderRadius:'50%', background:a.color, border:'none',
-                boxShadow: accent === a.id ? `0 0 0 3px var(--bg), 0 0 0 5px ${a.color}` : 'none',
-                transition:'box-shadow .15s', cursor:'pointer',
-              }} />
-            ))}
-          </div>
-        </div>
       </>)}
 
       {/* ── Support ───────────────────────────────────────────────────────────── */}
