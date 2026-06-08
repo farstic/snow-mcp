@@ -15,7 +15,7 @@ const ENV_COLORS: Record<string, { bg: string; fg: string }> = {
   staging: { bg: 'rgba(245,158,11,0.15)', fg: '#FF8A55' },
   test:    { bg: 'rgba(59,130,246,0.15)', fg: '#60a5fa' },
   dev:     { bg: 'rgba(16,185,129,0.15)', fg: '#34d399' },
-  uat:     { bg: 'rgba(15,76,129,0.15)',  fg: '#3A6FA1' },
+  uat:     { bg: 'var(--surface2)',  fg: 'var(--accent)' },
 };
 
 function envStyle(env: string): { bg: string; fg: string } {
@@ -147,7 +147,7 @@ export default function Instances({ instances, onRemove, onSetDefault, onTest, o
               <div style={{ fontSize:'1.5rem', marginBottom:12 }}>🔗</div>
               <p>No instances configured yet.</p>
               <p style={{ fontSize:'0.85rem', marginTop:8, color:'var(--text2)' }}>
-                Run <code style={{ background:'var(--surface2)', padding:'1px 6px', borderRadius:3 }}>servicenow-mcp setup</code> or click <strong>Add Instance</strong>.
+                Run <code style={{ background:'var(--surface2)', padding:'1px 6px', borderRadius:0 }}>servicenow-mcp setup</code> or click <strong>Add Instance</strong>.
               </p>
             </>
           ) : (
@@ -177,9 +177,9 @@ export default function Instances({ instances, onRemove, onSetDefault, onTest, o
                   cursor:'pointer', textAlign:'left', transition:'background .15s',
                 }}
               >
-                {/* Group icon */}
-                <span style={{ fontSize:'1.1rem', width:24, textAlign:'center', flexShrink:0 }}>
-                  {group.hasActive ? '🟢' : '⬡'}
+                {/* Group icon — solid square status */}
+                <span style={{ width:24, display:'flex', justifyContent:'center', flexShrink:0 }}>
+                  <span style={{ width:11, height:11, background: group.hasActive ? 'var(--ok)' : 'var(--ink-3)' }} />
                 </span>
 
                 {/* Group name + summary */}
@@ -192,7 +192,9 @@ export default function Instances({ instances, onRemove, onSetDefault, onTest, o
                       return (
                         <span key={env} style={{
                           display:'inline-flex', alignItems:'center', gap:4,
-                          padding:'0 6px', borderRadius:8, fontSize:'0.68rem', fontWeight:500,
+                          padding:'0 6px', borderRadius:0, fontSize:'0.68rem', fontWeight:500,
+                          border:'var(--bw) solid currentColor', fontFamily:'var(--mono)',
+                          textTransform:'uppercase', letterSpacing:'0.04em',
                           background:s.bg, color:s.fg,
                         }}>
                           {count} {env}
@@ -206,10 +208,12 @@ export default function Instances({ instances, onRemove, onSetDefault, onTest, o
                 {group.hasActive && (
                   <span style={{
                     display:'inline-flex', alignItems:'center', gap:5,
-                    padding:'3px 10px', borderRadius:12, fontSize:'0.72rem', fontWeight:500,
+                    padding:'3px 10px', borderRadius:0, fontSize:'0.72rem', fontWeight:500,
+                    border:'var(--bw) solid currentColor', fontFamily:'var(--mono)',
+                    textTransform:'uppercase', letterSpacing:'0.04em',
                     background:'rgba(34,197,94,0.12)', color:'var(--green)',
                   }}>
-                    <span style={{ width:6, height:6, borderRadius:'50%', background:'var(--green)' }} />
+                    <span style={{ width:6, height:6, borderRadius:0, background:'var(--green)' }} />
                     Active
                   </span>
                 )}
@@ -234,7 +238,8 @@ export default function Instances({ instances, onRemove, onSetDefault, onTest, o
                         {/* Environment badge */}
                         <div style={{
                           width:56, flexShrink:0, textAlign:'center',
-                          padding:'4px 0', borderRadius:6, fontSize:'0.72rem', fontWeight:600,
+                          padding:'4px 0', borderRadius:0, fontSize:'0.72rem', fontWeight:600,
+                          border:'var(--bw) solid currentColor', fontFamily:'var(--mono)',
                           textTransform:'uppercase', letterSpacing:'0.04em',
                           background:es.bg, color:es.fg,
                         }}>
@@ -248,7 +253,9 @@ export default function Instances({ instances, onRemove, onSetDefault, onTest, o
                             {inst.active && (
                               <span style={{
                                 background:'#14532d', color:'#86efac', padding:'1px 8px',
-                                borderRadius:12, fontSize:'0.68rem', fontWeight:600,
+                                borderRadius:0, fontSize:'0.68rem', fontWeight:600,
+                                border:'var(--bw) solid currentColor', fontFamily:'var(--mono)',
+                                textTransform:'uppercase', letterSpacing:'0.04em',
                               }}>ACTIVE</span>
                             )}
                           </div>
@@ -278,7 +285,7 @@ export default function Instances({ instances, onRemove, onSetDefault, onTest, o
                           <button
                             onClick={() => { if (confirm(`Remove instance "${inst.name}"?`)) onRemove(inst.name); }}
                             style={{
-                              background:'transparent', border:'1px solid rgba(239,68,68,0.3)', borderRadius:6,
+                              background:'transparent', border:'1px solid rgba(239,68,68,0.3)', borderRadius:0,
                               color:'var(--red)', padding:'5px 12px', cursor:'pointer', fontSize:'0.78rem',
                               opacity:0.7, transition:'opacity .15s',
                             }}

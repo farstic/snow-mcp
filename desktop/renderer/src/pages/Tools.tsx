@@ -52,7 +52,7 @@ function toolTier(desc: string): Tier {
 
 function tierBadge(tier: Tier): React.ReactElement {
   const meta = TIERS.find(t => t.id === tier)!;
-  return <span style={{ fontSize:'0.65rem', padding:'2px 6px', borderRadius:10, border:`1px solid ${meta.color}`, color: meta.color, fontWeight:600, textTransform:'uppercase', letterSpacing:'0.04em' }}>{meta.label}</span>;
+  return <span style={{ fontSize:'0.65rem', padding:'2px 6px', borderRadius:0, border:`var(--bw) solid ${meta.color}`, color: meta.color, fontWeight:600, fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'0.04em' }}>{meta.label}</span>;
 }
 
 function toolModule(name: string): string {
@@ -105,7 +105,7 @@ function RunDrawer({ tool, onClose }: { tool: ToolDef; serverUrl: string; onClos
             {schema.description && <div style={{ fontSize:'0.76rem', color:'var(--text2)', marginBottom:5 }}>{schema.description}</div>}
             {schema.enum ? (
               <select value={params[k] ?? ''} onChange={e => setParams(p => ({ ...p, [k]: e.target.value }))}
-                style={{ width:'100%', background:'var(--surface2)', border:'1px solid var(--border2)', borderRadius:6, color:'var(--text)', padding:'8px 10px', fontSize:'0.85rem' }}>
+                style={{ width:'100%', background:'var(--surface2)', border:'1px solid var(--border2)', borderRadius:0, color:'var(--text)', padding:'8px 10px', fontSize:'0.85rem' }}>
                 <option value="">— select —</option>
                 {schema.enum.map(v => <option key={v} value={v}>{v}</option>)}
               </select>
@@ -170,7 +170,7 @@ export default function Tools({ activeToolPackage, serverOnline, serverUrl, onRe
           if (cnt === 0 && m.id !== 'all') return null;
           return (
             <button key={m.id} onClick={() => setModule(m.id)} style={{
-              padding:'5px 12px', borderRadius:20, fontSize:'0.8rem', border:'1px solid',
+              padding:'5px 12px', borderRadius:0, fontSize:'0.8rem', border:'1px solid',
               borderColor: module === m.id ? 'var(--accent)' : 'var(--border2)',
               background:  module === m.id ? 'var(--accent-bg)' : 'transparent',
               color:       module === m.id ? 'var(--accent)' : 'var(--text2)',
@@ -189,7 +189,7 @@ export default function Tools({ activeToolPackage, serverOnline, serverUrl, onRe
           const cnt = t.id === 'all' ? tools.length : tools.filter(tl => toolTier(tl.description) === t.id).length;
           return (
             <button key={t.id} onClick={() => setTier(t.id)} style={{
-              padding:'4px 10px', borderRadius:16, fontSize:'0.75rem', border:'1px solid',
+              padding:'4px 10px', borderRadius:0, fontSize:'0.75rem', border:'1px solid',
               borderColor: tier === t.id ? t.color : 'var(--border2)',
               background: tier === t.id ? `${t.color}15` : 'transparent',
               color: tier === t.id ? t.color : 'var(--text2)',
@@ -202,7 +202,7 @@ export default function Tools({ activeToolPackage, serverOnline, serverUrl, onRe
       </div>
 
       {!serverOnline && !loading && (
-        <div style={{ background:'rgba(251,191,36,0.1)', border:'1px solid rgba(251,191,36,0.25)', borderRadius:8, padding:'10px 16px', marginBottom:16, fontSize:'0.85rem', color:'var(--yellow)', display:'flex', alignItems:'center', gap:10 }}>
+        <div style={{ background:'rgba(251,191,36,0.1)', border:'1px solid rgba(251,191,36,0.25)', borderRadius:0, padding:'10px 16px', marginBottom:16, fontSize:'0.85rem', color:'var(--yellow)', display:'flex', alignItems:'center', gap:10 }}>
           <span>⚠</span>
           <span style={{ flex:1 }}>HTTP server offline — <strong>Run</strong> will fail.</span>
           <button
@@ -217,7 +217,7 @@ export default function Tools({ activeToolPackage, serverOnline, serverUrl, onRe
             }}
             style={{
               background:'rgba(251,191,36,0.2)', border:'1px solid rgba(251,191,36,0.4)',
-              color:'var(--yellow)', borderRadius:6, padding:'4px 12px', fontSize:'0.8rem',
+              color:'var(--yellow)', borderRadius:0, padding:'4px 12px', fontSize:'0.8rem',
               cursor:'pointer', flexShrink:0, opacity: restarting ? 0.6 : 1,
             }}
           >
@@ -240,7 +240,7 @@ export default function Tools({ activeToolPackage, serverOnline, serverUrl, onRe
             <button key={t.name} onClick={() => setSelected(selected?.name === t.name ? null : t)} style={{
               background: selected?.name === t.name ? 'var(--accent-bg)' : 'var(--surface)',
               border: `1px solid ${selected?.name === t.name ? 'var(--accent)' : 'var(--border)'}`,
-              borderRadius:'var(--radius)', padding:'14px 16px', textAlign:'left', cursor:'pointer', transition:'all .15s',
+              borderRadius:0, padding:'14px 16px', textAlign:'left', cursor:'pointer', transition:'all .15s',
             }}>
               <div style={{ fontFamily:'monospace', fontSize:'0.82rem', color:'var(--accent)', fontWeight:600, marginBottom:5 }}>{t.name}</div>
               <div style={{ fontSize:'0.78rem', color:'var(--text2)', lineHeight:1.4, display:'-webkit-box', WebkitLineClamp:2, WebkitBoxOrient:'vertical', overflow:'hidden' }}>

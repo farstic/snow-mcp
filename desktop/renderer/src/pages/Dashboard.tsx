@@ -85,7 +85,7 @@ function ReportCard() {
   }
 
   const radioStyle = (active: boolean): React.CSSProperties => ({
-    padding:'5px 14px', borderRadius:5, fontSize:'0.8rem', fontWeight:600, cursor:'pointer',
+    padding:'5px 14px', borderRadius:0, fontSize:'0.8rem', fontWeight:600, cursor:'pointer',
     background: active ? 'var(--accent)' : 'var(--surface2)',
     color: active ? '#fff' : 'var(--text2)',
     border: active ? 'none' : '1px solid var(--border)',
@@ -103,14 +103,14 @@ function ReportCard() {
           value={title}
           onChange={e => setTitle(e.target.value)}
           placeholder="Report title (optional)"
-          style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:6, color:'var(--text)', padding:'8px 12px', fontSize:'0.85rem', outline:'none' }}
+          style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:0, color:'var(--text)', padding:'8px 12px', fontSize:'0.85rem', outline:'none' }}
         />
         <textarea
           value={markdown}
           onChange={e => setMarkdown(e.target.value)}
           placeholder="Paste markdown content here (analysis results, capability output, etc.)"
           rows={5}
-          style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:6, color:'var(--text)', padding:'8px 12px', fontSize:'0.82rem', resize:'vertical', outline:'none', minHeight:80, lineHeight:1.5 }}
+          style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:0, color:'var(--text)', padding:'8px 12px', fontSize:'0.82rem', resize:'vertical', outline:'none', minHeight:80, lineHeight:1.5 }}
         />
         <div style={{ display:'flex', alignItems:'center', gap:12, flexWrap:'wrap' }}>
           <span style={{ fontSize:'0.78rem', color:'var(--dim)' }}>Format:</span>
@@ -121,7 +121,7 @@ function ReportCard() {
             onClick={handleGenerate}
             disabled={busy || !markdown.trim()}
             className="btn-primary"
-            style={{ padding:'8px 18px', fontSize:'0.82rem', borderRadius:6, opacity: (busy || !markdown.trim()) ? 0.5 : 1 }}
+            style={{ padding:'8px 18px', fontSize:'0.82rem', borderRadius:0, opacity: (busy || !markdown.trim()) ? 0.5 : 1 }}
           >
             {busy ? 'Generating…' : 'Generate & Download'}
           </button>
@@ -181,7 +181,7 @@ function ServerPanel({ serverOnline, serverUrl, onRefresh }: { serverOnline: boo
   }
 
   const dot = (color: string) => (
-    <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:`var(--${color})`, marginRight:6, flexShrink:0,
+    <span style={{ display:'inline-block', width:8, height:8, borderRadius:0, background:`var(--${color})`, marginRight:6, flexShrink:0,
       boxShadow: color === 'green' ? '0 0 6px var(--green)' : 'none' }} />
   );
 
@@ -204,7 +204,7 @@ function ServerPanel({ serverOnline, serverUrl, onRefresh }: { serverOnline: boo
               background: serverOnline ? 'rgba(248,113,113,0.12)' : 'var(--accent)',
               border: serverOnline ? '1px solid rgba(248,113,113,0.3)' : 'none',
               color: serverOnline ? 'var(--red)' : '#fff',
-              borderRadius:6, padding:'6px 14px', fontSize:'0.82rem', fontWeight:600,
+              borderRadius:0, padding:'6px 14px', fontSize:'0.82rem', fontWeight:600,
               cursor:'pointer', opacity: busy ? 0.6 : 1,
             }}
           >
@@ -212,7 +212,7 @@ function ServerPanel({ serverOnline, serverUrl, onRefresh }: { serverOnline: boo
           </button>
           {serverOnline && (
             <button onClick={handleRestart} disabled={busy}
-              style={{ background:'rgba(34,197,94,0.12)', border:'1px solid rgba(34,197,94,0.3)', color:'var(--green)', borderRadius:6, padding:'6px 14px', fontSize:'0.82rem', fontWeight:600, cursor:'pointer', opacity: busy ? 0.6 : 1 }}>
+              style={{ background:'rgba(34,197,94,0.12)', border:'1px solid rgba(34,197,94,0.3)', color:'var(--green)', borderRadius:0, padding:'6px 14px', fontSize:'0.82rem', fontWeight:600, cursor:'pointer', opacity: busy ? 0.6 : 1 }}>
               ↻ Restart
             </button>
           )}
@@ -228,7 +228,7 @@ function ServerPanel({ serverOnline, serverUrl, onRefresh }: { serverOnline: boo
       {!serverOnline && !busy && !statusMsg && (
         <div style={{ padding:'12px 16px', fontSize:'0.82rem', color:'var(--text2)' }}>
           <strong style={{ color:'var(--yellow)' }}>Server is offline.</strong>{' '}
-          Click <strong>▶ Start</strong> above to launch the server, or run <code style={{ background:'var(--surface2)', padding:'1px 6px', borderRadius:4 }}>servicenow-mcp server</code> in a terminal.
+          Click <strong>▶ Start</strong> above to launch the server, or run <code style={{ background:'var(--surface2)', padding:'1px 6px', borderRadius:0 }}>servicenow-mcp server</code> in a terminal.
         </div>
       )}
     </div>

@@ -50,7 +50,7 @@ function renderMd(text: string): React.ReactNode[] {
   let m: RegExpExecArray | null;
   while ((m = codeBlock.exec(text)) !== null) {
     if (m.index > last) out.push(renderInline(text.slice(last, m.index), key++));
-    out.push(<pre key={key++} style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:6, padding:'10px 14px', overflowX:'auto', fontSize:'0.8rem', margin:'8px 0' }}><code>{m[1].trim()}</code></pre>);
+    out.push(<pre key={key++} style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:0, padding:'10px 14px', overflowX:'auto', fontSize:'0.8rem', margin:'8px 0' }}><code>{m[1].trim()}</code></pre>);
     last = m.index + m[0].length;
   }
   if (last < text.length) out.push(renderInline(text.slice(last), key++));
@@ -62,7 +62,7 @@ function renderInline(text: string, key: number): React.ReactNode {
   return (
     <span key={key} style={{ whiteSpace:'pre-wrap' }}>
       {parts.map((p, i) => {
-        if (p.startsWith('`') && p.endsWith('`'))   return <code key={i} style={{ background:'var(--surface3)', padding:'1px 5px', borderRadius:4, fontSize:'0.82em' }}>{p.slice(1,-1)}</code>;
+        if (p.startsWith('`') && p.endsWith('`'))   return <code key={i} style={{ background:'var(--surface3)', padding:'1px 5px', borderRadius:0, fontSize:'0.82em' }}>{p.slice(1,-1)}</code>;
         if (p.startsWith('**') && p.endsWith('**')) return <strong key={i}>{p.slice(2,-2)}</strong>;
         return p;
       })}
@@ -105,7 +105,7 @@ function ExportToolbar({ text }: { text: string }) {
   }
 
   const btnStyle: React.CSSProperties = {
-    background:'var(--surface)', border:'1px solid var(--border)', borderRadius:4,
+    background:'var(--surface)', border:'1px solid var(--border)', borderRadius:0,
     color:'var(--text2)', padding:'2px 8px', fontSize:'0.7rem', fontWeight:600,
     cursor:'pointer', transition:'all .15s',
   };
@@ -128,10 +128,10 @@ function ToolCard({ tu, result }: { tu: CPTool; result?: CPResult }) {
   const [open, setOpen] = useState(false);
   const ok = result && !result.is_error;
   return (
-    <div style={{ background:'#1a1f35', border:'1px solid #2e3a5f', borderRadius:8, fontSize:'0.78rem', overflow:'hidden', fontFamily:'monospace' }}>
+    <div style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:0, fontSize:'0.78rem', overflow:'hidden', fontFamily:'var(--mono)' }}>
       <button onClick={() => setOpen(o => !o)} style={{
         width:'100%', display:'flex', alignItems:'center', gap:8, padding:'8px 10px',
-        background:'transparent', border:'none', color:'#93c5fd', cursor:'pointer', textAlign:'left',
+        background:'transparent', border:'none', color:'var(--accent)', cursor:'pointer', textAlign:'left',
       }}>
         <span style={{ fontSize:'0.7rem', opacity:.7 }}>{open ? '▼' : '▶'}</span>
         <span style={{ fontWeight:600 }}>{tu.name}</span>
@@ -139,12 +139,12 @@ function ToolCard({ tu, result }: { tu: CPTool; result?: CPResult }) {
         {!result && <span className="badge-dim" style={{ marginLeft:'auto' }}>running…</span>}
       </button>
       {open && (
-        <div style={{ padding:'8px 10px', borderTop:'1px solid #2e3a5f' }}>
+        <div style={{ padding:'8px 10px', borderTop:'1px solid var(--border)' }}>
           <div style={{ color:'var(--dim)', fontSize:'0.68rem', marginBottom:3, letterSpacing:'0.05em' }}>INPUT</div>
-          <pre style={{ fontSize:'0.74rem', overflowX:'auto', color:'#a5f3fc', marginBottom:result ? 8 : 0 }}>{JSON.stringify(tu.input, null, 2)}</pre>
+          <pre style={{ fontSize:'0.74rem', overflowX:'auto', color:'var(--accent)', marginBottom:result ? 8 : 0 }}>{JSON.stringify(tu.input, null, 2)}</pre>
           {result && <>
             <div style={{ color:'var(--dim)', fontSize:'0.68rem', marginBottom:3, letterSpacing:'0.05em' }}>{result.is_error ? 'ERROR' : 'OUTPUT'}</div>
-            <pre style={{ fontSize:'0.74rem', overflowX:'auto', color: result.is_error ? 'var(--red)' : '#a5f3fc' }}>{result.content}</pre>
+            <pre style={{ fontSize:'0.74rem', overflowX:'auto', color: result.is_error ? 'var(--red)' : 'var(--accent)' }}>{result.content}</pre>
           </>}
         </div>
       )}
@@ -620,7 +620,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
   }
 
   const selectStyle: React.CSSProperties = {
-    background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:6,
+    background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:0,
     color:'var(--text)', padding:'6px 10px', fontSize:'0.8rem',
   };
 
@@ -638,7 +638,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
         </div>
         <div style={{ display:'flex', alignItems:'center', gap:8, flexShrink:0, flexWrap:'wrap' }}>
           {/* Provider selector */}
-          <div style={{ display:'flex', border:'1px solid var(--border)', borderRadius:6, overflow:'hidden' }}>
+          <div style={{ display:'flex', border:'1px solid var(--border)', borderRadius:0, overflow:'hidden' }}>
             {PROVIDER_META.map(p => {
               const hasProviderKey = LOCAL_PROVIDERS.has(p.id) || Boolean(settings.providers[p.id]?.apiKey);
               return (
@@ -650,7 +650,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
                   display:'flex', alignItems:'center', gap:5,
                 }}>
                   {React.createElement(PROVIDER_ICONS[p.id] ?? (() => null), { size: 14, color: provider === p.id ? '#fff' : 'currentColor' })} {p.label}
-                  {hasProviderKey && provider !== p.id && <span style={{ width:5, height:5, borderRadius:'50%', background:'var(--green)' }} />}
+                  {hasProviderKey && provider !== p.id && <span style={{ width:5, height:5, borderRadius:0, background:'var(--green)' }} />}
                 </button>
               );
             })}
@@ -667,7 +667,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
 
       {/* No API key warning */}
       {!hasKey && !isLocal && (
-        <div style={{ background:'rgba(251,191,36,0.1)', border:'1px solid rgba(251,191,36,0.3)', borderRadius:8, padding:'12px 16px', marginBottom:16, fontSize:'0.875rem', color:'var(--yellow)' }}>
+        <div style={{ background:'rgba(251,191,36,0.1)', border:'1px solid rgba(251,191,36,0.3)', borderRadius:0, padding:'12px 16px', marginBottom:16, fontSize:'0.875rem', color:'var(--yellow)' }}>
           No API key for <strong>{PROVIDER_META.find(p => p.id === provider)?.label}</strong>. Go to <strong>Settings → AI Providers</strong> to add your key.
         </div>
       )}
@@ -679,12 +679,12 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
             <div style={{ textAlign:'center' }}>
               <div style={{ fontSize:'1.8rem', marginBottom:8 }}>🔗</div>
               <div style={{ fontSize:'0.95rem', color:'var(--text2)', fontWeight:500 }}>Ask anything about your ServiceNow instance</div>
-              <div style={{ fontSize:'0.8rem', marginTop:4 }}>Type <code style={{ background:'var(--surface2)', padding:'1px 5px', borderRadius:3 }}>/</code> to browse &amp; run tools · Shift+Enter for new line</div>
+              <div style={{ fontSize:'0.8rem', marginTop:4 }}>Type <code style={{ background:'var(--surface2)', padding:'1px 5px', borderRadius:0 }}>/</code> to browse &amp; run tools · Shift+Enter for new line</div>
             </div>
             <div style={{ display:'flex', flexDirection:'column', gap:8, width:'100%', maxWidth:560 }}>
               {SUGGESTIONS.map(s => (
                 <button key={s} onClick={() => send(s)} style={{
-                  background:'var(--surface)', border:'1px solid var(--border)', borderRadius:8,
+                  background:'var(--surface)', border:'1px solid var(--border)', borderRadius:0,
                   color:'var(--text2)', padding:'10px 14px', textAlign:'left', fontSize:'0.85rem', cursor:'pointer',
                   transition:'all .15s',
                 }}>
@@ -698,7 +698,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
         {displayItems.map((item, i) => {
           if (item.kind === 'user') return (
             <div key={i} style={{ display:'flex', justifyContent:'flex-end', marginBottom:6 }}>
-              <div style={{ background:'var(--accent)', color:'#fff', borderRadius:8, padding:'10px 12px', maxWidth:'88%', fontSize:'0.85rem', lineHeight:1.5 }}>
+              <div style={{ background:'var(--accent)', color:'#fff', borderRadius:0, padding:'10px 12px', maxWidth:'88%', fontSize:'0.85rem', lineHeight:1.5 }}>
                 {item.text}
               </div>
             </div>
@@ -707,7 +707,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
             const text = (item.parts[0] as CPText).text;
             return (
               <div key={i} style={{ display:'flex', justifyContent:'flex-start', marginBottom:6 }}>
-                <div style={{ background:'var(--surface2)', borderRadius:8, padding:'10px 12px', maxWidth:'88%', fontSize:'0.85rem', lineHeight:1.5 }}>
+                <div style={{ background:'var(--surface2)', borderRadius:0, padding:'10px 12px', maxWidth:'88%', fontSize:'0.85rem', lineHeight:1.5 }}>
                   {renderMd(text)}
                   {isExportable(text) && <ExportToolbar text={text} />}
                 </div>
@@ -724,7 +724,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
 
         {loading && (
           <div style={{ display:'flex', justifyContent:'flex-start', marginBottom:4 }}>
-            <div style={{ background:'var(--surface)', border:'1px solid var(--border)', borderRadius:'3px 14px 14px 14px', padding:'12px 16px' }}>
+            <div style={{ background:'var(--surface)', border:'1px solid var(--border)', borderRadius:0, padding:'12px 16px' }}>
               <div style={{ display:'flex', gap:5, alignItems:'center' }}>
                 {[0,1,2].map(j => (
                   <div key={j} style={{ width:7, height:7, borderRadius:'50%', background:'var(--dim)', animation:`bounce .9s ease-in-out ${j*0.2}s infinite alternate` }} />
@@ -735,7 +735,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
         )}
 
         {error && (
-          <div style={{ background:'rgba(248,113,113,0.1)', border:'1px solid rgba(248,113,113,0.3)', borderRadius:8, padding:'10px 14px', color:'var(--red)', fontSize:'0.85rem' }}>
+          <div style={{ background:'rgba(248,113,113,0.1)', border:'1px solid rgba(248,113,113,0.3)', borderRadius:0, padding:'10px 14px', color:'var(--red)', fontSize:'0.85rem' }}>
             {error}
           </div>
         )}
@@ -749,7 +749,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
         }}>
           <div style={{
             position:'absolute', bottom:'100%', left:0, right:0,
-            background:'var(--surface)', border:'1px solid var(--border)', borderRadius:8,
+            background:'var(--surface)', border:'1px solid var(--border)', borderRadius:0,
             boxShadow:'0 8px 24px rgba(0,0,0,0.4)', zIndex:50, maxHeight:280, overflowY:'auto',
           }}>
             <div style={{ padding:'8px 12px 6px', fontSize:'0.7rem', color:'var(--dim)', textTransform:'uppercase', letterSpacing:'0.07em', borderBottom:'1px solid var(--border)' }}>
@@ -787,7 +787,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
           disabled={loading || !hasKey}
           style={{
             flex:1, background:'var(--surface2)', border:'1px solid var(--border)',
-            borderRadius:10, color:'var(--text)', padding:'11px 14px',
+            borderRadius:0, color:'var(--text)', padding:'11px 14px',
             fontSize:'0.9rem', resize:'none', outline:'none',
             transition:'border-color .15s, box-shadow .15s', minHeight:46, maxHeight:160,
             lineHeight:1.5,
@@ -798,7 +798,7 @@ export default function Chat({ settings, serverUrl, instances }: Props): React.R
           onClick={() => send()}
           disabled={loading || !input.trim() || !hasKey}
           className="btn-primary"
-          style={{ padding:'11px 20px', borderRadius:10, flexShrink:0, opacity: (loading || !input.trim() || !hasKey) ? 0.45 : 1 }}
+          style={{ padding:'11px 20px', borderRadius:0, flexShrink:0, opacity: (loading || !input.trim() || !hasKey) ? 0.45 : 1 }}
         >
           {loading ? <span className="spinner" style={{ width:16, height:16, borderWidth:2 }} /> : 'Send'}
         </button>

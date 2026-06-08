@@ -149,13 +149,13 @@ export default function Setup({ onComplete, onClose, existingGroups = [] }: Prop
 
   const styles = {
     container: { display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', padding: 24 } as React.CSSProperties,
-    card: { background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 12, padding: 40, width: '100%', maxWidth: 520, position: 'relative' } as React.CSSProperties,
+    card: { background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 0, padding: 40, width: '100%', maxWidth: 520, position: 'relative' } as React.CSSProperties,
     title: { fontSize: '1.4rem', fontWeight: 700, marginBottom: 8 } as React.CSSProperties,
     sub: { color: 'var(--text2)', marginBottom: 28, fontSize: '0.9rem' } as React.CSSProperties,
     label: { display: 'block', fontSize: '0.8rem', color: 'var(--dim)', marginBottom: 6, textTransform: 'uppercase' as const, letterSpacing: '0.05em' },
-    input: { width: '100%', background: 'var(--surface2)', border: '1px solid var(--border)', borderRadius: 6, color: 'var(--text)', padding: '10px 12px', fontSize: '0.9rem', marginBottom: 16 } as React.CSSProperties,
-    btn: { background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 6, padding: '10px 20px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' } as React.CSSProperties,
-    btnGhost: { background: 'transparent', color: 'var(--text2)', border: '1px solid var(--border)', borderRadius: 6, padding: '10px 20px', fontSize: '0.9rem', cursor: 'pointer' } as React.CSSProperties,
+    input: { width: '100%', background: 'var(--surface2)', border: '1px solid var(--border)', borderRadius: 0, color: 'var(--text)', padding: '10px 12px', fontSize: '0.9rem', marginBottom: 16 } as React.CSSProperties,
+    btn: { background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 0, padding: '10px 20px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' } as React.CSSProperties,
+    btnGhost: { background: 'transparent', color: 'var(--text2)', border: '1px solid var(--border)', borderRadius: 0, padding: '10px 20px', fontSize: '0.9rem', cursor: 'pointer' } as React.CSSProperties,
     row: { display: 'flex', gap: 12, justifyContent: 'flex-end', marginTop: 24 } as React.CSSProperties,
     progress: { display: 'flex', gap: 6, marginBottom: 28 } as React.CSSProperties,
   };
@@ -168,20 +168,20 @@ export default function Setup({ onComplete, onClose, existingGroups = [] }: Prop
       <div style={styles.card}>
         {/* Close button — always visible when onClose is available */}
         {onClose && step !== 'done' && (
-          <button onClick={onClose} style={{ position:'absolute', top:12, right:12, background:'transparent', border:'none', color:'var(--dim)', fontSize:'1.2rem', cursor:'pointer', padding:'4px 8px', borderRadius:4, zIndex:10 }} title="Close">✕</button>
+          <button onClick={onClose} style={{ position:'absolute', top:12, right:12, background:'transparent', border:'none', color:'var(--dim)', fontSize:'1.2rem', cursor:'pointer', padding:'4px 8px', borderRadius:0, zIndex:10 }} title="Close">✕</button>
         )}
 
         {step !== 'welcome' && step !== 'done' && (
           <div style={styles.progress}>
             {Array.from({ length: totalVisible }).map((_, i) => (
-              <div key={i} style={{ width: 8, height: 8, borderRadius: '50%', background: i < stepIndex ? 'var(--accent)' : 'var(--border)' }} />
+              <div key={i} style={{ width: 8, height: 8, borderRadius: 0, background: i < stepIndex ? 'var(--accent)' : 'var(--border)' }} />
             ))}
           </div>
         )}
 
         {step === 'welcome' && (
           <>
-            <h1 style={styles.title}>Welcome to <span style={{ background:'linear-gradient(135deg, #00D4AA 0%, #0F4C81 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>ServiceNow MCP Toolkit</span></h1>
+            <h1 style={styles.title}>Welcome to <span style={{ color: 'var(--accent)' }}>ServiceNow MCP Toolkit</span></h1>
             <p style={styles.sub}>Connect Any AI to ServiceNow. Instantly.</p>
             <div style={{ display:'flex', gap:12 }}>
               <button style={styles.btn} onClick={next}>Get Started →</button>
@@ -195,7 +195,7 @@ export default function Setup({ onComplete, onClose, existingGroups = [] }: Prop
             <h2 style={styles.title}>ServiceNow Instance</h2>
             <label style={styles.label}>Instance URL</label>
             <div style={{ display:'flex', alignItems:'center', marginBottom:16 }}>
-              <span style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRight:'none', borderRadius:'6px 0 0 6px', padding:'10px 10px', fontSize:'0.9rem', color:'var(--dim)', whiteSpace:'nowrap' }}>https://</span>
+              <span style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRight:'none', borderRadius:0, padding:'10px 10px', fontSize:'0.9rem', color:'var(--dim)', whiteSpace:'nowrap' }}>https://</span>
               <input
                 style={{ ...styles.input, marginBottom:0, borderRadius:0, flex:1 }}
                 value={form.instanceUrl.replace(/^https?:\/\//, '').replace(/\.service-now\.com$/, '')}
@@ -205,7 +205,7 @@ export default function Setup({ onComplete, onClose, existingGroups = [] }: Prop
                 }}
                 placeholder="yourcompany"
               />
-              <span style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderLeft:'none', borderRadius:'0 6px 6px 0', padding:'10px 10px', fontSize:'0.9rem', color:'var(--dim)', whiteSpace:'nowrap' }}>.service-now.com</span>
+              <span style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderLeft:'none', borderRadius:0, padding:'10px 10px', fontSize:'0.9rem', color:'var(--dim)', whiteSpace:'nowrap' }}>.service-now.com</span>
             </div>
             <label style={styles.label}>Short name (e.g. prod, dev)</label>
             <input style={styles.input} value={form.instanceName} onChange={e => update('instanceName', e.target.value)} placeholder="default" />

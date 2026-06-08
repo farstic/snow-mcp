@@ -187,7 +187,7 @@ export default function Logs(): React.ReactElement {
               {/* Page size selector */}
               <div style={{ display:'flex', alignItems:'center', gap:6, fontSize:'0.78rem', color:'var(--text2)' }}>
                 <span>Rows:</span>
-                <select value={pageSize} onChange={e => { setPageSize(Number(e.target.value)); setPage(0); }} style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:4, color:'var(--text)', padding:'3px 6px', fontSize:'0.78rem' }}>
+                <select value={pageSize} onChange={e => { setPageSize(Number(e.target.value)); setPage(0); }} style={{ background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:0, color:'var(--text)', padding:'3px 6px', fontSize:'0.78rem' }}>
                   {PAGE_SIZES.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
@@ -218,7 +218,7 @@ export default function Logs(): React.ReactElement {
                         padding:'4px 8px', fontSize:'0.75rem', minWidth:28,
                         background: p === page ? 'var(--accent)' : 'transparent',
                         color: p === page ? '#fff' : 'var(--text2)',
-                        borderRadius: 4, fontWeight: p === page ? 600 : 400,
+                        borderRadius: 0, fontWeight: p === page ? 600 : 400,
                       }}>
                         {p + 1}
                       </button>

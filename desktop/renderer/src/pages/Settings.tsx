@@ -500,16 +500,20 @@ export default function Settings({ settings, onSave, activeInstance, onNavigate 
                   {hasKey ? (
                     <span style={{
                       display:'inline-flex', alignItems:'center', gap:5,
-                      padding:'3px 10px', borderRadius:12, fontSize:'0.72rem', fontWeight:500,
+                      padding:'3px 10px', borderRadius:0, fontSize:'0.72rem', fontWeight:500,
+                      border:'var(--bw) solid currentColor', fontFamily:'var(--mono)',
+                      textTransform:'uppercase', letterSpacing:'0.04em',
                       background: isLocal ? 'rgba(99,102,241,0.12)' : 'rgba(34,197,94,0.12)',
                       color: isLocal ? 'var(--accent)' : 'var(--green)',
                     }}>
-                      <span style={{ width:6, height:6, borderRadius:'50%', background: isLocal ? 'var(--accent)' : 'var(--green)' }} />
+                      <span style={{ width:6, height:6, borderRadius:0, background: isLocal ? 'var(--accent)' : 'var(--green)' }} />
                       {isLocal ? 'Local' : 'Active'}
                     </span>
                   ) : (
                     <span style={{
-                      padding:'3px 10px', borderRadius:12, fontSize:'0.72rem', fontWeight:500,
+                      padding:'3px 10px', borderRadius:0, fontSize:'0.72rem', fontWeight:500,
+                      border:'var(--bw) solid currentColor', fontFamily:'var(--mono)',
+                      textTransform:'uppercase', letterSpacing:'0.04em',
                       background:'var(--surface2)', color:'var(--dim)',
                     }}>
                       Setup needed
@@ -525,7 +529,7 @@ export default function Settings({ settings, onSave, activeInstance, onNavigate 
                   <div style={{ padding:'0 20px 20px', borderTop:'1px solid var(--border)' }}>
 
                     {/* Subscription note */}
-                    <div style={{ fontSize:'0.8rem', color:'var(--text2)', background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:6, padding:'10px 14px', margin:'16px 0', lineHeight:1.6 }}>
+                    <div style={{ fontSize:'0.8rem', color:'var(--text2)', background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:0, padding:'10px 14px', margin:'16px 0', lineHeight:1.6 }}>
                       {currentProvider.subscriptionNote}
                     </div>
 
@@ -652,14 +656,14 @@ export default function Settings({ settings, onSave, activeInstance, onNavigate 
 
                             {/* Detected models list */}
                             {detectedModels.length > 0 && (
-                              <div style={{ marginBottom:16, background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:6, padding:'10px 14px' }}>
+                              <div style={{ marginBottom:16, background:'var(--surface2)', border:'1px solid var(--border)', borderRadius:0, padding:'10px 14px' }}>
                                 <div style={{ fontSize:'0.72rem', color:'var(--dim)', textTransform:'uppercase', letterSpacing:'0.06em', marginBottom:8 }}>
                                   Detected Models ({detectedModels.length})
                                 </div>
                                 <div style={{ display:'flex', flexWrap:'wrap', gap:6 }}>
                                   {detectedModels.map(m => (
                                     <button key={m.value} onClick={() => setDraft(d => ({ ...d, model: m.value }))} style={{
-                                      padding:'4px 10px', borderRadius:4, fontSize:'0.78rem', cursor:'pointer',
+                                      padding:'4px 10px', borderRadius:0, fontSize:'0.78rem', cursor:'pointer',
                                       background: draft.model === m.value ? 'var(--accent)' : 'var(--surface3)',
                                       color: draft.model === m.value ? '#fff' : 'var(--text2)',
                                       border: `1px solid ${draft.model === m.value ? 'var(--accent)' : 'var(--border)'}`,
@@ -737,7 +741,7 @@ export default function Settings({ settings, onSave, activeInstance, onNavigate 
                               return (
                                 <label key={m.value} style={{
                                   display:'flex', alignItems:'center', gap:10, padding:'8px 12px',
-                                  borderRadius:6, cursor:'pointer', transition:'all .15s',
+                                  borderRadius:0, cursor:'pointer', transition:'all .15s',
                                   background: isSelected ? 'var(--accent-bg, rgba(79,142,247,0.12))' : 'var(--surface2)',
                                   border: `1px solid ${isSelected ? 'var(--accent)' : 'var(--border)'}`,
                                 }}>
@@ -768,7 +772,7 @@ export default function Settings({ settings, onSave, activeInstance, onNavigate 
           <div style={{ display:'flex', gap:4 }}>
             {(['dark','light'] as ThemeMode[]).map(m => (
               <button key={m} onClick={() => setMode(m)} style={{
-                padding:'7px 14px', borderRadius:6, fontSize:'0.82rem', fontWeight:500,
+                padding:'7px 14px', borderRadius:0, fontSize:'0.82rem', fontWeight:500,
                 background: mode === m ? 'var(--accent)' : 'var(--surface3)',
                 color: mode === m ? '#fff' : 'var(--text2)', border:'none', cursor:'pointer',
               }}>
@@ -834,8 +838,8 @@ export default function Settings({ settings, onSave, activeInstance, onNavigate 
       </>)}
 
       {/* Encryption note */}
-      <div style={{ marginTop:28, padding:'14px 18px', background:'var(--surface)', border:'1px solid var(--border)', borderRadius:8, fontSize:'0.78rem', color:'var(--text2)', lineHeight:1.6 }}>
-        <strong style={{ color:'var(--text)' }}>Security note:</strong> Passwords and API keys are encrypted at rest using AES-256-GCM (keys stored in your OS keychain). You can edit <code style={{ background:'var(--surface2)', padding:'1px 5px', borderRadius:3 }}>config.json</code> directly with plaintext values — they will be automatically encrypted the next time the app saves settings.
+      <div style={{ marginTop:28, padding:'14px 18px', background:'var(--surface)', border:'1px solid var(--border)', borderRadius:0, fontSize:'0.78rem', color:'var(--text2)', lineHeight:1.6 }}>
+        <strong style={{ color:'var(--text)' }}>Security note:</strong> Passwords and API keys are encrypted at rest using AES-256-GCM (keys stored in your OS keychain). You can edit <code style={{ background:'var(--surface2)', padding:'1px 5px', borderRadius:0 }}>config.json</code> directly with plaintext values — they will be automatically encrypted the next time the app saves settings.
       </div>
     </div>
   );
