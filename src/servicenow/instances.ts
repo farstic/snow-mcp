@@ -196,12 +196,25 @@ class InstanceManager {
     });
   }
 
+  /**
+   * Resolve a user-supplied instance name to the actual Map key.
+   * Registration preserves the configured casing (e.g. "FIBTEST" from
+   * instances.json), so lookups must be case-insensitive: exact match first,
+   * then a case-insensitive scan.
+   */
+  private resolveName(name: string): string | undefined {
+    if (this.instances.has(name)) return name;
+    const lower = name.toLowerCase();
+    if (this.instances.has(lower)) return lower;
+    return Array.from(this.instances.keys()).find(k => k.toLowerCase() === lower);
+  }
+
   /** Return client for named instance (or current instance if no name given). */
   getClient(name?: string): ServiceNowClient {
-    const target = name ? name.toLowerCase() : this.currentName;
-    const entry = this.instances.get(target);
+    const target = name ? this.resolveName(name) : this.currentName;
+    const entry = target ? this.instances.get(target) : undefined;
     if (!entry) {
-      throw new Error(`Unknown instance "${target}". Available: ${this.listNames().join(', ')}`);
+      throw new Error(`Unknown instance "${name ?? this.currentName}". Available: ${this.listNames().join(', ')}`);
     }
     return entry.client;
   }
@@ -215,11 +228,11 @@ class InstanceManager {
 
   /** Switch the active instance for the session. */
   switch(name: string): void {
-    const lower = name.toLowerCase();
-    if (!this.instances.has(lower)) {
+    const resolved = this.resolveName(name);
+    if (!resolved) {
       throw new Error(`Unknown instance "${name}". Available: ${this.listNames().join(', ')}`);
     }
-    this.currentName = lower;
+    this.currentName = resolved;
   }
 
   getCurrentName(): string {
