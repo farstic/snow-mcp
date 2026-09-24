@@ -23,6 +23,7 @@ import { parseSpec } from '../flow-builder/spec/schema.js';
 import type { FlowSpec, GenerateOptions, RecordPlan, RecordRow, Step, WriteOptions } from '../flow-builder/spec/types.js';
 import { generatePlan, readCatalog, type GeneratorExtras } from '../flow-builder/generator/index.js';
 import { instanceResolvers } from '../flow-builder/resolvers.js';
+import { findAction, findActionInput } from '../flow-builder/catalog/actions.js';
 import { planToRecordUpdateXml } from '../flow-builder/xml/record-update.js';
 import { planToUnloadXml, listDeleteMultiples } from '../flow-builder/xml/unload.js';
 import { writePlan, verifyFlow, describeCaptureProtocol } from '../flow-builder/writer/index.js';
@@ -291,15 +292,36 @@ export interface LiveCheckResult {
 
 const SYS_ID_RE = /^[0-9a-f]{32}$/;
 
+/** Remote tables a reference input points at → the real tables their rows come from, in lookup order. */
+const REMOTE_REFERENCE_TABLES: Readonly<Record<string, readonly string[]>> = {
+  st_sys_catalog_items_and_variable_sets: ['sc_cat_item', 'item_option_new_set'],
+};
+
+/**
+ * The tables a static sys_id in a reference-typed action input can be checked against, from the catalogue input
+ * definition: its `reference` table, or for a remote-table reference the mapped real tables. Undefined when unknown.
+ */
+function referenceTablesOf(actionKey: unknown, inputName: string): string[] | undefined {
+  if (typeof actionKey !== 'string') return undefined;
+  const def = findAction(actionKey);
+  const input = def ? findActionInput(def, inputName) : undefined;
+  if (!input || input.type !== 'reference' || !input.reference) return undefined;
+  const remote = REMOTE_REFERENCE_TABLES[input.reference];
+  if (remote) return [...remote];
+  return input.attributes?.is_remote_table_reference === 'true' ? undefined : [input.reference];
+}
+
 /** Walk a spec value tree collecting table names (from `table`/`table_name` inputs and {reference,table}) and referenced sys_ids. */
-function collectSpecReferences(spec: FlowSpec): { tables: Map<string, string>; refs: { table?: string; sys_id: string; where: string }[] } {
+function collectSpecReferences(spec: FlowSpec): { tables: Map<string, string>; refs: { tables?: string[]; sys_id: string; where: string }[] } {
   const tables = new Map<string, string>();
-  const refs: { table?: string; sys_id: string; where: string }[] = [];
+  const refs: { tables?: string[]; sys_id: string; where: string }[] = [];
   const trig = spec.trigger as unknown as Record<string, unknown> | undefined;
   if (trig && typeof trig.table === 'string' && trig.table) tables.set(trig.table, 'trigger.table');
 
-  const visitValue = (v: unknown, where: string): void => {
+  // inputTables: the catalogue reference table(s) of the action input this value is given for (top level only)
+  const visitValue = (v: unknown, where: string, inputTables?: string[]): void => {
     if (typeof v === 'string') {
+      if (inputTables && SYS_ID_RE.test(v)) { refs.push({ tables: inputTables, sys_id: v, where }); return; }
       for (const m of v.matchAll(/\{\{\s*static\.([0-9a-f]{32})\s*\}\}/g)) refs.push({ sys_id: m[1], where });
       return;
     }
@@ -307,7 +329,7 @@ function collectSpecReferences(spec: FlowSpec): { tables: Map<string, string>; r
     if (!v || typeof v !== 'object') return;
     const o = v as Record<string, unknown>;
     for (const k of ['text', 'conditions', 'script']) if (typeof o[k] === 'string') visitValue(o[k], `${where}.${k}`);
-    if (typeof o.reference === 'string' && SYS_ID_RE.test(o.reference)) refs.push({ table: typeof o.table === 'string' ? o.table : undefined, sys_id: o.reference, where });
+    if (typeof o.reference === 'string' && SYS_ID_RE.test(o.reference)) refs.push({ tables: typeof o.table === 'string' ? [o.table] : inputTables, sys_id: o.reference, where });
     if (typeof o.pill === 'string') { const m = /^static\.([0-9a-f]{32})$/.exec(o.pill); if (m) refs.push({ sys_id: m[1], where }); }
     if (o.template && typeof o.template === 'object') for (const [k, x] of Object.entries(o.template as Record<string, unknown>)) visitValue(x, `${where}.template.${k}`);
     if (Array.isArray(o.list)) visitValue(o.list, `${where}.list`);
@@ -322,13 +344,13 @@ function collectSpecReferences(spec: FlowSpec): { tables: Map<string, string>; r
       if (inputs && typeof inputs === 'object') {
         for (const [name, val] of Object.entries(inputs)) {
           if ((name === 'table' || name === 'table_name' || name === 'ah_table_name') && typeof val === 'string' && /^[a-z][a-z0-9_]*$/.test(val)) tables.set(val, `${here}.inputs.${name}`);
-          visitValue(val, `${here}.inputs.${name}`);
+          visitValue(val, `${here}.inputs.${name}`, step.kind === 'action' ? referenceTablesOf(step.action, name) : undefined);
         }
       }
       // DefinitionRef = {sys_id} | {name, scope?}: only a sys_id can be checked live
       for (const [k, table] of [['subflow', 'sys_hub_flow'], ['definition', 'sys_hub_action_type_definition']] as const) {
         const ref = step[k] as Record<string, unknown> | undefined;
-        if (ref && typeof ref === 'object' && typeof ref.sys_id === 'string' && SYS_ID_RE.test(ref.sys_id)) refs.push({ table, sys_id: ref.sys_id, where: `${here}.${k}` });
+        if (ref && typeof ref === 'object' && typeof ref.sys_id === 'string' && SYS_ID_RE.test(ref.sys_id)) refs.push({ tables: [table], sys_id: ref.sys_id, where: `${here}.${k}` });
       }
       // nested step arrays per the FlowSpec v1 step shapes
       for (const k of ['steps', 'then', 'try']) if (Array.isArray(step[k])) visitSteps(step[k], `${here}.${k}`);
@@ -360,14 +382,18 @@ export async function runLiveChecks(client: ServiceNowClient, spec: FlowSpec, pl
   }
   const seen = new Set<string>();
   for (const ref of refs) {
-    const key = `${ref.table ?? '?'}:${ref.sys_id}`;
+    const key = `${ref.tables?.join('|') ?? '?'}:${ref.sys_id}`;
     if (seen.has(key)) continue;
     seen.add(key);
-    if (!ref.table) { out.references.push({ table: '', sys_id: ref.sys_id, where: ref.where, exists: 'unknown_table' }); continue; }
-    let exists = false;
-    try { await client.getRecord(ref.table, ref.sys_id, 'sys_id'); exists = true; } catch (e) { if (!(e instanceof ServiceNowError && e.code === 'NOT_FOUND')) throw e; }
-    out.references.push({ table: ref.table, sys_id: ref.sys_id, where: ref.where, exists });
-    if (!exists) out.problems.push(`${ref.table} ${ref.sys_id} (${ref.where}) does not exist on the instance`);
+    if (!ref.tables?.length) { out.references.push({ table: '', sys_id: ref.sys_id, where: ref.where, exists: 'unknown_table' }); continue; }
+    // several candidate tables (a remote-table reference): the first one holding the sys_id is reported
+    let found: string | undefined;
+    for (const table of ref.tables) {
+      try { await client.getRecord(table, ref.sys_id, 'sys_id'); found = table; break; } catch (e) { if (!(e instanceof ServiceNowError && e.code === 'NOT_FOUND')) throw e; }
+    }
+    const table = found ?? ref.tables.join(' / ');
+    out.references.push({ table, sys_id: ref.sys_id, where: ref.where, exists: found !== undefined });
+    if (!found) out.problems.push(`${table} ${ref.sys_id} (${ref.where}) does not exist on the instance`);
   }
 
   const flowRows = await client.queryRecords({ table: 'sys_hub_flow', query: `sys_id=${plan.flow.sys_id}`, fields: 'sys_id,name,active,status', limit: 1 });

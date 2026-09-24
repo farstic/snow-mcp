@@ -313,6 +313,30 @@ describe('snow_flow_plan — live checks (read-only)', () => {
     expect(r.problems).toEqual([expect.stringContaining(`sys_hub_flow ${'3'.repeat(32)}`)]);
     expect(writes()).toEqual([]);
   });
+
+  it('runLiveChecks takes the table of a bare {reference} / sys_id from the action input (a remote-table reference tries its real tables)', async () => {
+    const ITEM = '6'.repeat(32), SET = '7'.repeat(32), MISSING = '8'.repeat(32);
+    const parsed = parseSpec({
+      spec_version: '1', flow: { key: 'cat', name: 'Cat' },
+      trigger: { key: 't', type: 'catalog.service_catalog' },
+      steps: [
+        { kind: 'action', key: 'task', action: 'createCatalogTask', inputs: { ah_requested_item: { pill: 'trigger.request_item' }, ah_short_description: 'x', template_catalog_item: { reference: ITEM } } },
+        { kind: 'action', key: 'vars', action: 'getCatalogVariables', inputs: { requested_item: { pill: 'trigger.request_item' }, template_catalog_item: SET } },
+        { kind: 'action', key: 'vars2', action: 'getCatalogVariables', inputs: { requested_item: { pill: 'trigger.request_item' }, template_catalog_item: { reference: MISSING } } },
+      ],
+    });
+    if ('errors' in parsed) throw new Error(JSON.stringify(parsed.errors));
+    H.fake!.table('sc_cat_item').set(ITEM, { sys_id: ITEM, name: 'Example Item' });
+    H.fake!.table('item_option_new_set').set(SET, { sys_id: SET, title: 'Example Set' });
+    const r = await runLiveChecks(client(), parsed.spec, samplePlan({ flowKey: 'cat', name: 'Cat' }));
+    expect(r.references).toEqual([
+      { table: 'sc_cat_item', sys_id: ITEM, where: expect.stringContaining('template_catalog_item'), exists: true },
+      { table: 'item_option_new_set', sys_id: SET, where: expect.stringContaining('template_catalog_item'), exists: true },
+      { table: 'sc_cat_item / item_option_new_set', sys_id: MISSING, where: expect.stringContaining('template_catalog_item'), exists: false },
+    ]);
+    expect(r.problems).toEqual([expect.stringContaining(`sc_cat_item / item_option_new_set ${MISSING}`)]);
+    expect(writes()).toEqual([]);
+  });
 });
 
 describe('snow_flow_verify', () => {
