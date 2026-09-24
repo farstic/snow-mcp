@@ -40,6 +40,8 @@ import { csmToolManifest, dispatchCsmAction } from './csm.js';
 import { securityToolManifest, dispatchSecurityAction } from './security.js';
 // Flow Designer & Process Automation
 import { flowToolManifest, dispatchFlowAction } from './flow.js';
+// Flow Builder (spec-driven flow construction, src/flow-builder)
+import { flowBuilderToolManifest, dispatchFlowBuilderAction } from './flow-builder.js';
 // Service Portal & UI Builder
 import { portalToolManifest, dispatchPortalAction } from './portal.js';
 // Integration (REST Messages, Transform Maps, Events)
@@ -194,6 +196,8 @@ export const ROLE_BUNDLE_MAP: Record<string, string[]> = {
     // v4.0 Fluent SDK + discovery
     'snow_fluent_explain', 'snow_fluent_init', 'snow_fluent_build', 'snow_fluent_validate',
     'snow_disco_table_discover',
+    // Flow Builder (spec-driven Flow Designer construction; gated by FLOW_BUILDER_* flags)
+    'snow_flow_catalog_read', 'snow_flow_plan', 'snow_flow_build', 'snow_flow_verify', 'snow_flow_export_xml',
   ],
   itom_engineer: [
     'snow_core_records_query', 'snow_core_record_read', 'snow_core_table_schema_read',
@@ -247,6 +251,7 @@ const ALL_TOOLS = [
   ...csmToolManifest(),
   ...securityToolManifest(),
   ...flowToolManifest(),
+  ...flowBuilderToolManifest(),
   ...portalToolManifest(),
   ...integrationToolManifest(),
   ...notificationToolManifest(),
@@ -313,6 +318,7 @@ export async function routeToolInvocation(
     () => dispatchCsmAction(client, name, args),
     () => dispatchSecurityAction(client, name, args),
     () => dispatchFlowAction(client, name, args),
+    () => dispatchFlowBuilderAction(client, name, args),
     () => dispatchPortalAction(client, name, args),
     () => dispatchIntegrationAction(client, name, args),
     () => dispatchNotificationAction(client, name, args),

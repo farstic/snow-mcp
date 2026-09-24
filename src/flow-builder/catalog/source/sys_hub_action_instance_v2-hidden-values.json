@@ -1,0 +1,20 @@
+{
+  "table": "sys_hub_action_instance_v2",
+  "query": "sys_id=352bf0034718e6109cf8acde316d4388 (action_type=a1a50c4573873300d70877186bf6a762, one of the 4 UI-built SLA Percentage Timer rows)",
+  "fields": "values (gzip+base64, decoded)",
+  "note": "The stored value of the hidden input sla_flow_inputs (visible_in_fd=false, from_flow_inputs) as Workflow Studio writes it. Only the entries of hidden inputs without a default_value are kept.",
+  "result": [
+    {
+      "sys_id": "352bf0034718e6109cf8acde316d4388",
+      "action_type": "a1a50c4573873300d70877186bf6a762",
+      "name": "task_sla_record",
+      "value": ""
+    },
+    {
+      "sys_id": "352bf0034718e6109cf8acde316d4388",
+      "action_type": "a1a50c4573873300d70877186bf6a762",
+      "name": "sla_flow_inputs",
+      "value": "{\"version\":\"1.0\",\"complexObject\":{\"duration\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"relative_duration_works_on\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"is_repair\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"false\"}},\"duration_type\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"name\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}}},\"complexObjectSchema\":{\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a\":{\"duration\":\"String\",\"duration.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"relative_duration_works_on\":\"String\",\"relative_duration_works_on.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"relative_duration_works_on\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"4\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"is_repair\":\"Boolean\",\"is_repair.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"false\\\",\\\"label\\\":\\\"is_repair\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"5\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"duration_type\":\"String\",\"duration_type.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration_type\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"name\":\"String\",\"name.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"name\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"32\\\"}\"}},\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a.$type_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Object\\\",\\\"co_type_name\\\":\\\"FDcdbd0dc2bc7233000dbdb4d30db4851a\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"object\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"sla_flow_inputs\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"100\\\",\\\"max_length\\\":\\\"4096\\\"}\"}},\"serializationFormat\":\"JSON\"}"
+    }
+  ]
+}

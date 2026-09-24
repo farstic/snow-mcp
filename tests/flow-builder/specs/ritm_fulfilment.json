@@ -1,0 +1,11 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "ritm_fulfilment", "name": "RITM Fulfilment", "description": "Construct spec: record.updated trigger (unique changes), Create Catalog Task, if / end" },
+  "trigger": { "key": "ritm_trigger", "type": "record.updated", "table": "sc_req_item", "condition": "approval=approved", "run_flow_in": "background", "trigger_strategy": "unique_changes" },
+  "steps": [
+    { "kind": "action", "key": "ritm_task", "action": "createCatalogTask",
+      "inputs": { "ah_requested_item": { "pill": "trigger.current" }, "ah_short_description": "Prepare the requested equipment", "ah_wait": false,
+                  "ah_fields": { "template": { "assignment_group": "Hardware" } } } },
+    { "kind": "if", "key": "ritm_closed_if", "condition": "{{trigger.current.state}}=4", "then": [ { "kind": "end_flow", "key": "ritm_end" } ] }
+  ]
+}

@@ -44,11 +44,11 @@ afterAll(async () => { if (srv) await srv.stop(); });
 afterEach(() => vi.restoreAllMocks());
 
 describe('REST API — tools', () => {
-  it('GET /api/tools lists all 394 tools', async () => {
+  it('GET /api/tools lists all 399 tools', async () => {
     const r = await call('/api/tools');
     expect(r.status).toBe(200);
-    expect(r.json.count).toBe(394);
-    expect(r.json.tools).toHaveLength(394);
+    expect(r.json.count).toBe(399);
+    expect(r.json.tools).toHaveLength(399);
   });
 
   it('GET /api/tools/:name returns a single tool schema', async () => {

@@ -1,0 +1,743 @@
+{
+  "flowKey": "pdi_error_handler",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "22391b7a4921a3d4cb914bfb6605f5e8",
+      "fields": {
+        "sys_id": "22391b7a4921a3d4cb914bfb6605f5e8",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Flow Error Handler learned from the PDI",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "error_handler_flow",
+        "label_cache": [
+          {
+            "name": "Created_1.current",
+            "label": "Trigger - Record Created➛incident Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "bf36862e-d9d1-f105-c05a-43c893e61b4b": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "incident"
+          },
+          {
+            "name": "ab626f9a-5f62-a292-4a4f-9343d46b6168.__status__.message",
+            "label": "1 - Error Handler➛Error Status➛Message",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "73686e4b-870f-e501-1274-7323742a44f6": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "reference": "",
+            "reference_display": "Message"
+          },
+          {
+            "name": "ab626f9a-5f62-a292-4a4f-9343d46b6168.__status__.code",
+            "label": "1 - Error Handler➛Error Status➛Code",
+            "type": "integer",
+            "base_type": "integer",
+            "usedInstances": {
+              "73686e4b-870f-e501-1274-7323742a44f6": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "reference": "",
+            "reference_display": "Code"
+          }
+        ],
+        "name": "Error Handler Flow",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "fabab17c1b6438e1a3dd64f4954f4340",
+      "fields": {
+        "sys_id": "fabab17c1b6438e1a3dd64f4954f4340",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "22391b7a4921a3d4cb914bfb6605f5e8",
+        "name": "Created",
+        "trigger_definition": "798916a0c31322002841b63b12d3ae7c",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Table",
+            "internalType": "table_name",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 1,
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "table_name",
+              "name": "table",
+              "label": "Table",
+              "attributes": {
+                "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Condition",
+            "internalType": "conditions",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "condition",
+            "value": "",
+            "displayValue": "",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "conditions",
+              "name": "condition",
+              "label": "Condition",
+              "attributes": {
+                "modelDependent": "trigger_inputs",
+                "wants_to_add_conditions": "true"
+              },
+              "dependent_on": "table",
+              "use_dependent": true
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run On Extended Tables",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "false",
+                "fLabel": "Run only on current table",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "true",
+                "fLabel": "Run on current and extended tables",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_on_extended",
+            "value": "false",
+            "displayValue": "false",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_on_extended",
+              "label": "Run On Extended Tables",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run flow In",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "background",
+                "fLabel": "Run flow in background (default)",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "foreground",
+                "fLabel": "Run flow in foreground",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_flow_in",
+            "value": "any",
+            "displayValue": "any",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_flow_in",
+              "label": "Run flow In",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User List",
+            "internalType": "glide_list",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_list",
+            "value": "",
+            "displayValue": "",
+            "displayField": "",
+            "scriptActive": false,
+            "valueSysId": "",
+            "children": [],
+            "parameter": {
+              "type": "glide_list",
+              "name": "run_when_user_list",
+              "label": "Run When User List",
+              "reference": "sys_user",
+              "reference_display": "User",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When Session Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "non_interactive",
+                "fLabel": "Only Run for Non-Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "interactive",
+                "fLabel": "Only Run for User Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "both",
+                "fLabel": "Run for Both Interactive and Non-Interactive Sessions",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_setting",
+            "value": "both",
+            "displayValue": "both",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_setting",
+              "label": "Run When Session Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "not_one_of",
+                "fLabel": "Do not run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "one_of",
+                "fLabel": "Only Run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "any",
+                "fLabel": "Run for any user",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_setting",
+            "value": "any",
+            "displayValue": "any",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_user_setting",
+              "label": "Run When User Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "record_create"
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "c6f2bf4b8019061219862546867c0de0",
+      "fields": {
+        "sys_id": "c6f2bf4b8019061219862546867c0de0",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "22391b7a4921a3d4cb914bfb6605f5e8",
+        "logic_definition": "e9060aa2c3013010ace8b740ad40dd51",
+        "order": "0",
+        "ui_id": "c6f2bf4b-8019-0612-1986-2546867c0de0",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "bf36862ed9d1f105c05a43c893e61b4b",
+      "fields": {
+        "sys_id": "bf36862ed9d1f105c05a43c893e61b4b",
+        "sys_scope": "global",
+        "action_type": "f9d01dd2c31332002841b63b12d3aea1",
+        "action_type_parent": "baf174c8c3c232002841b63b12d3aee4",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "22391b7a4921a3d4cb914bfb6605f5e8",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "c6f2bf4b-8019-0612-1986-2546867c0de0",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "bf36862e-d9d1-f105-c05a-43c893e61b4b",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "values",
+            "value": "work_notes=Guarded^EQ",
+            "displayValue": "work_notes=Guarded^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "ab626f9a5f62a2924a4f9343d46b6168",
+      "fields": {
+        "sys_id": "ab626f9a5f62a2924a4f9343d46b6168",
+        "sys_scope": "global",
+        "flow": "22391b7a4921a3d4cb914bfb6605f5e8",
+        "logic_definition": "35d60003e6022010a5e40cdd1254dd23",
+        "order": "2",
+        "ui_id": "ab626f9a-5f62-a292-4a4f-9343d46b6168",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "name": "__status__",
+              "value": "{\"version\":\"1.0\",\"complexObject\":{\"code\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"message\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}}},\"complexObjectSchema\":{\"FlowDesigner:FDACTIONSTATUS\":{\"code\":\"Integer\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"integer\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"action_error_output\\\":\\\"true\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"40\\\"}\"},\"message\":\"String\",\"message.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Message\\\",\\\"action_error_output\\\":\\\"true\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"4000\\\"}\"}},\"FlowDesigner:FDACTIONSTATUS.$type_facets\":{\"SimpleMapFacet\":\"{\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Action Status\\\",\\\"action_error_output\\\":\\\"true\\\",\\\"mandatory\\\":\\\"false\\\",\\\"uiUniqueId\\\":\\\"4adfb7bc-9d67-498d-88d0-8d6c3d584fed\\\",\\\"uiTypeLabel\\\":\\\"Object\\\",\\\"co_type_name\\\":\\\"FDACTIONSTATUS\\\",\\\"element_mapping_provider\\\":\\\"com.glide.flow_design.action.data.FlowDesignVariableMapper\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":null,\\\"uiType\\\":\\\"object\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"65000\\\"}\"}},\"serializationFormat\":\"JSON\"}",
+              "displayValue": "{\"version\":\"1.0\",\"complexObject\":{\"code\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"message\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}}},\"complexObjectSchema\":{\"FlowDesigner:FDACTIONSTATUS\":{\"code\":\"Integer\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"integer\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"action_error_output\\\":\\\"true\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"40\\\"}\"},\"message\":\"String\",\"message.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Message\\\",\\\"action_error_output\\\":\\\"true\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"4000\\\"}\"}},\"FlowDesigner:FDACTIONSTATUS.$type_facets\":{\"SimpleMapFacet\":\"{\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Action Status\\\",\\\"action_error_output\\\":\\\"true\\\",\\\"mandatory\\\":\\\"false\\\",\\\"uiUniqueId\\\":\\\"4adfb7bc-9d67-498d-88d0-8d6c3d584fed\\\",\\\"uiTypeLabel\\\":\\\"Object\\\",\\\"co_type_name\\\":\\\"FDACTIONSTATUS\\\",\\\"element_mapping_provider\\\":\\\"com.glide.flow_design.action.data.FlowDesignVariableMapper\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":null,\\\"uiType\\\":\\\"object\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"65000\\\"}\"}},\"serializationFormat\":\"JSON\"}",
+              "children": [
+                {
+                  "name": "code",
+                  "parameter": {
+                    "fieldFacetMap": {
+                      "uiTypeLabel": "Integer",
+                      "action_error_output": "true"
+                    },
+                    "value": "",
+                    "displayValue": "",
+                    "scriptActive": false,
+                    "script": {},
+                    "internalLink": "",
+                    "children": [],
+                    "uiDisplayType": "integer",
+                    "type_label": "Integer",
+                    "id": "",
+                    "label": "Code",
+                    "name": "code",
+                    "type": "integer",
+                    "typeLabel": "Integer",
+                    "order": 1,
+                    "extended": false,
+                    "mandatory": false,
+                    "readOnly": false,
+                    "hint": "",
+                    "maxsize": 40,
+                    "reference": "",
+                    "reference_display": "",
+                    "fDataStructure": "",
+                    "choices": [],
+                    "choiceOption": "",
+                    "table": "",
+                    "columnName": "",
+                    "defaultValue": "",
+                    "defaultDisplayValue": "",
+                    "use_dependent": false,
+                    "fShowReferenceFinder": false,
+                    "local": false,
+                    "attributes": {},
+                    "sysClassName": "",
+                    "ref_qual": "",
+                    "dependent_on": ""
+                  },
+                  "scriptActive": false
+                },
+                {
+                  "name": "message",
+                  "parameter": {
+                    "fieldFacetMap": {
+                      "uiTypeLabel": "String",
+                      "action_error_output": "true"
+                    },
+                    "value": "",
+                    "displayValue": "",
+                    "scriptActive": false,
+                    "script": {},
+                    "internalLink": "",
+                    "children": [],
+                    "uiDisplayType": "string",
+                    "type_label": "String",
+                    "id": "",
+                    "label": "Message",
+                    "name": "message",
+                    "type": "string",
+                    "typeLabel": "String",
+                    "order": 2,
+                    "extended": false,
+                    "mandatory": false,
+                    "readOnly": false,
+                    "hint": "",
+                    "maxsize": 4000,
+                    "reference": "",
+                    "reference_display": "",
+                    "fDataStructure": "",
+                    "choices": [],
+                    "choiceOption": "",
+                    "table": "",
+                    "columnName": "",
+                    "defaultValue": "",
+                    "defaultDisplayValue": "",
+                    "use_dependent": false,
+                    "fShowReferenceFinder": false,
+                    "local": false,
+                    "attributes": {},
+                    "sysClassName": "",
+                    "ref_qual": "",
+                    "dependent_on": ""
+                  },
+                  "scriptActive": false
+                }
+              ],
+              "parameter": {
+                "children": [
+                  {
+                    "fieldFacetMap": {
+                      "uiTypeLabel": "Integer",
+                      "action_error_output": "true"
+                    },
+                    "value": "",
+                    "displayValue": "",
+                    "scriptActive": false,
+                    "script": {},
+                    "internalLink": "",
+                    "children": [],
+                    "uiDisplayType": "integer",
+                    "type_label": "Integer",
+                    "id": "",
+                    "label": "Code",
+                    "name": "code",
+                    "type": "integer",
+                    "typeLabel": "Integer",
+                    "order": 1,
+                    "extended": false,
+                    "mandatory": false,
+                    "readOnly": false,
+                    "hint": "",
+                    "maxsize": 40,
+                    "reference": "",
+                    "reference_display": "",
+                    "fDataStructure": "",
+                    "choices": [],
+                    "choiceOption": "",
+                    "table": "",
+                    "columnName": "",
+                    "defaultValue": "",
+                    "defaultDisplayValue": "",
+                    "use_dependent": false,
+                    "fShowReferenceFinder": false,
+                    "local": false,
+                    "attributes": {},
+                    "sysClassName": "",
+                    "ref_qual": "",
+                    "dependent_on": ""
+                  },
+                  {
+                    "fieldFacetMap": {
+                      "uiTypeLabel": "String",
+                      "action_error_output": "true"
+                    },
+                    "value": "",
+                    "displayValue": "",
+                    "scriptActive": false,
+                    "script": {},
+                    "internalLink": "",
+                    "children": [],
+                    "uiDisplayType": "string",
+                    "type_label": "String",
+                    "id": "",
+                    "label": "Message",
+                    "name": "message",
+                    "type": "string",
+                    "typeLabel": "String",
+                    "order": 2,
+                    "extended": false,
+                    "mandatory": false,
+                    "readOnly": false,
+                    "hint": "",
+                    "maxsize": 4000,
+                    "reference": "",
+                    "reference_display": "",
+                    "fDataStructure": "",
+                    "choices": [],
+                    "choiceOption": "",
+                    "table": "",
+                    "columnName": "",
+                    "defaultValue": "",
+                    "defaultDisplayValue": "",
+                    "use_dependent": false,
+                    "fShowReferenceFinder": false,
+                    "local": false,
+                    "attributes": {},
+                    "sysClassName": "",
+                    "ref_qual": "",
+                    "dependent_on": ""
+                  }
+                ],
+                "id": "0f72a5a25b132010b61ea2013781c749",
+                "label": "Error Status",
+                "name": "__status__",
+                "type": "object",
+                "typeLabel": "Object",
+                "order": 100,
+                "extended": false,
+                "mandatory": false,
+                "readOnly": false,
+                "hint": "",
+                "maxsize": 8000,
+                "reference": "",
+                "reference_display": "",
+                "fDataStructure": "",
+                "choices": [],
+                "defaultChoices": [],
+                "choiceOption": "",
+                "table": "",
+                "columnName": "",
+                "defaultValue": "",
+                "use_dependent": false,
+                "fShowReferenceFinder": false,
+                "local": false,
+                "attributes": {
+                  "uiType": "object",
+                  "uiTypeLabel": "Object",
+                  "co_type_name": "FDACTIONSTATUS",
+                  "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+                },
+                "sysClassName": "",
+                "ref_qual": "",
+                "dependent_on": ""
+              },
+              "scriptActive": false
+            },
+            {
+              "name": "enabled",
+              "value": "1",
+              "displayValue": "true",
+              "children": [],
+              "parameter": {
+                "children": [],
+                "id": "dd70187cc36e20105553b740ad40dddc",
+                "label": "enabled",
+                "name": "enabled",
+                "type": "boolean",
+                "typeLabel": "True/False",
+                "order": 100,
+                "extended": false,
+                "mandatory": false,
+                "readOnly": false,
+                "hint": "",
+                "maxsize": 40,
+                "reference": "",
+                "reference_display": "",
+                "fDataStructure": "",
+                "choices": [],
+                "defaultChoices": [],
+                "choiceOption": "",
+                "table": "",
+                "columnName": "",
+                "defaultValue": "false",
+                "defaultDisplayValue": "false",
+                "use_dependent": false,
+                "fShowReferenceFinder": false,
+                "local": false,
+                "attributes": {},
+                "sysClassName": "",
+                "ref_qual": "",
+                "dependent_on": ""
+              },
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "73686e4b870fe50112747323742a44f6",
+      "fields": {
+        "sys_id": "73686e4b870fe50112747323742a44f6",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "22391b7a4921a3d4cb914bfb6605f5e8",
+        "generation_source": "",
+        "order": "3",
+        "parent_ui_id": "ab626f9a-5f62-a292-4a4f-9343d46b6168",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "73686e4b-870f-e501-1274-7323742a44f6",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "error",
+            "displayValue": "error",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Failed: {{ab626f9a-5f62-a292-4a4f-9343d46b6168.__status__.message}} ({{ab626f9a-5f62-a292-4a4f-9343d46b6168.__status__.code}})",
+            "displayValue": "Failed: {{ab626f9a-5f62-a292-4a4f-9343d46b6168.__status__.message}} ({{ab626f9a-5f62-a292-4a4f-9343d46b6168.__status__.code}})",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.current",
+      "platform": "Created_1.current",
+      "type": "reference"
+    },
+    {
+      "symbolic": "error.message",
+      "platform": "ab626f9a-5f62-a292-4a4f-9343d46b6168.__status__.message",
+      "type": "string"
+    },
+    {
+      "symbolic": "error.code",
+      "platform": "ab626f9a-5f62-a292-4a4f-9343d46b6168.__status__.code",
+      "type": "integer"
+    }
+  ]
+}

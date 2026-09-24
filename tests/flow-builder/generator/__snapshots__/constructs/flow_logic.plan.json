@@ -1,0 +1,3204 @@
+{
+  "flowKey": "flow_logic",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "780b5c760c6e0d0aff45cbaede4ce084",
+      "fields": {
+        "sys_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: every flow-logic kind - set / append variables, for each with skip / exit, three wait forms, try / catch, do in parallel, do until",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "flow_logic",
+        "label_cache": [
+          {
+            "name": "Created_1.current.number",
+            "label": "Trigger - Record Created➛incident Record➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "1cc8f99a-b2b9-d398-1a30-48f113f64ea3": [
+                "label_text"
+              ],
+              "68db8f3f-6787-c4dd-25cd-0e5a89afc93f": [
+                "entries"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "number"
+          },
+          {
+            "name": "Created_1.current.opened_at",
+            "label": "Trigger - Record Created➛incident Record➛Opened At",
+            "type": "glide_date_time",
+            "base_type": "glide_date_time",
+            "usedInstances": {
+              "1cc8f99a-b2b9-d398-1a30-48f113f64ea3": [
+                "checked_at"
+              ],
+              "0cee402a-df99-53d2-170a-b658aeb67a75": [
+                "timer_relative_duration_datetime"
+              ],
+              "70c55bda-b5cc-db8d-fd8e-4286ea81a313": [
+                "percentage_timer_input_datetime"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "opened_at"
+          },
+          {
+            "name": "Created_1.current.opened_by",
+            "label": "Trigger - Record Created➛incident Record➛Opened By",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "1cc8f99a-b2b9-d398-1a30-48f113f64ea3": [
+                "owner"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "opened_by"
+          },
+          {
+            "name": "Created_1.current.caller_id",
+            "label": "Trigger - Record Created➛incident Record➛Caller Id",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "e7674b7d-16bc-ad37-7f94-0e08f0b6ad1f": [
+                "conditions"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "caller_id"
+          },
+          {
+            "name": "e7674b7d-16bc-ad37-7f94-0e08f0b6ad1f.Records",
+            "label": "e7674b7d-16bc-ad37-7f94-0e08f0b6ad1f➛Records",
+            "type": "records",
+            "base_type": "records",
+            "usedInstances": {
+              "f90c7b06-c23e-b008-1596-e0920f1e1fb9": [
+                "items"
+              ]
+            },
+            "attributes": {},
+            "column_name": "Records"
+          },
+          {
+            "name": "f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.sys_id",
+            "label": "6 - For Each - ➛item➛Sys Id",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "b5c37725-e9d0-d17e-e1ea-77dd0316660e": [
+                "condition"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "sys_id"
+          },
+          {
+            "name": "Created_1.current.sys_id",
+            "label": "Trigger - Record Created➛incident Record➛Sys Id",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "b5c37725-e9d0-d17e-e1ea-77dd0316660e": [
+                "condition"
+              ],
+              "ba5a5948-f6eb-224c-82bd-396eac39e3af": [
+                "conditions"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "sys_id"
+          },
+          {
+            "name": "f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.major_incident_state",
+            "label": "6 - For Each - ➛item➛Major Incident State",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "437b5974-9506-4f8c-4489-e5da8e2a2402": [
+                "condition"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "major_incident_state"
+          },
+          {
+            "name": "f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.number",
+            "label": "6 - For Each - ➛item➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "9b020259-fa05-ff6b-fd0c-cf482d7af49e": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "number"
+          },
+          {
+            "name": "flow_variable.entries",
+            "label": "Flow Variables➛Entries",
+            "type": "array.object",
+            "base_type": "array.object",
+            "usedInstances": {
+              "7d08e5a8-7435-9756-4e22-71e4111229b5": [
+                "items"
+              ]
+            },
+            "attributes": {},
+            "column_name": "entries",
+            "reference_table": null,
+            "reference_display": null
+          },
+          {
+            "name": "7d08e5a8-7435-9756-4e22-71e4111229b5.item.code",
+            "label": "12 - For Each - ➛item Record➛Code",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "a7877411-0589-5c5b-e3f7-75ed8c74d6cc": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "7d08e5a8-7435-9756-4e22-71e4111229b5.item.rank",
+            "label": "12 - For Each - ➛item Record➛Rank",
+            "type": "integer",
+            "base_type": "integer",
+            "usedInstances": {
+              "a7877411-0589-5c5b-e3f7-75ed8c74d6cc": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "a421c3af-36c7-02ca-be9d-05a31aa04d47.total_duration",
+            "label": "a421c3af-36c7-02ca-be9d-05a31aa04d47➛total_duration",
+            "type": "glide_duration",
+            "base_type": "glide_duration",
+            "usedInstances": {
+              "73725101-1e04-a9e2-751a-89ef220c28a8": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "a421c3af-36c7-02ca-be9d-05a31aa04d47.scheduled_end_date_time",
+            "label": "a421c3af-36c7-02ca-be9d-05a31aa04d47➛scheduled_end_date_time",
+            "type": "glide_date_time",
+            "base_type": "glide_date_time",
+            "usedInstances": {
+              "73725101-1e04-a9e2-751a-89ef220c28a8": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Created_1.current",
+            "label": "Trigger - Record Created➛incident Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "472b094a-7e96-650e-6959-55768d9354e0": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "incident"
+          },
+          {
+            "name": "fd43eedf-7e9d-4526-2b0a-e6016df51d32.Record",
+            "label": "fd43eedf-7e9d-4526-2b0a-e6016df51d32➛Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "aa1afd0c-d495-37e9-17e2-f2b27a9fd237": [
+                "owner"
+              ]
+            },
+            "attributes": {},
+            "reference": "sys_user"
+          },
+          {
+            "name": "ba5a5948-f6eb-224c-82bd-396eac39e3af.Record.state",
+            "label": "ba5a5948-f6eb-224c-82bd-396eac39e3af➛Record➛state",
+            "type": "integer",
+            "base_type": "integer",
+            "usedInstances": {
+              "9816c059-1943-cbfc-2037-1ef0cf0d1bb7": [
+                "condition"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "state"
+          },
+          {
+            "name": "flow_variable.is_open",
+            "label": "Flow Variables➛Is Open",
+            "type": "boolean",
+            "base_type": "boolean",
+            "usedInstances": {
+              "9816c059-1943-cbfc-2037-1ef0cf0d1bb7": [
+                "condition"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          },
+          {
+            "name": "flow_variable.label_text",
+            "label": "Flow Variables➛Label Text",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c3986a77-4d45-f444-6fdb-c9c03189db68": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          },
+          {
+            "name": "flow_variable.counter",
+            "label": "Flow Variables➛Counter",
+            "type": "integer",
+            "base_type": "integer",
+            "usedInstances": {
+              "c3986a77-4d45-f444-6fdb-c9c03189db68": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          },
+          {
+            "name": "flow_variable.owner.name",
+            "label": "Flow Variables➛Owner",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c3986a77-4d45-f444-6fdb-c9c03189db68": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          }
+        ],
+        "name": "Flow Logic",
+        "run_as": "system",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "ab17cba16154f9eb0d7e3a2e5f6abcf6",
+      "fields": {
+        "sys_id": "ab17cba16154f9eb0d7e3a2e5f6abcf6",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "start",
+        "element": "label_text",
+        "hint": "",
+        "internal_type": "string",
+        "label": "Label Text",
+        "mandatory": "false",
+        "max_length": "8000",
+        "model": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "order": "1"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "0cef7e0471a2ca315507cc7a10cfa367",
+      "fields": {
+        "sys_id": "0cef7e0471a2ca315507cc7a10cfa367",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "1",
+        "element": "counter",
+        "hint": "",
+        "internal_type": "integer",
+        "label": "Counter",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "order": "2"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "7aa2f35b51b979acc5148e9dab868f2d",
+      "fields": {
+        "sys_id": "7aa2f35b51b979acc5148e9dab868f2d",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "true",
+        "element": "is_open",
+        "hint": "",
+        "internal_type": "boolean",
+        "label": "Is Open",
+        "mandatory": "false",
+        "max_length": "32",
+        "model": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "order": "3"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "1164033b2944d5350ea066a50d8d8cf7",
+      "fields": {
+        "sys_id": "1164033b2944d5350ea066a50d8d8cf7",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "ratio",
+        "hint": "",
+        "internal_type": "decimal",
+        "label": "Ratio",
+        "mandatory": "false",
+        "max_length": "15",
+        "model": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "order": "4"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "36ea6ae8a069b628f0a5768bbb795b83",
+      "fields": {
+        "sys_id": "36ea6ae8a069b628f0a5768bbb795b83",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "checked_at",
+        "hint": "",
+        "internal_type": "glide_date_time",
+        "label": "Checked At",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "order": "5"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "a1d8712abefb821ddfdc61613457e94a",
+      "fields": {
+        "sys_id": "a1d8712abefb821ddfdc61613457e94a",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "owner",
+        "hint": "",
+        "internal_type": "reference",
+        "label": "Owner",
+        "mandatory": "false",
+        "max_length": "32",
+        "model": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "order": "6",
+        "reference": "sys_user"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "8ccc5a4b3e2a23e3befab3993c66f46b",
+      "fields": {
+        "sys_id": "8ccc5a4b3e2a23e3befab3993c66f46b",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "weight",
+        "hint": "",
+        "internal_type": "float",
+        "label": "Weight",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "order": "7"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "d5c6182b2ebc01cbb8a3951d28c26d82",
+      "fields": {
+        "sys_id": "d5c6182b2ebc01cbb8a3951d28c26d82",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "payload",
+        "hint": "",
+        "internal_type": "json",
+        "label": "Payload",
+        "mandatory": "false",
+        "max_length": "4000",
+        "model": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "order": "8"
+      }
+    },
+    {
+      "table": "sys_complex_object",
+      "sys_id": "1226c5efaec88190540a0490ae53647e",
+      "fields": {
+        "sys_id": "1226c5efaec88190540a0490ae53647e",
+        "sys_scope": "global",
+        "name": "FD77c39c0777c1b90ac01e07b6f3b21025",
+        "namespace": "FlowDesigner",
+        "serialized_content": "{\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025\":{\"$COCollectionField\":[{\"item\":{\"code\":\"String\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"rank\":\"Integer\",\"rank.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"integer\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Rank\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"closed\":\"Boolean\",\"closed.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Closed\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"0\\\"}\"}}}],\"$COCollectionField.$field_facets\":{\"SimpleMapFacet\":\"{\\\"up-shift-collection-level\\\":\\\"true\\\"}\"},\"$COCollectionField.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}}",
+        "type": "complex_object_collection"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "77c39c0777c1b90ac01e07b6f3b21025",
+      "fields": {
+        "sys_id": "77c39c0777c1b90ac01e07b6f3b21025",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "co_type_name=FD77c39c0777c1b90ac01e07b6f3b21025,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=array.object,uiTypeLabel=Array.Object,uiUniqueId=780b5c760c6e0d0aff45cbaede4ce084-entries,child_maxsize=0,child_hint=,child_label=Item,child_name=item,child_type=object,child_type_label=Object,child_uiUniqueId=780b5c760c6e0d0aff45cbaede4ce084-entries-child,max_rows=,child_defaultValue=",
+        "default_value": "",
+        "element": "entries",
+        "hint": "",
+        "internal_type": "string",
+        "label": "Entries",
+        "mandatory": "false",
+        "max_length": "65000",
+        "model": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_id": "780b5c760c6e0d0aff45cbaede4ce084",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "order": "9"
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "2a588bbc2027797507ab6529f8f98100",
+      "fields": {
+        "sys_id": "2a588bbc2027797507ab6529f8f98100",
+        "sys_scope": "global",
+        "element": "label_text",
+        "hint": "",
+        "label": "Label Text",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "22d629b116412d7cc146509d7b439f4c",
+      "fields": {
+        "sys_id": "22d629b116412d7cc146509d7b439f4c",
+        "sys_scope": "global",
+        "element": "counter",
+        "hint": "",
+        "label": "Counter",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "41efac4e4cc7220da76a746a9e423ead",
+      "fields": {
+        "sys_id": "41efac4e4cc7220da76a746a9e423ead",
+        "sys_scope": "global",
+        "element": "is_open",
+        "hint": "",
+        "label": "Is Open",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "e8bfdd3d9e20522decc6f787ed2fd03b",
+      "fields": {
+        "sys_id": "e8bfdd3d9e20522decc6f787ed2fd03b",
+        "sys_scope": "global",
+        "element": "ratio",
+        "hint": "",
+        "label": "Ratio",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "f88addb8627f7ad8e41f1615bab12980",
+      "fields": {
+        "sys_id": "f88addb8627f7ad8e41f1615bab12980",
+        "sys_scope": "global",
+        "element": "checked_at",
+        "hint": "",
+        "label": "Checked At",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "72ca9a8eeae74147fa28cf3d0e77807a",
+      "fields": {
+        "sys_id": "72ca9a8eeae74147fa28cf3d0e77807a",
+        "sys_scope": "global",
+        "element": "owner",
+        "hint": "",
+        "label": "Owner",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "20fed76c717ada9b3cde1164683183cb",
+      "fields": {
+        "sys_id": "20fed76c717ada9b3cde1164683183cb",
+        "sys_scope": "global",
+        "element": "weight",
+        "hint": "",
+        "label": "Weight",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "f3b81dc1ef303c5fcc6c6380b77ecfdb",
+      "fields": {
+        "sys_id": "f3b81dc1ef303c5fcc6c6380b77ecfdb",
+        "sys_scope": "global",
+        "element": "payload",
+        "hint": "",
+        "label": "Payload",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "1368f663c3a22bf6b0459b49678d664d",
+      "fields": {
+        "sys_id": "1368f663c3a22bf6b0459b49678d664d",
+        "sys_scope": "global",
+        "element": "entries",
+        "hint": "",
+        "label": "Entries",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_780b5c760c6e0d0aff45cbaede4ce084",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "23ae1c5b8d885624b267ab3dffa15e31",
+      "fields": {
+        "sys_id": "23ae1c5b8d885624b267ab3dffa15e31",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "name": "Created",
+        "trigger_definition": "798916a0c31322002841b63b12d3ae7c",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Table",
+            "internalType": "table_name",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 1,
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "table_name",
+              "name": "table",
+              "label": "Table",
+              "attributes": {
+                "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Condition",
+            "internalType": "conditions",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "condition",
+            "value": "category=software",
+            "displayValue": "category=software",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "conditions",
+              "name": "condition",
+              "label": "Condition",
+              "attributes": {
+                "modelDependent": "trigger_inputs",
+                "wants_to_add_conditions": "true"
+              },
+              "dependent_on": "table",
+              "use_dependent": true
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run On Extended Tables",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "false",
+                "fLabel": "Run only on current table",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "true",
+                "fLabel": "Run on current and extended tables",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_on_extended",
+            "value": "false",
+            "displayValue": "false",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_on_extended",
+              "label": "Run On Extended Tables",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run flow In",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "background",
+                "fLabel": "Run flow in background (default)",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "foreground",
+                "fLabel": "Run flow in foreground",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_flow_in",
+            "value": "background",
+            "displayValue": "background",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_flow_in",
+              "label": "Run flow In",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User List",
+            "internalType": "glide_list",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_list",
+            "value": "",
+            "displayValue": "",
+            "displayField": "",
+            "scriptActive": false,
+            "valueSysId": "",
+            "children": [],
+            "parameter": {
+              "type": "glide_list",
+              "name": "run_when_user_list",
+              "label": "Run When User List",
+              "reference": "sys_user",
+              "reference_display": "User",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When Session Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "non_interactive",
+                "fLabel": "Only Run for Non-Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "interactive",
+                "fLabel": "Only Run for User Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "both",
+                "fLabel": "Run for Both Interactive and Non-Interactive Sessions",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_setting",
+            "value": "both",
+            "displayValue": "both",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_setting",
+              "label": "Run When Session Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "not_one_of",
+                "fLabel": "Do not run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "one_of",
+                "fLabel": "Only Run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "any",
+                "fLabel": "Run for any user",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_setting",
+            "value": "any",
+            "displayValue": "any",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_user_setting",
+              "label": "Run When User Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "record_create"
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "1cc8f99ab2b9d3981a3048f113f64ea3",
+      "fields": {
+        "sys_id": "1cc8f99ab2b9d3981a3048f113f64ea3",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "flow_variables_assigned": "label_text,counter,is_open,ratio,checked_at,owner,weight,payload",
+        "logic_definition": "4f787d1e0f9b0010ecf0cc52ff767ea0",
+        "order": "1",
+        "ui_id": "1cc8f99a-b2b9-d398-1a30-48f113f64ea3",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "ab17cba16154f9eb0d7e3a2e5f6abcf6",
+              "name": "label_text",
+              "value": "{{Created_1.current.number}}",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "0cef7e0471a2ca315507cc7a10cfa367",
+              "name": "counter",
+              "value": "3",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "7aa2f35b51b979acc5148e9dab868f2d",
+              "name": "is_open",
+              "value": "false",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "1164033b2944d5350ea066a50d8d8cf7",
+              "name": "ratio",
+              "value": "0.75",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "36ea6ae8a069b628f0a5768bbb795b83",
+              "name": "checked_at",
+              "value": "{{Created_1.current.opened_at}}",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "a1d8712abefb821ddfdc61613457e94a",
+              "name": "owner",
+              "value": "{{Created_1.current.opened_by}}",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "8ccc5a4b3e2a23e3befab3993c66f46b",
+              "name": "weight",
+              "value": "4.5",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "d5c6182b2ebc01cbb8a3951d28c26d82",
+              "name": "payload",
+              "value": "{\"source\":\"flow\"}",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [
+            {
+              "id": "ab17cba16154f9eb0d7e3a2e5f6abcf6",
+              "name": "label_text",
+              "value": "{{Created_1.current.number}}",
+              "displayValue": "{{Created_1.current.number}}",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "0cef7e0471a2ca315507cc7a10cfa367",
+              "name": "counter",
+              "value": "3",
+              "displayValue": "3",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "7aa2f35b51b979acc5148e9dab868f2d",
+              "name": "is_open",
+              "value": "false",
+              "displayValue": "false",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "1164033b2944d5350ea066a50d8d8cf7",
+              "name": "ratio",
+              "value": "0.75",
+              "displayValue": "0.75",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "36ea6ae8a069b628f0a5768bbb795b83",
+              "name": "checked_at",
+              "value": "{{Created_1.current.opened_at}}",
+              "displayValue": "{{Created_1.current.opened_at}}",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "a1d8712abefb821ddfdc61613457e94a",
+              "name": "owner",
+              "value": "{{Created_1.current.opened_by}}",
+              "displayValue": "{{Created_1.current.opened_by}}",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "8ccc5a4b3e2a23e3befab3993c66f46b",
+              "name": "weight",
+              "value": "4.5",
+              "displayValue": "4.5",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "d5c6182b2ebc01cbb8a3951d28c26d82",
+              "name": "payload",
+              "value": "{\"source\":\"flow\"}",
+              "displayValue": "{\"source\":\"flow\"}",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "5cd46a63b4d1f924df9fa83e3d5df3c5",
+      "fields": {
+        "sys_id": "5cd46a63b4d1f924df9fa83e3d5df3c5",
+        "sys_scope": "global",
+        "comment": "Scripted value",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "flow_variables_assigned": "label_text",
+        "logic_definition": "4f787d1e0f9b0010ecf0cc52ff767ea0",
+        "order": "2",
+        "ui_id": "5cd46a63-b4d1-f924-df9f-a83e3d5df3c5",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "ab17cba16154f9eb0d7e3a2e5f6abcf6",
+              "name": "label_text",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": true,
+              "script": {
+                "label_text": {
+                  "scriptActive": true,
+                  "script": "return 'Ticket ' + fd_data.trigger.current.number;"
+                }
+              }
+            }
+          ],
+          "variables": [
+            {
+              "id": "ab17cba16154f9eb0d7e3a2e5f6abcf6",
+              "name": "label_text",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": true,
+              "script": {
+                "label_text": {
+                  "scriptActive": true,
+                  "script": "return 'Ticket ' + fd_data.trigger.current.number;"
+                }
+              }
+            }
+          ],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "68db8f3f6787c4dd25cd0e5a89afc93f",
+      "fields": {
+        "sys_id": "68db8f3f6787c4dd25cd0e5a89afc93f",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "flow_variables_assigned": "entries",
+        "logic_definition": "4784e82683031210d266f953d22bc0fd",
+        "order": "3",
+        "ui_id": "68db8f3f-6787-c4dd-25cd-0e5a89afc93f",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "77c39c0777c1b90ac01e07b6f3b21025",
+              "name": "entries",
+              "value": "{\"version\":\"1.0\",\"complexObjectSchema\":{\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025\":{\"$COCollectionField\":[{\"item\":{\"code\":\"String\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"rank\":\"Integer\",\"rank.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"integer\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Rank\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"closed\":\"Boolean\",\"closed.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Closed\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"0\\\"}\"}}}],\"$COCollectionField.$field_facets\":{\"SimpleMapFacet\":\"{\\\"up-shift-collection-level\\\":\\\"true\\\"}\"},\"$COCollectionField.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"complexObject\":{\"name$\":\"FD77c39c0777c1b90ac01e07b6f3b21025\",\"$COCollectionField\":{\"code\":\"{{Created_1.current.number}}\",\"rank\":1,\"closed\":true}},\"serializationFormat\":\"JSON\"}",
+              "displayValue": "{\"version\":\"1.0\",\"complexObjectSchema\":{\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025\":{\"$COCollectionField\":[{\"item\":{\"code\":\"String\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"rank\":\"Integer\",\"rank.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"integer\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Rank\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"closed\":\"Boolean\",\"closed.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Closed\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"0\\\"}\"}}}],\"$COCollectionField.$field_facets\":{\"SimpleMapFacet\":\"{\\\"up-shift-collection-level\\\":\\\"true\\\"}\"},\"$COCollectionField.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"complexObject\":{\"name$\":\"FD77c39c0777c1b90ac01e07b6f3b21025\",\"$COCollectionField\":{\"code\":\"{{Created_1.current.number}}\",\"rank\":1,\"closed\":true}},\"serializationFormat\":\"JSON\"}",
+              "children": [],
+              "parameter": {
+                "children": [],
+                "type_label": "Array.Object",
+                "id": "",
+                "label": "Entries",
+                "name": "entries",
+                "type": "array.object",
+                "order": 8,
+                "extended": false,
+                "mandatory": false,
+                "readOnly": false,
+                "hint": "",
+                "maxsize": 65000,
+                "reference": "",
+                "reference_display": "",
+                "choiceOption": "",
+                "table": "",
+                "columnName": "",
+                "defaultValue": "",
+                "use_dependent": false,
+                "fShowReferenceFinder": false,
+                "local": false,
+                "attributes": {
+                  "sourceId": "",
+                  "max_rows": "",
+                  "child_hint": "",
+                  "child_maxsize": "0",
+                  "child_name": "item",
+                  "uiUniqueId": "780b5c760c6e0d0aff45cbaede4ce084-entries",
+                  "uiTypeLabel": "Array.Object",
+                  "co_type_name": "FD77c39c0777c1b90ac01e07b6f3b21025",
+                  "child_label": "Item",
+                  "child_type_label": "Object",
+                  "sourceUiUniqueId": "",
+                  "sourceType": "",
+                  "uiType": "array.object",
+                  "child_defaultValue": "",
+                  "child_type": "object",
+                  "child_uiUniqueId": "780b5c760c6e0d0aff45cbaede4ce084-entries-child"
+                },
+                "ref_qual": "",
+                "dependent_on": ""
+              },
+              "scriptActive": false
+            }
+          ],
+          "variables": [
+            {
+              "id": "77c39c0777c1b90ac01e07b6f3b21025",
+              "name": "entries",
+              "value": "{\"version\":\"1.0\",\"complexObjectSchema\":{\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025\":{\"$COCollectionField\":[{\"item\":{\"code\":\"String\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"rank\":\"Integer\",\"rank.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"integer\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Rank\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"closed\":\"Boolean\",\"closed.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Closed\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"0\\\"}\"}}}],\"$COCollectionField.$field_facets\":{\"SimpleMapFacet\":\"{\\\"up-shift-collection-level\\\":\\\"true\\\"}\"},\"$COCollectionField.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"complexObject\":{\"name$\":\"FD77c39c0777c1b90ac01e07b6f3b21025\",\"$COCollectionField\":{\"code\":\"{{Created_1.current.number}}\",\"rank\":1,\"closed\":true}},\"serializationFormat\":\"JSON\"}",
+              "displayValue": "{\"version\":\"1.0\",\"complexObjectSchema\":{\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025\":{\"$COCollectionField\":[{\"item\":{\"code\":\"String\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"rank\":\"Integer\",\"rank.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"integer\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Rank\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"closed\":\"Boolean\",\"closed.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Closed\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"0\\\"}\"}}}],\"$COCollectionField.$field_facets\":{\"SimpleMapFacet\":\"{\\\"up-shift-collection-level\\\":\\\"true\\\"}\"},\"$COCollectionField.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"complexObject\":{\"name$\":\"FD77c39c0777c1b90ac01e07b6f3b21025\",\"$COCollectionField\":{\"code\":\"{{Created_1.current.number}}\",\"rank\":1,\"closed\":true}},\"serializationFormat\":\"JSON\"}",
+              "children": [],
+              "parameter": {
+                "children": [],
+                "type_label": "Array.Object",
+                "id": "",
+                "label": "Entries",
+                "name": "entries",
+                "type": "array.object",
+                "order": 8,
+                "extended": false,
+                "mandatory": false,
+                "readOnly": false,
+                "hint": "",
+                "maxsize": 65000,
+                "reference": "",
+                "reference_display": "",
+                "choiceOption": "",
+                "table": "",
+                "columnName": "",
+                "defaultValue": "",
+                "use_dependent": false,
+                "fShowReferenceFinder": false,
+                "local": false,
+                "attributes": {
+                  "sourceId": "",
+                  "max_rows": "",
+                  "child_hint": "",
+                  "child_maxsize": "0",
+                  "child_name": "item",
+                  "uiUniqueId": "780b5c760c6e0d0aff45cbaede4ce084-entries",
+                  "uiTypeLabel": "Array.Object",
+                  "co_type_name": "FD77c39c0777c1b90ac01e07b6f3b21025",
+                  "child_label": "Item",
+                  "child_type_label": "Object",
+                  "sourceUiUniqueId": "",
+                  "sourceType": "",
+                  "uiType": "array.object",
+                  "child_defaultValue": "",
+                  "child_type": "object",
+                  "child_uiUniqueId": "780b5c760c6e0d0aff45cbaede4ce084-entries-child"
+                },
+                "ref_qual": "",
+                "dependent_on": ""
+              },
+              "scriptActive": false
+            }
+          ],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "27973acd527f9fe61398cf7f554640a6",
+      "fields": {
+        "sys_id": "27973acd527f9fe61398cf7f554640a6",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "flow_variables_assigned": "entries",
+        "logic_definition": "4784e82683031210d266f953d22bc0fd",
+        "order": "4",
+        "ui_id": "27973acd-527f-9fe6-1398-cf7f554640a6",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "77c39c0777c1b90ac01e07b6f3b21025",
+              "name": "entries",
+              "value": "{\"version\":\"1.0\",\"complexObjectSchema\":{\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025\":{\"$COCollectionField\":[{\"item\":{\"code\":\"String\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"rank\":\"Integer\",\"rank.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"integer\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Rank\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"closed\":\"Boolean\",\"closed.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Closed\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"0\\\"}\"}}}],\"$COCollectionField.$field_facets\":{\"SimpleMapFacet\":\"{\\\"up-shift-collection-level\\\":\\\"true\\\"}\"},\"$COCollectionField.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"complexObject\":{\"name$\":\"FD77c39c0777c1b90ac01e07b6f3b21025\",\"$COCollectionField\":[{\"code\":\"A-100\",\"rank\":2,\"closed\":false},{\"code\":\"A-200\",\"rank\":5,\"closed\":true}]},\"serializationFormat\":\"JSON\"}",
+              "displayValue": "{\"version\":\"1.0\",\"complexObjectSchema\":{\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025\":{\"$COCollectionField\":[{\"item\":{\"code\":\"String\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"rank\":\"Integer\",\"rank.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"integer\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Rank\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"closed\":\"Boolean\",\"closed.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Closed\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"0\\\"}\"}}}],\"$COCollectionField.$field_facets\":{\"SimpleMapFacet\":\"{\\\"up-shift-collection-level\\\":\\\"true\\\"}\"},\"$COCollectionField.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"complexObject\":{\"name$\":\"FD77c39c0777c1b90ac01e07b6f3b21025\",\"$COCollectionField\":[{\"code\":\"A-100\",\"rank\":2,\"closed\":false},{\"code\":\"A-200\",\"rank\":5,\"closed\":true}]},\"serializationFormat\":\"JSON\"}",
+              "children": [
+                {
+                  "name": "item",
+                  "value": "",
+                  "displayValue": "",
+                  "children": [
+                    {
+                      "id": "",
+                      "name": "code",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "string",
+                        "type_label": "String",
+                        "id": "",
+                        "label": "code",
+                        "name": "code",
+                        "type": "string",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    },
+                    {
+                      "id": "",
+                      "name": "rank",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "integer",
+                        "type_label": "Integer",
+                        "id": "",
+                        "label": "rank",
+                        "name": "rank",
+                        "type": "integer",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    },
+                    {
+                      "id": "",
+                      "name": "closed",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "boolean",
+                        "type_label": "True/False",
+                        "id": "",
+                        "label": "closed",
+                        "name": "closed",
+                        "type": "boolean",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    }
+                  ]
+                },
+                {
+                  "name": "item",
+                  "value": "",
+                  "displayValue": "",
+                  "children": [
+                    {
+                      "id": "",
+                      "name": "code",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "string",
+                        "type_label": "String",
+                        "id": "",
+                        "label": "code",
+                        "name": "code",
+                        "type": "string",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    },
+                    {
+                      "id": "",
+                      "name": "rank",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "integer",
+                        "type_label": "Integer",
+                        "id": "",
+                        "label": "rank",
+                        "name": "rank",
+                        "type": "integer",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    },
+                    {
+                      "id": "",
+                      "name": "closed",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "boolean",
+                        "type_label": "True/False",
+                        "id": "",
+                        "label": "closed",
+                        "name": "closed",
+                        "type": "boolean",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    }
+                  ]
+                }
+              ],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [
+            {
+              "id": "77c39c0777c1b90ac01e07b6f3b21025",
+              "name": "entries",
+              "value": "{\"version\":\"1.0\",\"complexObjectSchema\":{\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025\":{\"$COCollectionField\":[{\"item\":{\"code\":\"String\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"rank\":\"Integer\",\"rank.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"integer\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Rank\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"closed\":\"Boolean\",\"closed.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Closed\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"0\\\"}\"}}}],\"$COCollectionField.$field_facets\":{\"SimpleMapFacet\":\"{\\\"up-shift-collection-level\\\":\\\"true\\\"}\"},\"$COCollectionField.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"complexObject\":{\"name$\":\"FD77c39c0777c1b90ac01e07b6f3b21025\",\"$COCollectionField\":[{\"code\":\"A-100\",\"rank\":2,\"closed\":false},{\"code\":\"A-200\",\"rank\":5,\"closed\":true}]},\"serializationFormat\":\"JSON\"}",
+              "displayValue": "{\"version\":\"1.0\",\"complexObjectSchema\":{\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025\":{\"$COCollectionField\":[{\"item\":{\"code\":\"String\",\"code.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Code\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"rank\":\"Integer\",\"rank.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Integer\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"integer\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Rank\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"0\\\"}\"},\"closed\":\"Boolean\",\"closed.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"label\\\":\\\"Closed\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"0\\\"}\"}}}],\"$COCollectionField.$field_facets\":{\"SimpleMapFacet\":\"{\\\"up-shift-collection-level\\\":\\\"true\\\"}\"},\"$COCollectionField.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"FlowDesigner:FD77c39c0777c1b90ac01e07b6f3b21025.$type_facets\":{\"SimpleMapFacet\":\"{\\\"sourceId\\\":\\\"\\\",\\\"max_rows\\\":\\\"\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"Entries\\\",\\\"child_hint\\\":\\\"\\\",\\\"child_maxsize\\\":\\\"0\\\",\\\"mandatory\\\":\\\"false\\\",\\\"child_name\\\":\\\"item\\\",\\\"uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries\\\",\\\"uiTypeLabel\\\":\\\"Array.Object\\\",\\\"co_type_name\\\":\\\"FD77c39c0777c1b90ac01e07b6f3b21025\\\",\\\"child_label\\\":\\\"Item\\\",\\\"child_type_label\\\":\\\"Object\\\",\\\"read_only\\\":\\\"false\\\",\\\"sourceUiUniqueId\\\":\\\"\\\",\\\"sourceType\\\":\\\"\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"array.object\\\",\\\"child_defaultValue\\\":\\\"\\\",\\\"child_type\\\":\\\"object\\\",\\\"order\\\":\\\"8\\\",\\\"max_length\\\":\\\"65000\\\",\\\"child_uiUniqueId\\\":\\\"780b5c760c6e0d0aff45cbaede4ce084-entries-child\\\"}\"}},\"complexObject\":{\"name$\":\"FD77c39c0777c1b90ac01e07b6f3b21025\",\"$COCollectionField\":[{\"code\":\"A-100\",\"rank\":2,\"closed\":false},{\"code\":\"A-200\",\"rank\":5,\"closed\":true}]},\"serializationFormat\":\"JSON\"}",
+              "children": [
+                {
+                  "name": "item",
+                  "value": "",
+                  "displayValue": "",
+                  "children": [
+                    {
+                      "id": "",
+                      "name": "code",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "string",
+                        "type_label": "String",
+                        "id": "",
+                        "label": "code",
+                        "name": "code",
+                        "type": "string",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    },
+                    {
+                      "id": "",
+                      "name": "rank",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "integer",
+                        "type_label": "Integer",
+                        "id": "",
+                        "label": "rank",
+                        "name": "rank",
+                        "type": "integer",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    },
+                    {
+                      "id": "",
+                      "name": "closed",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "boolean",
+                        "type_label": "True/False",
+                        "id": "",
+                        "label": "closed",
+                        "name": "closed",
+                        "type": "boolean",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    }
+                  ]
+                },
+                {
+                  "name": "item",
+                  "value": "",
+                  "displayValue": "",
+                  "children": [
+                    {
+                      "id": "",
+                      "name": "code",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "string",
+                        "type_label": "String",
+                        "id": "",
+                        "label": "code",
+                        "name": "code",
+                        "type": "string",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    },
+                    {
+                      "id": "",
+                      "name": "rank",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "integer",
+                        "type_label": "Integer",
+                        "id": "",
+                        "label": "rank",
+                        "name": "rank",
+                        "type": "integer",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    },
+                    {
+                      "id": "",
+                      "name": "closed",
+                      "value": "",
+                      "displayValue": "",
+                      "children": [],
+                      "parameter": {
+                        "children": [],
+                        "uiDisplayType": "boolean",
+                        "type_label": "True/False",
+                        "id": "",
+                        "label": "closed",
+                        "name": "closed",
+                        "type": "boolean",
+                        "order": 0,
+                        "extended": false,
+                        "mandatory": false,
+                        "readOnly": false,
+                        "hint": "",
+                        "maxsize": 0,
+                        "reference": "",
+                        "reference_display": "",
+                        "choiceOption": "",
+                        "table": "",
+                        "columnName": "",
+                        "defaultValue": "",
+                        "defaultDisplayValue": "",
+                        "use_dependent": false,
+                        "fShowReferenceFinder": false,
+                        "local": false,
+                        "attributes": {},
+                        "ref_qual": "",
+                        "dependent_on": ""
+                      },
+                      "scriptActive": false,
+                      "script": {}
+                    }
+                  ]
+                }
+              ],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "e7674b7d16bcad377f940e08f0b6ad1f",
+      "fields": {
+        "sys_id": "e7674b7d16bcad377f940e08f0b6ad1f",
+        "sys_scope": "global",
+        "action_type": "43400a1587003300663ca1bb36cb0b4b",
+        "action_type_parent": "d1c56ec50b30030085c083eb37673a50",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "5",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "e7674b7d-16bc-ad37-7f94-0e08f0b6ad1f",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "conditions",
+            "value": "caller_id={{Created_1.current.caller_id}}^active=true",
+            "displayValue": "caller_id={{Created_1.current.caller_id}}^active=true",
+            "scriptActive": false,
+            "parameter": {
+              "type": "conditions"
+            }
+          },
+          {
+            "name": "sort_type",
+            "value": "sort_asc",
+            "displayValue": "sort_asc",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "max_results",
+            "value": 30,
+            "displayValue": 30,
+            "scriptActive": false,
+            "parameter": {
+              "type": "integer"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "f90c7b06c23eb0081596e0920f1e1fb9",
+      "fields": {
+        "sys_id": "f90c7b06c23eb0081596e0920f1e1fb9",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "098e1dc5c3e232002841b63b12d3ae33",
+        "order": "6",
+        "ui_id": "f90c7b06-c23e-b008-1596-e0920f1e1fb9",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "items",
+              "value": "{{e7674b7d-16bc-ad37-7f94-0e08f0b6ad1f.Records}}",
+              "displayValue": "{{e7674b7d-16bc-ad37-7f94-0e08f0b6ad1f.Records}}"
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "b5c37725e9d0d17ee1ea77dd0316660e",
+      "fields": {
+        "sys_id": "b5c37725e9d0d17ee1ea77dd0316660e",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "af4e1945c3e232002841b63b12d3ae3e",
+        "order": "7",
+        "parent_ui_id": "f90c7b06-c23e-b008-1596-e0920f1e1fb9",
+        "ui_id": "b5c37725-e9d0-d17e-e1ea-77dd0316660e",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.sys_id}}={{Created_1.current.sys_id}}",
+              "displayValue": "{{f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.sys_id}}={{Created_1.current.sys_id}}",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "cf8d8ed4256931c16c1af9be28f6b588",
+      "fields": {
+        "sys_id": "cf8d8ed4256931c16c1af9be28f6b588",
+        "sys_scope": "global",
+        "comment": "Skip the triggering record",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "48de1b5837063110ac85cdd734924b15",
+        "order": "8",
+        "parent_ui_id": "b5c37725-e9d0-d17e-e1ea-77dd0316660e",
+        "ui_id": "cf8d8ed4-2569-31c1-6c1a-f9be28f6b588",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "437b597495064f8c4489e5da8e2a2402",
+      "fields": {
+        "sys_id": "437b597495064f8c4489e5da8e2a2402",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "af4e1945c3e232002841b63b12d3ae3e",
+        "order": "9",
+        "parent_ui_id": "f90c7b06-c23e-b008-1596-e0920f1e1fb9",
+        "ui_id": "437b5974-9506-4f8c-4489-e5da8e2a2402",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.major_incident_state}}=accepted",
+              "displayValue": "{{f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.major_incident_state}}=accepted",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "7461eb63bf37e297b3773af2dc73e47a",
+      "fields": {
+        "sys_id": "7461eb63bf37e297b3773af2dc73e47a",
+        "sys_scope": "global",
+        "comment": "Stop at a major incident",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "7444b31c37063110ac85cdd734924bff",
+        "order": "10",
+        "parent_ui_id": "437b5974-9506-4f8c-4489-e5da8e2a2402",
+        "ui_id": "7461eb63-bf37-e297-b377-3af2dc73e47a",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "9b020259fa05ff6bfd0ccf482d7af49e",
+      "fields": {
+        "sys_id": "9b020259fa05ff6bfd0ccf482d7af49e",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "11",
+        "parent_ui_id": "f90c7b06-c23e-b008-1596-e0920f1e1fb9",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "9b020259-fa05-ff6b-fd0c-cf482d7af49e",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Related {{f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.number}}",
+            "displayValue": "Related {{f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.number}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "7d08e5a8743597564e2271e4111229b5",
+      "fields": {
+        "sys_id": "7d08e5a8743597564e2271e4111229b5",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "098e1dc5c3e232002841b63b12d3ae33",
+        "order": "12",
+        "ui_id": "7d08e5a8-7435-9756-4e22-71e4111229b5",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "items",
+              "value": "{{flow_variable.entries}}",
+              "displayValue": "{{flow_variable.entries}}"
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "a787741105895c5be3f775ed8c74d6cc",
+      "fields": {
+        "sys_id": "a787741105895c5be3f775ed8c74d6cc",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "13",
+        "parent_ui_id": "7d08e5a8-7435-9756-4e22-71e4111229b5",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "a7877411-0589-5c5b-e3f7-75ed8c74d6cc",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Entry {{7d08e5a8-7435-9756-4e22-71e4111229b5.item.code}} rank {{7d08e5a8-7435-9756-4e22-71e4111229b5.item.rank}}",
+            "displayValue": "Entry {{7d08e5a8-7435-9756-4e22-71e4111229b5.item.code}} rank {{7d08e5a8-7435-9756-4e22-71e4111229b5.item.rank}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "a421c3af36c702cabe9d05a31aa04d47",
+      "fields": {
+        "sys_id": "a421c3af36c702cabe9d05a31aa04d47",
+        "sys_scope": "global",
+        "comment": "Fixed pause",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "fdb2541473031300b61e66476bf6a70e",
+        "order": "14",
+        "ui_id": "a421c3af-36c7-02ca-be9d-05a31aa04d47",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "4973581473031300b61e66476bf6a785",
+              "name": "duration_type",
+              "value": "explicit_duration",
+              "displayValue": "Explicit duration",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "bf1d6161b736230034c6ce69ee11a920",
+              "name": "percentage_timer_input_datetime",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "8033309c5376230034c6ddeeff7b12e1",
+              "name": "timer_percentage",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "ef145c1473031300b61e66476bf6a7be",
+              "name": "timer_duration",
+              "value": "1970-01-01 00:45:00",
+              "displayValue": "1970-01-01 00:45:00",
+              "children": [],
+              "scriptActive": false,
+              "parameter": {
+                "type": "glide_duration"
+              }
+            },
+            {
+              "id": "dca4105473031300b61e66476bf6a726",
+              "name": "timer_relative_duration_operator",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "1f25d05473031300b61e66476bf6a773",
+              "name": "timer_relative_duration_datetime",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "fb55145473031300b61e66476bf6a762",
+              "name": "timer_schedule",
+              "value": "08fcd0830a0a0b2600079f56b1adb9ae",
+              "displayValue": "08fcd0830a0a0b2600079f56b1adb9ae",
+              "children": [],
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "0cee402adf9953d2170ab658aeb67a75",
+      "fields": {
+        "sys_id": "0cee402adf9953d2170ab658aeb67a75",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "fdb2541473031300b61e66476bf6a70e",
+        "order": "15",
+        "ui_id": "0cee402a-df99-53d2-170a-b658aeb67a75",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "4973581473031300b61e66476bf6a785",
+              "name": "duration_type",
+              "value": "relative_duration",
+              "displayValue": "Relative duration",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "bf1d6161b736230034c6ce69ee11a920",
+              "name": "percentage_timer_input_datetime",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "8033309c5376230034c6ddeeff7b12e1",
+              "name": "timer_percentage",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "ef145c1473031300b61e66476bf6a7be",
+              "name": "timer_duration",
+              "value": "1970-01-01 04:00:00",
+              "displayValue": "1970-01-01 04:00:00",
+              "children": [],
+              "scriptActive": false,
+              "parameter": {
+                "type": "glide_duration"
+              }
+            },
+            {
+              "id": "dca4105473031300b61e66476bf6a726",
+              "name": "timer_relative_duration_operator",
+              "value": "after",
+              "displayValue": "after",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "1f25d05473031300b61e66476bf6a773",
+              "name": "timer_relative_duration_datetime",
+              "value": "{{Created_1.current.opened_at}}",
+              "displayValue": "{{Created_1.current.opened_at}}",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "fb55145473031300b61e66476bf6a762",
+              "name": "timer_schedule",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "70c55bdab5ccdb8dfd8e4286ea81a313",
+      "fields": {
+        "sys_id": "70c55bdab5ccdb8dfd8e4286ea81a313",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "fdb2541473031300b61e66476bf6a70e",
+        "order": "16",
+        "ui_id": "70c55bda-b5cc-db8d-fd8e-4286ea81a313",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "4973581473031300b61e66476bf6a785",
+              "name": "duration_type",
+              "value": "percentage_duration",
+              "displayValue": "Percentage duration",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "bf1d6161b736230034c6ce69ee11a920",
+              "name": "percentage_timer_input_datetime",
+              "value": "{{Created_1.current.opened_at}}",
+              "displayValue": "{{Created_1.current.opened_at}}",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "8033309c5376230034c6ddeeff7b12e1",
+              "name": "timer_percentage",
+              "value": "80",
+              "displayValue": "80",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "ef145c1473031300b61e66476bf6a7be",
+              "name": "timer_duration",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false,
+              "parameter": {
+                "type": "glide_duration"
+              }
+            },
+            {
+              "id": "dca4105473031300b61e66476bf6a726",
+              "name": "timer_relative_duration_operator",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "1f25d05473031300b61e66476bf6a773",
+              "name": "timer_relative_duration_datetime",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "fb55145473031300b61e66476bf6a762",
+              "name": "timer_schedule",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "737251011e04a9e2751a89ef220c28a8",
+      "fields": {
+        "sys_id": "737251011e04a9e2751a89ef220c28a8",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "17",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "73725101-1e04-a9e2-751a-89ef220c28a8",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Paused for {{a421c3af-36c7-02ca-be9d-05a31aa04d47.total_duration}}, resumed at {{a421c3af-36c7-02ca-be9d-05a31aa04d47.scheduled_end_date_time}}",
+            "displayValue": "Paused for {{a421c3af-36c7-02ca-be9d-05a31aa04d47.total_duration}}, resumed at {{a421c3af-36c7-02ca-be9d-05a31aa04d47.scheduled_end_date_time}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "05f85acf67fe679da77cb43626d1aee9",
+      "fields": {
+        "sys_id": "05f85acf67fe679da77cb43626d1aee9",
+        "sys_scope": "global",
+        "comment": "Protected update",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "07223332de022010ec58424b73829721",
+        "order": "18",
+        "ui_id": "05f85acf-67fe-679d-a77c-b43626d1aee9",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "472b094a7e96650e695955768d9354e0",
+      "fields": {
+        "sys_id": "472b094a7e96650e695955768d9354e0",
+        "sys_scope": "global",
+        "action_type": "f9d01dd2c31332002841b63b12d3aea1",
+        "action_type_parent": "baf174c8c3c232002841b63b12d3aee4",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "19",
+        "parent_ui_id": "05f85acf-67fe-679d-a77c-b43626d1aee9",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "472b094a-7e96-650e-6959-55768d9354e0",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "values",
+            "value": "work_notes=Checked by the logic flow^EQ",
+            "displayValue": "work_notes=Checked by the logic flow^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "d9822c2bee083390f29fa876f99566ee",
+      "fields": {
+        "sys_id": "d9822c2bee083390f29fa876f99566ee",
+        "sys_scope": "global",
+        "connected_to": "05f85acf-67fe-679d-a77c-b43626d1aee9",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "35d60003e6022010a5e40cdd1254dd21",
+        "order": "20",
+        "ui_id": "d9822c2b-ee08-3390-f29f-a876f99566ee",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "0e4574c29e441dea0f246542f512d306",
+      "fields": {
+        "sys_id": "0e4574c29e441dea0f246542f512d306",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "flow_variables_assigned": "is_open,label_text",
+        "logic_definition": "4f787d1e0f9b0010ecf0cc52ff767ea0",
+        "order": "21",
+        "parent_ui_id": "d9822c2b-ee08-3390-f29f-a876f99566ee",
+        "ui_id": "0e4574c2-9e44-1dea-0f24-6542f512d306",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "7aa2f35b51b979acc5148e9dab868f2d",
+              "name": "is_open",
+              "value": "true",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "ab17cba16154f9eb0d7e3a2e5f6abcf6",
+              "name": "label_text",
+              "value": "update failed",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [
+            {
+              "id": "7aa2f35b51b979acc5148e9dab868f2d",
+              "name": "is_open",
+              "value": "true",
+              "displayValue": "true",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "ab17cba16154f9eb0d7e3a2e5f6abcf6",
+              "name": "label_text",
+              "value": "update failed",
+              "displayValue": "update failed",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "4f90f36f6c8e0ef3c9088330d0e76a40",
+      "fields": {
+        "sys_id": "4f90f36f6c8e0ef3c9088330d0e76a40",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "22",
+        "parent_ui_id": "d9822c2b-ee08-3390-f29f-a876f99566ee",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "4f90f36f-6c8e-0ef3-c908-8330d0e76a40",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "error",
+            "displayValue": "error",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "The protected update failed",
+            "displayValue": "The protected update failed",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "1466040fd5e6f2e3327d8044472d9129",
+      "fields": {
+        "sys_id": "1466040fd5e6f2e3327d8044472d9129",
+        "sys_scope": "global",
+        "comment": "Three branches",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "5d31e5dedfe50300b61ecae83df26326",
+        "order": "23",
+        "ui_id": "1466040f-d5e6-f2e3-327d-8044472d9129",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "d4679135eb3ff01014ec4fc91fb219c4",
+      "fields": {
+        "sys_id": "d4679135eb3ff01014ec4fc91fb219c4",
+        "sys_scope": "global",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "a1168de173311300b61e66476bf6a7d0",
+        "order": "24",
+        "parent_ui_id": "1466040f-d5e6-f2e3-327d-8044472d9129",
+        "ui_id": "d4679135-eb3f-f010-14ec-4fc91fb219c4",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "ec0ba0156eaeb062b698b2d7cc344009",
+      "fields": {
+        "sys_id": "ec0ba0156eaeb062b698b2d7cc344009",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "24➛25",
+        "parent_ui_id": "d4679135-eb3f-f010-14ec-4fc91fb219c4",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "ec0ba015-6eae-b062-b698-b2d7cc344009",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Branch one, first",
+            "displayValue": "Branch one, first",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c44ee51cbf1b1775e5332120fd9285ce",
+      "fields": {
+        "sys_id": "c44ee51cbf1b1775e5332120fd9285ce",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "26",
+        "parent_ui_id": "d4679135-eb3f-f010-14ec-4fc91fb219c4",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c44ee51c-bf1b-1775-e533-2120fd9285ce",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Branch one, second",
+            "displayValue": "Branch one, second",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "6a1a6af08e586a58f7b6342c6ba57ad1",
+      "fields": {
+        "sys_id": "6a1a6af08e586a58f7b6342c6ba57ad1",
+        "sys_scope": "global",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "a1168de173311300b61e66476bf6a7d0",
+        "order": "27",
+        "parent_ui_id": "1466040f-d5e6-f2e3-327d-8044472d9129",
+        "ui_id": "6a1a6af0-8e58-6a58-f7b6-342c6ba57ad1",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "fd43eedf7e9d45262b0ae6016df51d32",
+      "fields": {
+        "sys_id": "fd43eedf7e9d45262b0ae6016df51d32",
+        "sys_scope": "global",
+        "action_type": "9d09f99587003300663ca1bb36cb0ba3",
+        "action_type_parent": "b93f42810b30030085c083eb37673a63",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "27➛28",
+        "parent_ui_id": "6a1a6af0-8e58-6a58-f7b6-342c6ba57ad1",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "fd43eedf-7e9d-4526-2b0a-e6016df51d32",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table",
+            "value": "sys_user",
+            "displayValue": "sys_user",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "conditions",
+            "value": "active=true^roles=itil",
+            "displayValue": "active=true^roles=itil",
+            "scriptActive": false,
+            "parameter": {
+              "type": "conditions"
+            }
+          },
+          {
+            "name": "sort_type",
+            "value": "sort_asc",
+            "displayValue": "sort_asc",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "if_multiple_records_are_found_action",
+            "value": "use_first_record",
+            "displayValue": "use_first_record",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "aa1afd0cd49537e917e2f2b27a9fd237",
+      "fields": {
+        "sys_id": "aa1afd0cd49537e917e2f2b27a9fd237",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "flow_variables_assigned": "owner",
+        "logic_definition": "4f787d1e0f9b0010ecf0cc52ff767ea0",
+        "order": "29",
+        "parent_ui_id": "6a1a6af0-8e58-6a58-f7b6-342c6ba57ad1",
+        "ui_id": "aa1afd0c-d495-37e9-17e2-f2b27a9fd237",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "a1d8712abefb821ddfdc61613457e94a",
+              "name": "owner",
+              "value": "{{fd43eedf-7e9d-4526-2b0a-e6016df51d32.Record}}",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [
+            {
+              "id": "a1d8712abefb821ddfdc61613457e94a",
+              "name": "owner",
+              "value": "{{fd43eedf-7e9d-4526-2b0a-e6016df51d32.Record}}",
+              "displayValue": "{{fd43eedf-7e9d-4526-2b0a-e6016df51d32.Record}}",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "ecfbc32b45c45c08ef9a4e9805d741e0",
+      "fields": {
+        "sys_id": "ecfbc32b45c45c08ef9a4e9805d741e0",
+        "sys_scope": "global",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "a1168de173311300b61e66476bf6a7d0",
+        "order": "30",
+        "parent_ui_id": "1466040f-d5e6-f2e3-327d-8044472d9129",
+        "ui_id": "ecfbc32b-45c4-5c08-ef9a-4e9805d741e0",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "99540e65c807656739b2432236a3f1b3",
+      "fields": {
+        "sys_id": "99540e65c807656739b2432236a3f1b3",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "30➛31",
+        "parent_ui_id": "ecfbc32b-45c4-5c08-ef9a-4e9805d741e0",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "99540e65-c807-6567-39b2-432236a3f1b3",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Branch three",
+            "displayValue": "Branch three",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "9816c0591943cbfc20371ef0cf0d1bb7",
+      "fields": {
+        "sys_id": "9816c0591943cbfc20371ef0cf0d1bb7",
+        "sys_scope": "global",
+        "comment": "Poll the record",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "eaeb040687210300e6c2c88fc0e3ec89",
+        "order": "32",
+        "ui_id": "9816c059-1943-cbfc-2037-1ef0cf0d1bb7",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition_name",
+              "value": "Until resolved or closed",
+              "displayValue": "Until resolved or closed",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{ba5a5948-f6eb-224c-82bd-396eac39e3af.Record.state}}=6^OR{{flow_variable.is_open}}=false",
+              "displayValue": "{{ba5a5948-f6eb-224c-82bd-396eac39e3af.Record.state}}=6^OR{{flow_variable.is_open}}=false",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "ba5a5948f6eb224c82bd396eac39e3af",
+      "fields": {
+        "sys_id": "ba5a5948f6eb224c82bd396eac39e3af",
+        "sys_scope": "global",
+        "action_type": "9d09f99587003300663ca1bb36cb0ba3",
+        "action_type_parent": "b93f42810b30030085c083eb37673a63",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "33",
+        "parent_ui_id": "9816c059-1943-cbfc-2037-1ef0cf0d1bb7",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "ba5a5948-f6eb-224c-82bd-396eac39e3af",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "conditions",
+            "value": "sys_id={{Created_1.current.sys_id}}",
+            "displayValue": "sys_id={{Created_1.current.sys_id}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "conditions"
+            }
+          },
+          {
+            "name": "sort_type",
+            "value": "sort_asc",
+            "displayValue": "sort_asc",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "if_multiple_records_are_found_action",
+            "value": "use_first_record",
+            "displayValue": "use_first_record",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "0c7e6f6a12f52b056d157cf6b686ecda",
+      "fields": {
+        "sys_id": "0c7e6f6a12f52b056d157cf6b686ecda",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "logic_definition": "fdb2541473031300b61e66476bf6a70e",
+        "order": "34",
+        "parent_ui_id": "9816c059-1943-cbfc-2037-1ef0cf0d1bb7",
+        "ui_id": "0c7e6f6a-12f5-2b05-6d15-7cf6b686ecda",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "4973581473031300b61e66476bf6a785",
+              "name": "duration_type",
+              "value": "explicit_duration",
+              "displayValue": "Explicit duration",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "bf1d6161b736230034c6ce69ee11a920",
+              "name": "percentage_timer_input_datetime",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "8033309c5376230034c6ddeeff7b12e1",
+              "name": "timer_percentage",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "ef145c1473031300b61e66476bf6a7be",
+              "name": "timer_duration",
+              "value": "1970-01-01 00:10:00",
+              "displayValue": "1970-01-01 00:10:00",
+              "children": [],
+              "scriptActive": false,
+              "parameter": {
+                "type": "glide_duration"
+              }
+            },
+            {
+              "id": "dca4105473031300b61e66476bf6a726",
+              "name": "timer_relative_duration_operator",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "1f25d05473031300b61e66476bf6a773",
+              "name": "timer_relative_duration_datetime",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            },
+            {
+              "id": "fb55145473031300b61e66476bf6a762",
+              "name": "timer_schedule",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c3986a774d45f4446fdbc9c03189db68",
+      "fields": {
+        "sys_id": "c3986a774d45f4446fdbc9c03189db68",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "780b5c760c6e0d0aff45cbaede4ce084",
+        "generation_source": "",
+        "order": "35",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c3986a77-4d45-f444-6fdb-c9c03189db68",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Finished {{flow_variable.label_text}} {{flow_variable.counter}} {{flow_variable.owner.name}}",
+            "displayValue": "Finished {{flow_variable.label_text}} {{flow_variable.counter}} {{flow_variable.owner.name}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.current.number",
+      "platform": "Created_1.current.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.current.opened_at",
+      "platform": "Created_1.current.opened_at",
+      "type": "glide_date_time"
+    },
+    {
+      "symbolic": "trigger.current.opened_by",
+      "platform": "Created_1.current.opened_by",
+      "type": "reference"
+    },
+    {
+      "symbolic": "trigger.current.caller_id",
+      "platform": "Created_1.current.caller_id",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.logic_related.Records",
+      "platform": "e7674b7d-16bc-ad37-7f94-0e08f0b6ad1f.Records",
+      "type": "records"
+    },
+    {
+      "symbolic": "loop.logic_each.item.sys_id",
+      "platform": "f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.sys_id",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.current.sys_id",
+      "platform": "Created_1.current.sys_id",
+      "type": "string"
+    },
+    {
+      "symbolic": "loop.logic_each.item.major_incident_state",
+      "platform": "f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.major_incident_state",
+      "type": "string"
+    },
+    {
+      "symbolic": "loop.logic_each.item.number",
+      "platform": "f90c7b06-c23e-b008-1596-e0920f1e1fb9.item.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "vars.entries",
+      "platform": "flow_variable.entries",
+      "type": "array.object"
+    },
+    {
+      "symbolic": "loop.logic_each_entry.item.code",
+      "platform": "7d08e5a8-7435-9756-4e22-71e4111229b5.item.code",
+      "type": "string"
+    },
+    {
+      "symbolic": "loop.logic_each_entry.item.rank",
+      "platform": "7d08e5a8-7435-9756-4e22-71e4111229b5.item.rank",
+      "type": "integer"
+    },
+    {
+      "symbolic": "steps.logic_pause.total_duration",
+      "platform": "a421c3af-36c7-02ca-be9d-05a31aa04d47.total_duration",
+      "type": "glide_duration"
+    },
+    {
+      "symbolic": "steps.logic_pause.scheduled_end_date_time",
+      "platform": "a421c3af-36c7-02ca-be9d-05a31aa04d47.scheduled_end_date_time",
+      "type": "glide_date_time"
+    },
+    {
+      "symbolic": "trigger.current",
+      "platform": "Created_1.current",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.logic_b2_user.Record",
+      "platform": "fd43eedf-7e9d-4526-2b0a-e6016df51d32.Record",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.logic_poll_read.Record.state",
+      "platform": "ba5a5948-f6eb-224c-82bd-396eac39e3af.Record.state",
+      "type": "integer"
+    },
+    {
+      "symbolic": "vars.is_open",
+      "platform": "flow_variable.is_open",
+      "type": "boolean"
+    },
+    {
+      "symbolic": "vars.label_text",
+      "platform": "flow_variable.label_text",
+      "type": "string"
+    },
+    {
+      "symbolic": "vars.counter",
+      "platform": "flow_variable.counter",
+      "type": "integer"
+    },
+    {
+      "symbolic": "vars.owner.name",
+      "platform": "flow_variable.owner.name",
+      "type": "string"
+    }
+  ]
+}

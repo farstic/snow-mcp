@@ -1,0 +1,630 @@
+{
+  "sys_id": "3b517397ff54431036b0ffffffffff4d",
+  "flow": "c8920755ffe776500b47fffffffffffc",
+  "name": "Created or Updated",
+  "trigger_type": "record_create_or_update",
+  "trigger_definition": "a45d9180c32222002841b63b12d3aea7",
+  "sys_scope": "",
+  "trigger_outputs": "",
+  "sys_mod_count": "6",
+  "sys_created_on": "2026-04-22 19:22:49",
+  "sys_updated_on": "2026-06-10 19:19:47",
+  "trigger_inputs": "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",
+  "trigger_inputs_decoded": [
+    {
+      "label": "Table",
+      "internalType": "table_name",
+      "mandatory": true,
+      "fromTemplate": false,
+      "order": 1,
+      "valueSysId": "",
+      "name": "table",
+      "value": "incident",
+      "displayValue": "Incident",
+      "children": [],
+      "parameter": {
+        "children": [],
+        "id": "cf1e1980c32222002841b63b12d3aea0",
+        "label": "Table",
+        "name": "table",
+        "type": "table_name",
+        "order": 1,
+        "extended": false,
+        "mandatory": true,
+        "readOnly": false,
+        "maxsize": 80,
+        "reference": "",
+        "reference_display": "",
+        "choiceOption": "",
+        "table": "",
+        "columnName": "",
+        "defaultValue": "",
+        "use_dependent": false,
+        "fShowReferenceFinder": false,
+        "local": false,
+        "attributes": {
+          "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+        },
+        "ref_qual": "",
+        "dependent_on": ""
+      },
+      "displayField": "number",
+      "scriptActive": false
+    },
+    {
+      "label": "Condition",
+      "internalType": "conditions",
+      "mandatory": false,
+      "fromTemplate": false,
+      "order": 100,
+      "valueSysId": "",
+      "name": "condition",
+      "value": "assigned_toISNOTEMPTY^assigned_to.identity_type!=ai_agent^state=2",
+      "children": [],
+      "parameter": {
+        "children": [],
+        "id": "707dd180c32222002841b63b12d3aecb",
+        "label": "Condition",
+        "name": "condition",
+        "type": "conditions",
+        "order": 100,
+        "extended": false,
+        "mandatory": false,
+        "readOnly": false,
+        "maxsize": 4000,
+        "reference": "",
+        "reference_display": "",
+        "choiceOption": "",
+        "table": "",
+        "columnName": "",
+        "defaultValue": "",
+        "use_dependent": true,
+        "fShowReferenceFinder": false,
+        "local": false,
+        "attributes": {
+          "modelDependent": "trigger_inputs",
+          "wants_to_add_conditions": "true",
+          "extended_operators": "VALCHANGES;CHANGESFROM;CHANGESTO"
+        },
+        "ref_qual": "",
+        "dependent_on": "table"
+      },
+      "displayField": "",
+      "scriptActive": false
+    },
+    {
+      "label": "run_on_extended",
+      "internalType": "choice",
+      "choiceList": [
+        {
+          "fSequence": -1,
+          "fValue": "false",
+          "fLabel": "Run only on current table",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "true",
+          "fLabel": "Run on current and extended tables",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        }
+      ],
+      "mandatory": false,
+      "fromTemplate": false,
+      "order": 100,
+      "valueSysId": "",
+      "name": "run_on_extended",
+      "value": "false",
+      "displayValue": "",
+      "children": [],
+      "parameter": {
+        "children": [],
+        "id": "1c4203b6072200103bf10705afd300b8",
+        "label": "run_on_extended",
+        "name": "run_on_extended",
+        "type": "choice",
+        "order": 100,
+        "extended": false,
+        "mandatory": false,
+        "readOnly": false,
+        "maxsize": 40,
+        "reference": "",
+        "reference_display": "",
+        "choices": [
+          {
+            "label": "Run only on current table",
+            "value": "false",
+            "order": 0
+          },
+          {
+            "label": "Run on current and extended tables",
+            "value": "true",
+            "order": 1
+          }
+        ],
+        "defaultChoices": [
+          {
+            "label": "Run only on current table",
+            "value": "false",
+            "order": 1
+          },
+          {
+            "label": "Run on current and extended tables",
+            "value": "true",
+            "order": 2
+          }
+        ],
+        "choiceOption": "3",
+        "table": "",
+        "columnName": "",
+        "defaultValue": "false",
+        "defaultDisplayValue": "Run only on current table",
+        "use_dependent": false,
+        "fShowReferenceFinder": false,
+        "local": false,
+        "attributes": {
+          "advanced": "true"
+        },
+        "ref_qual": "",
+        "dependent_on": ""
+      },
+      "scriptActive": false
+    },
+    {
+      "label": "run_flow_in",
+      "internalType": "choice",
+      "choiceList": [
+        {
+          "fSequence": -1,
+          "fValue": "background",
+          "fLabel": "Run flow in background (default)",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "foreground",
+          "fLabel": "Run flow in foreground",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        }
+      ],
+      "mandatory": false,
+      "fromTemplate": false,
+      "order": 100,
+      "valueSysId": "",
+      "name": "run_flow_in",
+      "value": "foreground",
+      "children": [],
+      "parameter": {
+        "children": [],
+        "id": "231e76460f103300b599bca2ff767e11",
+        "label": "run_flow_in",
+        "name": "run_flow_in",
+        "type": "choice",
+        "order": 100,
+        "extended": false,
+        "mandatory": false,
+        "readOnly": false,
+        "maxsize": 40,
+        "reference": "",
+        "reference_display": "",
+        "choices": [
+          {
+            "label": "Run flow in background (default)",
+            "value": "background",
+            "order": 0
+          },
+          {
+            "label": "Run flow in foreground",
+            "value": "foreground",
+            "order": 1
+          }
+        ],
+        "defaultChoices": [
+          {
+            "label": "Run flow in background (default)",
+            "value": "background",
+            "order": 1
+          },
+          {
+            "label": "Run flow in foreground",
+            "value": "foreground",
+            "order": 2
+          }
+        ],
+        "choiceOption": "3",
+        "table": "",
+        "columnName": "",
+        "defaultValue": "any",
+        "defaultDisplayValue": "any",
+        "use_dependent": false,
+        "fShowReferenceFinder": false,
+        "local": false,
+        "attributes": {
+          "advanced": "true"
+        },
+        "ref_qual": "",
+        "dependent_on": ""
+      },
+      "displayField": "",
+      "scriptActive": false
+    },
+    {
+      "label": "run_when_user_list",
+      "internalType": "glide_list",
+      "mandatory": false,
+      "fromTemplate": false,
+      "order": 100,
+      "valueSysId": "",
+      "name": "run_when_user_list",
+      "value": "",
+      "displayValue": "",
+      "children": [],
+      "parameter": {
+        "children": [],
+        "id": "cb9d5577c7002300f4eba1425a9763ef",
+        "label": "run_when_user_list",
+        "name": "run_when_user_list",
+        "type": "glide_list",
+        "order": 100,
+        "extended": false,
+        "mandatory": false,
+        "readOnly": false,
+        "maxsize": 4000,
+        "reference": "sys_user",
+        "reference_display": "User",
+        "choiceOption": "",
+        "table": "",
+        "columnName": "",
+        "defaultValue": "",
+        "use_dependent": false,
+        "fShowReferenceFinder": false,
+        "local": false,
+        "attributes": {
+          "advanced": "true"
+        },
+        "ref_qual": "",
+        "dependent_on": ""
+      },
+      "scriptActive": false
+    },
+    {
+      "label": "run_when_setting",
+      "internalType": "choice",
+      "choiceList": [
+        {
+          "fSequence": -1,
+          "fValue": "non_interactive",
+          "fLabel": "Only Run for Non-Interactive Session",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "interactive",
+          "fLabel": "Only Run for User Interactive Session",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "both",
+          "fLabel": "Run for Both Interactive and Non-Interactive Sessions",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        }
+      ],
+      "mandatory": false,
+      "fromTemplate": false,
+      "order": 100,
+      "valueSysId": "",
+      "name": "run_when_setting",
+      "value": "both",
+      "displayValue": "",
+      "children": [],
+      "parameter": {
+        "children": [],
+        "id": "a22a9137c7002300f4eba1425a976376",
+        "label": "run_when_setting",
+        "name": "run_when_setting",
+        "type": "choice",
+        "order": 100,
+        "extended": false,
+        "mandatory": false,
+        "readOnly": false,
+        "maxsize": 40,
+        "reference": "",
+        "reference_display": "",
+        "choices": [
+          {
+            "label": "Only Run for Non-Interactive Session",
+            "value": "non_interactive",
+            "order": 0
+          },
+          {
+            "label": "Only Run for User Interactive Session",
+            "value": "interactive",
+            "order": 1
+          },
+          {
+            "label": "Run for Both Interactive and Non-Interactive Sessions",
+            "value": "both",
+            "order": 2
+          }
+        ],
+        "defaultChoices": [
+          {
+            "label": "Only Run for Non-Interactive Session",
+            "value": "non_interactive",
+            "order": 1
+          },
+          {
+            "label": "Only Run for User Interactive Session",
+            "value": "interactive",
+            "order": 2
+          },
+          {
+            "label": "Run for Both Interactive and Non-Interactive Sessions",
+            "value": "both",
+            "order": 3
+          }
+        ],
+        "choiceOption": "3",
+        "table": "",
+        "columnName": "",
+        "defaultValue": "both",
+        "defaultDisplayValue": "Run for Both Interactive and Non-Interactive Sessions",
+        "use_dependent": false,
+        "fShowReferenceFinder": false,
+        "local": false,
+        "attributes": {
+          "advanced": "true"
+        },
+        "ref_qual": "",
+        "dependent_on": ""
+      },
+      "scriptActive": false
+    },
+    {
+      "label": "run_when_user_setting",
+      "internalType": "choice",
+      "choiceList": [
+        {
+          "fSequence": -1,
+          "fValue": "not_one_of",
+          "fLabel": "Do not run if triggered by the following users",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "one_of",
+          "fLabel": "Only Run if triggered by the following users",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "any",
+          "fLabel": "Run for any user",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        }
+      ],
+      "mandatory": false,
+      "fromTemplate": false,
+      "order": 100,
+      "valueSysId": "",
+      "name": "run_when_user_setting",
+      "value": "any",
+      "displayValue": "",
+      "children": [],
+      "parameter": {
+        "children": [],
+        "id": "ed3c9d37c7002300f4eba1425a976347",
+        "label": "run_when_user_setting",
+        "name": "run_when_user_setting",
+        "type": "choice",
+        "order": 100,
+        "extended": false,
+        "mandatory": false,
+        "readOnly": false,
+        "maxsize": 40,
+        "reference": "",
+        "reference_display": "",
+        "choices": [
+          {
+            "label": "Do not run if triggered by the following users",
+            "value": "not_one_of",
+            "order": 0
+          },
+          {
+            "label": "Only Run if triggered by the following users",
+            "value": "one_of",
+            "order": 1
+          },
+          {
+            "label": "Run for any user",
+            "value": "any",
+            "order": 2
+          }
+        ],
+        "defaultChoices": [
+          {
+            "label": "Do not run if triggered by the following users",
+            "value": "not_one_of",
+            "order": 1
+          },
+          {
+            "label": "Only Run if triggered by the following users",
+            "value": "one_of",
+            "order": 2
+          },
+          {
+            "label": "Run for any user",
+            "value": "any",
+            "order": 3
+          }
+        ],
+        "choiceOption": "3",
+        "table": "",
+        "columnName": "",
+        "defaultValue": "any",
+        "defaultDisplayValue": "Run for any user",
+        "use_dependent": false,
+        "fShowReferenceFinder": false,
+        "local": false,
+        "attributes": {
+          "advanced": "true"
+        },
+        "ref_qual": "",
+        "dependent_on": ""
+      },
+      "scriptActive": false
+    },
+    {
+      "label": "Run Trigger",
+      "internalType": "choice",
+      "choiceList": [
+        {
+          "fSequence": -1,
+          "fValue": "once",
+          "fLabel": "Once",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "unique_changes",
+          "fLabel": "For each unique change",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "always",
+          "fLabel": "Only if not currently running",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "every",
+          "fLabel": "For every update",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        }
+      ],
+      "mandatory": false,
+      "fromTemplate": false,
+      "order": 200,
+      "valueSysId": "",
+      "name": "trigger_strategy",
+      "value": "once",
+      "displayValue": "",
+      "children": [],
+      "parameter": {
+        "children": [],
+        "id": "2b9def50c31132002841b63b12d3ae5b",
+        "label": "Run Trigger",
+        "name": "trigger_strategy",
+        "type": "choice",
+        "order": 200,
+        "extended": false,
+        "mandatory": false,
+        "readOnly": false,
+        "hint": "Run Trigger every time the condition matches, or only the first time.",
+        "maxsize": 40,
+        "reference": "",
+        "reference_display": "",
+        "choices": [
+          {
+            "label": "Once",
+            "value": "once",
+            "order": 0
+          },
+          {
+            "label": "For each unique change",
+            "value": "unique_changes",
+            "order": 1
+          },
+          {
+            "label": "Only if not currently running",
+            "value": "always",
+            "order": 2
+          },
+          {
+            "label": "For every update",
+            "value": "every",
+            "order": 3
+          }
+        ],
+        "defaultChoices": [
+          {
+            "label": "Once",
+            "value": "once",
+            "order": 1
+          },
+          {
+            "label": "For each unique change",
+            "value": "unique_changes",
+            "order": 2
+          },
+          {
+            "label": "Only if not currently running",
+            "value": "always",
+            "order": 3
+          },
+          {
+            "label": "For every update",
+            "value": "every",
+            "order": 4
+          }
+        ],
+        "choiceOption": "3",
+        "table": "",
+        "columnName": "",
+        "defaultValue": "once",
+        "defaultDisplayValue": "Once",
+        "use_dependent": false,
+        "fShowReferenceFinder": false,
+        "local": false,
+        "attributes": {},
+        "ref_qual": "",
+        "dependent_on": ""
+      },
+      "scriptActive": false
+    }
+  ]
+}

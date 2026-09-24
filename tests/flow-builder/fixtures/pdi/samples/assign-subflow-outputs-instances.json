@@ -1,0 +1,180 @@
+[
+  {
+    "sys_id": "00190f76ff93b210ee27fffffffffffe",
+    "flow": "c4f0ed26ff8522105f72ffffffffffcf",
+    "order": "66",
+    "parent_ui_id": "35d52425-8d1d-4759-9db7-57d3cbc4dace",
+    "ui_id": "dcd23a23-5fb4-4a4f-9f5c-36e3625f7618",
+    "outputs_assigned": "display_message",
+    "values": "H4sIAAAAAAAA/51T32vbMBD+V4aeY2OldpLlrVAKhXWFNevLGEaWzomYLKmSnDQL/t93ihy3BAZjervvfn3f3elETB9sH/zG3Hovt5qsf5yIFGRNKF0wSj+3+CjMabFaiaqdXlORGdGsA4wU0lvFjnUH3rMtoGPPVB89pxPMRSGYKLOq5SIr52WVNeWKZwt601SiWpbVkuaJwzBg5ljr5b8L8J1UwkEU8nNGLHPIMYAj69OVKxwt1Io1oLDPc3BSbzH9X6VfEu8S30+Pk/a/DiU2RIe/tDJORF50RuAtgBaArVumPMxIx7RgwbjjhDhg4kmrd2AndcBqJAa/efkbS6+KooiRLaBIDsk7mfXIKMF8ZySHJxuk0QkJrFFjDjeq7/TXJCQuBVrWq3BZCiK9x3pgI+tIY+TUPu/M4dul4b3UZ4GjUxnO1GSxgGNo+gA+bqaXm6vhJOTL9XpAQYcd645Zi0htndnLcxck3eVbhUbeKnNAdvGcc8ajwhynyfJ7xO/O8AtzMsp9xDKYHNt91/K1h4e4ft6IkjYUsgXny6wEXmZN1S6zCoryZjGn+BgZzqOtX/soKg1pHEedJooBnjtpwy1S2MOkPIGoehjwCqWOvy9d5H5kNZoCuPRIfhOxhw9x4og3JvlH6GDcryj7HRv+APeaujbbAwAA",
+    "values_decoded": {
+      "outputsToAssign": [
+        {
+          "id": "116a119ffff1e21088d5ffffffffffb5",
+          "name": "display_message",
+          "value": "{{e2d0dad4-5fcd-4245-b48c-613b5d574571.output}}",
+          "displayValue": "{{e2d0dad4-5fcd-4245-b48c-613b5d574571.output}}",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "116a119ffff1e21088d5ffffffffffb5",
+            "label": "Display Message",
+            "name": "display_message",
+            "type": "string",
+            "order": 1,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "cbd41b1e-6cc7-4ec4-b5f7-5e043621111a"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false,
+          "script": {}
+        }
+      ],
+      "inputs": [],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  },
+  {
+    "sys_id": "03412d8d2b188f10d9e5f78fc891bf4f",
+    "flow": "f9ba6647eb8043509020f78cbad0cd18",
+    "order": "10",
+    "parent_ui_id": "4353c05f-dcdb-4821-9885-6e79c7691545",
+    "ui_id": "4137b38f-564f-4e17-b830-96fd2e410fa9",
+    "outputs_assigned": "error_message,status",
+    "values": "H4sIAAAAAAAA/81V204bMRD9lWifk2g3m8uaN0SLhNSCVCgvCEVeezax6rUXXwIpyr93nL2lQUhAq6ovkXw8njlzZk72OdLeVd7ZG31qrVip6OTuORI8OomSlE0Jn/JJTqZZkcScwKxYZAXLSJIXszgaRoqWgJFgjDbLEqylK0B4Q6UP+KUeCMUEB+UGBpg2fFBor8KvGbg1DFZiA6qPUb7MwWACLmwl6fb2T/OwtZDcQGjqfhhV1CBfhzcnz0dXblvBUtIcJJa7dkaoFT5/qwztw89Bh0GvwyvyhGII27YM9hM4TYYRPDlQHLBsQaWFYVRSxanTZtshBii/UrIH1kI5zBaF4CcrfmLqLI7jEFkANsigvu2Oy0bdGmZrLRhcVU5oVSOO5rJ5w7T0pbqs2whzgYJ66dq5IOIt5oMqsA40Gk7F9Vo/fmsLngu1b7C5lJpR2Z2oQxly78CGqXhxcyROjXw5Hg1IKLHisqRVhciyMnoj9lWQdDleSTyMC6kfkV1Y6zFlocMxqknH54h/2sO31IjQ7ldMs98YL74r8eDhIoyewRwHDMmIE5KNpumCj+ickBHJSLwg2ZwVkyza7aVdPvjQVC1SI8eyVhQDLDOicqdIYQNN57thYzM2oTNO2Cv7RUi/R9ZR5+2BvwoqpDfw0jDn3cXHHHC2X4rWAW9g2FunoXhMudl51iZudj79azufTt638Xb/R9fx9gyhQ21thzRU4zCxNr4X+OUsmvhkd98Z5uxjJZN3lpyEkkeGTv8XR3ej/93R3ar9E0dPc5Jni2k6mqU5OpryZEQKUozylM1yQuZpApMPOxrFFyp8S2tHbRomzZEDExYJ3wTs4iCOb9Esgh1Cj9r8CK322O4X0JpHo6kHAAA=",
+    "values_decoded": {
+      "outputsToAssign": [
+        {
+          "id": "13c49d4d2b948f10d9e5f78fc891bf50",
+          "name": "error_message",
+          "value": "No incident record found for the given incident number",
+          "displayValue": "No incident record found for the given incident number",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "13c49d4d2b948f10d9e5f78fc891bf50",
+            "label": "Error message",
+            "name": "error_message",
+            "type": "string",
+            "order": 2,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "ce6f50e1-d998-437d-a699-98907986cf28"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "id": "c2a5d9cd2b948f10d9e5f78fc891bf99",
+          "name": "status",
+          "value": "failure",
+          "displayValue": "Failure",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Choice",
+            "id": "c2a5d9cd2b948f10d9e5f78fc891bf99",
+            "label": "Status",
+            "name": "status",
+            "type": "choice",
+            "order": 3,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 32,
+            "reference": "",
+            "reference_display": "",
+            "choices": [
+              {
+                "label": "Success",
+                "value": "success",
+                "order": 0
+              },
+              {
+                "label": "Failure",
+                "value": "failure",
+                "order": 1
+              }
+            ],
+            "defaultChoices": [
+              {
+                "label": "Success",
+                "value": "success",
+                "order": 1
+              },
+              {
+                "label": "Failure",
+                "value": "failure",
+                "order": 2
+              }
+            ],
+            "choiceOption": "3",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "choice",
+              "uiTypeLabel": "Choice",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "4b9b8743-53b8-4ad1-9f9f-b3c5b99631e2"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        }
+      ],
+      "inputs": [],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  }
+]

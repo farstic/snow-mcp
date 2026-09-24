@@ -1,0 +1,1841 @@
+{
+  "flowKey": "record_actions",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "7faf7e938c10ed3bb804a9efc7a71a8d",
+      "fields": {
+        "sys_id": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: record, attachment, task, wait, event, SMS, email and notification actions with for each loops",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "record_actions",
+        "label_cache": [
+          {
+            "name": "Updated_1.current",
+            "label": "Trigger - Record Updated➛incident Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "ee628bc4-fd82-fcb0-5892-546ebf7d3d97": [
+                "record"
+              ],
+              "ab835b6d-8797-c3e8-8582-516b256f20ae": [
+                "source_record"
+              ],
+              "cd3b807d-b799-16d0-89a2-8e00e517e1c9": [
+                "source_record"
+              ],
+              "c47cdc8f-42de-2e1f-001b-21f1929deb3c": [
+                "record"
+              ],
+              "29107b41-ba09-8ebb-a627-50ad5144dcbe": [
+                "record"
+              ],
+              "68cc8326-4c3b-c6c1-16c4-deff99c3c9aa": [
+                "record"
+              ],
+              "a61eac7e-5cb3-a8f8-a4b3-e59d544518cf": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "incident"
+          },
+          {
+            "name": "ab835b6d-8797-c3e8-8582-516b256f20ae.parameter",
+            "label": "ab835b6d-8797-c3e8-8582-516b256f20ae➛parameter",
+            "type": "records",
+            "base_type": "records",
+            "usedInstances": {
+              "3c7f25b0-90ee-0827-fd93-16d671a6c6a4": [
+                "items"
+              ]
+            },
+            "attributes": {},
+            "column_name": "parameter"
+          },
+          {
+            "name": "3c7f25b0-90ee-0827-fd93-16d671a6c6a4.item",
+            "label": "3 - For Each - ➛item",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "ebe7c8a5-c158-6290-bdb4-941c369c9d1d": [
+                "attachment_record"
+              ],
+              "425245de-fa9e-8f00-ec5e-6579f82ab765": [
+                "source_attachment_record"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Updated_1.current.problem_id",
+            "label": "Trigger - Record Updated➛incident Record➛Problem Id",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "ebe7c8a5-c158-6290-bdb4-941c369c9d1d": [
+                "target_record"
+              ],
+              "425245de-fa9e-8f00-ec5e-6579f82ab765": [
+                "target_record"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "problem_id"
+          },
+          {
+            "name": "cd3b807d-b799-16d0-89a2-8e00e517e1c9.parameter",
+            "label": "cd3b807d-b799-16d0-89a2-8e00e517e1c9➛parameter",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "bcadeee1-0781-8af2-6f65-ea38328d910d": [
+                "conditions"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "bcadeee1-0781-8af2-6f65-ea38328d910d.Record.file_name",
+            "label": "bcadeee1-0781-8af2-6f65-ea38328d910d➛Record➛file_name",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c47cdc8f-42de-2e1f-001b-21f1929deb3c": [
+                "attachment_file_name"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "sys_attachment",
+            "column_name": "file_name"
+          },
+          {
+            "name": "Updated_1.current.caller_id.email",
+            "label": "Trigger - Record Updated➛incident Record➛Caller Id➛Email",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c577f5b5-9a9c-52af-3bbf-c5c9dd4582dc": [
+                "fields"
+              ],
+              "a61eac7e-5cb3-a8f8-a4b3-e59d544518cf": [
+                "ah_to"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Updated_1.current.sys_id",
+            "label": "Trigger - Record Updated➛incident Record➛Sys Id",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "7f117b96-5d10-ae99-a32f-98e7d2c85e5a": [
+                "conditions"
+              ],
+              "c07f8802-34d3-f079-d1b2-dfe713274bca": [
+                "field_values"
+              ],
+              "53e9f670-a3f2-822b-2371-adcb3575e224": [
+                "conditions"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "sys_id"
+          },
+          {
+            "name": "c577f5b5-9a9c-52af-3bbf-c5c9dd4582dc.record",
+            "label": "c577f5b5-9a9c-52af-3bbf-c5c9dd4582dc➛record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "7f117b96-5d10-ae99-a32f-98e7d2c85e5a": [
+                "field_values"
+              ]
+            },
+            "attributes": {},
+            "reference": "sys_user"
+          },
+          {
+            "name": "Updated_1.current.assignment_group",
+            "label": "Trigger - Record Updated➛incident Record➛Assignment Group",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "c07f8802-34d3-f079-d1b2-dfe713274bca": [
+                "field_values"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "assignment_group"
+          },
+          {
+            "name": "c07f8802-34d3-f079-d1b2-dfe713274bca.Record",
+            "label": "c07f8802-34d3-f079-d1b2-dfe713274bca➛Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "16b658e7-0be9-2206-a690-32c22cabe05b": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "incident_task"
+          },
+          {
+            "name": "16b658e7-0be9-2206-a690-32c22cabe05b.state",
+            "label": "16b658e7-0be9-2206-a690-32c22cabe05b➛state",
+            "type": "choice",
+            "base_type": "choice",
+            "usedInstances": {
+              "68cc8326-4c3b-c6c1-16c4-deff99c3c9aa": [
+                "parm1"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "7f117b96-5d10-ae99-a32f-98e7d2c85e5a.count",
+            "label": "7f117b96-5d10-ae99-a32f-98e7d2c85e5a➛count",
+            "type": "integer",
+            "base_type": "integer",
+            "usedInstances": {
+              "68cc8326-4c3b-c6c1-16c4-deff99c3c9aa": [
+                "parm2"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Updated_1.current.caller_id.mobile_phone",
+            "label": "Trigger - Record Updated➛incident Record➛Caller Id➛Mobile Phone",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "732a3079-0f82-be61-6d82-6837022decb9": [
+                "recipients"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "53bb7ad4-cfbd-5497-1b7c-5a85a3f315cb.payload",
+            "label": "53bb7ad4-cfbd-5497-1b7c-5a85a3f315cb➛payload",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "732a3079-0f82-be61-6d82-6837022decb9": [
+                "message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Updated_1.current.number",
+            "label": "Trigger - Record Updated➛incident Record➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "a61eac7e-5cb3-a8f8-a4b3-e59d544518cf": [
+                "ah_subject"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "number"
+          },
+          {
+            "name": "a61eac7e-5cb3-a8f8-a4b3-e59d544518cf.email",
+            "label": "a61eac7e-5cb3-a8f8-a4b3-e59d544518cf➛email",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "067cfb28-d8a0-dfc9-05e5-68da2e2419e4": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "sys_email"
+          },
+          {
+            "name": "53e9f670-a3f2-822b-2371-adcb3575e224.Records",
+            "label": "53e9f670-a3f2-822b-2371-adcb3575e224➛Records",
+            "type": "records",
+            "base_type": "records",
+            "usedInstances": {
+              "8daac63f-7cfa-dc9a-3544-4deb127a3755": [
+                "items"
+              ]
+            },
+            "attributes": {},
+            "column_name": "Records"
+          },
+          {
+            "name": "8daac63f-7cfa-dc9a-3544-4deb127a3755.item",
+            "label": "20 - For Each - ➛item",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "db043871-d260-d940-0ef9-d6636ccb5f7a": [
+                "record"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Record Actions",
+        "run_as": "system",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "88896961d1c94b4f119cc362ca983045",
+      "fields": {
+        "sys_id": "88896961d1c94b4f119cc362ca983045",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "name": "Updated",
+        "trigger_definition": "bb695e60c31322002841b63b12d3aea5",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Table",
+            "internalType": "table_name",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 1,
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "table_name",
+              "name": "table",
+              "label": "Table",
+              "attributes": {
+                "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Condition",
+            "internalType": "conditions",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "condition",
+            "value": "active=false",
+            "displayValue": "active=false",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "conditions",
+              "name": "condition",
+              "label": "Condition",
+              "attributes": {
+                "extended_operators": "VALCHANGES;CHANGESFROM;CHANGESTO",
+                "modelDependent": "trigger_inputs",
+                "wants_to_add_conditions": "true"
+              },
+              "dependent_on": "table",
+              "use_dependent": true
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run On Extended Tables",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "false",
+                "fLabel": "Run only on current table",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "true",
+                "fLabel": "Run on current and extended tables",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_on_extended",
+            "value": "false",
+            "displayValue": "false",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_on_extended",
+              "label": "Run On Extended Tables",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run flow In",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "background",
+                "fLabel": "Run flow in background (default)",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "foreground",
+                "fLabel": "Run flow in foreground",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_flow_in",
+            "value": "background",
+            "displayValue": "background",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_flow_in",
+              "label": "Run flow In",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User List",
+            "internalType": "glide_list",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_list",
+            "value": "",
+            "displayValue": "",
+            "displayField": "",
+            "scriptActive": false,
+            "valueSysId": "",
+            "children": [],
+            "parameter": {
+              "type": "glide_list",
+              "name": "run_when_user_list",
+              "label": "Run When User List",
+              "reference": "sys_user",
+              "reference_display": "User",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When Session Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "non_interactive",
+                "fLabel": "Only Run for Non-Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "interactive",
+                "fLabel": "Only Run for User Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "both",
+                "fLabel": "Run for Both Interactive and Non-Interactive Sessions",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_setting",
+            "value": "both",
+            "displayValue": "both",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_setting",
+              "label": "Run When Session Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "not_one_of",
+                "fLabel": "Do not run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "one_of",
+                "fLabel": "Only Run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "any",
+                "fLabel": "Run for any user",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_setting",
+            "value": "any",
+            "displayValue": "any",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_user_setting",
+              "label": "Run When User Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run Trigger",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "once",
+                "fLabel": "Once",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "unique_changes",
+                "fLabel": "For each unique change",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "always",
+                "fLabel": "Only if not currently running",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "every",
+                "fLabel": "For every update",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 101,
+            "name": "trigger_strategy",
+            "value": "once",
+            "displayValue": "once",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "trigger_strategy",
+              "label": "Run Trigger"
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "record_update"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "ee628bc4fd82fcb05892546ebf7d3d97",
+      "fields": {
+        "sys_id": "ee628bc4fd82fcb05892546ebf7d3d97",
+        "sys_scope": "global",
+        "action_type": "fd4a0fb70f003300ecf0cc52ff767e2a",
+        "action_type_parent": "ae790f770f003300ecf0cc52ff767efa",
+        "active": "true",
+        "comment": "Link the flow context",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "ee628bc4-fd82-fcb0-5892-546ebf7d3d97",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "record",
+            "value": "{{Updated_1.current}}",
+            "displayValue": "{{Updated_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "journal_field",
+            "value": "work_notes",
+            "displayValue": "work_notes",
+            "scriptActive": false,
+            "parameter": {
+              "type": "field_name"
+            }
+          },
+          {
+            "name": "additional_comments",
+            "value": "Flow context attached",
+            "displayValue": "Flow context attached",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "ab835b6d8797c3e88582516b256f20ae",
+      "fields": {
+        "sys_id": "ab835b6d8797c3e88582516b256f20ae",
+        "sys_scope": "global",
+        "action_type": "082e70db0f4273003788001ea8767e02",
+        "action_type_parent": "31de959973c93300a3942ea3c4f6a774",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "2",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "ab835b6d-8797-c3e8-8582-516b256f20ae",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "file_name",
+            "value": "evidence.zip",
+            "displayValue": "evidence.zip",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source_record",
+            "value": "{{Updated_1.current}}",
+            "displayValue": "{{Updated_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "3c7f25b090ee0827fd9316d671a6c6a4",
+      "fields": {
+        "sys_id": "3c7f25b090ee0827fd9316d671a6c6a4",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "logic_definition": "098e1dc5c3e232002841b63b12d3ae33",
+        "order": "3",
+        "ui_id": "3c7f25b0-90ee-0827-fd93-16d671a6c6a4",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "items",
+              "value": "{{ab835b6d-8797-c3e8-8582-516b256f20ae.parameter}}",
+              "displayValue": "{{ab835b6d-8797-c3e8-8582-516b256f20ae.parameter}}"
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "ebe7c8a5c1586290bdb4941c369c9d1d",
+      "fields": {
+        "sys_id": "ebe7c8a5c1586290bdb4941c369c9d1d",
+        "sys_scope": "global",
+        "action_type": "30fe6cdb0f973300dfd3694e68767e5a",
+        "action_type_parent": "95849c2a9353130079b5925cf67ffb91",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "4",
+        "parent_ui_id": "3c7f25b0-90ee-0827-fd93-16d671a6c6a4",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "ebe7c8a5-c158-6290-bdb4-941c369c9d1d",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "attachment_record",
+            "value": "{{3c7f25b0-90ee-0827-fd93-16d671a6c6a4.item}}",
+            "displayValue": "{{3c7f25b0-90ee-0827-fd93-16d671a6c6a4.item}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "target_record",
+            "value": "{{Updated_1.current.problem_id}}",
+            "displayValue": "{{Updated_1.current.problem_id}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table",
+            "value": "problem",
+            "displayValue": "problem",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "425245defa9e8f00ec5e6579f82ab765",
+      "fields": {
+        "sys_id": "425245defa9e8f00ec5e6579f82ab765",
+        "sys_scope": "global",
+        "action_type": "7159823353cc10103a33ddeeff7b1216",
+        "action_type_parent": "8445146a9353130079b5925cf67ffb61",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "5",
+        "parent_ui_id": "3c7f25b0-90ee-0827-fd93-16d671a6c6a4",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "425245de-fa9e-8f00-ec5e-6579f82ab765",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "source_attachment_record",
+            "value": "{{3c7f25b0-90ee-0827-fd93-16d671a6c6a4.item}}",
+            "displayValue": "{{3c7f25b0-90ee-0827-fd93-16d671a6c6a4.item}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "target_record",
+            "value": "{{Updated_1.current.problem_id}}",
+            "displayValue": "{{Updated_1.current.problem_id}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table",
+            "value": "problem",
+            "displayValue": "problem",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "cd3b807db79916d089a28e00e517e1c9",
+      "fields": {
+        "sys_id": "cd3b807db79916d089a28e00e517e1c9",
+        "sys_scope": "global",
+        "action_type": "6ecdee36935023005e69925cf67ffb47",
+        "action_type_parent": "aabdae36935023005e69925cf67ffb5e",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "6",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "cd3b807d-b799-16d0-89a2-8e00e517e1c9",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "file_name",
+            "value": "summary.txt",
+            "displayValue": "summary.txt",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source_record",
+            "value": "{{Updated_1.current}}",
+            "displayValue": "{{Updated_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "bcadeee107818af26f65ea38328d910d",
+      "fields": {
+        "sys_id": "bcadeee107818af26f65ea38328d910d",
+        "sys_scope": "global",
+        "action_type": "9d09f99587003300663ca1bb36cb0ba3",
+        "action_type_parent": "b93f42810b30030085c083eb37673a63",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "7",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "bcadeee1-0781-8af2-6f65-ea38328d910d",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table",
+            "value": "sys_attachment",
+            "displayValue": "sys_attachment",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "conditions",
+            "value": "sys_id={{cd3b807d-b799-16d0-89a2-8e00e517e1c9.parameter}}",
+            "displayValue": "sys_id={{cd3b807d-b799-16d0-89a2-8e00e517e1c9.parameter}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "conditions"
+            }
+          },
+          {
+            "name": "sort_column",
+            "value": "size_bytes",
+            "displayValue": "size_bytes",
+            "scriptActive": false,
+            "parameter": {
+              "type": "field_name"
+            }
+          },
+          {
+            "name": "sort_type",
+            "value": "sort_asc",
+            "displayValue": "sort_asc",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "if_multiple_records_are_found_action",
+            "value": "error",
+            "displayValue": "error",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "__snc_dont_fail_on_error",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c47cdc8f42de2e1f001b21f1929deb3c",
+      "fields": {
+        "sys_id": "c47cdc8f42de2e1f001b21f1929deb3c",
+        "sys_scope": "global",
+        "action_type": "bdc2a0170f973300dfd3694e68767e47",
+        "action_type_parent": "6672502a9353130079b5925cf67ffbc6",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "8",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c47cdc8f-42de-2e1f-001b-21f1929deb3c",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Updated_1.current}}",
+            "displayValue": "{{Updated_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "attachment_file_name",
+            "value": "{{bcadeee1-0781-8af2-6f65-ea38328d910d.Record.file_name}}",
+            "displayValue": "{{bcadeee1-0781-8af2-6f65-ea38328d910d.Record.file_name}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "delete_all_",
+            "value": false,
+            "displayValue": false,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "29107b41ba098ebba62750ad5144dcbe",
+      "fields": {
+        "sys_id": "29107b41ba098ebba62750ad5144dcbe",
+        "sys_scope": "global",
+        "action_type": "bdc2a0170f973300dfd3694e68767e47",
+        "action_type_parent": "6672502a9353130079b5925cf67ffbc6",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "9",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "29107b41-ba09-8ebb-a627-50ad5144dcbe",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Updated_1.current}}",
+            "displayValue": "{{Updated_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "delete_all_",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c577f5b59a9c52af3bbfc5c9dd4582dc",
+      "fields": {
+        "sys_id": "c577f5b59a9c52af3bbfc5c9dd4582dc",
+        "sys_scope": "global",
+        "action_type": "ab575ae253b3230034c6ddeeff7b12f1",
+        "action_type_parent": "e057d2e253b3230034c6ddeeff7b1261",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "10",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c577f5b5-9a9c-52af-3bbf-c5c9dd4582dc",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table_name",
+            "value": "sys_user",
+            "displayValue": "sys_user",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "fields",
+            "value": "email={{Updated_1.current.caller_id.email}}^first_name=Sample^last_name=Caller^active=true^EQ",
+            "displayValue": "email={{Updated_1.current.caller_id.email}}^first_name=Sample^last_name=Caller^active=true^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "7f117b965d10ae99a32f98e7d2c85e5a",
+      "fields": {
+        "sys_id": "7f117b965d10ae99a32f98e7d2c85e5a",
+        "sys_scope": "global",
+        "action_type": "9daf2a72c75100105312134c95c26073",
+        "action_type_parent": "c40e2632c75100105312134c95c260f6",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "11",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "7f117b96-5d10-ae99-a32f-98e7d2c85e5a",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "conditions",
+            "value": "parent_incident={{Updated_1.current.sys_id}}^active=true",
+            "displayValue": "parent_incident={{Updated_1.current.sys_id}}^active=true",
+            "scriptActive": false,
+            "parameter": {
+              "type": "conditions"
+            }
+          },
+          {
+            "name": "field_values",
+            "value": "state=6^active=false^close_code=Solution provided^close_notes=Resolved with the parent incident^assigned_to={{c577f5b5-9a9c-52af-3bbf-c5c9dd4582dc.record}}^EQ",
+            "displayValue": "state=6^active=false^close_code=Solution provided^close_notes=Resolved with the parent incident^assigned_to={{c577f5b5-9a9c-52af-3bbf-c5c9dd4582dc.record}}^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          },
+          {
+            "name": "sort_column",
+            "value": "number",
+            "displayValue": "number",
+            "scriptActive": false,
+            "parameter": {
+              "type": "field_name"
+            }
+          },
+          {
+            "name": "sort_type",
+            "value": "sort_asc",
+            "displayValue": "sort_asc",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "__snc_dont_fail_on_error",
+            "value": false,
+            "displayValue": false,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c07f880234d3f079d1b2dfe713274bca",
+      "fields": {
+        "sys_id": "c07f880234d3f079d1b2dfe713274bca",
+        "sys_scope": "global",
+        "action_type": "2b3a6335531003003bf1d9109ec58759",
+        "action_type_parent": "3f9b1ff1531003003bf1d9109ec58775",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "12",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c07f8802-34d3-f079-d1b2-dfe713274bca",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "task_table",
+            "value": "incident_task",
+            "displayValue": "incident_task",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "field_values",
+            "value": "parent={{Updated_1.current.sys_id}}^short_description=Confirm the fix with the caller^assignment_group={{Updated_1.current.assignment_group}}^priority=3^EQ",
+            "displayValue": "parent={{Updated_1.current.sys_id}}^short_description=Confirm the fix with the caller^assignment_group={{Updated_1.current.assignment_group}}^priority=3^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          },
+          {
+            "name": "wait",
+            "value": false,
+            "displayValue": false,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "16b658e70be92206a69032c22cabe05b",
+      "fields": {
+        "sys_id": "16b658e70be92206a69032c22cabe05b",
+        "sys_scope": "global",
+        "action_type": "89ce8a4187120010663ca1bb36cb0be3",
+        "action_type_parent": "8bb9a8160b10030085c083eb37673aec",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "13",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "16b658e7-0be9-2206-a690-32c22cabe05b",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{c07f8802-34d3-f079-d1b2-dfe713274bca.Record}}",
+            "displayValue": "{{c07f8802-34d3-f079-d1b2-dfe713274bca.Record}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident_task",
+            "displayValue": "incident_task",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "conditions",
+            "value": "state=3",
+            "displayValue": "state=3",
+            "scriptActive": false,
+            "parameter": {
+              "type": "conditions"
+            }
+          },
+          {
+            "name": "timeout_flag",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "timeout_duration",
+            "value": "1970-01-02 06:00:00",
+            "displayValue": "1970-01-02 06:00:00",
+            "scriptActive": false,
+            "parameter": {
+              "type": "glide_duration"
+            }
+          },
+          {
+            "name": "timeout_schedule",
+            "value": "08fcd0830a0a0b2600079f56b1adb9ae",
+            "displayValue": "08fcd0830a0a0b2600079f56b1adb9ae",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "68cc83264c3bc6c116c4deff99c3c9aa",
+      "fields": {
+        "sys_id": "68cc83264c3bc6c116c4deff99c3c9aa",
+        "sys_scope": "global",
+        "action_type": "80a30edeff30311077a95dac793bf19b",
+        "action_type_parent": "15e10e5eff30311077a95dac793bf11e",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "14",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "68cc8326-4c3b-c6c1-16c4-deff99c3c9aa",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "event_name",
+            "value": "incident.updated",
+            "displayValue": "incident.updated",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "record",
+            "value": "{{Updated_1.current}}",
+            "displayValue": "{{Updated_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "parm1",
+            "value": "{{16b658e7-0be9-2206-a690-32c22cabe05b.state}}",
+            "displayValue": "{{16b658e7-0be9-2206-a690-32c22cabe05b.state}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parm2",
+            "value": "{{7f117b96-5d10-ae99-a32f-98e7d2c85e5a.count}}",
+            "displayValue": "{{7f117b96-5d10-ae99-a32f-98e7d2c85e5a.count}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "53bb7ad4cfbd54971b7c5a85a3f315cb",
+      "fields": {
+        "sys_id": "53bb7ad4cfbd54971b7c5a85a3f315cb",
+        "sys_scope": "global",
+        "action_type": "605d0ab8931012105cd18166448918db",
+        "action_type_parent": "f08c0678931012105cd1816644891821",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "15",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "53bb7ad4-cfbd-5497-1b7c-5a85a3f315cb",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "message",
+            "value": "caller-confirmed",
+            "displayValue": "caller-confirmed",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string_full_utf8"
+            }
+          },
+          {
+            "name": "enable_timeout",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "timeout",
+            "value": "1970-01-01 08:00:00",
+            "displayValue": "1970-01-01 08:00:00",
+            "scriptActive": false,
+            "parameter": {
+              "type": "glide_duration"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "732a30790f82be616d826837022decb9",
+      "fields": {
+        "sys_id": "732a30790f82be616d826837022decb9",
+        "sys_scope": "global",
+        "action_type": "027499be7333001099792f163cf6a7a7",
+        "action_type_parent": "d2733cb27333001099792f163cf6a77f",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "16",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "732a3079-0f82-be61-6d82-6837022decb9",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "recipients",
+            "value": "{{Updated_1.current.caller_id.mobile_phone}}",
+            "displayValue": "{{Updated_1.current.caller_id.mobile_phone}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "message",
+            "value": "Update: {{53bb7ad4-cfbd-5497-1b7c-5a85a3f315cb.payload}}",
+            "displayValue": "Update: {{53bb7ad4-cfbd-5497-1b7c-5a85a3f315cb.payload}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "a61eac7e5cb3a8f8a4b3e59d544518cf",
+      "fields": {
+        "sys_id": "a61eac7e5cb3a8f8a4b3e59d544518cf",
+        "sys_scope": "global",
+        "action_type": "c1806bf4a70323008299b39f087901cb",
+        "action_type_parent": "98c181d20b100300d97d8bf637673ab5",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "17",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "a61eac7e-5cb3-a8f8-a4b3-e59d544518cf",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Updated_1.current}}",
+            "displayValue": "{{Updated_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "watermark_email",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "ah_to",
+            "value": "{{Updated_1.current.caller_id.email}}",
+            "displayValue": "{{Updated_1.current.caller_id.email}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_cc",
+            "value": "desk@example.com",
+            "displayValue": "desk@example.com",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_bcc",
+            "value": "audit@example.com",
+            "displayValue": "audit@example.com",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_subject",
+            "value": "Closed: {{Updated_1.current.number}}",
+            "displayValue": "Closed: {{Updated_1.current.number}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_body",
+            "value": "<p>The incident is closed.</p>",
+            "displayValue": "<p>The incident is closed.</p>",
+            "scriptActive": false,
+            "parameter": {
+              "type": "html"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "067cfb28d8a0dfc905e568da2e2419e4",
+      "fields": {
+        "sys_id": "067cfb28d8a0dfc905e568da2e2419e4",
+        "sys_scope": "global",
+        "action_type": "0d8dd9f10f11101051218e8ebc767e27",
+        "action_type_parent": "7eda5d710f11101051218e8ebc767ec1",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "18",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "067cfb28-d8a0-dfc9-05e5-68da2e2419e4",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{a61eac7e-5cb3-a8f8-a4b3-e59d544518cf.email}}",
+            "displayValue": "{{a61eac7e-5cb3-a8f8-a4b3-e59d544518cf.email}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "sys_email",
+            "displayValue": "sys_email",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "notification",
+            "value": "0000000000000000000000000000a002",
+            "displayValue": "0000000000000000000000000000a002",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "53e9f670a3f2822b2371adcb3575e224",
+      "fields": {
+        "sys_id": "53e9f670a3f2822b2371adcb3575e224",
+        "sys_scope": "global",
+        "action_type": "43400a1587003300663ca1bb36cb0b4b",
+        "action_type_parent": "d1c56ec50b30030085c083eb37673a50",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "19",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "53e9f670-a3f2-822b-2371-adcb3575e224",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table",
+            "value": "incident_task",
+            "displayValue": "incident_task",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "conditions",
+            "value": "parent={{Updated_1.current.sys_id}}^state=7",
+            "displayValue": "parent={{Updated_1.current.sys_id}}^state=7",
+            "scriptActive": false,
+            "parameter": {
+              "type": "conditions"
+            }
+          },
+          {
+            "name": "sort_column",
+            "value": "sys_created_on",
+            "displayValue": "sys_created_on",
+            "scriptActive": false,
+            "parameter": {
+              "type": "field_name"
+            }
+          },
+          {
+            "name": "sort_type",
+            "value": "sort_asc",
+            "displayValue": "sort_asc",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "max_results",
+            "value": 10,
+            "displayValue": 10,
+            "scriptActive": false,
+            "parameter": {
+              "type": "integer"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "8daac63f7cfadc9a35444deb127a3755",
+      "fields": {
+        "sys_id": "8daac63f7cfadc9a35444deb127a3755",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "logic_definition": "098e1dc5c3e232002841b63b12d3ae33",
+        "order": "20",
+        "ui_id": "8daac63f-7cfa-dc9a-3544-4deb127a3755",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "items",
+              "value": "{{53e9f670-a3f2-822b-2371-adcb3575e224.Records}}",
+              "displayValue": "{{53e9f670-a3f2-822b-2371-adcb3575e224.Records}}"
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "db043871d260d9400ef9d6636ccb5f7a",
+      "fields": {
+        "sys_id": "db043871d260d9400ef9d6636ccb5f7a",
+        "sys_scope": "global",
+        "action_type": "c3e09916c31332002841b63b12d3aedf",
+        "action_type_parent": "a8f274c8c3c232002841b63b12d3aee9",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "7faf7e938c10ed3bb804a9efc7a71a8d",
+        "generation_source": "",
+        "order": "21",
+        "parent_ui_id": "8daac63f-7cfa-dc9a-3544-4deb127a3755",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "db043871-d260-d940-0ef9-d6636ccb5f7a",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{8daac63f-7cfa-dc9a-3544-4deb127a3755.item}}",
+            "displayValue": "{{8daac63f-7cfa-dc9a-3544-4deb127a3755.item}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.current",
+      "platform": "Updated_1.current",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.rec_find_atts.parameter",
+      "platform": "ab835b6d-8797-c3e8-8582-516b256f20ae.parameter",
+      "type": "records"
+    },
+    {
+      "symbolic": "loop.rec_each_att.item",
+      "platform": "3c7f25b0-90ee-0827-fd93-16d671a6c6a4.item",
+      "type": "reference"
+    },
+    {
+      "symbolic": "trigger.current.problem_id",
+      "platform": "Updated_1.current.problem_id",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.rec_one_att.parameter",
+      "platform": "cd3b807d-b799-16d0-89a2-8e00e517e1c9.parameter",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.rec_att_row.Record.file_name",
+      "platform": "bcadeee1-0781-8af2-6f65-ea38328d910d.Record.file_name",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.current.caller_id.email",
+      "platform": "Updated_1.current.caller_id.email",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.current.sys_id",
+      "platform": "Updated_1.current.sys_id",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.rec_upsert_user.record",
+      "platform": "c577f5b5-9a9c-52af-3bbf-c5c9dd4582dc.record",
+      "type": "reference"
+    },
+    {
+      "symbolic": "trigger.current.assignment_group",
+      "platform": "Updated_1.current.assignment_group",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.rec_new_task.Record",
+      "platform": "c07f8802-34d3-f079-d1b2-dfe713274bca.Record",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.rec_wait_task.state",
+      "platform": "16b658e7-0be9-2206-a690-32c22cabe05b.state",
+      "type": "choice"
+    },
+    {
+      "symbolic": "steps.rec_close_children.count",
+      "platform": "7f117b96-5d10-ae99-a32f-98e7d2c85e5a.count",
+      "type": "integer"
+    },
+    {
+      "symbolic": "trigger.current.caller_id.mobile_phone",
+      "platform": "Updated_1.current.caller_id.mobile_phone",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.rec_wait_msg.payload",
+      "platform": "53bb7ad4-cfbd-5497-1b7c-5a85a3f315cb.payload",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.current.number",
+      "platform": "Updated_1.current.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.rec_mail.email",
+      "platform": "a61eac7e-5cb3-a8f8-a4b3-e59d544518cf.email",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.rec_tasks.Records",
+      "platform": "53e9f670-a3f2-822b-2371-adcb3575e224.Records",
+      "type": "records"
+    },
+    {
+      "symbolic": "loop.rec_each_task.item",
+      "platform": "8daac63f-7cfa-dc9a-3544-4deb127a3755.item",
+      "type": "reference"
+    }
+  ]
+}

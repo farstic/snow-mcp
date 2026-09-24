@@ -1,0 +1,18 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "level_check_subflow", "name": "Level Check Subflow", "description": "Construct spec: subflow inputs / outputs, if / else, assign subflow outputs", "type": "subflow", "run_as": "system" },
+  "inputs": [
+    { "name": "summary_text", "label": "Summary Text", "type": "string", "mandatory": true },
+    { "name": "level", "label": "Level", "type": "integer" }
+  ],
+  "outputs": [
+    { "name": "verdict", "label": "Verdict", "type": "string" },
+    { "name": "accepted", "label": "Accepted", "type": "boolean" }
+  ],
+  "steps": [
+    { "kind": "action", "key": "level_log", "action": "log", "inputs": { "log_level": "info", "log_message": { "text": "Checking {{inputs.summary_text}}" } } },
+    { "kind": "if", "key": "level_if", "condition": "{{inputs.level}}>=4",
+      "then": [ { "kind": "assign_subflow_outputs", "key": "level_high", "assign": { "verdict": "escalate", "accepted": true } } ],
+      "else": { "key": "level_else", "steps": [ { "kind": "assign_subflow_outputs", "key": "level_low", "assign": { "verdict": "monitor", "accepted": false } } ] } }
+  ]
+}

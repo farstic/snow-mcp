@@ -1,0 +1,18 @@
+{
+  "about": "Distinct (action_type, action_type_parent) pairs stored by UI-built sys_hub_action_instance_v2 rows on the PDI (read-only query, 24 Sep 2026: action_typeIN<snapshots>^action_type_parentISNOTEMPTY, fields action_type, action_type_parent). No row stores the snapshot itself in action_type_parent. Actions with no UI-built row on the PDI (Record Producer, Get Email Header, Get Latest Response Text From Email, Add Worknote Link To Context, Move Attachment, Look Up Attachment) are not listed; their definition comes from sys_hub_action_type_snapshot.parent_action. Used by generator/pdi-conformance.test.ts.",
+  "pairs": [
+    { "action": "sendSms", "action_type": "027499be7333001099792f163cf6a7a7", "action_type_parent": "d2733cb27333001099792f163cf6a77f" },
+    { "action": "getAttachmentsOnRecord", "action_type": "082e70db0f4273003788001ea8767e02", "action_type_parent": "31de959973c93300a3942ea3c4f6a774" },
+    { "action": "lookUpEmailAttachments", "action_type": "2dbeaf29c7322300f4eba1425a976340", "action_type_parent": "b8bd6765c7322300f4eba1425a9763c8" },
+    { "action": "copyAttachment", "action_type": "30fe6cdb0f973300dfd3694e68767e5a", "action_type_parent": "95849c2a9353130079b5925cf67ffb91" },
+    { "action": "waitForMessage", "action_type": "605d0ab8931012105cd18166448918db", "action_type_parent": "f08c0678931012105cd1816644891821" },
+    { "action": "associateRecordToEmail", "action_type": "7b95a4c0a73133008299b39f087901b4", "action_type_parent": "18a22c44a73133008299b39f08790116" },
+    { "action": "waitForEmailReply", "action_type": "8e38de067f0312108e688c90ac866501", "action_type_parent": "205716c27f0312108e688c90ac8665e7" },
+    { "action": "slaPercentageTimer", "action_type": "a1a50c4573873300d70877186bf6a762", "action_type_parent": "6f0ebf3c73833300d70877186bf6a729" },
+    { "action": "createOrUpdateRecord", "action_type": "ab575ae253b3230034c6ddeeff7b12f1", "action_type_parent": "e057d2e253b3230034c6ddeeff7b1261" },
+    { "action": "moveEmailAttachmentsToRecord", "action_type": "bd8fcd48a73133008299b39f087901fc", "action_type_parent": "731fc148a73133008299b39f087901a4" },
+    { "action": "deleteAttachment", "action_type": "bdc2a0170f973300dfd3694e68767e47", "action_type_parent": "6672502a9353130079b5925cf67ffbc6" },
+    { "action": "submitCatalogItemRequest", "action_type": "c7a04c607312001098e194596bf6a72a", "action_type_parent": "bfb5ea807312001098e194596bf6a707" },
+    { "action": "sendNotification", "action_type": "0d8dd9f10f11101051218e8ebc767e27", "action_type_parent": "7eda5d710f11101051218e8ebc767ec1" }
+  ]
+}

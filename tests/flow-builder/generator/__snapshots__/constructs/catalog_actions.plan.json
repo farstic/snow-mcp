@@ -1,0 +1,734 @@
+{
+  "flowKey": "catalog_actions",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "c63dd64a7fbd24e0af3b809d6de85aea",
+      "fields": {
+        "sys_id": "c63dd64a7fbd24e0af3b809d6de85aea",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: Get Catalog Variables (selected and all), Create Catalog Task, Submit Catalog Item Request, Record Producer",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "catalog_actions",
+        "label_cache": [
+          {
+            "name": "Service Catalog_1.request_item",
+            "label": "Trigger - Service Catalog➛Request Item",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "50ec5d4d-8d40-9e1a-fd8a-6567212599f2": [
+                "requested_item"
+              ],
+              "acc0aa68-193e-3c11-2881-9dc2b72db1eb": [
+                "requested_item"
+              ],
+              "786ef23a-faf9-6e59-8d65-94e857759687": [
+                "ah_requested_item"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Service Catalog_1.request_item.number",
+            "label": "Trigger - Service Catalog➛Request Item➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "786ef23a-faf9-6e59-8d65-94e857759687": [
+                "ah_short_description"
+              ],
+              "830036a6-0b5f-66ba-4960-e7de1cceecce": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Service Catalog_1.request_item.assignment_group",
+            "label": "Trigger - Service Catalog➛Request Item➛Assignment Group",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "786ef23a-faf9-6e59-8d65-94e857759687": [
+                "ah_fields"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Service Catalog_1.request_item.requested_for",
+            "label": "Trigger - Service Catalog➛Request Item➛Requested For",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "3d819a29-04b5-712b-3611-1df8429a4e04": [
+                "sysparm_requested_for"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "3d819a29-04b5-712b-3611-1df8429a4e04.requested_item.number",
+            "label": "3d819a29-04b5-712b-3611-1df8429a4e04➛requested_item➛number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "084f4845-6b29-8404-f28a-f99865ec8d10": [
+                "catalog_item_inputs"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "sc_req_item",
+            "column_name": "number"
+          },
+          {
+            "name": "084f4845-6b29-8404-f28a-f99865ec8d10.status",
+            "label": "084f4845-6b29-8404-f28a-f99865ec8d10➛status",
+            "type": "choice",
+            "base_type": "choice",
+            "usedInstances": {
+              "02e008cf-cb52-5392-cdc2-a3f990edfb43": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "084f4845-6b29-8404-f28a-f99865ec8d10.table",
+            "label": "084f4845-6b29-8404-f28a-f99865ec8d10➛table",
+            "type": "table_name",
+            "base_type": "table_name",
+            "usedInstances": {
+              "02e008cf-cb52-5392-cdc2-a3f990edfb43": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Catalog Actions",
+        "run_as": "system",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "0272b058d052f76cc0eb5221896d9c99",
+      "fields": {
+        "sys_id": "0272b058d052f76cc0eb5221896d9c99",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "c63dd64a7fbd24e0af3b809d6de85aea",
+        "name": "Service Catalog",
+        "trigger_definition": "c43a1011c36813002841b63b12d3ae15",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run Flow In",
+            "internalType": "choice",
+            "choiceList": [
+              {
+                "fSequence": -1,
+                "fValue": "",
+                "fLabel": "-- None --",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fSequence": -1,
+                "fValue": "background",
+                "fLabel": "Run flow in background (default)",
+                "fImage": "",
+                "fParameters": {
+                  "name": "sys_flow_record_trigger",
+                  "dependent_values": [
+                    ""
+                  ],
+                  "dependent_values_map": {
+                    "": "Run flow in background (default)"
+                  }
+                },
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fSequence": -1,
+                "fValue": "foreground",
+                "fLabel": "Run flow in foreground",
+                "fImage": "",
+                "fParameters": {
+                  "name": "sys_flow_record_trigger",
+                  "dependent_values": [
+                    ""
+                  ],
+                  "dependent_values_map": {
+                    "": "Run flow in foreground"
+                  }
+                },
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 100,
+            "name": "run_flow_in",
+            "value": "background",
+            "displayValue": "Run flow in background (default)",
+            "parameter": {
+              "children": [],
+              "type_label": "Choice",
+              "id": "6090c72977203300f5bfcfcc78106159",
+              "label": "Run Flow In",
+              "name": "run_flow_in",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Run flow in background (default)",
+                  "value": "background",
+                  "order": 1
+                },
+                {
+                  "label": "Run flow in foreground",
+                  "value": "foreground",
+                  "order": 2
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Run flow in background (default)",
+                  "value": "background",
+                  "order": 1
+                },
+                {
+                  "label": "Run flow in foreground",
+                  "value": "foreground",
+                  "order": 2
+                }
+              ],
+              "choiceOption": "3",
+              "table": "sys_flow_record_trigger",
+              "columnName": "run_flow_in",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "advanced": "true"
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "service_catalog"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "50ec5d4d8d409e1afd8a6567212599f2",
+      "fields": {
+        "sys_id": "50ec5d4d8d409e1afd8a6567212599f2",
+        "sys_scope": "global",
+        "action_type": "330ba3abc31013002841b63b12d3aee8",
+        "action_type_parent": "22f0b88cc3c632002841b63b12d3aeff",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "c63dd64a7fbd24e0af3b809d6de85aea",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "50ec5d4d-8d40-9e1a-fd8a-6567212599f2",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "requested_item",
+            "value": "{{Service Catalog_1.request_item}}",
+            "displayValue": "{{Service Catalog_1.request_item}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "template_catalog_item",
+            "value": "0e5b6754ca2a87acbcf41d2797317f4a",
+            "displayValue": "Example Workstation",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "catalog_variables",
+            "value": "4e957a421d7d5b0c5d9c2abcc41dd042:item_option_new,483d00f9e57f162ea9132524f0de868d:item_option_new",
+            "displayValue": "4e957a421d7d5b0c5d9c2abcc41dd042:item_option_new,483d00f9e57f162ea9132524f0de868d:item_option_new",
+            "scriptActive": false,
+            "parameter": {
+              "type": "slushbucket"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "acc0aa68193e3c1128819dc2b72db1eb",
+      "fields": {
+        "sys_id": "acc0aa68193e3c1128819dc2b72db1eb",
+        "sys_scope": "global",
+        "action_type": "330ba3abc31013002841b63b12d3aee8",
+        "action_type_parent": "22f0b88cc3c632002841b63b12d3aeff",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "c63dd64a7fbd24e0af3b809d6de85aea",
+        "generation_source": "",
+        "order": "2",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "acc0aa68-193e-3c11-2881-9dc2b72db1eb",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "requested_item",
+            "value": "{{Service Catalog_1.request_item}}",
+            "displayValue": "{{Service Catalog_1.request_item}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "template_catalog_item",
+            "value": "0e5b6754ca2a87acbcf41d2797317f4a",
+            "displayValue": "Example Workstation",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "786ef23afaf96e598d6594e857759687",
+      "fields": {
+        "sys_id": "786ef23afaf96e598d6594e857759687",
+        "sys_scope": "global",
+        "action_type": "af51fd0e73141300612c273ffff6a785",
+        "action_type_parent": "f597c41073081300612c273ffff6a767",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "c63dd64a7fbd24e0af3b809d6de85aea",
+        "generation_source": "",
+        "order": "3",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "786ef23a-faf9-6e59-8d65-94e857759687",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "ah_table_name",
+            "value": "sc_task",
+            "displayValue": "sc_task",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "ah_requested_item",
+            "value": "{{Service Catalog_1.request_item}}",
+            "displayValue": "{{Service Catalog_1.request_item}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "ah_short_description",
+            "value": "Set up {{Service Catalog_1.request_item.number}}",
+            "displayValue": "Set up {{Service Catalog_1.request_item.number}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_fields",
+            "value": "assignment_group={{Service Catalog_1.request_item.assignment_group}}^priority=3^description=Workstation set-up task^EQ",
+            "displayValue": "assignment_group={{Service Catalog_1.request_item.assignment_group}}^priority=3^description=Workstation set-up task^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          },
+          {
+            "name": "ah_wait",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "template_catalog_item",
+            "value": "0e5b6754ca2a87acbcf41d2797317f4a",
+            "displayValue": "Example Workstation",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "catalog_variables",
+            "value": "4e957a421d7d5b0c5d9c2abcc41dd042:item_option_new,6318b2e346dd3cf758acd9dbd34a8f27:item_option_new",
+            "displayValue": "4e957a421d7d5b0c5d9c2abcc41dd042:item_option_new,6318b2e346dd3cf758acd9dbd34a8f27:item_option_new",
+            "scriptActive": false,
+            "parameter": {
+              "type": "slushbucket"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "830036a60b5f66ba4960e7de1cceecce",
+      "fields": {
+        "sys_id": "830036a60b5f66ba4960e7de1cceecce",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "c63dd64a7fbd24e0af3b809d6de85aea",
+        "generation_source": "",
+        "order": "4",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "830036a6-0b5f-66ba-4960-e7de1cceecce",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Set-up task ready for {{Service Catalog_1.request_item.number}}",
+            "displayValue": "Set-up task ready for {{Service Catalog_1.request_item.number}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "3d819a2904b5712b36111df8429a4e04",
+      "fields": {
+        "sys_id": "3d819a2904b5712b36111df8429a4e04",
+        "sys_scope": "global",
+        "action_type": "c7a04c607312001098e194596bf6a72a",
+        "action_type_parent": "bfb5ea807312001098e194596bf6a707",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "c63dd64a7fbd24e0af3b809d6de85aea",
+        "generation_source": "",
+        "order": "5",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "3d819a29-04b5-712b-3611-1df8429a4e04",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "catalog_item",
+            "value": "",
+            "displayValue": "",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "catalog_item_inputs",
+            "value": "device_model=standard^business_reason=Replacement",
+            "displayValue": "device_model=standard^business_reason=Replacement",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysparm_quantity",
+            "value": 1,
+            "displayValue": 1,
+            "scriptActive": false,
+            "parameter": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "special_instructions",
+            "value": "Deliver to reception",
+            "displayValue": "Deliver to reception",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "delivery_address",
+            "value": "Example building, floor 2",
+            "displayValue": "Example building, floor 2",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sysparm_requested_for",
+            "value": "{{Service Catalog_1.request_item.requested_for}}",
+            "displayValue": "{{Service Catalog_1.request_item.requested_for}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "_snc_dont_fail_on_error",
+            "value": false,
+            "displayValue": false,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "wait_for_completion",
+            "value": false,
+            "displayValue": false,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "timeout_flag",
+            "value": false,
+            "displayValue": false,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "duration",
+            "value": "1970-01-04 00:00:00",
+            "displayValue": "1970-01-04 00:00:00",
+            "scriptActive": false,
+            "parameter": {
+              "type": "glide_duration"
+            }
+          },
+          {
+            "name": "schedule",
+            "value": "08fcd0830a0a0b2600079f56b1adb9ae",
+            "displayValue": "08fcd0830a0a0b2600079f56b1adb9ae",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "084f48456b298404f28af99865ec8d10",
+      "fields": {
+        "sys_id": "084f48456b298404f28af99865ec8d10",
+        "sys_scope": "global",
+        "action_type": "87a397837333001098e194596bf6a7bc",
+        "action_type_parent": "361b76037373001098e194596bf6a70f",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "c63dd64a7fbd24e0af3b809d6de85aea",
+        "generation_source": "",
+        "order": "6",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "084f4845-6b29-8404-f28a-f99865ec8d10",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "catalog_item",
+            "value": "3f1dd0320a0a0b99000a53f7604a2ef9",
+            "displayValue": "3f1dd0320a0a0b99000a53f7604a2ef9",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "catalog_item_inputs",
+            "value": "short_description=Follow-up for {{3d819a29-04b5-712b-3611-1df8429a4e04.requested_item.number}}",
+            "displayValue": "short_description=Follow-up for {{3d819a29-04b5-712b-3611-1df8429a4e04.requested_item.number}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "_snc_dont_fail_on_error",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "record_table",
+            "value": "",
+            "displayValue": "",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name",
+              "attributes": {
+                "disable_drop": "true",
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                "fd_display_label": "false",
+                "uiType": "table_name",
+                "uiTypeLabel": "Table Name",
+                "uiUniqueId": "b39f94d0-3bb2-40db-ac5e-ae3284c6d16d",
+                "visible_in_ui": "false"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "02e008cfcb525392cdc2a3f990edfb43",
+      "fields": {
+        "sys_id": "02e008cfcb525392cdc2a3f990edfb43",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "c63dd64a7fbd24e0af3b809d6de85aea",
+        "generation_source": "",
+        "order": "7",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "02e008cf-cb52-5392-cdc2-a3f990edfb43",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Record producer {{084f4845-6b29-8404-f28a-f99865ec8d10.status}} on {{084f4845-6b29-8404-f28a-f99865ec8d10.table}}",
+            "displayValue": "Record producer {{084f4845-6b29-8404-f28a-f99865ec8d10.status}} on {{084f4845-6b29-8404-f28a-f99865ec8d10.table}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.request_item",
+      "platform": "Service Catalog_1.request_item",
+      "type": "reference"
+    },
+    {
+      "symbolic": "trigger.request_item.number",
+      "platform": "Service Catalog_1.request_item.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.request_item.assignment_group",
+      "platform": "Service Catalog_1.request_item.assignment_group",
+      "type": "reference"
+    },
+    {
+      "symbolic": "trigger.request_item.requested_for",
+      "platform": "Service Catalog_1.request_item.requested_for",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.cat_order.requested_item.number",
+      "platform": "3d819a29-04b5-712b-3611-1df8429a4e04.requested_item.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.cat_produce.status",
+      "platform": "084f4845-6b29-8404-f28a-f99865ec8d10.status",
+      "type": "choice"
+    },
+    {
+      "symbolic": "steps.cat_produce.table",
+      "platform": "084f4845-6b29-8404-f28a-f99865ec8d10.table",
+      "type": "table_name"
+    }
+  ]
+}

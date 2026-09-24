@@ -1,0 +1,25 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_sla_task",
+    "name": "Trigger SLA Task",
+    "description": "Construct spec: sla.task trigger"
+  },
+  "trigger": {
+    "key": "trg_sla_task_trigger",
+    "type": "sla.task"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_sla_task_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "SLA {{trigger.task_sla_record.sla.name}} inputs {{trigger.sla_flow_inputs.name}}"
+        }
+      }
+    }
+  ]
+}

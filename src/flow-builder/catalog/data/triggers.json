@@ -1,0 +1,1209 @@
+{
+ "generated_by": "scripts/build-flow-catalog.mjs",
+ "source": "src/flow-builder/catalog/source — Flow Designer definitions exported from a ServiceNow instance (see src/flow-builder/README.md, \"Catalogue\")",
+ "triggers": [
+  {
+   "key": "record.created",
+   "sys_id": "798916a0c31322002841b63b12d3ae7c",
+   "name": "Created",
+   "trigger_type": "record_create",
+   "pill_prefix": "Created_1",
+   "label_prefix": "Trigger - Record Created",
+   "label_prefix_verified": true,
+   "inputs": [
+    {
+     "name": "table",
+     "label": "Table",
+     "type": "table_name",
+     "mandatory": true,
+     "order": 1,
+     "maxLength": 80,
+     "attributes": {
+      "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+     }
+    },
+    {
+     "name": "condition",
+     "label": "Condition",
+     "type": "conditions",
+     "order": 100,
+     "maxLength": 4000,
+     "dependent": "table",
+     "use_dependent": true,
+     "attributes": {
+      "modelDependent": "trigger_inputs",
+      "wants_to_add_conditions": "true"
+     }
+    },
+    {
+     "name": "run_on_extended",
+     "label": "Run On Extended Tables",
+     "type": "choice",
+     "default": "false",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "false",
+       "label": "Run only on current table"
+      },
+      {
+       "value": "true",
+       "label": "Run on current and extended tables"
+      }
+     ]
+    },
+    {
+     "name": "run_flow_in",
+     "label": "Run flow In",
+     "type": "choice",
+     "default": "any",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "background",
+       "label": "Run flow in background (default)"
+      },
+      {
+       "value": "foreground",
+       "label": "Run flow in foreground"
+      }
+     ]
+    },
+    {
+     "name": "run_when_user_list",
+     "label": "Run When User List",
+     "type": "glide_list",
+     "order": 100,
+     "reference": "sys_user",
+     "maxLength": 4000,
+     "attributes": {
+      "advanced": "true"
+     },
+     "reference_display": "User"
+    },
+    {
+     "name": "run_when_setting",
+     "label": "Run When Session Setting",
+     "type": "choice",
+     "default": "both",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "non_interactive",
+       "label": "Only Run for Non-Interactive Session"
+      },
+      {
+       "value": "interactive",
+       "label": "Only Run for User Interactive Session"
+      },
+      {
+       "value": "both",
+       "label": "Run for Both Interactive and Non-Interactive Sessions"
+      }
+     ]
+    },
+    {
+     "name": "run_when_user_setting",
+     "label": "Run When User Setting",
+     "type": "choice",
+     "default": "any",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "not_one_of",
+       "label": "Do not run if triggered by the following users"
+      },
+      {
+       "value": "one_of",
+       "label": "Only Run if triggered by the following users"
+      },
+      {
+       "value": "any",
+       "label": "Run for any user"
+      }
+     ]
+    }
+   ],
+   "outputs": [
+    {
+     "name": "current",
+     "label": "Current",
+     "type": "document_id",
+     "mandatory": true,
+     "order": 100,
+     "maxLength": 200,
+     "dependent": "table_name",
+     "use_dependent": true
+    },
+    {
+     "name": "table_name",
+     "label": "Table Name",
+     "type": "table_name",
+     "order": 101,
+     "maxLength": 200,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date/Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 200,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 200,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "record.updated",
+   "sys_id": "bb695e60c31322002841b63b12d3aea5",
+   "name": "Updated",
+   "trigger_type": "record_update",
+   "pill_prefix": "Updated_1",
+   "label_prefix": "Trigger - Record Updated",
+   "label_prefix_verified": true,
+   "inputs": [
+    {
+     "name": "table",
+     "label": "Table",
+     "type": "table_name",
+     "mandatory": true,
+     "order": 1,
+     "maxLength": 80,
+     "attributes": {
+      "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+     }
+    },
+    {
+     "name": "condition",
+     "label": "Condition",
+     "type": "conditions",
+     "order": 100,
+     "maxLength": 4000,
+     "dependent": "table",
+     "use_dependent": true,
+     "attributes": {
+      "extended_operators": "VALCHANGES;CHANGESFROM;CHANGESTO",
+      "modelDependent": "trigger_inputs",
+      "wants_to_add_conditions": "true"
+     }
+    },
+    {
+     "name": "run_on_extended",
+     "label": "Run On Extended Tables",
+     "type": "choice",
+     "default": "false",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "false",
+       "label": "Run only on current table"
+      },
+      {
+       "value": "true",
+       "label": "Run on current and extended tables"
+      }
+     ]
+    },
+    {
+     "name": "run_flow_in",
+     "label": "Run flow In",
+     "type": "choice",
+     "default": "any",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "background",
+       "label": "Run flow in background (default)"
+      },
+      {
+       "value": "foreground",
+       "label": "Run flow in foreground"
+      }
+     ]
+    },
+    {
+     "name": "run_when_user_list",
+     "label": "Run When User List",
+     "type": "glide_list",
+     "order": 100,
+     "reference": "sys_user",
+     "maxLength": 4000,
+     "attributes": {
+      "advanced": "true"
+     },
+     "reference_display": "User"
+    },
+    {
+     "name": "run_when_setting",
+     "label": "Run When Session Setting",
+     "type": "choice",
+     "default": "both",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "non_interactive",
+       "label": "Only Run for Non-Interactive Session"
+      },
+      {
+       "value": "interactive",
+       "label": "Only Run for User Interactive Session"
+      },
+      {
+       "value": "both",
+       "label": "Run for Both Interactive and Non-Interactive Sessions"
+      }
+     ]
+    },
+    {
+     "name": "run_when_user_setting",
+     "label": "Run When User Setting",
+     "type": "choice",
+     "default": "any",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "not_one_of",
+       "label": "Do not run if triggered by the following users"
+      },
+      {
+       "value": "one_of",
+       "label": "Only Run if triggered by the following users"
+      },
+      {
+       "value": "any",
+       "label": "Run for any user"
+      }
+     ]
+    },
+    {
+     "name": "trigger_strategy",
+     "label": "Run Trigger",
+     "type": "choice",
+     "default": "once",
+     "order": 101,
+     "maxLength": 40,
+     "choices": [
+      {
+       "value": "once",
+       "label": "Once"
+      },
+      {
+       "value": "unique_changes",
+       "label": "For each unique change"
+      },
+      {
+       "value": "always",
+       "label": "Only if not currently running"
+      },
+      {
+       "value": "every",
+       "label": "For every update"
+      }
+     ]
+    }
+   ],
+   "outputs": [
+    {
+     "name": "changed_fields",
+     "label": "Changed Fields",
+     "type": "array.object",
+     "order": 100,
+     "maxLength": 4000,
+     "attributes": {
+      "child_label": "FDChangeDetails",
+      "child_name": "FDChangeDetails",
+      "child_type": "object",
+      "child_type_label": "Object",
+      "co_type_name": "FDCollection",
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "pwd2droppable": "true",
+      "uiType": "array.object",
+      "uiTypeLabel": "Array.Object"
+     }
+    },
+    {
+     "name": "current",
+     "label": "Current",
+     "type": "document_id",
+     "mandatory": true,
+     "order": 100,
+     "maxLength": 200,
+     "dependent": "table_name",
+     "use_dependent": true
+    },
+    {
+     "name": "table_name",
+     "label": "Table Name",
+     "type": "table_name",
+     "order": 101,
+     "maxLength": 200,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date/Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 200,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 200,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "record.created_or_updated",
+   "sys_id": "a45d9180c32222002841b63b12d3aea7",
+   "name": "Created or Updated",
+   "trigger_type": "record_create_or_update",
+   "pill_prefix": "Created or Updated_1",
+   "label_prefix": "Trigger - Record Created or Updated",
+   "label_prefix_verified": true,
+   "inputs": [
+    {
+     "name": "table",
+     "label": "Table",
+     "type": "table_name",
+     "mandatory": true,
+     "order": 1,
+     "maxLength": 80,
+     "attributes": {
+      "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+     }
+    },
+    {
+     "name": "condition",
+     "label": "Condition",
+     "type": "conditions",
+     "order": 100,
+     "maxLength": 4000,
+     "dependent": "table",
+     "use_dependent": true,
+     "attributes": {
+      "extended_operators": "VALCHANGES;CHANGESFROM;CHANGESTO",
+      "modelDependent": "trigger_inputs",
+      "wants_to_add_conditions": "true"
+     }
+    },
+    {
+     "name": "run_on_extended",
+     "label": "Run On Extended Tables",
+     "type": "choice",
+     "default": "false",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "false",
+       "label": "Run only on current table"
+      },
+      {
+       "value": "true",
+       "label": "Run on current and extended tables"
+      }
+     ]
+    },
+    {
+     "name": "run_flow_in",
+     "label": "Run flow In",
+     "type": "choice",
+     "default": "any",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "background",
+       "label": "Run flow in background (default)"
+      },
+      {
+       "value": "foreground",
+       "label": "Run flow in foreground"
+      }
+     ]
+    },
+    {
+     "name": "run_when_user_list",
+     "label": "Run When User List",
+     "type": "glide_list",
+     "order": 100,
+     "reference": "sys_user",
+     "maxLength": 4000,
+     "attributes": {
+      "advanced": "true"
+     },
+     "reference_display": "User"
+    },
+    {
+     "name": "run_when_setting",
+     "label": "Run When Session Setting",
+     "type": "choice",
+     "default": "both",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "non_interactive",
+       "label": "Only Run for Non-Interactive Session"
+      },
+      {
+       "value": "interactive",
+       "label": "Only Run for User Interactive Session"
+      },
+      {
+       "value": "both",
+       "label": "Run for Both Interactive and Non-Interactive Sessions"
+      }
+     ]
+    },
+    {
+     "name": "run_when_user_setting",
+     "label": "Run When User Setting",
+     "type": "choice",
+     "default": "any",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     },
+     "choices": [
+      {
+       "value": "not_one_of",
+       "label": "Do not run if triggered by the following users"
+      },
+      {
+       "value": "one_of",
+       "label": "Only Run if triggered by the following users"
+      },
+      {
+       "value": "any",
+       "label": "Run for any user"
+      }
+     ]
+    },
+    {
+     "name": "trigger_strategy",
+     "label": "Run Trigger",
+     "type": "choice",
+     "default": "once",
+     "order": 200,
+     "maxLength": 40,
+     "choices": [
+      {
+       "value": "once",
+       "label": "Once"
+      },
+      {
+       "value": "unique_changes",
+       "label": "For each unique change"
+      },
+      {
+       "value": "always",
+       "label": "Only if not currently running"
+      },
+      {
+       "value": "every",
+       "label": "For every update"
+      }
+     ]
+    }
+   ],
+   "outputs": [
+    {
+     "name": "changed_fields",
+     "label": "Changed Fields",
+     "type": "array.object",
+     "order": 100,
+     "maxLength": 4000,
+     "attributes": {
+      "child_label": "FDChangeDetails",
+      "child_name": "FDChangeDetails",
+      "child_type": "object",
+      "child_type_label": "Object",
+      "co_type_name": "FDCollection",
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "pwd2droppable": "true",
+      "uiType": "array.object",
+      "uiTypeLabel": "Array.Object"
+     }
+    },
+    {
+     "name": "current",
+     "label": "Current",
+     "type": "document_id",
+     "mandatory": true,
+     "order": 100,
+     "maxLength": 200,
+     "dependent": "table_name",
+     "use_dependent": true
+    },
+    {
+     "name": "table_name",
+     "label": "Table Name",
+     "type": "table_name",
+     "order": 101,
+     "maxLength": 200,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date/Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 200,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 200,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "scheduled.daily",
+   "sys_id": "89142dc0c32222002841b63b12d3ae8a",
+   "name": "Daily",
+   "trigger_type": "daily",
+   "pill_prefix": "Daily_1",
+   "label_prefix": "Trigger - Run Daily ",
+   "label_prefix_verified": true,
+   "inputs": [
+    {
+     "name": "time",
+     "label": "Time",
+     "type": "glide_time",
+     "mandatory": true,
+     "order": 100,
+     "maxLength": 100,
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date/Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     },
+     "pill_label": "Run Start Time UTC"
+    }
+   ]
+  },
+  {
+   "key": "scheduled.weekly",
+   "sys_id": "cf352104c32222002841b63b12d3ae1f",
+   "name": "Weekly",
+   "trigger_type": "weekly",
+   "pill_prefix": "Weekly_1",
+   "label_prefix": "Trigger - Weekly",
+   "label_prefix_verified": false,
+   "inputs": [
+    {
+     "name": "day_of_week",
+     "label": "Day of Week",
+     "type": "day_of_week",
+     "mandatory": true,
+     "order": 10,
+     "maxLength": 40,
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
+    },
+    {
+     "name": "time",
+     "label": "Time",
+     "type": "glide_time",
+     "mandatory": true,
+     "order": 100,
+     "maxLength": 100,
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date/Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "scheduled.monthly",
+   "sys_id": "2ca52504c32222002841b63b12d3ae4a",
+   "name": "Monthly",
+   "trigger_type": "monthly",
+   "pill_prefix": "Monthly_1",
+   "label_prefix": "Trigger - Monthly",
+   "label_prefix_verified": false,
+   "inputs": [
+    {
+     "name": "day_of_month",
+     "label": "Day of Month",
+     "type": "integer",
+     "mandatory": true,
+     "order": 10,
+     "maxLength": 40,
+     "attributes": {
+      "integer_type": "day_of_month",
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
+    },
+    {
+     "name": "time",
+     "label": "Time",
+     "type": "glide_time",
+     "mandatory": true,
+     "order": 100,
+     "maxLength": 100,
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date/Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "scheduled.repeat",
+   "sys_id": "f63f0d94c32222002841b63b12d3aeed",
+   "name": "Repeat",
+   "trigger_type": "repeat",
+   "pill_prefix": "Repeat_1",
+   "label_prefix": "Trigger - Repeat",
+   "label_prefix_verified": false,
+   "inputs": [
+    {
+     "name": "repeat",
+     "label": "Repeat",
+     "type": "glide_duration",
+     "mandatory": true,
+     "order": 100,
+     "maxLength": 100,
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date/Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "scheduled.run_once",
+   "sys_id": "0a76e504c32222002841b63b12d3aeac",
+   "name": "Run Once",
+   "trigger_type": "run_once",
+   "pill_prefix": "Run Once_1",
+   "label_prefix": "Trigger - Run Once",
+   "label_prefix_verified": false,
+   "inputs": [
+    {
+     "name": "run_in",
+     "label": "Run in",
+     "type": "glide_date_time",
+     "mandatory": true,
+     "order": 100,
+     "maxLength": 100,
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date/Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 110,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "email.inbound",
+   "sys_id": "6f0180400b320300f4eb8bf637673ad4",
+   "name": "Inbound Email",
+   "trigger_type": "email",
+   "pill_prefix": "Inbound Email_1",
+   "label_prefix": "Trigger - Inbound Email",
+   "label_prefix_verified": true,
+   "inputs": [
+    {
+     "name": "email_conditions",
+     "label": "Email Conditions",
+     "type": "conditions",
+     "order": 100,
+     "reference": "sys_email",
+     "maxLength": 4000,
+     "attributes": {
+      "condition_builder": "v2"
+     },
+     "reference_display": "Email"
+    },
+    {
+     "name": "order",
+     "label": "Order",
+     "type": "integer",
+     "order": 200,
+     "maxLength": 40,
+     "attributes": {
+      "visible": "glide.hub.flow.inbound_email_trigger.show_advanced:false"
+     },
+     "hidden": true
+    },
+    {
+     "name": "stop_condition_evaluation",
+     "label": "Stop processing",
+     "type": "boolean",
+     "default": true,
+     "order": 300,
+     "maxLength": 40,
+     "attributes": {
+      "visible": "glide.hub.flow.inbound_email_trigger.show_advanced:false"
+     },
+     "hidden": true
+    },
+    {
+     "name": "target_table",
+     "label": "Target table",
+     "type": "table_name",
+     "order": 400,
+     "maxLength": 80
+    }
+   ],
+   "outputs": [
+    {
+     "name": "body_text",
+     "label": "Body Text",
+     "type": "string_full_utf8",
+     "order": 100,
+     "maxLength": 255,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "from_address",
+     "label": "From address",
+     "type": "string_full_utf8",
+     "order": 100,
+     "maxLength": 255,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "inbound_email",
+     "label": "Inbound Email",
+     "type": "reference",
+     "order": 100,
+     "reference": "sys_email",
+     "maxLength": 32
+    },
+    {
+     "name": "subject",
+     "label": "Subject",
+     "type": "string_full_utf8",
+     "order": 100,
+     "maxLength": 255,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "target_record",
+     "label": "Target Record",
+     "type": "document_id",
+     "order": 100,
+     "maxLength": 255,
+     "dependent": "target_table_name",
+     "use_dependent": true,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "target_table_name",
+     "label": "Target Table Name",
+     "type": "table_name",
+     "order": 100,
+     "maxLength": 255,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "user",
+     "label": "User",
+     "type": "reference",
+     "order": 100,
+     "reference": "sys_user",
+     "maxLength": 32,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "catalog.service_catalog",
+   "sys_id": "c43a1011c36813002841b63b12d3ae15",
+   "name": "Service Catalog",
+   "trigger_type": "service_catalog",
+   "pill_prefix": "Service Catalog_1",
+   "label_prefix": "Trigger - Service Catalog",
+   "label_prefix_verified": true,
+   "inputs": [
+    {
+     "name": "run_flow_in",
+     "label": "Run flow In",
+     "type": "choice",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "advanced": "true"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "request_item",
+     "label": "Request Item",
+     "type": "reference",
+     "mandatory": true,
+     "order": 100,
+     "reference": "sc_req_item",
+     "maxLength": 32,
+     "attributes": {
+      "default_search_field": "number"
+     }
+    },
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date/Time",
+     "type": "glide_date_time",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "table_name",
+     "label": "Table Name",
+     "type": "table_name",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "sla.task",
+   "sys_id": "f5ce00a873723300d70877186bf6a759",
+   "name": "SLA Task",
+   "trigger_type": "sla_task",
+   "pill_prefix": "SLA Task_1",
+   "label_prefix": "Trigger - SLA Task",
+   "label_prefix_verified": true,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "sla_flow_inputs",
+     "label": "SLA Flow Inputs",
+     "type": "object",
+     "order": 100,
+     "maxLength": 4096,
+     "attributes": {
+      "co_type_name": "FDcdbd0dc2bc7233000dbdb4d30db4851a",
+      "uiType": "object",
+      "uiTypeLabel": "Object"
+     },
+     "pill_label": "sla_flow_inputs"
+    },
+    {
+     "name": "task_sla_record",
+     "label": "Task SLA Record",
+     "type": "reference",
+     "mandatory": true,
+     "order": 100,
+     "reference": "task_sla",
+     "maxLength": 32
+    }
+   ]
+  },
+  {
+   "key": "knowledge.management",
+   "sys_id": "9bdb2c0483331210730e5b43c22bc071",
+   "name": "Knowledge Management",
+   "trigger_type": "knowledge_management",
+   "pill_prefix": "Knowledge Management_1",
+   "label_prefix": "Trigger - Knowledge Management",
+   "label_prefix_verified": true,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "knowledge",
+     "label": "Knowledge",
+     "type": "reference",
+     "mandatory": true,
+     "order": 100,
+     "reference": "kb_knowledge",
+     "maxLength": 32,
+     "attributes": {
+      "default_search_field": "number"
+     }
+    },
+    {
+     "name": "run_start_date_time",
+     "label": "Run Start Date Time",
+     "type": "glide_date_time",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "run_start_time",
+     "label": "Run Start Time",
+     "type": "glide_date_time",
+     "order": 100,
+     "maxLength": 40,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    },
+    {
+     "name": "table_name",
+     "label": "Table Name",
+     "type": "table_name",
+     "order": 100,
+     "maxLength": 80,
+     "attributes": {
+      "test_input_hidden": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "remote_table.query",
+   "sys_id": "778cf3bf37232110aba6473174924b7c",
+   "name": "Remote Table Query",
+   "trigger_type": "remote_table_query",
+   "pill_prefix": "Remote Table Query_1",
+   "label_prefix": "Trigger - Remote Table Query",
+   "label_prefix_verified": false,
+   "inputs": [
+    {
+     "name": "u_table",
+     "label": "Table",
+     "type": "table_name",
+     "order": 100,
+     "reference": "sys_script_vtable",
+     "maxLength": 32,
+     "reference_display": "Remote Table"
+    }
+   ],
+   "outputs": [
+    {
+     "name": "query_id",
+     "label": "Query ID",
+     "type": "string_full_utf8",
+     "order": 100,
+     "maxLength": 255,
+     "attributes": {
+      "visible": "false"
+     },
+     "hidden": true
+    },
+    {
+     "name": "query_parameters",
+     "label": "Query Parameters",
+     "type": "simple_name_values",
+     "order": 100,
+     "maxLength": 4000
+    },
+    {
+     "name": "table_name",
+     "label": "Table Name",
+     "type": "table_name",
+     "order": 100,
+     "maxLength": 80
+    }
+   ]
+  }
+ ]
+}

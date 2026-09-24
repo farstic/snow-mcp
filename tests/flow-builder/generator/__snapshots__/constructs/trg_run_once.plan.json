@@ -1,0 +1,131 @@
+{
+  "flowKey": "trg_run_once",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "9949ef7b7ebf98623301f6550a5053a3",
+      "fields": {
+        "sys_id": "9949ef7b7ebf98623301f6550a5053a3",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: scheduled.run_once trigger",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "trigger_run_once",
+        "label_cache": [
+          {
+            "name": "Run Once_1.run_start_date_time",
+            "label": "Trigger - Run Once➛Run Start Date/Time",
+            "type": "glide_date_time",
+            "base_type": "glide_date_time",
+            "usedInstances": {
+              "4009f253-34a9-d81b-d309-ba2ef8610680": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Trigger Run Once",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "bac44d772b9ed8365be5f6c1a369ea64",
+      "fields": {
+        "sys_id": "bac44d772b9ed8365be5f6c1a369ea64",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "9949ef7b7ebf98623301f6550a5053a3",
+        "name": "Run Once",
+        "trigger_definition": "0a76e504c32222002841b63b12d3aeac",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run in",
+            "internalType": "glide_date_time",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 100,
+            "name": "run_in",
+            "value": "2027-03-01 07:45:00",
+            "displayValue": "2027-03-01 07:45:00",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "glide_date_time",
+              "name": "run_in",
+              "label": "Run in",
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              }
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "run_once"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "4009f25334a9d81bd309ba2ef8610680",
+      "fields": {
+        "sys_id": "4009f25334a9d81bd309ba2ef8610680",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "9949ef7b7ebf98623301f6550a5053a3",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "4009f253-34a9-d81b-d309-ba2ef8610680",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "One-off run {{Run Once_1.run_start_date_time}}",
+            "displayValue": "One-off run {{Run Once_1.run_start_date_time}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.run_start_date_time",
+      "platform": "Run Once_1.run_start_date_time",
+      "type": "glide_date_time"
+    }
+  ]
+}

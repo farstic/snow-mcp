@@ -1,0 +1,19 @@
+{
+  "table": "sys_choice",
+  "query": "nameINvar__m_sys_hub_action_input_<each action snapshot sys_id>^language=en^inactive=false",
+  "fields": "name,element,value,label,sequence",
+  "note": "11 rows for the 33 snapshots; only Log, Look Up Record, Look Up Records and Update Multiple Records have choice inputs.",
+  "result": [
+    { "sequence": "1", "name": "var__m_sys_hub_action_input_43400a1587003300663ca1bb36cb0b4b", "label": "a to z", "value": "sort_asc", "element": "sort_type" },
+    { "sequence": "2", "name": "var__m_sys_hub_action_input_43400a1587003300663ca1bb36cb0b4b", "label": "z to a", "value": "sort_desc", "element": "sort_type" },
+    { "sequence": "200", "name": "var__m_sys_hub_action_input_5bc1bcc6531003003bf1d9109ec587d4", "label": "Warning", "value": "warn", "element": "log_level" },
+    { "sequence": "300", "name": "var__m_sys_hub_action_input_5bc1bcc6531003003bf1d9109ec587d4", "label": "Error", "value": "error", "element": "log_level" },
+    { "sequence": "100", "name": "var__m_sys_hub_action_input_5bc1bcc6531003003bf1d9109ec587d4", "label": "Info", "value": "info", "element": "log_level" },
+    { "sequence": "-1", "name": "var__m_sys_hub_action_input_9d09f99587003300663ca1bb36cb0ba3", "label": "Return only the first record", "value": "use_first_record", "element": "if_multiple_records_are_found_action" },
+    { "sequence": "-1", "name": "var__m_sys_hub_action_input_9d09f99587003300663ca1bb36cb0ba3", "label": "Fail the step", "value": "error", "element": "if_multiple_records_are_found_action" },
+    { "sequence": "2", "name": "var__m_sys_hub_action_input_9d09f99587003300663ca1bb36cb0ba3", "label": "z to a", "value": "sort_desc", "element": "sort_type" },
+    { "sequence": "1", "name": "var__m_sys_hub_action_input_9d09f99587003300663ca1bb36cb0ba3", "label": "a to z", "value": "sort_asc", "element": "sort_type" },
+    { "sequence": "1", "name": "var__m_sys_hub_action_input_9daf2a72c75100105312134c95c26073", "label": "z to a", "value": "sort_desc", "element": "sort_type" },
+    { "sequence": "0", "name": "var__m_sys_hub_action_input_9daf2a72c75100105312134c95c26073", "label": "a to z", "value": "sort_asc", "element": "sort_type" }
+  ]
+}

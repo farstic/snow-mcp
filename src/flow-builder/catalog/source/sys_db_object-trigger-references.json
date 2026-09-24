@@ -1,0 +1,10 @@
+{
+  "table": "sys_db_object",
+  "query": "nameIN<every table a sys_hub_trigger_input of the manifest triggers references>",
+  "fields": "name,label",
+  "result": [
+    { "name": "sys_email", "label": "Email" },
+    { "name": "sys_script_vtable", "label": "Remote Table" },
+    { "name": "sys_user", "label": "User" }
+  ]
+}

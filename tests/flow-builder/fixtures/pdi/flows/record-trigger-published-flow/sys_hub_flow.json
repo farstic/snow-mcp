@@ -1,0 +1,148 @@
+{
+  "sys_id": "c8920755ffe776500b47fffffffffffc",
+  "name": "Incident resolve agent trigger",
+  "internal_name": "trigger_itsm_resolve_agent",
+  "status": "published",
+  "active": "false",
+  "run_as": "user",
+  "generation_source": "",
+  "sys_scope": "3b56ea0433cf52104775b4570e5c7b4f",
+  "latest_snapshot": "2f374799ff2b76500b47ffffffffff16",
+  "master_snapshot": "2f374799ff2b76500b47ffffffffff16",
+  "remote_trigger_id": "02968053339507109092ff889d5c7b9a",
+  "label_cache": "[{\"name\":\"Updated_1.current.sys_id\",\"label\":\"Trigger - Record Updated➛Incident Record➛Sys ID\",\"reference\":\"\",\"reference_display\":\"Sys ID\",\"type\":\"GUID\",\"base_type\":\"GUID\",\"parent_table_name\":\"incident\",\"column_name\":\"sys_id\",\"usedInstances\":{\"b564ad3b-16c9-4477-9e70-177afef4e46c\":[\"sysid\"]}},{\"name\":\"Updated_1.current.assigned_to.sys_id\",\"label\":\"Trigger - Record Updated➛Incident Record➛Assigned to➛Sys ID\",\"reference\":\"\",\"reference_display\":\"Sys ID\",\"type\":\"GUID\",\"base_type\":\"GUID\",\"parent_table_name\":\"sys_user\",\"column_name\":\"sys_id\",\"usedInstances\":{\"b564ad3b-16c9-4477-9e70-177afef4e46c\":[\"assigned_to\"]}},{\"name\":\"Updated_1.current.number\",\"label\":\"Trigger - Record Updated➛Incident Record➛Number\",\"reference\":\"\",\"reference_display\":\"Number\",\"type\":\"string\",\"base_type\":\"string\",\"parent_table_name\":\"incident\",\"column_name\":\"number\",\"usedInstances\":{\"b564ad3b-16c9-4477-9e70-177afef4e46c\":[\"number\"]}},{\"name\":\"Updated_1.table_name\",\"label\":\"Trigger - Record Updated➛Incident Table\",\"reference\":\"incident\",\"reference_display\":\"Incident\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"usedInstances\":{\"b564ad3b-16c9-4477-9e70-177afef4e46c\":[\"table\"]},\"attributes\":{\"test_input_hidden\":\"true\"}},{\"name\":\"Created or Updated_1.current.sys_id\",\"label\":\"Trigger - Record Created or Updated➛Incident Record➛Sys ID\",\"reference\":\"\",\"reference_display\":\"Sys ID\",\"type\":\"GUID\",\"base_type\":\"GUID\",\"parent_table_name\":\"incident\",\"column_name\":\"sys_id\",\"usedInstances\":{\"b564ad3b-16c9-4477-9e70-177afef4e46c\":[\"sysid\"]}},{\"name\":\"Created or Updated_1.current.assigned_to\",\"label\":\"Trigger - Record Created or Updated➛Incident Record➛Assigned to\",\"reference\":\"sys_user\",\"reference_display\":\"User\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":\"incident\",\"column_name\":\"assigned_to\",\"usedInstances\":{\"b564ad3b-16c9-4477-9e70-177afef4e46c\":[\"assigned_to\"]}},{\"name\":\"Created or Updated_1.current\",\"label\":\"Trigger - Record Created or Updated➛Incident Record\",\"reference\":\"incident\",\"reference_display\":\"Incident\",\"type\":\"reference\",\"base_type\":\"reference\",\"usedInstances\":{},\"attributes\":{}},{\"name\":\"Created or Updated_1.current.number\",\"label\":\"Trigger - Record Created or Updated➛Incident Record➛Number\",\"reference\":\"\",\"reference_display\":\"Number\",\"type\":\"string\",\"base_type\":\"string\",\"parent_table_name\":\"incident\",\"column_name\":\"number\",\"usedInstances\":{\"b564ad3b-16c9-4477-9e70-177afef4e46c\":[\"number\"]}},{\"name\":\"Created or Updated_1.table_name\",\"label\":\"Trigger - Record Created or Updated➛Incident Table\",\"reference\":\"incident\",\"reference_display\":\"Incident\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"usedInstances\":{\"b564ad3b-16c9-4477-9e70-177afef4e46c\":[\"table\"]},\"attributes\":{\"test_input_hidden\":\"true\"}}]",
+  "label_cache_parsed": [
+    {
+      "name": "Updated_1.current.sys_id",
+      "label": "Trigger - Record Updated➛Incident Record➛Sys ID",
+      "reference": "",
+      "reference_display": "Sys ID",
+      "type": "GUID",
+      "base_type": "GUID",
+      "parent_table_name": "incident",
+      "column_name": "sys_id",
+      "usedInstances": {
+        "b564ad3b-16c9-4477-9e70-177afef4e46c": [
+          "sysid"
+        ]
+      }
+    },
+    {
+      "name": "Updated_1.current.assigned_to.sys_id",
+      "label": "Trigger - Record Updated➛Incident Record➛Assigned to➛Sys ID",
+      "reference": "",
+      "reference_display": "Sys ID",
+      "type": "GUID",
+      "base_type": "GUID",
+      "parent_table_name": "sys_user",
+      "column_name": "sys_id",
+      "usedInstances": {
+        "b564ad3b-16c9-4477-9e70-177afef4e46c": [
+          "assigned_to"
+        ]
+      }
+    },
+    {
+      "name": "Updated_1.current.number",
+      "label": "Trigger - Record Updated➛Incident Record➛Number",
+      "reference": "",
+      "reference_display": "Number",
+      "type": "string",
+      "base_type": "string",
+      "parent_table_name": "incident",
+      "column_name": "number",
+      "usedInstances": {
+        "b564ad3b-16c9-4477-9e70-177afef4e46c": [
+          "number"
+        ]
+      }
+    },
+    {
+      "name": "Updated_1.table_name",
+      "label": "Trigger - Record Updated➛Incident Table",
+      "reference": "incident",
+      "reference_display": "Incident",
+      "type": "table_name",
+      "base_type": "table_name",
+      "usedInstances": {
+        "b564ad3b-16c9-4477-9e70-177afef4e46c": [
+          "table"
+        ]
+      },
+      "attributes": {
+        "test_input_hidden": "true"
+      }
+    },
+    {
+      "name": "Created or Updated_1.current.sys_id",
+      "label": "Trigger - Record Created or Updated➛Incident Record➛Sys ID",
+      "reference": "",
+      "reference_display": "Sys ID",
+      "type": "GUID",
+      "base_type": "GUID",
+      "parent_table_name": "incident",
+      "column_name": "sys_id",
+      "usedInstances": {
+        "b564ad3b-16c9-4477-9e70-177afef4e46c": [
+          "sysid"
+        ]
+      }
+    },
+    {
+      "name": "Created or Updated_1.current.assigned_to",
+      "label": "Trigger - Record Created or Updated➛Incident Record➛Assigned to",
+      "reference": "sys_user",
+      "reference_display": "User",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": "incident",
+      "column_name": "assigned_to",
+      "usedInstances": {
+        "b564ad3b-16c9-4477-9e70-177afef4e46c": [
+          "assigned_to"
+        ]
+      }
+    },
+    {
+      "name": "Created or Updated_1.current",
+      "label": "Trigger - Record Created or Updated➛Incident Record",
+      "reference": "incident",
+      "reference_display": "Incident",
+      "type": "reference",
+      "base_type": "reference",
+      "usedInstances": {},
+      "attributes": {}
+    },
+    {
+      "name": "Created or Updated_1.current.number",
+      "label": "Trigger - Record Created or Updated➛Incident Record➛Number",
+      "reference": "",
+      "reference_display": "Number",
+      "type": "string",
+      "base_type": "string",
+      "parent_table_name": "incident",
+      "column_name": "number",
+      "usedInstances": {
+        "b564ad3b-16c9-4477-9e70-177afef4e46c": [
+          "number"
+        ]
+      }
+    },
+    {
+      "name": "Created or Updated_1.table_name",
+      "label": "Trigger - Record Created or Updated➛Incident Table",
+      "reference": "incident",
+      "reference_display": "Incident",
+      "type": "table_name",
+      "base_type": "table_name",
+      "usedInstances": {
+        "b564ad3b-16c9-4477-9e70-177afef4e46c": [
+          "table"
+        ]
+      },
+      "attributes": {
+        "test_input_hidden": "true"
+      }
+    }
+  ]
+}

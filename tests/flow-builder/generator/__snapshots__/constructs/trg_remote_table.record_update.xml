@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<record_update table="sys_hub_flow">
+  <sys_hub_flow action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>b713cebed090596673fed23eab8f5449</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_flow_b713cebed090596673fed23eab8f5449</sys_update_name>
+    <access>public</access>
+    <active>false</active>
+    <allow_high_security_roles>false</allow_high_security_roles>
+    <annotation/>
+    <category/>
+    <description>Construct spec: remote_table.query trigger</description>
+    <flow_priority/>
+    <generation_source>snow_mcp_flow_builder</generation_source>
+    <internal_name>trigger_remote_table_query</internal_name>
+    <label_cache>[{"name":"Remote Table Query_1.query_id","label":"Trigger - Remote Table Query➛Query ID","type":"string","base_type":"string","usedInstances":{"02434e07-884d-316f-6296-35eabd0b3f74":["log_message"]},"attributes":{}},{"name":"Remote Table Query_1.table_name","label":"Trigger - Remote Table Query➛Table Name","type":"table_name","base_type":"table_name","usedInstances":{"02434e07-884d-316f-6296-35eabd0b3f74":["log_message"]},"attributes":{}}]</label_cache>
+    <name>Trigger Remote Table Query</name>
+    <run_as>user</run_as>
+    <run_with_roles/>
+    <show_draft_actions>false</show_draft_actions>
+    <status>draft</status>
+    <sys_policy/>
+    <type>flow</type>
+    <version>2</version>
+  </sys_hub_flow>
+  <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=b713cebed090596673fed23eab8f5449^sys_idNOT IN3b289746ae94d812c7b41479970273b1"/>
+  <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>3b289746ae94d812c7b41479970273b1</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_trigger_instance_v2_3b289746ae94d812c7b41479970273b1</sys_update_name>
+    <category/>
+    <comment/>
+    <flow>b713cebed090596673fed23eab8f5449</flow>
+    <name>Remote Table Query</name>
+    <trigger_definition>778cf3bf37232110aba6473174924b7c</trigger_definition>
+    <trigger_inputs>H4sIAAAAAAAAA4WQsWoDMRBEfyVsfYXTqksTMKRKTBpjxFoa2wJJJ1brI8L438OdjhROIO3M7szb3d9IJZzPkG2uytnho9WtJ0M0UOQjIhna8TGCBgpZIZnjrhWQIZ1lmznNnkdB9sjaV91lDA5voSqZ/WGgxNmzjtLInDhWDDSKh5B53mwGWjIMXa2uTRPHa1fwxalEWEEadSkKtURun/9OvAbE9ZDqJBR9cRom/AC4S4hekDtgYeEEnZFupH8c+Ivx8TuCEwTZzVO1VdtL7aSPvl0BydD7wvzUI+73wzfttt7NjwEAAA==</trigger_inputs>
+    <trigger_outputs/>
+    <trigger_type>remote_table_query</trigger_type>
+  </sys_hub_trigger_instance_v2>
+  <sys_hub_action_instance_v2 action="delete_multiple" query="flow=b713cebed090596673fed23eab8f5449^sys_idNOT IN02434e07884d316f629635eabd0b3f74"/>
+  <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>02434e07884d316f629635eabd0b3f74</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_action_instance_v2_02434e07884d316f629635eabd0b3f74</sys_update_name>
+    <action_type>5bc1bcc6531003003bf1d9109ec587d4</action_type>
+    <action_type_parent>0e0ae8c2531003003bf1d9109ec587c8</action_type_parent>
+    <active>true</active>
+    <comment/>
+    <display_text/>
+    <flow>b713cebed090596673fed23eab8f5449</flow>
+    <generation_source/>
+    <order>1</order>
+    <parent_ui_id/>
+    <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+    <ui_id>02434e07-884d-316f-6296-35eabd0b3f74</ui_id>
+    <updation_source/>
+    <values>H4sIAAAAAAAAA7WQywrCMBBFfyXMOghuu/MTFHEjEsZ0WgN5maSFEubfJeLCIoIbl/fMhXOZcwWPjqADG0ZlaSYLEma0U2PGDwEk9CZHi8tpTbNOJpadLmYm6Aa0mSRETOioUIKuQlli6+tbMJqAWa5kjnLGkd50B3KhkLhPlBZR6yse8WpJ7BtU283zqEzPLIL/ViotqeZi/tz/L83PD8klGT8C8+UBeD+OAH8BAAA=</values>
+  </sys_hub_action_instance_v2>
+  <sys_hub_alias_mapping action="delete_multiple" query="source_id=02434e07884d316f629635eabd0b3f74"/>
+</record_update>

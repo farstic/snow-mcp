@@ -1,0 +1,124 @@
+{
+  "flowKey": "trg_sla_task",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "55a5990b690fd1dff1c29466dc579198",
+      "fields": {
+        "sys_id": "55a5990b690fd1dff1c29466dc579198",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: sla.task trigger",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "trigger_sla_task",
+        "label_cache": [
+          {
+            "name": "SLA Task_1.task_sla_record.sla.name",
+            "label": "Trigger - SLA Task➛Task SLA Record➛Sla➛Name",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c408222c-a467-7d97-b1e8-9ecdc90ca697": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "SLA Task_1.sla_flow_inputs.name",
+            "label": "Trigger - SLA Task➛sla_flow_inputs",
+            "type": "object",
+            "base_type": "object",
+            "usedInstances": {
+              "c408222c-a467-7d97-b1e8-9ecdc90ca697": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Trigger SLA Task",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "486dca43db11dadcf4ef9494fc9173de",
+      "fields": {
+        "sys_id": "486dca43db11dadcf4ef9494fc9173de",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "55a5990b690fd1dff1c29466dc579198",
+        "name": "SLA Task",
+        "trigger_definition": "f5ce00a873723300d70877186bf6a759",
+        "trigger_inputs": [],
+        "trigger_outputs": "",
+        "trigger_type": "sla_task"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c408222ca4677d97b1e89ecdc90ca697",
+      "fields": {
+        "sys_id": "c408222ca4677d97b1e89ecdc90ca697",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "55a5990b690fd1dff1c29466dc579198",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c408222c-a467-7d97-b1e8-9ecdc90ca697",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "SLA {{SLA Task_1.task_sla_record.sla.name}} inputs {{SLA Task_1.sla_flow_inputs.name}}",
+            "displayValue": "SLA {{SLA Task_1.task_sla_record.sla.name}} inputs {{SLA Task_1.sla_flow_inputs.name}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.task_sla_record.sla.name",
+      "platform": "SLA Task_1.task_sla_record.sla.name",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.sla_flow_inputs.name",
+      "platform": "SLA Task_1.sla_flow_inputs.name",
+      "type": "object"
+    }
+  ]
+}

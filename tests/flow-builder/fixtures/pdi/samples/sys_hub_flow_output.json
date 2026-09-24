@@ -1,0 +1,47 @@
+[
+  {
+    "sys_id": "02193996333fbe107676d64a7e5c7bf7",
+    "sys_class_name": "sys_hub_flow_output",
+    "model": "39193996333fbe107676d64a7e5c7b82",
+    "model_table": "sys_hub_flow",
+    "name": "var__m_sys_hub_flow_output_39193996333fbe107676d64a7e5c7b82",
+    "element": "action_status",
+    "label": "Action Status",
+    "internal_type": "string",
+    "max_length": "65000",
+    "order": "2",
+    "internal_link": "",
+    "sys_scope": "19f22be9937b3a101adcf91a2603d6cc",
+    "attributes": "co_type_name=FDed0a3d1a573fbe1049f821dd19d52bd6,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,is_scriptable=true,pwd2droppable=true,sourceId=db44dc76-56d7-436c-b145-a1b1cccabae8,sourceType=action,sourceUiUniqueId=db44dc76-56d7-436c-b145-a1b1cccabae8,uiType=object,uiTypeLabel=Object,uiUniqueId=36c83743-ba8c-43a1-aba8-b7e7084eccae"
+  },
+  {
+    "sys_id": "04253c1e2fd27a50bfbcae32a03f9beb",
+    "sys_class_name": "sys_hub_flow_output",
+    "model": "73cf4854ff632210dfebffffffffff20",
+    "model_table": "sys_hub_flow",
+    "name": "var__m_sys_hub_flow_output_73cf4854ff632210dfebffffffffff20",
+    "element": "related_party_configurations",
+    "label": "Related Party Configurations",
+    "internal_type": "json",
+    "max_length": "4000",
+    "order": "2",
+    "internal_link": "",
+    "sys_scope": "7be17355874010108ef7a7da0acb0bb5",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=json,uiTypeLabel=JSON,uiUniqueId=0c0eac6d-fe9b-487a-8466-540c1676d38f"
+  },
+  {
+    "sys_id": "057a719a333fbe107676d64a7e5c7bcd",
+    "sys_class_name": "sys_hub_flow_output",
+    "model": "3c7a719a333fbe107676d64a7e5c7b6b",
+    "model_table": "sys_hub_flow_snapshot",
+    "name": "var__m_sys_hub_flow_output_3c7a719a333fbe107676d64a7e5c7b6b",
+    "element": "error_code",
+    "label": "Error Code",
+    "internal_type": "string",
+    "max_length": "8000",
+    "order": "4",
+    "internal_link": "",
+    "sys_scope": "19f22be9937b3a101adcf91a2603d6cc",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=string,uiTypeLabel=String,uiUniqueId=fab42397-7ca3-40f1-80d2-3d8217999b73"
+  }
+]

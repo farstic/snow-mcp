@@ -1,0 +1,59 @@
+{
+  "sys_id": "1833c750871f4b50004fc845dabb3518",
+  "sys_class_name": "sys_hub_flow_snapshot",
+  "name": "Change - Normal - Implement",
+  "internal_name": "change__normal__implement",
+  "type": "flow",
+  "status": "published",
+  "active": "true",
+  "run_as": "user",
+  "generation_source": "",
+  "sys_scope": "global",
+  "sys_created_by": "pdi.user@example.com",
+  "label_cache": "[{\"name\":\"Created or Updated_1.current\",\"label\":\"Trigger➛Change Request Record\",\"reference\":\"change_request\",\"reference_display\":\"Change Request\",\"type\":\"reference\",\"base_type\":\"reference\",\"attributes\":{}},{\"name\":\"f68d02e8-0c99-4b69-8fc4-9dffd0cb363d.state\",\"label\":\"2➛3➛State\",\"reference_display\":\"State\",\"type\":\"choice\",\"base_type\":\"choice\",\"choices\":[{\"label\":\"Complete\",\"value\":\"0\",\"order\":0.0},{\"label\":\"Timeout\",\"value\":\"1\",\"order\":1.0}],\"attributes\":{\"uiType\":\"choice\",\"uiTypeLabel\":\"Choice\",\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\",\"uiUniqueId\":\"2e334039-7a20-4ead-9148-909988f1a7e4\"}},{\"name\":\"0909b196-5cb0-4580-9ba6-56a3bfa10baf.context\",\"label\":\"7➛8➛Context\",\"reference\":\"sys_flow_context\",\"reference_display\":\"Flow engine context\",\"type\":\"reference\",\"base_type\":\"reference\",\"attributes\":{}}]",
+  "label_cache_parsed": [
+    {
+      "name": "Created or Updated_1.current",
+      "label": "Trigger➛Change Request Record",
+      "reference": "change_request",
+      "reference_display": "Change Request",
+      "type": "reference",
+      "base_type": "reference",
+      "attributes": {}
+    },
+    {
+      "name": "f68d02e8-0c99-4b69-8fc4-9dffd0cb363d.state",
+      "label": "2➛3➛State",
+      "reference_display": "State",
+      "type": "choice",
+      "base_type": "choice",
+      "choices": [
+        {
+          "label": "Complete",
+          "value": "0",
+          "order": 0
+        },
+        {
+          "label": "Timeout",
+          "value": "1",
+          "order": 1
+        }
+      ],
+      "attributes": {
+        "uiType": "choice",
+        "uiTypeLabel": "Choice",
+        "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+        "uiUniqueId": "2e334039-7a20-4ead-9148-909988f1a7e4"
+      }
+    },
+    {
+      "name": "0909b196-5cb0-4580-9ba6-56a3bfa10baf.context",
+      "label": "7➛8➛Context",
+      "reference": "sys_flow_context",
+      "reference_display": "Flow engine context",
+      "type": "reference",
+      "base_type": "reference",
+      "attributes": {}
+    }
+  ]
+}

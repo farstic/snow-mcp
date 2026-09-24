@@ -1,0 +1,99 @@
+[
+  {
+    "sys_id": "0194f84553e220109f15ddeeff7b126d",
+    "instance": "fc74594b1b0c1010affd0e55cc4bcba3",
+    "referenced_table": "sys_hub_action_instance",
+    "input_name": "ah_to",
+    "active": "true",
+    "sys_created_on": "2025-06-03 16:21:22",
+    "script": "{\"ah_to\":{\"scriptActive\":true,\"script\":\"var userGr \\u003d fd_data.subflow_inputs.to;\\nvar emailList \\u003d [];\\nif (fd_data.subflow_inputs.to_email_address)\\n    emailList.push(fd_data.subflow_inputs.to_email_address);\\nif (userGr) {\\n        if (typeof userGr \\u003d\\u003d\\u003d \\u0022string\\u0022) {\\n        var gr \\u003d new GlideRecord(\\u0027sys_user\\u0027);\\n        gr.addQuery(\\u0027sys_id\\u0027, \\u0027IN\\u0027, userGr);\\n        gr.query();\\n        while (gr.next()) {\\n            emailList.push(gr.getValue(\\u0027email\\u0027));\\n        }\\n    }\\n    while (userGr.next()) \\n        emailList.push(userGr.getValue(\\u0027email\\u0027));\\n}\\nreturn emailList.join(\\u0027,\\u0027);\"}}",
+    "script_parsed": {
+      "ah_to": {
+        "scriptActive": true,
+        "script": "var userGr = fd_data.subflow_inputs.to;\nvar emailList = [];\nif (fd_data.subflow_inputs.to_email_address)\n    emailList.push(fd_data.subflow_inputs.to_email_address);\nif (userGr) {\n        if (typeof userGr === \"string\") {\n        var gr = new GlideRecord('sys_user');\n        gr.addQuery('sys_id', 'IN', userGr);\n        gr.query();\n        while (gr.next()) {\n            emailList.push(gr.getValue('email'));\n        }\n    }\n    while (userGr.next()) \n        emailList.push(userGr.getValue('email'));\n}\nreturn emailList.join(',');"
+      }
+    }
+  },
+  {
+    "sys_id": "02ca1c09ff463210d7c5ffffffffffc2",
+    "instance": "8aca1c09ff463210d7c5ffffffffff9b",
+    "referenced_table": "sys_hub_step_instance",
+    "input_name": "body",
+    "active": "false",
+    "sys_created_on": "2025-12-24 07:37:38",
+    "script": "{\"body\":{\"scriptActive\":false,\"script\":\"/*\\n**Access Flow/Action data using the fd_data object. Script must return a value. \\n**Order number is offset by +1 in Error Handling Section.\\n**Available options display upon pressing \\\".\\\" after fd_data\\n**example: var shortDesc \\u003d fd_data.trigger.current.short_description;\\n**return shortDesc;\\n*/\"}}",
+    "script_parsed": {
+      "body": {
+        "scriptActive": false,
+        "script": "/*\n**Access Flow/Action data using the fd_data object. Script must return a value. \n**Order number is offset by +1 in Error Handling Section.\n**Available options display upon pressing \".\" after fd_data\n**example: var shortDesc = fd_data.trigger.current.short_description;\n**return shortDesc;\n*/"
+      }
+    }
+  },
+  {
+    "sys_id": "0397f411b7b13210b1288bbb4e11a9d2",
+    "instance": "ba97f411b7b13210b1288bbb4e11a9a7",
+    "referenced_table": "sys_hub_step_instance",
+    "input_name": "headers",
+    "active": "false",
+    "sys_created_on": "2025-12-12 18:06:23",
+    "script": "{\"name-values-1-value-input\":{\"scriptActive\":false,\"script\":\"/*\\n**Access Flow/Action data using the fd_data object. Script must return a value. \\n**Order number is offset by +1 in Error Handling Section.\\n**Available options display upon pressing \\\".\\\" after fd_data\\n**example: var shortDesc \\u003d fd_data.trigger.current.short_description;\\n**return shortDesc;\\n*/\\n\",\"savedValue\":\"\"}}",
+    "script_parsed": {
+      "name-values-1-value-input": {
+        "scriptActive": false,
+        "script": "/*\n**Access Flow/Action data using the fd_data object. Script must return a value. \n**Order number is offset by +1 in Error Handling Section.\n**Available options display upon pressing \".\" after fd_data\n**example: var shortDesc = fd_data.trigger.current.short_description;\n**return shortDesc;\n*/\n",
+        "savedValue": ""
+      }
+    }
+  },
+  {
+    "sys_id": "04cb532d3b020b906e121fdc73e45a7d",
+    "instance": "ee6513213b020b906e121fdc73e45a7c",
+    "referenced_table": "sys_hub_step_instance",
+    "input_name": "query_params",
+    "active": "true",
+    "sys_created_on": "2026-07-13 07:08:52",
+    "script": "{\"name-values-0-value-input\":{\"scriptActive\":true,\"script\":\"return fd_data.action_inputs.query_params.include_records;\",\"savedValue\":\"\"},\"name-values-1-value-input\":{\"scriptActive\":true,\"script\":\"return fd_data.action_inputs.query_params.limit;\",\"savedValue\":\"\"},\"name-values-2-value-input\":{\"scriptActive\":true,\"script\":\"return fd_data.action_inputs.query_params.offset;\",\"savedValue\":\"\"},\"name-values-4-value-input\":{\"scriptActive\":true,\"script\":\"return fd_data.action_inputs.query_params.sort_by;\",\"savedValue\":\"\"},\"name-values-3-value-input\":{\"scriptActive\":true,\"script\":\"return fd_data.action_inputs.query_params.sort_order;\",\"savedValue\":\"\"}}",
+    "script_parsed": {
+      "name-values-0-value-input": {
+        "scriptActive": true,
+        "script": "return fd_data.action_inputs.query_params.include_records;",
+        "savedValue": ""
+      },
+      "name-values-1-value-input": {
+        "scriptActive": true,
+        "script": "return fd_data.action_inputs.query_params.limit;",
+        "savedValue": ""
+      },
+      "name-values-2-value-input": {
+        "scriptActive": true,
+        "script": "return fd_data.action_inputs.query_params.offset;",
+        "savedValue": ""
+      },
+      "name-values-4-value-input": {
+        "scriptActive": true,
+        "script": "return fd_data.action_inputs.query_params.sort_by;",
+        "savedValue": ""
+      },
+      "name-values-3-value-input": {
+        "scriptActive": true,
+        "script": "return fd_data.action_inputs.query_params.sort_order;",
+        "savedValue": ""
+      }
+    }
+  },
+  {
+    "sys_id": "0f6feef1ffb63210e72effffffffff0f",
+    "instance": "4b6faef1ffb63210e72efffffffffff6",
+    "referenced_table": "sys_hub_action_output",
+    "input_name": "agent_status",
+    "active": "true",
+    "sys_created_on": "2026-02-02 09:09:37",
+    "script": "{\"agent_status\":{\"scriptActive\":true,\"script\":\"try{\\nreturn new sn_fd_genai.FlowDesignerGenAIUtil().getTransformedAgentOutput(fd_data._2__use_an_ai_agent_step.execution_plan_record, fd_data.action_inputs.wait_for_completion).status;\\n}catch(e)\\n{\\n    return \\\"ERROR\\\";\\n}\"}}",
+    "script_parsed": {
+      "agent_status": {
+        "scriptActive": true,
+        "script": "try{\nreturn new sn_fd_genai.FlowDesignerGenAIUtil().getTransformedAgentOutput(fd_data._2__use_an_ai_agent_step.execution_plan_record, fd_data.action_inputs.wait_for_completion).status;\n}catch(e)\n{\n    return \"ERROR\";\n}"
+      }
+    }
+  }
+]

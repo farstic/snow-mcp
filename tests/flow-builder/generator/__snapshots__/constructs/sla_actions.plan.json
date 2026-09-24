@@ -1,0 +1,376 @@
+{
+  "flowKey": "sla_actions",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "2317e77fcb06081fe0b23c5b5c912f49",
+      "fields": {
+        "sys_id": "2317e77fcb06081fe0b23c5b5c912f49",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: SLA Percentage Timer outputs used in a condition and in log text",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "sla_actions",
+        "label_cache": [
+          {
+            "name": "5534e592-90df-ec3b-a064-8913bec9e34d.status",
+            "label": "5534e592-90df-ec3b-a064-8913bec9e34d➛status",
+            "type": "choice",
+            "base_type": "choice",
+            "usedInstances": {
+              "271164f7-46ab-315d-e32a-db768dd21bd0": [
+                "condition"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "5534e592-90df-ec3b-a064-8913bec9e34d.scheduled_end_date_time",
+            "label": "5534e592-90df-ec3b-a064-8913bec9e34d➛scheduled_end_date_time",
+            "type": "glide_date_time",
+            "base_type": "glide_date_time",
+            "usedInstances": {
+              "958fbdd9-1522-4e92-531a-4041c82b89e9": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "43f2fa84-a214-9c89-dfd0-169d6ddc0bbb.status",
+            "label": "43f2fa84-a214-9c89-dfd0-169d6ddc0bbb➛status",
+            "type": "choice",
+            "base_type": "choice",
+            "usedInstances": {
+              "5f3fc7ad-3831-851c-65b4-fca2c2eaa249": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "43f2fa84-a214-9c89-dfd0-169d6ddc0bbb.total_duration",
+            "label": "43f2fa84-a214-9c89-dfd0-169d6ddc0bbb➛total_duration",
+            "type": "glide_duration",
+            "base_type": "glide_duration",
+            "usedInstances": {
+              "5f3fc7ad-3831-851c-65b4-fca2c2eaa249": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "SLA Task_1.task_sla_record.sla.name",
+            "label": "Trigger - SLA Task➛Task SLA Record➛Sla➛Name",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "5f3fc7ad-3831-851c-65b4-fca2c2eaa249": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "SLA Actions",
+        "run_as": "system",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "0cc557b4625c826a82be6feb0d319a78",
+      "fields": {
+        "sys_id": "0cc557b4625c826a82be6feb0d319a78",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "2317e77fcb06081fe0b23c5b5c912f49",
+        "name": "SLA Task",
+        "trigger_definition": "f5ce00a873723300d70877186bf6a759",
+        "trigger_inputs": [],
+        "trigger_outputs": "",
+        "trigger_type": "sla_task"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "5534e59290dfec3ba0648913bec9e34d",
+      "fields": {
+        "sys_id": "5534e59290dfec3ba0648913bec9e34d",
+        "sys_scope": "global",
+        "action_type": "a1a50c4573873300d70877186bf6a762",
+        "action_type_parent": "6f0ebf3c73833300d70877186bf6a729",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "2317e77fcb06081fe0b23c5b5c912f49",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "5534e592-90df-ec3b-a064-8913bec9e34d",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "percentage",
+            "value": 75,
+            "displayValue": 75,
+            "scriptActive": false,
+            "parameter": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "task_sla_record",
+            "value": "",
+            "displayValue": "",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference",
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                "uiType": "reference",
+                "uiTypeLabel": "Reference",
+                "visible_in_fd": "false",
+                "from_flow_inputs": "task_sla_record"
+              },
+              "reference": "task_sla"
+            }
+          },
+          {
+            "name": "sla_flow_inputs",
+            "value": "{\"version\":\"1.0\",\"complexObject\":{\"duration\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"relative_duration_works_on\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"is_repair\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"false\"}},\"duration_type\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"name\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}}},\"complexObjectSchema\":{\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a\":{\"duration\":\"String\",\"duration.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"relative_duration_works_on\":\"String\",\"relative_duration_works_on.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"relative_duration_works_on\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"4\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"is_repair\":\"Boolean\",\"is_repair.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"false\\\",\\\"label\\\":\\\"is_repair\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"5\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"duration_type\":\"String\",\"duration_type.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration_type\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"name\":\"String\",\"name.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"name\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"32\\\"}\"}},\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a.$type_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Object\\\",\\\"co_type_name\\\":\\\"FDcdbd0dc2bc7233000dbdb4d30db4851a\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"object\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"sla_flow_inputs\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"100\\\",\\\"max_length\\\":\\\"4096\\\"}\"}},\"serializationFormat\":\"JSON\"}",
+            "displayValue": "{\"version\":\"1.0\",\"complexObject\":{\"duration\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"relative_duration_works_on\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"is_repair\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"false\"}},\"duration_type\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"name\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}}},\"complexObjectSchema\":{\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a\":{\"duration\":\"String\",\"duration.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"relative_duration_works_on\":\"String\",\"relative_duration_works_on.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"relative_duration_works_on\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"4\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"is_repair\":\"Boolean\",\"is_repair.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"false\\\",\\\"label\\\":\\\"is_repair\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"5\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"duration_type\":\"String\",\"duration_type.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration_type\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"name\":\"String\",\"name.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"name\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"32\\\"}\"}},\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a.$type_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Object\\\",\\\"co_type_name\\\":\\\"FDcdbd0dc2bc7233000dbdb4d30db4851a\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"object\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"sla_flow_inputs\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"100\\\",\\\"max_length\\\":\\\"4096\\\"}\"}},\"serializationFormat\":\"JSON\"}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "object",
+              "attributes": {
+                "co_type_name": "FDcdbd0dc2bc7233000dbdb4d30db4851a",
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                "uiType": "object",
+                "uiTypeLabel": "Object",
+                "visible_in_fd": "false",
+                "from_flow_inputs": "sla_flow_inputs"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "271164f746ab315de32adb768dd21bd0",
+      "fields": {
+        "sys_id": "271164f746ab315de32adb768dd21bd0",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "2317e77fcb06081fe0b23c5b5c912f49",
+        "logic_definition": "af4e1945c3e232002841b63b12d3ae3e",
+        "order": "2",
+        "ui_id": "271164f7-46ab-315d-e32a-db768dd21bd0",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{5534e592-90df-ec3b-a064-8913bec9e34d.status}}=completed",
+              "displayValue": "{{5534e592-90df-ec3b-a064-8913bec9e34d.status}}=completed",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "958fbdd915224e92531a4041c82b89e9",
+      "fields": {
+        "sys_id": "958fbdd915224e92531a4041c82b89e9",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "2317e77fcb06081fe0b23c5b5c912f49",
+        "generation_source": "",
+        "order": "3",
+        "parent_ui_id": "271164f7-46ab-315d-e32a-db768dd21bd0",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "958fbdd9-1522-4e92-531a-4041c82b89e9",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "warn",
+            "displayValue": "warn",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "75 percent reached at {{5534e592-90df-ec3b-a064-8913bec9e34d.scheduled_end_date_time}}",
+            "displayValue": "75 percent reached at {{5534e592-90df-ec3b-a064-8913bec9e34d.scheduled_end_date_time}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "43f2fa84a2149c89dfd0169d6ddc0bbb",
+      "fields": {
+        "sys_id": "43f2fa84a2149c89dfd0169d6ddc0bbb",
+        "sys_scope": "global",
+        "action_type": "a1a50c4573873300d70877186bf6a762",
+        "action_type_parent": "6f0ebf3c73833300d70877186bf6a729",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "2317e77fcb06081fe0b23c5b5c912f49",
+        "generation_source": "",
+        "order": "4",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "43f2fa84-a214-9c89-dfd0-169d6ddc0bbb",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "percentage",
+            "value": 100,
+            "displayValue": 100,
+            "scriptActive": false,
+            "parameter": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "task_sla_record",
+            "value": "",
+            "displayValue": "",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference",
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                "uiType": "reference",
+                "uiTypeLabel": "Reference",
+                "visible_in_fd": "false",
+                "from_flow_inputs": "task_sla_record"
+              },
+              "reference": "task_sla"
+            }
+          },
+          {
+            "name": "sla_flow_inputs",
+            "value": "{\"version\":\"1.0\",\"complexObject\":{\"duration\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"relative_duration_works_on\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"is_repair\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"false\"}},\"duration_type\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"name\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}}},\"complexObjectSchema\":{\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a\":{\"duration\":\"String\",\"duration.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"relative_duration_works_on\":\"String\",\"relative_duration_works_on.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"relative_duration_works_on\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"4\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"is_repair\":\"Boolean\",\"is_repair.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"false\\\",\\\"label\\\":\\\"is_repair\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"5\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"duration_type\":\"String\",\"duration_type.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration_type\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"name\":\"String\",\"name.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"name\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"32\\\"}\"}},\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a.$type_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Object\\\",\\\"co_type_name\\\":\\\"FDcdbd0dc2bc7233000dbdb4d30db4851a\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"object\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"sla_flow_inputs\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"100\\\",\\\"max_length\\\":\\\"4096\\\"}\"}},\"serializationFormat\":\"JSON\"}",
+            "displayValue": "{\"version\":\"1.0\",\"complexObject\":{\"duration\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"relative_duration_works_on\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"is_repair\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"false\"}},\"duration_type\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}},\"name\":{\"$cv\":{\"$c\":\"java.lang.String\",\"$v\":\"\"}}},\"complexObjectSchema\":{\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a\":{\"duration\":\"String\",\"duration.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"2\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"relative_duration_works_on\":\"String\",\"relative_duration_works_on.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"relative_duration_works_on\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"4\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"is_repair\":\"Boolean\",\"is_repair.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"True/False\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"boolean\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"false\\\",\\\"label\\\":\\\"is_repair\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"5\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"duration_type\":\"String\",\"duration_type.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"duration_type\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"3\\\",\\\"max_length\\\":\\\"32\\\"}\"},\"name\":\"String\",\"name.$field_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"String\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"string\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"name\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"1\\\",\\\"max_length\\\":\\\"32\\\"}\"}},\"FlowDesigner:FDcdbd0dc2bc7233000dbdb4d30db4851a.$type_facets\":{\"SimpleMapFacet\":\"{\\\"uiTypeLabel\\\":\\\"Object\\\",\\\"co_type_name\\\":\\\"FDcdbd0dc2bc7233000dbdb4d30db4851a\\\",\\\"read_only\\\":\\\"false\\\",\\\"hint\\\":\\\"\\\",\\\"uiType\\\":\\\"object\\\",\\\"choiceOption\\\":\\\"\\\",\\\"default_value\\\":\\\"\\\",\\\"label\\\":\\\"sla_flow_inputs\\\",\\\"mandatory\\\":\\\"false\\\",\\\"order\\\":\\\"100\\\",\\\"max_length\\\":\\\"4096\\\"}\"}},\"serializationFormat\":\"JSON\"}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "object",
+              "attributes": {
+                "co_type_name": "FDcdbd0dc2bc7233000dbdb4d30db4851a",
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                "uiType": "object",
+                "uiTypeLabel": "Object",
+                "visible_in_fd": "false",
+                "from_flow_inputs": "sla_flow_inputs"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "5f3fc7ad3831851c65b4fca2c2eaa249",
+      "fields": {
+        "sys_id": "5f3fc7ad3831851c65b4fca2c2eaa249",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "2317e77fcb06081fe0b23c5b5c912f49",
+        "generation_source": "",
+        "order": "5",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "5f3fc7ad-3831-851c-65b4-fca2c2eaa249",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "error",
+            "displayValue": "error",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Breached ({{43f2fa84-a214-9c89-dfd0-169d6ddc0bbb.status}}, {{43f2fa84-a214-9c89-dfd0-169d6ddc0bbb.total_duration}}) for {{SLA Task_1.task_sla_record.sla.name}}",
+            "displayValue": "Breached ({{43f2fa84-a214-9c89-dfd0-169d6ddc0bbb.status}}, {{43f2fa84-a214-9c89-dfd0-169d6ddc0bbb.total_duration}}) for {{SLA Task_1.task_sla_record.sla.name}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "steps.sla_warn_timer.status",
+      "platform": "5534e592-90df-ec3b-a064-8913bec9e34d.status",
+      "type": "choice"
+    },
+    {
+      "symbolic": "steps.sla_warn_timer.scheduled_end_date_time",
+      "platform": "5534e592-90df-ec3b-a064-8913bec9e34d.scheduled_end_date_time",
+      "type": "glide_date_time"
+    },
+    {
+      "symbolic": "steps.sla_breach_timer.status",
+      "platform": "43f2fa84-a214-9c89-dfd0-169d6ddc0bbb.status",
+      "type": "choice"
+    },
+    {
+      "symbolic": "steps.sla_breach_timer.total_duration",
+      "platform": "43f2fa84-a214-9c89-dfd0-169d6ddc0bbb.total_duration",
+      "type": "glide_duration"
+    },
+    {
+      "symbolic": "trigger.task_sla_record.sla.name",
+      "platform": "SLA Task_1.task_sla_record.sla.name",
+      "type": "string"
+    }
+  ]
+}

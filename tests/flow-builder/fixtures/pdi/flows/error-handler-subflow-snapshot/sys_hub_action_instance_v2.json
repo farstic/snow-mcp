@@ -1,0 +1,198 @@
+[
+  {
+    "sys_id": "ad46ef09ff1e321006beffffffffff45",
+    "order": "1",
+    "parent_ui_id": "59b1007c-ae20-499c-aa55-c7200fc57cf2",
+    "ui_id": "f1f84836-8b56-4a9f-8586-de2c4753ac05",
+    "action_type": "83097281ff9a321006beffffffffffac",
+    "action_type_parent": "12787641ff9a321006beffffffffff13",
+    "compiled_snapshot": "83097281ff9a321006beffffffffffac",
+    "sys_scope": "148ac647304d1210b989d9b25db193c0",
+    "sys_mod_count": "2",
+    "sys_created_on": "2026-01-06 08:42:25",
+    "values": "H4sIAAAAAAAA/41SXU/jMBD8K8jPbZSGQkvfEAiJ0x2V6B0vCEUbe92ac+zgj0Iu6n+/dZOWg5cjbzs7uzsz8WPHlGALNq3yi1kxn0h5AafFJM/PK5THDyQbMQM1EtMp/7vkGrxXUnEIypqygVZbEETago6J1XU+VlLb1wx8HYb+bkcMoXyjoX34L5FvlBYODVs8Po1YA47uB3Rs0X1qfdWAhgo1Ue/JwclHByfvDr5kM7RNIj17a4bq+7D822p5R5B1IkmdjBi+BTQCSaME7XHEajACgnUtWwQXCXAIYml0e2RslAm0iiXum1d/6NQ0z/PElEi2OfbdY1kOofawvIYAK9rNQ3QDlW+s4uj7wARKiDpc/Yv1hGWTjPYjASp9mLY61uauT4YdFxz+ISHRkwhsktOkfTAiVxv7en9QeaPMPpShqS0HfawgBKeqGJKejkX180PCff0pY9RY07WyhqZRZl02zm7V/gIJrrO1piJLT4uUebU2GfDkLqP0Ibsh/HoPP4BTyeoPWkPD6dgvo14i3qZ3VYjzORYFH2OVn42n8ymMQZ7OxqKY5WIGKIuzOduNmG/9VXot7yHR3ylfYrLYRzaEU/b5phHuVBMuSdQWhxx2T38Bxp2iaJEDAAA=",
+    "values_decoded": [
+      {
+        "id": "4b097281ff9a321006beffffffffffaf",
+        "name": "risk_classification_payload",
+        "value": "{{subflow.asmtpayload}}",
+        "displayValue": "{{subflow.asmtpayload}}",
+        "children": [],
+        "parameter": {
+          "children": [],
+          "id": "4b097281ff9a321006beffffffffffaf",
+          "label": "Risk classification payload",
+          "name": "risk_classification_payload",
+          "type": "json",
+          "typeLabel": "JSON",
+          "order": 1,
+          "extended": false,
+          "mandatory": true,
+          "readOnly": false,
+          "hint": "",
+          "maxsize": 4000,
+          "reference": "",
+          "reference_display": "",
+          "fDataStructure": "",
+          "choices": [],
+          "defaultChoices": [],
+          "choiceOption": "",
+          "table": "",
+          "columnName": "",
+          "defaultValue": "",
+          "use_dependent": false,
+          "fShowReferenceFinder": false,
+          "local": false,
+          "attributes": {
+            "uiType": "json",
+            "uiTypeLabel": "JSON",
+            "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+            "uiUniqueId": "2d68e22c-eb05-484a-af37-d270d7aef258"
+          },
+          "sysClassName": "",
+          "ref_qual": "",
+          "dependent_on": ""
+        },
+        "scriptActive": false
+      }
+    ]
+  },
+  {
+    "sys_id": "0ee1046dff12721006beffffffffff2f",
+    "order": "3",
+    "parent_ui_id": "c04c5a6d-a622-4d8e-a28a-77dc0025140c",
+    "ui_id": "18a5ce64-dd8d-4da1-b7cb-289f90bb82f7",
+    "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+    "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+    "compiled_snapshot": "5bc1bcc6531003003bf1d9109ec587d4",
+    "sys_scope": "148ac647304d1210b989d9b25db193c0",
+    "sys_mod_count": "1",
+    "sys_created_on": "2026-01-07 05:21:38",
+    "values": "H4sIAAAAAAAA/+VUXWvbMBT9K0bPsbGduGnzVtoVCv2AFbqHUsy1LCeisuxJctIs5L/vypYTp+1GA4U9DPxyj4+kc+7X04bwnMxIktEoo/QkGUdhOMYvK6L8LArPGE1Op/mUjIiEkiFTVPNUsCUTCC1BNBZjSlUK45zrWsD60cHfHEwXXOSKSTJ7eh6RGhTeZJgis82bX5+VIiDD92fkxun4QJpZ1xaii4pT5uIbd+yiByuVWxnhiLBXw2TO8P0ChGYjUoLMwVRqvUMUg/xeij2w4NLgbcSSXzX/he9NQssrGDqirPu3C1OXnQ4uLsHAg1ENNY1y1E6sxlxsdhZ937urJPN8f5DvgfTtaM+9lkU1YPEudMxoyPwBSnI5H5BXiOzJ8ZDcl/FttR13vMXK5ayARpiL4x1En3YQH+NgfISDiXXQJf++NrzCbiSR7RnIRF+aSjSlvOv6jOz8Ph4Kdejl4Rg4U43GFmC1bTPbN66JiodFtfre98gVl60i91NUFMQuAmMUzxpj87shTLASL0pLqGtMRFqrasnbwyi2DOYCg6AQ1Qof1XwuA6DWWoBdDcEV4pct/AiKW5u3eA0e3o6IXusLAVrvzWILpz8bq6Sz7jykbaLaI1Tx2pzjA0vm5Nr0t+Mcj/82ziw5HN+SaQ1zNqhVWztvhXuCeRRn0KBZL2vEi6e4fvGolcoLTsG68zDAG2xitFfgufPrFjJ65m02NJzQBE5yH07i2J/kp8yH+BT86TSnYRgn0SSkQZpqA6bRaRo4MdvtH1bbv1d13Gb9RCn6ibnd1eHD4rjtqrEh2xkcbteHHuwH/Mu2a5wkX7NeP1pY71fAURvg/xvw59/Ivs8TPAgAAA==",
+    "values_decoded": [
+      {
+        "id": "5bc1bcc6531003003bf1d9109ec587d7",
+        "name": "log_level",
+        "value": "error",
+        "displayValue": "Error",
+        "children": [],
+        "parameter": {
+          "children": [],
+          "id": "5bc1bcc6531003003bf1d9109ec587d7",
+          "label": "Level",
+          "name": "log_level",
+          "type": "choice",
+          "typeLabel": "Choice",
+          "order": 0,
+          "extended": false,
+          "mandatory": false,
+          "readOnly": false,
+          "hint": "",
+          "maxsize": 40,
+          "reference": "",
+          "reference_display": "",
+          "fDataStructure": "",
+          "choices": [
+            {
+              "label": "-- None --",
+              "value": "",
+              "order": 0
+            },
+            {
+              "label": "Info",
+              "value": "info",
+              "order": 1
+            },
+            {
+              "label": "Warning",
+              "value": "warn",
+              "order": 2
+            },
+            {
+              "label": "Error",
+              "value": "error",
+              "order": 3
+            }
+          ],
+          "defaultChoices": [
+            {
+              "label": "-- None --",
+              "value": "",
+              "order": 1
+            },
+            {
+              "label": "Info",
+              "value": "info",
+              "order": 2
+            },
+            {
+              "label": "Warning",
+              "value": "warn",
+              "order": 3
+            },
+            {
+              "label": "Error",
+              "value": "error",
+              "order": 4
+            }
+          ],
+          "choiceOption": "1",
+          "table": "",
+          "columnName": "",
+          "defaultValue": "info",
+          "defaultDisplayValue": "Info",
+          "use_dependent": false,
+          "fShowReferenceFinder": false,
+          "local": false,
+          "attributes": {
+            "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+          },
+          "sysClassName": "",
+          "ref_qual": "",
+          "dependent_on": ""
+        },
+        "scriptActive": false
+      },
+      {
+        "id": "23c1bcc6531003003bf1d9109ec587e5",
+        "name": "log_message",
+        "value": "Error while creating bulk risk classification assessments for AI assets: {{c04c5a6d-a622-4d8e-a28a-77dc0025140c.__status__.message}}",
+        "displayValue": "Error while creating bulk risk classification assessments for AI assets: {{c04c5a6d-a622-4d8e-a28a-77dc0025140c.__status__.message}}",
+        "children": [],
+        "parameter": {
+          "children": [],
+          "id": "23c1bcc6531003003bf1d9109ec587e5",
+          "label": "Message",
+          "name": "log_message",
+          "type": "string",
+          "typeLabel": "String",
+          "order": 1,
+          "extended": false,
+          "mandatory": false,
+          "readOnly": false,
+          "hint": "",
+          "maxsize": 255,
+          "reference": "",
+          "reference_display": "",
+          "fDataStructure": "",
+          "choices": [],
+          "defaultChoices": [],
+          "choiceOption": "",
+          "table": "",
+          "columnName": "",
+          "defaultValue": "",
+          "use_dependent": false,
+          "fShowReferenceFinder": false,
+          "local": false,
+          "attributes": {
+            "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+          },
+          "sysClassName": "",
+          "ref_qual": "",
+          "dependent_on": ""
+        },
+        "scriptActive": false
+      }
+    ]
+  }
+]

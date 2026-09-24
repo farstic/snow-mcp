@@ -1,0 +1,28 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_weekly",
+    "name": "Trigger Weekly",
+    "description": "Construct spec: scheduled.weekly trigger (time zone converted to UTC)"
+  },
+  "trigger": {
+    "key": "trg_weekly_trigger",
+    "type": "scheduled.weekly",
+    "day_of_week": 5,
+    "time": "17:30:00",
+    "timezone": "America/New_York"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_weekly_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "Weekly run {{trigger.run_start_date_time}}"
+        }
+      }
+    }
+  ]
+}

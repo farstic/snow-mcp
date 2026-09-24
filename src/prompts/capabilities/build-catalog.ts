@@ -31,7 +31,10 @@ const capability: CapabilityDefinition = {
     'snow_cat_catalog_variable_add',
     'snow_cat_catalog_ui_policy_add',
     'snow_cat_approval_rule_add',
-    'snow_flow_flow_add',
+    'snow_flow_catalog_read',
+    'snow_flow_plan',
+    'snow_flow_build',
+    'snow_flow_verify',
     'snow_core_table_schema_read',
   ],
   buildPrompt(args = {}) {
@@ -284,7 +287,7 @@ const capability: CapabilityDefinition = {
                   '   - Try/catch around provisioning steps.',
                   '   - On failure: notify support, update RITM work notes, do NOT close the RITM.',
                   '',
-                  'Use **create_flow** to build the fulfillment flow.',
+                  'Author the fulfillment flow as a FlowSpec (trigger `catalog.service_catalog`; actions such as `getCatalogVariables`, `createCatalogTask` and `sendNotification`, with names and inputs from **snow_flow_catalog_read**), review it with **snow_flow_plan** (dry run), build it with **snow_flow_build** only after an explicit write approval, and read it back with **snow_flow_verify**.',
                 ].join('\n')
               : fulfillmentType === 'workflow'
                 ? [

@@ -1,0 +1,61 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "incident_triage", "name": "Incident Triage", "description": "Construct spec: flow variables, stages, if / else if / else, approval, notification, email, look-ups, for each, subflow call", "run_as": "system" },
+  "variables": [
+    { "name": "summary", "label": "Summary", "type": "string" },
+    { "name": "attempts", "label": "Attempts", "type": "integer" },
+    { "name": "escalated", "label": "Escalated", "type": "boolean" }
+  ],
+  "stages": [
+    { "value": "intake", "label": "Intake" },
+    { "value": "review", "label": "Review", "always_show": true, "duration": { "days": 2 } },
+    { "value": "wrap_up", "label": "Wrap Up" }
+  ],
+  "trigger": { "key": "triage_trigger", "type": "record.created", "table": "incident", "condition": "impact=1^active=true", "run_flow_in": "background" },
+  "steps": [
+    { "kind": "action", "key": "triage_log", "action": "log", "stage": "intake",
+      "inputs": { "log_level": "info", "log_message": { "text": "Triage started for {{trigger.current.number}}" } } },
+    { "kind": "action", "key": "triage_group", "action": "lookUpRecord",
+      "inputs": { "table": "sys_user_group", "conditions": "name=Network" } },
+    { "kind": "if", "key": "triage_if", "condition": "{{trigger.current.urgency}}=1",
+      "then": [
+        { "kind": "action", "key": "triage_assign", "action": "updateRecord",
+          "inputs": { "table_name": "incident", "record": { "pill": "trigger.current" },
+                      "values": { "template": { "assignment_group": { "pill": "steps.triage_group.Record" }, "urgency": "1", "work_notes": "Routed to the network team" } } } }
+      ],
+      "else_if": [
+        { "key": "triage_elseif", "condition": "{{trigger.current.urgency}}=2", "steps": [
+          { "kind": "action", "key": "triage_problem", "action": "createRecord",
+            "inputs": { "table_name": "problem", "values": { "template": { "short_description": { "pill": "trigger.current.short_description" }, "impact": "2" } } } }
+        ] }
+      ],
+      "else": { "key": "triage_else", "steps": [
+        { "kind": "action", "key": "triage_else_log", "action": "log", "inputs": { "log_level": "warn", "log_message": "Urgency three: no routing" } }
+      ] } },
+    { "kind": "set_variables", "key": "triage_vars",
+      "assign": { "summary": { "pill": "trigger.current.short_description" }, "attempts": 2, "escalated": false } },
+    { "kind": "action", "key": "triage_approval", "action": "askForApproval", "stage": "review",
+      "inputs": {
+        "table": "incident", "record": { "pill": "trigger.current" }, "approval_field": "approval", "journal_field": "comments",
+        "approval_reason": "Impact one incident review",
+        "approval_conditions": { "approval_rules": { "rule_sets": [ { "action": "Approves", "rules": [ [ { "rule": "Any", "groups": [ { "pill": "steps.triage_group.Record" } ] } ] ] } ] } },
+        "due_date": "{\"action\":\"approve\",\"date_type\":\"actual\",\"date\":\"{}\",\"duration\":3,\"duration_type\":\"days\",\"schedule\":\"\",\"schedule_label\":\"\"}"
+      } },
+    { "kind": "action", "key": "triage_notify", "action": "sendNotification",
+      "inputs": { "table_name": "incident", "record": { "pill": "trigger.current" }, "notification": "0000000000000000000000000000a001" } },
+    { "kind": "action", "key": "triage_mail", "action": "sendEmail",
+      "inputs": { "ah_to": { "pill": "trigger.current.caller_id.email" },
+                  "ah_subject": { "text": "{{trigger.current.number}}: review {{steps.triage_approval.approval_state}}" },
+                  "ah_body": "<p>Your incident is under review.</p>", "record": { "pill": "trigger.current" }, "table_name": "incident" } },
+    { "kind": "action", "key": "triage_children", "action": "lookUpRecords", "stage": "wrap_up",
+      "inputs": { "table": "incident", "conditions": { "conditions": "parent_incident={{trigger.current.sys_id}}" }, "max_results": 25 } },
+    { "kind": "for_each", "key": "triage_each", "items": { "pill": "steps.triage_children.Records" }, "steps": [
+      { "kind": "action", "key": "triage_each_log", "action": "log", "inputs": { "log_level": "info", "log_message": { "text": "Linked {{loop.triage_each.item.number}}" } } }
+    ] },
+    { "kind": "subflow", "key": "triage_sub", "subflow": { "sys_id": "606a47f2678406975d5e7571a1bd38aa" },
+      "inputs": { "summary_text": { "pill": "vars.summary" }, "level": 4 }, "wait_for_completion": true },
+    { "kind": "if", "key": "triage_done_if", "condition": "{{steps.triage_sub.accepted}}=true", "then": [
+      { "kind": "end_flow", "key": "triage_end", "annotation": "Accepted" }
+    ] }
+  ]
+}

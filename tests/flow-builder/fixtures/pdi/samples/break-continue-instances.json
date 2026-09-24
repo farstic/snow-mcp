@@ -1,0 +1,38 @@
+[
+  {
+    "sys_id": "5efc4231ffb43210576cfffffffffff9",
+    "flow": "9eceeb89c3831010fc869bc8a840dd51",
+    "order": "26",
+    "parent_ui_id": "501fbb24-2042-4845-806b-94773a1ae9bc",
+    "ui_id": "a507b791-661b-4443-80c3-9263d7950c9d",
+    "logic_definition": "48de1b5837063110ac85cdd734924b15",
+    "logic_type": "CONTINUE",
+    "values": "H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  },
+  {
+    "sys_id": "1efc4231ffb43210576cfffffffffffe",
+    "flow": "9eceeb89c3831010fc869bc8a840dd51",
+    "order": "33",
+    "parent_ui_id": "c615f60c-5bf3-4392-b963-d8bfa267db69",
+    "ui_id": "bdfe3769-9c07-4ed2-b9cc-6174ab1e5b32",
+    "logic_definition": "7444b31c37063110ac85cdd734924bff",
+    "logic_type": "BREAK",
+    "values": "H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  }
+]

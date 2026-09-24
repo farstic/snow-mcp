@@ -1,0 +1,12 @@
+{
+  "about": "Entry order (input names) of the decoded `values` of one UI-built sys_hub_action_instance_v2 row per action, read-only on the PDI (24 Sep 2026: the newest row of each action_type not created by 'system', `values` gunzipped). Used by generator/pdi-conformance.test.ts.",
+  "rows": [
+    { "action": "updateRecord", "action_type": "f9d01dd2c31332002841b63b12d3aea1", "names": ["record", "table_name", "values"] },
+    { "action": "lookUpRecord", "action_type": "9d09f99587003300663ca1bb36cb0ba3", "names": ["table", "conditions", "sort_column", "sort_type", "if_multiple_records_are_found_action", "__snc_dont_fail_on_error"] },
+    { "action": "lookUpRecords", "action_type": "43400a1587003300663ca1bb36cb0b4b", "names": ["table", "conditions", "sort_column", "sort_type", "max_results"] },
+    { "action": "sendEmail", "action_type": "c1806bf4a70323008299b39f087901cb", "names": ["record", "table_name", "watermark_email", "ah_to", "ah_cc", "ah_bcc", "ah_subject", "ah_body"] },
+    { "action": "updateMultipleRecords", "action_type": "9daf2a72c75100105312134c95c26073", "names": ["table_name", "conditions", "field_values", "sort_column", "sort_type", "__snc_dont_fail_on_error"] },
+    { "action": "waitForEmailReply", "action_type": "8e38de067f0312108e688c90ac866501", "names": ["record", "enable_timeout", "timeout_duration", "timeout_schedule"] },
+    { "action": "moveEmailAttachmentsToRecord", "action_type": "bd8fcd48a73133008299b39f087901fc", "names": ["email_record", "target_record"] }
+  ]
+}

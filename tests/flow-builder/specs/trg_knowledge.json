@@ -1,0 +1,25 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_knowledge",
+    "name": "Trigger Knowledge Management",
+    "description": "Construct spec: knowledge.management trigger"
+  },
+  "trigger": {
+    "key": "trg_knowledge_trigger",
+    "type": "knowledge.management"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_knowledge_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "Article {{trigger.knowledge.number}} in {{trigger.table_name}}"
+        }
+      }
+    }
+  ]
+}

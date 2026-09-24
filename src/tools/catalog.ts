@@ -282,8 +282,9 @@ export async function dispatchCatalogAction(
     case 'snow_cat_catalog_item_order': {
       requireWrite();
       if (!args.sys_id) throw new ServiceNowError('sys_id is required', 'INVALID_REQUEST');
-      // Use Service Catalog API: POST /api/now/v1/servicecatalog/items/{sys_id}/order_now
-      const result = await client.callNowAssist(`/api/now/v1/servicecatalog/items/${args.sys_id}/order_now`, {
+      // Service Catalog API: POST /api/sn_sc/servicecatalog/items/{sys_id}/order_now
+      // (the /api/now/v1/servicecatalog path does not exist — "Requested URI does not represent any resource")
+      const result = await client.callNowAssist(`/api/sn_sc/servicecatalog/items/${args.sys_id}/order_now`, {
         sysparm_quantity: args.quantity || 1,
         variables: args.variables || {},
       });

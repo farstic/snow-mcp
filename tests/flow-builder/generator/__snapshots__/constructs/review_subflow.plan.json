@@ -1,0 +1,428 @@
+{
+  "flowKey": "review_subflow",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "6048776ce9dde30620b7426f432aad89",
+      "fields": {
+        "sys_id": "6048776ce9dde30620b7426f432aad89",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: subflow with reference, boolean, date/time, integer (with default) and string inputs",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "review_subflow",
+        "label_cache": [
+          {
+            "name": "subflow.record.number",
+            "label": "Input➛Record",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "e86fe5ac-597a-4a0e-ea1a-e539b6c2da68": [
+                "log_message"
+              ],
+              "11beeb6f-e7b9-3731-4a19-f3ae308af755": [
+                "outcome"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          },
+          {
+            "name": "subflow.expedite",
+            "label": "Input➛Expedite",
+            "type": "boolean",
+            "base_type": "boolean",
+            "usedInstances": {
+              "e86fe5ac-597a-4a0e-ea1a-e539b6c2da68": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          },
+          {
+            "name": "subflow.due",
+            "label": "Input➛Due",
+            "type": "glide_date_time",
+            "base_type": "glide_date_time",
+            "usedInstances": {
+              "e86fe5ac-597a-4a0e-ea1a-e539b6c2da68": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          }
+        ],
+        "name": "Review Subflow",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "subflow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_flow_input",
+      "sys_id": "7c0991fb04fb2df0f8bbb0d349817530",
+      "fields": {
+        "sys_id": "7c0991fb04fb2df0f8bbb0d349817530",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "record",
+        "hint": "",
+        "internal_type": "reference",
+        "label": "Record",
+        "mandatory": "true",
+        "max_length": "32",
+        "model": "6048776ce9dde30620b7426f432aad89",
+        "model_id": "6048776ce9dde30620b7426f432aad89",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "order": "1",
+        "reference": "incident"
+      }
+    },
+    {
+      "table": "sys_hub_flow_input",
+      "sys_id": "477532ab5b148b69a30e40b8a9a14750",
+      "fields": {
+        "sys_id": "477532ab5b148b69a30e40b8a9a14750",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "expedite",
+        "hint": "",
+        "internal_type": "boolean",
+        "label": "Expedite",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "6048776ce9dde30620b7426f432aad89",
+        "model_id": "6048776ce9dde30620b7426f432aad89",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "order": "2"
+      }
+    },
+    {
+      "table": "sys_hub_flow_input",
+      "sys_id": "2071f22933077014f0da2fcc25964402",
+      "fields": {
+        "sys_id": "2071f22933077014f0da2fcc25964402",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "due",
+        "hint": "",
+        "internal_type": "glide_date_time",
+        "label": "Due",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "6048776ce9dde30620b7426f432aad89",
+        "model_id": "6048776ce9dde30620b7426f432aad89",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "order": "3"
+      }
+    },
+    {
+      "table": "sys_hub_flow_input",
+      "sys_id": "e416de9125a90607e161fe86ad6d9212",
+      "fields": {
+        "sys_id": "e416de9125a90607e161fe86ad6d9212",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "2",
+        "element": "retries",
+        "hint": "",
+        "internal_type": "integer",
+        "label": "Retries",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "6048776ce9dde30620b7426f432aad89",
+        "model_id": "6048776ce9dde30620b7426f432aad89",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "order": "4"
+      }
+    },
+    {
+      "table": "sys_hub_flow_input",
+      "sys_id": "8e794bd7bf4110e0c6839c3fe9d71563",
+      "fields": {
+        "sys_id": "8e794bd7bf4110e0c6839c3fe9d71563",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "comment",
+        "hint": "",
+        "internal_type": "string",
+        "label": "Comment",
+        "mandatory": "false",
+        "max_length": "8000",
+        "model": "6048776ce9dde30620b7426f432aad89",
+        "model_id": "6048776ce9dde30620b7426f432aad89",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "order": "5"
+      }
+    },
+    {
+      "table": "sys_hub_flow_output",
+      "sys_id": "8d1b355d131e30cf4b83d4ae8eb1d6ee",
+      "fields": {
+        "sys_id": "8d1b355d131e30cf4b83d4ae8eb1d6ee",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "outcome",
+        "hint": "",
+        "internal_type": "string",
+        "label": "Outcome",
+        "mandatory": "false",
+        "max_length": "8000",
+        "model": "6048776ce9dde30620b7426f432aad89",
+        "model_id": "6048776ce9dde30620b7426f432aad89",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_output_6048776ce9dde30620b7426f432aad89",
+        "order": "1"
+      }
+    },
+    {
+      "table": "sys_hub_flow_output",
+      "sys_id": "5b0c0ad1d4abc2280bb453ab91ab2c39",
+      "fields": {
+        "sys_id": "5b0c0ad1d4abc2280bb453ab91ab2c39",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "done",
+        "hint": "",
+        "internal_type": "boolean",
+        "label": "Done",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "6048776ce9dde30620b7426f432aad89",
+        "model_id": "6048776ce9dde30620b7426f432aad89",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_output_6048776ce9dde30620b7426f432aad89",
+        "order": "2"
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "3c04e81a4dcb77d799fbf43eccab033b",
+      "fields": {
+        "sys_id": "3c04e81a4dcb77d799fbf43eccab033b",
+        "sys_scope": "global",
+        "element": "record",
+        "hint": "",
+        "label": "Record",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "f436a634da498e547118c126872abe0d",
+      "fields": {
+        "sys_id": "f436a634da498e547118c126872abe0d",
+        "sys_scope": "global",
+        "element": "expedite",
+        "hint": "",
+        "label": "Expedite",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "47f07ef68b05ece72ce966d4bb6052be",
+      "fields": {
+        "sys_id": "47f07ef68b05ece72ce966d4bb6052be",
+        "sys_scope": "global",
+        "element": "due",
+        "hint": "",
+        "label": "Due",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "928f5c75a40498dddd0ccbfdae8f7fa5",
+      "fields": {
+        "sys_id": "928f5c75a40498dddd0ccbfdae8f7fa5",
+        "sys_scope": "global",
+        "element": "retries",
+        "hint": "",
+        "label": "Retries",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "fd2c580233b42e7952452fd0d1c698de",
+      "fields": {
+        "sys_id": "fd2c580233b42e7952452fd0d1c698de",
+        "sys_scope": "global",
+        "element": "comment",
+        "hint": "",
+        "label": "Comment",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_input_6048776ce9dde30620b7426f432aad89",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "b0059dc738f1dcdd3153f7fbbddb0728",
+      "fields": {
+        "sys_id": "b0059dc738f1dcdd3153f7fbbddb0728",
+        "sys_scope": "global",
+        "element": "outcome",
+        "hint": "",
+        "label": "Outcome",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_output_6048776ce9dde30620b7426f432aad89",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "f0484ac722a0d9f6a4733675cf0eb62a",
+      "fields": {
+        "sys_id": "f0484ac722a0d9f6a4733675cf0eb62a",
+        "sys_scope": "global",
+        "element": "done",
+        "hint": "",
+        "label": "Done",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_output_6048776ce9dde30620b7426f432aad89",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "e86fe5ac597a4a0eea1ae539b6c2da68",
+      "fields": {
+        "sys_id": "e86fe5ac597a4a0eea1ae539b6c2da68",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "6048776ce9dde30620b7426f432aad89",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "e86fe5ac-597a-4a0e-ea1a-e539b6c2da68",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Reviewing {{subflow.record.number}} (expedite {{subflow.expedite}}, due {{subflow.due}})",
+            "displayValue": "Reviewing {{subflow.record.number}} (expedite {{subflow.expedite}}, due {{subflow.due}})",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "11beeb6fe7b937314a19f3ae308af755",
+      "fields": {
+        "sys_id": "11beeb6fe7b937314a19f3ae308af755",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "6048776ce9dde30620b7426f432aad89",
+        "logic_definition": "df4e1945c3e232002841b63b12d3ae3e",
+        "order": "2",
+        "outputs_assigned": "outcome,done",
+        "ui_id": "11beeb6f-e7b9-3731-4a19-f3ae308af755",
+        "values": {
+          "outputsToAssign": [
+            {
+              "id": "",
+              "name": "outcome",
+              "value": "Reviewed {{subflow.record.number}}",
+              "displayValue": "Reviewed {{subflow.record.number}}",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "",
+              "name": "done",
+              "value": "true",
+              "displayValue": "true",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "inputs.record.number",
+      "platform": "subflow.record.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "inputs.expedite",
+      "platform": "subflow.expedite",
+      "type": "boolean"
+    },
+    {
+      "symbolic": "inputs.due",
+      "platform": "subflow.due",
+      "type": "glide_date_time"
+    }
+  ]
+}

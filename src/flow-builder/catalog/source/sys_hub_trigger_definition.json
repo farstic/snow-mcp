@@ -1,0 +1,20 @@
+{
+  "table": "sys_hub_trigger_definition",
+  "query": "sys_idIN<the 13 trigger definition sys_ids of manifest.json>",
+  "fields": "sys_id,name,type,active",
+  "result": [
+    { "sys_id": "798916a0c31322002841b63b12d3ae7c", "name": "Created", "active": "true", "type": "record_create" },
+    { "sys_id": "a45d9180c32222002841b63b12d3aea7", "name": "Created or Updated", "active": "true", "type": "record_create_or_update" },
+    { "sys_id": "89142dc0c32222002841b63b12d3ae8a", "name": "Daily", "active": "true", "type": "daily" },
+    { "sys_id": "6f0180400b320300f4eb8bf637673ad4", "name": "Inbound Email", "active": "true", "type": "email" },
+    { "sys_id": "9bdb2c0483331210730e5b43c22bc071", "name": "Knowledge Management", "active": "true", "type": "knowledge_management" },
+    { "sys_id": "2ca52504c32222002841b63b12d3ae4a", "name": "Monthly", "active": "true", "type": "monthly" },
+    { "sys_id": "778cf3bf37232110aba6473174924b7c", "name": "Remote Table Query", "active": "true", "type": "remote_table_query" },
+    { "sys_id": "f63f0d94c32222002841b63b12d3aeed", "name": "Repeat", "active": "true", "type": "repeat" },
+    { "sys_id": "0a76e504c32222002841b63b12d3aeac", "name": "Run Once", "active": "true", "type": "run_once" },
+    { "sys_id": "c43a1011c36813002841b63b12d3ae15", "name": "Service Catalog", "active": "true", "type": "service_catalog" },
+    { "sys_id": "f5ce00a873723300d70877186bf6a759", "name": "SLA Task", "active": "true", "type": "sla_task" },
+    { "sys_id": "bb695e60c31322002841b63b12d3aea5", "name": "Updated", "active": "true", "type": "record_update" },
+    { "sys_id": "cf352104c32222002841b63b12d3ae1f", "name": "Weekly", "active": "true", "type": "weekly" }
+  ]
+}

@@ -1,0 +1,765 @@
+[
+  {
+    "sys_id": "1411db1dffc3b6103f03ffffffffffe2",
+    "order": "2",
+    "parent_ui_id": "",
+    "ui_id": "2ea1aac1-c02f-4d96-bbff-2f0e518496c9",
+    "logic_definition": "eaeb040687210300e6c2c88fc0e3ec89",
+    "logic_type": "DOUNTIL",
+    "block": "afa1d39dffc3b6103f03ffffffffff90",
+    "flow_variables_assigned": "",
+    "outputs_assigned": "",
+    "connected_to": "",
+    "values": "H4sIAAAAAAAA/+1Vy27bMBD8FUNnW6CkyK9bkCJAgDZB7SCXJhUocmUTpUiVpOy4hv+9Sz2coLWRou2hh/pkzi53Z5Y70D7QtatqZ+/1pbVipYL5p6dhIJTH8P8+ULSEYB4wrbhwQqusAYbBhsraB27KShs3WIIbLGo1uNJlJcEBxxQubCXp7uHtTLYWkhvoulfUYA8HJpjvfwi5XQWZpDlILLh0RqgVXhccTzmnMcvJxSQhSZQQMo5iFk+SAn9jOkkJ5vUXr3oxg/cNMjyr0vdD3PadtOGeVkTIMIBnB4oj/3lBpYVhUFLFqdNmd0QMUH6n5AuwFsphvcAnP1vxDYvHaeoTC0CRDNrg8Zh1M2xhttaCwV3lGbaIo7ns7jAt61LdtkL89KGgtXT99BGpLdaDypP2LDpKxXKtt4u+4bVQjcIuKDWj8niiDueQ1w6sfxmQUGKhrKRVhdPJKqM3ormMXMpwJfEQFlJvsalfrZAyTzzEGdHwGvF3DfxAjfAqPmAZvHxo1Gdfa9+31dExzlrRmGCZEZW7xHIb6Mgdhj+v6qst3e/HaUJhHEWjPKWz0UWcklEejckoneXT2YSlQICFC2D4wqF11MHh8FgTknCUxcBa4J9vP/5BGUZxulKeMsa/Re5veJFPomRanPPilJ3y4gkXnjdg/JYBnal/1X/E1/pvwN6A+IQ2ax3WaWua/7Yxn7wL2w62XRwOTFgkcu+xm/5T4wM73ADBXkNbbb54CS/Y4TsVnghStAYAAA==",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [
+        {
+          "name": "condition_name",
+          "value": "Import Set Run Completed",
+          "displayValue": "Import Set Run Completed",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "bda2cb0473031300612c273ffff6a750",
+            "label": "Condition Label",
+            "name": "condition_name",
+            "type": "string",
+            "order": 100,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 255,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "condition",
+          "value": "{{653ae611-b5a9-4250-b160-59b897c5e0ec.Record.state}}=processed^NQ{{653ae611-b5a9-4250-b160-59b897c5e0ec.Record.state}}=cancelled",
+          "displayValue": "{{653ae611-b5a9-4250-b160-59b897c5e0ec.Record.state}}=processed^NQ{{653ae611-b5a9-4250-b160-59b897c5e0ec.Record.state}}=cancelled",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "d7138f0473031300612c273ffff6a78c",
+            "label": "Condition",
+            "name": "condition",
+            "type": "string",
+            "order": 200,
+            "extended": false,
+            "mandatory": true,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 2000,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "is_scriptable": "false"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        }
+      ],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  },
+  {
+    "sys_id": "b141175dffc3b6103f03ffffffffff33",
+    "order": "3",
+    "parent_ui_id": "2ea1aac1-c02f-4d96-bbff-2f0e518496c9",
+    "ui_id": "16dcacd4-0db4-4494-b619-de376b77f5bd",
+    "logic_definition": "fdb2541473031300b61e66476bf6a70e",
+    "logic_type": "TIMER",
+    "block": "6ba1d39dffc3b6103f03ffffffffff95",
+    "flow_variables_assigned": "",
+    "outputs_assigned": "",
+    "connected_to": "",
+    "values": "H4sIAAAAAAAA/+1Y3Y+bOBD/VxDPuRRDIJu8Vd2r1Ie7Vt1oX04VMmZIrHOAM2a36Wr/946NIWxCsl/ZflwrRUo8Y+bzN8NMbtyiVmWtqkXxuqr4Mnfn/3wauTzXNPx94+Z0De7cTWtJFS/yWG1KcEfuFRW1psPnUnDGVdxeQF7Kq1LQzaW98qe94vSusBUXqQSrrqQStSiQ7vxmh6XVxYImIFDSm1XBmdbOUzxNZtMgPCOTaeAFJPC8JCIQRZNplGQRnZ6FeK998NxqdhaN9QecMl9ztMCqKWSqbSKeN0JHFeQpoOKMigpG7prmKVWF3HQUCTR9n4stYcVzhfJcfflzxb+g8Imn72WADjJoeN0xtoFryI0VTRJaP4ZCeSwT1gHvdrSV8REEsq9gSIa0vAEZpC/jA0gGuaLLQSllxx2Q499iVlPIaC3Um9O5SE7gon8iFwPtYpO+96Vhzd1Aw4smwuacFaJe5383MHS7gFweq6rmyvn9xVVXaBWUGq4afxaM2cWquP7YYu0tz42tlikKRkV3okpJntRKp+bGBQFrFBSvaVnyfBmXsrji5mF0Yz1eCjyMM1Fco1LdQsaUaUPGWB10/Bbp54Z8SSXXAfgLxeDDtwb48X+11tuEwFocm4DpCxWTvFSvmc6XNU6nyFZvLweKr0HGpmvFqBb0uZet/Z705BZ0jtJfLRrxpgslGUkjEpFkGkQ+dqFgwiIG0QyAEDrzvV4X6kHKGOwYgx1tsGMtfrBrtlWZ4Bt6bBkv0LOMrMc0rQ71jwL9z4JcTHwVN9C0vhnlJ0B0k+tt8l8Gwu9yBcvGDw3gMy8IAm/GwmDaAThNAbJsmhAfyCCAt1AdsNlik3d6fmPyZ8fkwCuQzKbeHx7Bj+N5c/wQbx+kxHMugBV5Wj29425VG7xCRiYhOzT2JTAw9u2itefN3T66PxJ8x9HvN2Kfg9i9OS8uUK3OWg/DNFPGlB3UtuRTbCkpoxPihQfg6kc9uC7MUCB3h1enZ/jDXTywywQ/zC7TBnk3F0M7SwJZIfuvw47Qjf/Ht4p7lJFHKfOfPd93uBuc6VvuTh0rWf+IZdxayDbxsR2rd81Ccwu6+2r+7p7+5AbwjTcDkvlherDyp8GRyt/fCB7g030rweR/8C57Zg0Mv3JGv1xtVGwFaS1eqBK6zLSVkCVhiEPbgUqI/LsjGybAUStwskJgZPWpZ+4hN2zcZE+1hX14QtgH/l3Ys3XeN2KoBC627F9hrHvq+PZJI7GRVDWQSoHxChUuNO1d+4e0ZmwQBJz1SdeF/FebuqXdfgUEX1M22hYAAA==",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [
+        {
+          "name": "duration_type",
+          "value": "explicit_duration",
+          "displayValue": "Explicit duration",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Choice",
+            "id": "4973581473031300b61e66476bf6a785",
+            "label": "Duration Type",
+            "name": "duration_type",
+            "type": "choice",
+            "order": 100,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choices": [
+              {
+                "label": "Explicit duration",
+                "value": "explicit_duration",
+                "order": 0
+              },
+              {
+                "label": "Relative duration",
+                "value": "relative_duration",
+                "order": 1
+              },
+              {
+                "label": "Percentage duration",
+                "value": "percentage_duration",
+                "order": 2
+              }
+            ],
+            "defaultChoices": [
+              {
+                "label": "Explicit duration",
+                "value": "explicit_duration",
+                "order": 1
+              },
+              {
+                "label": "Relative duration",
+                "value": "relative_duration",
+                "order": 2
+              },
+              {
+                "label": "Percentage duration",
+                "value": "percentage_duration",
+                "order": 3
+              }
+            ],
+            "choiceOption": "3",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "explicit_duration",
+            "defaultDisplayValue": "Explicit duration",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "percentage_timer_input_datetime",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Date/Time",
+            "id": "bf1d6161b736230034c6ce69ee11a920",
+            "label": "Percentage timer input date time",
+            "name": "percentage_timer_input_datetime",
+            "type": "glide_date_time",
+            "order": 100,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 100,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "is_scriptable": "false"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_percentage",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Integer",
+            "id": "8033309c5376230034c6ddeeff7b12e1",
+            "label": "Percentage",
+            "name": "timer_percentage",
+            "type": "integer",
+            "order": 100,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 100,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "is_scriptable": "false"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_duration",
+          "value": "1970-01-01 00:00:10",
+          "displayValue": "10 Seconds",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Duration",
+            "id": "ef145c1473031300b61e66476bf6a7be",
+            "label": "Duration",
+            "name": "timer_duration",
+            "type": "glide_duration",
+            "order": 200,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "is_scriptable": "false"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_relative_duration_operator",
+          "value": "after",
+          "displayValue": "after",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Choice",
+            "id": "dca4105473031300b61e66476bf6a726",
+            "label": "Timer relative duration operator",
+            "name": "timer_relative_duration_operator",
+            "type": "choice",
+            "order": 300,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choices": [
+              {
+                "label": "after",
+                "value": "after",
+                "order": 0
+              },
+              {
+                "label": "before",
+                "value": "before",
+                "order": 1
+              }
+            ],
+            "defaultChoices": [
+              {
+                "label": "after",
+                "value": "after",
+                "order": 1
+              },
+              {
+                "label": "before",
+                "value": "before",
+                "order": 2
+              }
+            ],
+            "choiceOption": "3",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "after",
+            "defaultDisplayValue": "after",
+            "use_dependent": true,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "dependency_value": "relative_duration",
+              "dependency_type": "mandatory"
+            },
+            "ref_qual": "",
+            "dependent_on": "duration_type"
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_relative_duration_datetime",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Date/Time",
+            "id": "1f25d05473031300b61e66476bf6a773",
+            "label": "Timer relative date time",
+            "name": "timer_relative_duration_datetime",
+            "type": "glide_date_time",
+            "order": 400,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": true,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "is_scriptable": "false",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "dependency_value": "relative_duration",
+              "dependency_type": "mandatory"
+            },
+            "ref_qual": "",
+            "dependent_on": "duration_type"
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_schedule",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Reference",
+            "id": "fb55145473031300b61e66476bf6a762",
+            "label": "During the following schedule",
+            "name": "timer_schedule",
+            "type": "reference",
+            "order": 500,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 32,
+            "reference": "cmn_schedule",
+            "reference_display": "Schedule",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        }
+      ],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  },
+  {
+    "sys_id": "081aef1cffcb32103f03ffffffffff99",
+    "order": "5",
+    "parent_ui_id": "",
+    "ui_id": "04aa3ea5-e97b-4663-91bf-255be75c8879",
+    "logic_definition": "fdb2541473031300b61e66476bf6a70e",
+    "logic_type": "TIMER",
+    "block": "b85aab5cffcb32103f03ffffffffff4e",
+    "flow_variables_assigned": "",
+    "outputs_assigned": "",
+    "connected_to": "",
+    "values": "H4sIAAAAAAAA/+1Y3Y+bOBD/VxDPuRRDIJu8Vd2r1Ie7Vt1oX04VMmZIrHOAM2a36Wr/946NIWxCsl/ZflwrRUo8Y+bzN8NMbtyiVmWtqkXxuqr4Mnfn/3wauTzXNPx94+Z0De7cTWtJFS/yWG1KcEfuFRW1psPnUnDGVdxeQF7Kq1LQzaW98qe94vSusBUXqQSrrqQStSiQ7vxmh6XVxYImIFDSm1XBmdbOUzxNZtMgPCOTaeAFJPC8JCIQRZNplGQRnZ6FeK998NxqdhaN9QecMl9ztMCqKWSqbSKeN0JHFeQpoOKMigpG7prmKVWF3HQUCTR9n4stYcVzhfJcfflzxb+g8Imn72WADjJoeN0xtoFryI0VTRJaP4ZCeSwT1gHvdrSV8REEsq9gSIa0vAEZpC/jA0gGuaLLQSllxx2Q499iVlPIaC3Um9O5SE7gon8iFwPtYpO+96Vhzd1Aw4smwuacFaJe5383MHS7gFweq6rmyvn9xVVXaBWUGq4afxaM2cWquP7YYu0tz42tlikKRkV3okpJntRKp+bGBQFrFBSvaVnyfBmXsrji5mF0Yz1eCjyMM1Fco1LdQsaUaUPGWB10/Bbp54Z8SSXXAfgLxeDDtwb48X+11tuEwFocm4DpCxWTvFSvmc6XNU6nyFZvLweKr0HGpmvFqBb0uZet/Z705BZ0jtJfLRrxpgslGUkjEpFkGkQ+dqFgwiIG0QyAEDrzvV4X6kHKGOwYgx1tsGMtfrBrtlWZ4Bt6bBkv0LOMrMc0rQ71jwL9z4JcTHwVN9C0vhnlJ0B0k+tt8l8Gwu9yBcvGDw3gMy8IAm/GwmDaAThNAbJsmhAfyCCAt1AdsNlik3d6fmPyZ8fkwCuQzKbeHx7Bj+N5c/wE3j5IA8+5AFbkafX0jrtVbfAKGZmE7NDYl8DA2LeL1p43d/vo/kjwHUe/34h9DmL35ry4QLU6az0M00wZU3ZQ25JPsaWkjE6IFx6Aqx/14LowQ4HcHV6dnuEPd/HALhP8MLtMG+TdXAztLAlkhey/DjtCN/4f3yruUUYepcx/9nzf4W5wpm+5O3WsZP0jlnFrIdvEx3as3jULzS3o7qv5u3v6kxvAN94MSOaH6cHKnwZHKn9/I3iAT/etBJP/wbvsmTUw/MoZ/XK1UbEVpLV4oUroMtNWQpaEIQ5tByoh8u+ObJgAR63AyQqBkdWnnrmH3LBxkz3VFvbhCWEf+Hdhz9Z534ihErjYsn+Fse6p49snjcRGUtVAKgXGK1S40LR37R/SmrFBEHDWJ10X8l9t6pZ2+xVliRay2hYAAA==",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [
+        {
+          "name": "duration_type",
+          "value": "explicit_duration",
+          "displayValue": "Explicit duration",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Choice",
+            "id": "4973581473031300b61e66476bf6a785",
+            "label": "Duration Type",
+            "name": "duration_type",
+            "type": "choice",
+            "order": 100,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choices": [
+              {
+                "label": "Explicit duration",
+                "value": "explicit_duration",
+                "order": 0
+              },
+              {
+                "label": "Relative duration",
+                "value": "relative_duration",
+                "order": 1
+              },
+              {
+                "label": "Percentage duration",
+                "value": "percentage_duration",
+                "order": 2
+              }
+            ],
+            "defaultChoices": [
+              {
+                "label": "Explicit duration",
+                "value": "explicit_duration",
+                "order": 1
+              },
+              {
+                "label": "Relative duration",
+                "value": "relative_duration",
+                "order": 2
+              },
+              {
+                "label": "Percentage duration",
+                "value": "percentage_duration",
+                "order": 3
+              }
+            ],
+            "choiceOption": "3",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "explicit_duration",
+            "defaultDisplayValue": "Explicit duration",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "percentage_timer_input_datetime",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Date/Time",
+            "id": "bf1d6161b736230034c6ce69ee11a920",
+            "label": "Percentage timer input date time",
+            "name": "percentage_timer_input_datetime",
+            "type": "glide_date_time",
+            "order": 100,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 100,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "is_scriptable": "false"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_percentage",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Integer",
+            "id": "8033309c5376230034c6ddeeff7b12e1",
+            "label": "Percentage",
+            "name": "timer_percentage",
+            "type": "integer",
+            "order": 100,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 100,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "is_scriptable": "false"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_duration",
+          "value": "1970-01-01 00:00:30",
+          "displayValue": "30 Seconds",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Duration",
+            "id": "ef145c1473031300b61e66476bf6a7be",
+            "label": "Duration",
+            "name": "timer_duration",
+            "type": "glide_duration",
+            "order": 200,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "is_scriptable": "false"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_relative_duration_operator",
+          "value": "after",
+          "displayValue": "after",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Choice",
+            "id": "dca4105473031300b61e66476bf6a726",
+            "label": "Timer relative duration operator",
+            "name": "timer_relative_duration_operator",
+            "type": "choice",
+            "order": 300,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choices": [
+              {
+                "label": "after",
+                "value": "after",
+                "order": 0
+              },
+              {
+                "label": "before",
+                "value": "before",
+                "order": 1
+              }
+            ],
+            "defaultChoices": [
+              {
+                "label": "after",
+                "value": "after",
+                "order": 1
+              },
+              {
+                "label": "before",
+                "value": "before",
+                "order": 2
+              }
+            ],
+            "choiceOption": "3",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "after",
+            "defaultDisplayValue": "after",
+            "use_dependent": true,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "dependency_value": "relative_duration",
+              "dependency_type": "mandatory"
+            },
+            "ref_qual": "",
+            "dependent_on": "duration_type"
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_relative_duration_datetime",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Date/Time",
+            "id": "1f25d05473031300b61e66476bf6a773",
+            "label": "Timer relative date time",
+            "name": "timer_relative_duration_datetime",
+            "type": "glide_date_time",
+            "order": 400,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": true,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "is_scriptable": "false",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "dependency_value": "relative_duration",
+              "dependency_type": "mandatory"
+            },
+            "ref_qual": "",
+            "dependent_on": "duration_type"
+          },
+          "scriptActive": false
+        },
+        {
+          "name": "timer_schedule",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Reference",
+            "id": "fb55145473031300b61e66476bf6a762",
+            "label": "During the following schedule",
+            "name": "timer_schedule",
+            "type": "reference",
+            "order": 500,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 32,
+            "reference": "cmn_schedule",
+            "reference_display": "Schedule",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        }
+      ],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  }
+]

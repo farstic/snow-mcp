@@ -1,0 +1,133 @@
+{
+  "sys_id": "51edb40987f60714350833b73cbb353a",
+  "flow": "cded340987f60714350833b73cbb3561",
+  "name": "Service Catalog",
+  "trigger_type": "service_catalog",
+  "trigger_definition": "c43a1011c36813002841b63b12d3ae15",
+  "sys_scope": "",
+  "generation_source": "",
+  "updation_source": "",
+  "remote_sys_id": "",
+  "display_text": "",
+  "comment": "",
+  "published_version": "",
+  "trigger_outputs": "",
+  "sys_mod_count": "1",
+  "sys_created_by": "pdi.user",
+  "sys_created_on": "2026-08-17 13:09:19",
+  "sys_updated_on": "2026-08-17 13:13:18",
+  "trigger_inputs": "H4sIAAAAAAAA/81VXWvbMBT9K0ZPGyQgJ2ud5G0UCoGuHU23lzCMLF8lYrLsSrLbrOS/78ofsdOmpYzB9mZdXd17ztU58vqJOCM3GzBLbR3THFY7u0zJgoQ0nIXAwlkE88mUUqAgKBez2YwnNAkjMiKKJaAw9bbUwaXKH4KlxqjUDoxm6m5XAG7ybS45YLz5uJLWkcX6iYgV3JeADcliHI6I+M5U6fMxU1y1hcfj4DrXEIzHPrrM2KbLWIEC7gCBCqYsYOSbHa6+SGul3rSB/ej1fgnjPzcmL3U67OwpCU9J6qDPCD6kIFip3MfneL4ywzJA4pYsnojGb9ywOxv7IrEBnps0bieN+SkUoFPQLq48DDy0JuTHy3icscIXfA+i/f6vzkXkBt6ey3HGv5vGAMefzAAbZUynzOVm1yeZPLuDrFDMwSGIqBHvIqR01JEypW5ISS/9qtdwKi0e3g1UXXRD8RT4VqrUgEaq2N+hVeLOTRedYaS34TmdUx5N5lE0oVO0oThLBBecR7OQnodn81dteBKge+bJISN4dH7a/aBeTsUAS2+06gNbNHvDLmOPVv7C4p+ozxNgGk35vcMybqfShBsUtn4N1Pt9V50ybkfEK/pUrSOtVqck3laY7Gvh1d0u/luAzehuCidzlBCZ+qtliXrbZjxXZaavT+miRT9Qa2nxtjr/9bZYbfOH2+46L6WuIbWbKudMHVbMYeekdFC/ASyt/M/FK9oZ7LGvVRHfl/4EOXoDakY+wXIjC/eZO1nBway/ATKM2RyxBgAA",
+  "trigger_inputs_decoded": [
+    {
+      "triggerInstanceSysId": "10181ea187e92300e0ef0cf888cb0b17",
+      "label": "Run Flow In",
+      "internalType": "choice",
+      "choiceList": [
+        {
+          "fSequence": -1,
+          "fValue": "",
+          "fLabel": "-- None --",
+          "fImage": "",
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "background",
+          "fLabel": "Run flow in background (default)",
+          "fImage": "",
+          "fParameters": {
+            "name": "sys_flow_record_trigger",
+            "dependent_values": [
+              ""
+            ],
+            "dependent_values_map": {
+              "": "Run flow in background (default)"
+            }
+          },
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        },
+        {
+          "fSequence": -1,
+          "fValue": "foreground",
+          "fLabel": "Run flow in foreground",
+          "fImage": "",
+          "fParameters": {
+            "name": "sys_flow_record_trigger",
+            "dependent_values": [
+              ""
+            ],
+            "dependent_values_map": {
+              "": "Run flow in foreground"
+            }
+          },
+          "fSelected": false,
+          "fUsed": false,
+          "fMissing": false
+        }
+      ],
+      "mandatory": false,
+      "fromTemplate": false,
+      "order": 100,
+      "name": "run_flow_in",
+      "value": "",
+      "displayValue": "",
+      "parameter": {
+        "children": [],
+        "type_label": "Choice",
+        "id": "6090c72977203300f5bfcfcc78106159",
+        "label": "Run Flow In",
+        "name": "run_flow_in",
+        "type": "choice",
+        "order": 100,
+        "extended": false,
+        "mandatory": false,
+        "readOnly": false,
+        "hint": "",
+        "maxsize": 40,
+        "reference": "",
+        "reference_display": "",
+        "choices": [
+          {
+            "label": "Run flow in background (default)",
+            "value": "background",
+            "order": 1
+          },
+          {
+            "label": "Run flow in foreground",
+            "value": "foreground",
+            "order": 2
+          }
+        ],
+        "defaultChoices": [
+          {
+            "label": "Run flow in background (default)",
+            "value": "background",
+            "order": 1
+          },
+          {
+            "label": "Run flow in foreground",
+            "value": "foreground",
+            "order": 2
+          }
+        ],
+        "choiceOption": "3",
+        "table": "sys_flow_record_trigger",
+        "columnName": "run_flow_in",
+        "defaultValue": "",
+        "use_dependent": false,
+        "fShowReferenceFinder": false,
+        "local": false,
+        "attributes": {
+          "advanced": "true"
+        },
+        "ref_qual": "",
+        "dependent_on": ""
+      },
+      "scriptActive": false
+    }
+  ]
+}

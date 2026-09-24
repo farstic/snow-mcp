@@ -1,0 +1,3 @@
+# Generated flow catalogue: tests compare it byte for byte with scripts/build-flow-catalog.mjs output (LF),
+# so keep LF on checkout regardless of core.autocrlf.
+src/flow-builder/catalog/data/*.json text eol=lf

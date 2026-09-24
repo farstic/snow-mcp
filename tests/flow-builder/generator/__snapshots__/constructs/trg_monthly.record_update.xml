@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<record_update table="sys_hub_flow">
+  <sys_hub_flow action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>b4f35c11f3bd88d8655570ad9c316d40</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_flow_b4f35c11f3bd88d8655570ad9c316d40</sys_update_name>
+    <access>public</access>
+    <active>false</active>
+    <allow_high_security_roles>false</allow_high_security_roles>
+    <annotation/>
+    <category/>
+    <description>Construct spec: scheduled.monthly trigger</description>
+    <flow_priority/>
+    <generation_source>snow_mcp_flow_builder</generation_source>
+    <internal_name>trigger_monthly</internal_name>
+    <label_cache>[{"name":"Monthly_1.run_start_date_time","label":"Trigger - Monthly➛Run Start Date/Time","type":"glide_date_time","base_type":"glide_date_time","usedInstances":{"b8793a43-5260-72de-3f97-67a721adfb02":["log_message"]},"attributes":{}}]</label_cache>
+    <name>Trigger Monthly</name>
+    <run_as>user</run_as>
+    <run_with_roles/>
+    <show_draft_actions>false</show_draft_actions>
+    <status>draft</status>
+    <sys_policy/>
+    <type>flow</type>
+    <version>2</version>
+  </sys_hub_flow>
+  <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=b4f35c11f3bd88d8655570ad9c316d40^sys_idNOT IN49bf4299113bab39004b2e544f82d70a"/>
+  <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>49bf4299113bab39004b2e544f82d70a</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_trigger_instance_v2_49bf4299113bab39004b2e544f82d70a</sys_update_name>
+    <category/>
+    <comment/>
+    <flow>b4f35c11f3bd88d8655570ad9c316d40</flow>
+    <name>Monthly</name>
+    <trigger_definition>2ca52504c32222002841b63b12d3ae4a</trigger_definition>
+    <trigger_inputs>H4sIAAAAAAAAA7WRwWrDMBBEfyXs2THyoZTqVgiBQHNqyCUEs7HW7oIsCXnjYEL+vcR2W5K0pbT0qJE0O7NvcwSJXFUUF64RdAU9d83CgAZIwOKOLGiYYTfx5WTpnbxAAuyEokO76gKB7o8VRUjAUCBnyMnwvXjxXNATNwJ6s02gRmdQfOxAS9xTAj4aiqAzlYDD+uxlsMt9mdfjpBbtnkBnCRhugsVuPQiQwbs0Z7Jj3qaIHOSxEG4JdIm2oXMKtiaSGzIEjFiTnMceQa4LfJ7iizWgSOTdXqg5e40m+eh5ZUGWanKS1xgCuyoP0bfcl4fC12ll2VBaWn/IDTVcuRQLYe9Sg4Lp3PrDrJfXGBl3lpYYAkU4nU7JT/ituKZbbv3QXIa7X6P7YDc6tW+IHu7VVGVTlU2U0upOKwW3HL979HeyFxUvY17t5hLmv+HavgLeQKvWcAMAAA==</trigger_inputs>
+    <trigger_outputs/>
+    <trigger_type>monthly</trigger_type>
+  </sys_hub_trigger_instance_v2>
+  <sys_hub_action_instance_v2 action="delete_multiple" query="flow=b4f35c11f3bd88d8655570ad9c316d40^sys_idNOT INb8793a43526072de3f9767a721adfb02"/>
+  <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>b8793a43526072de3f9767a721adfb02</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_action_instance_v2_b8793a43526072de3f9767a721adfb02</sys_update_name>
+    <action_type>5bc1bcc6531003003bf1d9109ec587d4</action_type>
+    <action_type_parent>0e0ae8c2531003003bf1d9109ec587c8</action_type_parent>
+    <active>true</active>
+    <comment/>
+    <display_text/>
+    <flow>b4f35c11f3bd88d8655570ad9c316d40</flow>
+    <generation_source/>
+    <order>1</order>
+    <parent_ui_id/>
+    <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+    <ui_id>b8793a43-5260-72de-3f97-67a721adfb02</ui_id>
+    <updation_source/>
+    <values>H4sIAAAAAAAAA5WPvQrDMAyEXyVoNoWu2foAXbuUYoSjJAL/YSmBYPzuIdChoUs73scdd/esEDEQ9ODTZD2t5MHAin45GMcxgYGBJXvcHmcqrnDWm1NeCfoRvZCBjAUDKRXoK+iWD7+bEzuC1sypLJAITvRRd09RZ791ZYldrW9lr5eyRCuKRe2ASlY5UGvfu/6N/3xAtHCcoLXXDk8OIP8vAQAA</values>
+  </sys_hub_action_instance_v2>
+  <sys_hub_alias_mapping action="delete_multiple" query="source_id=b8793a43526072de3f9767a721adfb02"/>
+</record_update>

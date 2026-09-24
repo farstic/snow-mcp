@@ -1,0 +1,73 @@
+{
+  "instance_alias": "product",
+  "build_name": "Australia",
+  "glide_war": "glide-australia-02-11-2026__patch5w38-09-10-2026_09-15-2026_2138.zip",
+  "cluster_nodes": 2,
+  "servicenow_ide_store_app": {
+    "sys_id": "fd254d9443a161100967247e6bb8f200",
+    "name": "ServiceNow IDE",
+    "scope": "sn_glider",
+    "version": "4.4.4",
+    "active": "true",
+    "sys_class_name": "sys_store_app",
+    "read_via": "sys_scope (sys_store_app and sys_plugins are INSUFFICIENT_PRIVILEGES for the REST user)"
+  },
+  "activate_flows_endpoint": "sys_ws_operation POST /api/now/wfa_fluent/activate_flows \"Activate Flows and Actions\" (scope global, active=true) is registered on the instance (read 2026-09-24; not called by the probe)",
+  "flow_model_version": "sys_hub_flow.version = '2' on every UI-built flow read; dictionary default for sys_hub_flow_base.version is '1'",
+  "authored_on_release_version_seen": [
+    "27000",
+    "29000"
+  ],
+  "compiler_build_seen": [
+    "glide-zurich-07-01-2025__patch0-07-15-2025_07-23-2025_1759.zip",
+    "glide-trackitsmoncall-06-27-2018_04-13-2025_0900.zip"
+  ],
+  "legacy_tables": {
+    "sys_hub_action_instance": "has rows (2020-2023 vintage, e.g. 002ae5b377cc2110e1e3cf7fbd5a991c)",
+    "sys_hub_trigger_instance": "has rows (2020-2023 vintage)",
+    "sys_hub_flow_logic": "legacy logic table name (sys_hub_flow_logic_instance does not exist)",
+    "sys_hub_sub_flow_instance": "exists (not counted)"
+  },
+  "sys_hub_alias_mapping_rows_for_ui_flows": 0,
+  "flow_designer_plugins": [
+    "com.glide.hub 1.0.0 (Flow Designer - Installer)",
+    "com.glide.hub.flow_engine 1.0.0",
+    "com.glide.hub.flow_reporting 1.0.0",
+    "com.glide.hub.flow_trigger 1.0.0",
+    "com.glide.hub.flow.client 1.0.6",
+    "com.glide.hub.flow.encryption 1.0.0",
+    "com.glide.hub.flow_validation 1.0.0 (inactive)",
+    "com.glide.hub.flow_health_check_tool 1.0.0",
+    "com.glide.hub.designer_backend.model 1.0.0",
+    "com.glide.hub.designer_backend.suite 1.0.0 (inactive)",
+    "com.glide.hub.action_type.system 1.0.0",
+    "com.glide.hub.action_step.core 1.0.0",
+    "com.glide.hub.action_step.crud 1.0.0",
+    "com.glide.hub.action_step.email 1.0.0",
+    "com.glide.hub.action_step.log 1.0.0",
+    "com.glide.hub.action_step.script 1.0.0",
+    "com.glide.hub.action_step.script_mid 1.0.0",
+    "com.glide.hub.action_step.sms 1.0.0",
+    "com.glide.hub.action_step.notification 1.0.0",
+    "com.glide.hub.action_step.service_catalog 1.0.0",
+    "com.glide.hub.action_step.template 1.0.0",
+    "com.glide.hub.action_step.payload 1.1.0",
+    "com.glide.hub.action_step.collector 1.0.0",
+    "com.glide.hub.action_step.xmlparser 1.0.0",
+    "com.glide.hub.action_step.jsonparser 1.0.0",
+    "com.glide.hub.action_step.json_builder 1.0.0",
+    "com.glide.hub.action_step.email_header 1.0.0",
+    "com.glide.hub.action_step.email_attachments 1.0.0",
+    "com.glide.hub.content_filtering 1.0.0",
+    "com.glide.hub.scriptable.plan.runners 1.0.0",
+    "com.glide.hub.flow_engine.decision_graph.tracing 1.0.0",
+    "com.glide.hub.flow_engine.telemetry.tracing 1.0.0 (inactive)",
+    "com.glide.hub.flow_trigger.analytics 1.0.0",
+    "com.glide.hub.flow_designer_embedded_help 1.0.0",
+    "com.glide.hub.flow_designer_guided_tours 1.0.0",
+    "com.glide.hub.flow_designer_introspection.demo 1.0.0 (inactive)",
+    "com.glide.hub.flow_reporting.dashboard 1.0.0",
+    "com.glideapp.servicecatalog.flow_designer 1.0.0",
+    "com.glide.utilities.flow_designer_genai_extensions 1.0.0"
+  ]
+}

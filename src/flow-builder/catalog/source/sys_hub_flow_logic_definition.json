@@ -1,0 +1,25 @@
+{
+  "table": "sys_hub_flow_logic_definition",
+  "query": "sys_idIN<the 18 logic definition sys_ids of manifest.json>",
+  "fields": "sys_id,name,type,attributes",
+  "result": [
+    { "sys_id": "4784e82683031210d266f953d22bc0fd", "name": "Append to Flow Variables", "attributes": "allow_siblings=true,allow_children=false,visible_in_picker=true,embedded_help_qualifier_name=append-to-variables", "type": "APPENDFLOWVARIABLES" },
+    { "sys_id": "df4e1945c3e232002841b63b12d3ae3e", "name": "Assign Subflow Outputs", "attributes": "allow_siblings=true,allow_children=false,embedded_help_qualifier_name=assign_subflow_outputs", "type": "ASSIGNSUBFLOWOUTPUTS" },
+    { "sys_id": "35d60003e6022010a5e40cdd1254dd21", "name": "Catch", "attributes": "allow_siblings=true,draw_curve=true,line_type=q_curve,icon_class=catch,visible_in_picker=false,disable_opening=true", "type": "CATCH" },
+    { "sys_id": "5d31e5dedfe50300b61ecae83df26326", "name": "Do the following in Parallel", "attributes": "allow_siblings=true,draw_curve=true,line_type=q_curve,add_parallel_block=true,can_be_nested=false,disable_opening=true,pills_draggable_in_subsequent_actions=true,embedded_help_qualifier_name=do_the_following_in_parallel", "type": "PARALLEL" },
+    { "sys_id": "eaeb040687210300e6c2c88fc0e3ec89", "name": "Do the following until", "attributes": "display_as_sandwich=true,decorator_is_top=true,pills_draggable_outside_block=false,first_label=Do,second_label=until,allow_siblings=true,allow_children=true,line_type=cc_curve,can_be_nested=false,embedded_help_qualifier_name=do_the_following_until", "type": "DOUNTIL" },
+    { "sys_id": "1f781bf3c32232002841b63b12d3aee6", "name": "Else", "attributes": "allow_siblings=true,allow_children=true,disable_opening=true,pills_draggable_outside_block=false,line_type=q_if_curve,icon_class=else-icon", "type": "ELSE" },
+    { "sys_id": "666e5545c3e232002841b63b12d3ae99", "name": "Else If", "attributes": "allow_siblings=true,allow_children=true,pills_draggable_outside_block=false,line_type=q_if_curve,icon_class=elseif-icon", "type": "ELSEIF" },
+    { "sys_id": "d176605ea76103004f27b0d2187901c7", "name": "End", "attributes": "allow_siblings=false,allow_children=false,disable_opening=true,embedded_help_qualifier_name=end", "type": "END" },
+    { "sys_id": "7444b31c37063110ac85cdd734924bff", "name": "Exit Loop", "attributes": "allow_siblings=true,allow_children=false,visible_in_picker=true,visible_in_ui=true", "type": "BREAK" },
+    { "sys_id": "098e1dc5c3e232002841b63b12d3ae33", "name": "For Each", "attributes": "allow_siblings=true,allow_children=true,embedded_help_qualifier_name=for_each", "type": "FOREACH" },
+    { "sys_id": "af4e1945c3e232002841b63b12d3ae3e", "name": "If", "attributes": "allow_siblings=true,allow_children=true,pills_draggable_outside_block=false,line_type=q_if_curve,icon_class=diamond-if-icon,embedded_help_qualifier_name=if", "type": "IF" },
+    { "sys_id": "a1168de173311300b61e66476bf6a7d0", "name": "Parallel Branch", "attributes": "is_dumb=true,allow_children=true,allow_siblings=false,draw_curve=true,line_type=q_curve,visible_in_picker=false,pills_draggable_outside_block=false,can_be_nested=false", "type": "PARALLELBLOCK" },
+    { "sys_id": "4f787d1e0f9b0010ecf0cc52ff767ea0", "name": "Set Flow Variables", "attributes": "allow_siblings=true,allow_children=false,embedded_help_qualifier_name=set_flow_variables", "type": "SETFLOWVARIABLES" },
+    { "sys_id": "48de1b5837063110ac85cdd734924b15", "name": "Skip Iteration", "attributes": "allow_siblings=false,allow_children=false,visible_in_picker=true,visible_in_ui=true", "type": "CONTINUE" },
+    { "sys_id": "35d60003e6022010a5e40cdd1254dd23", "name": "Top Level Catch", "attributes": "allow_siblings=true,draw_curve=true,line_type=q_curve,visible_in_picker=false,visible_in_ui=false", "type": "TOP_LEVEL_CATCH" },
+    { "sys_id": "e9060aa2c3013010ace8b740ad40dd51", "name": "Top Level Try", "attributes": "allow_siblings=true,draw_curve=true,line_type=q_curve,visible_in_picker=false,visible_in_ui=false", "type": "TOP_LEVEL_TRY" },
+    { "sys_id": "07223332de022010ec58424b73829721", "name": "Try", "attributes": "allow_siblings=true,draw_curve=true,line_type=cc_curve,icon_class=try,visible_in_picker=true,disable_opening=true,embedded_help_qualifier_name=try", "type": "TRY" },
+    { "sys_id": "fdb2541473031300b61e66476bf6a70e", "name": "Wait for a duration of time", "attributes": "allow_siblings=true,allow_children=false,pills_draggable_outside_block=true,pills_draggable_inside_block=true,has_static_outputs=true,embedded_help_qualifier_name=wait_for_a_duration", "type": "TIMER" }
+  ]
+}

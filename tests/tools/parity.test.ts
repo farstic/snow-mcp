@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 import { collectToolCatalog, routeToolInvocation, ROLE_BUNDLE_MAP } from '../../src/tools/index.js';
 import type { ServiceNowClient } from '../../src/servicenow/client.js';
 
-const EXPECTED = 394;
+const EXPECTED = 399;
 
 // canonical old -> new map produced by scripts/build-rename-map.mjs
 const renameMap: Record<string, string> = JSON.parse(
@@ -17,7 +17,7 @@ const throwingClient = new Proxy(
   { get: () => (..._args: unknown[]) => { throw new Error('MOCK_CLIENT_CALL'); } }
 ) as unknown as ServiceNowClient;
 
-describe('tool catalog parity (394-tool migration guard)', () => {
+describe('tool catalog parity (399-tool migration guard)', () => {
   let prevPackage: string | undefined;
   beforeEach(() => {
     prevPackage = process.env.MCP_TOOL_PACKAGE;
@@ -28,7 +28,7 @@ describe('tool catalog parity (394-tool migration guard)', () => {
     else process.env.MCP_TOOL_PACKAGE = prevPackage;
   });
 
-  it('1. exposes exactly 394 tools (count parity)', () => {
+  it('1. exposes exactly 399 tools (count parity)', () => {
     expect(collectToolCatalog().length).toBe(EXPECTED);
   });
 

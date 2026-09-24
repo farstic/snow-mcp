@@ -1,0 +1,42 @@
+{
+  "table": "sys_choice",
+  "query": "name=var__m_sys_hub_flow_logic_input_fdb2541473031300b61e66476bf6a70e^language=en^inactive=false",
+  "fields": "name,element,value,label,sequence",
+  "result": [
+    {
+      "name": "var__m_sys_hub_flow_logic_input_fdb2541473031300b61e66476bf6a70e",
+      "sequence": "1",
+      "label": "after",
+      "value": "after",
+      "element": "timer_relative_duration_operator"
+    },
+    {
+      "name": "var__m_sys_hub_flow_logic_input_fdb2541473031300b61e66476bf6a70e",
+      "sequence": "3",
+      "label": "Percentage duration",
+      "value": "percentage_duration",
+      "element": "duration_type"
+    },
+    {
+      "name": "var__m_sys_hub_flow_logic_input_fdb2541473031300b61e66476bf6a70e",
+      "sequence": "2",
+      "label": "before",
+      "value": "before",
+      "element": "timer_relative_duration_operator"
+    },
+    {
+      "name": "var__m_sys_hub_flow_logic_input_fdb2541473031300b61e66476bf6a70e",
+      "sequence": "1",
+      "label": "Explicit duration",
+      "value": "explicit_duration",
+      "element": "duration_type"
+    },
+    {
+      "name": "var__m_sys_hub_flow_logic_input_fdb2541473031300b61e66476bf6a70e",
+      "sequence": "2",
+      "label": "Relative duration",
+      "value": "relative_duration",
+      "element": "duration_type"
+    }
+  ]
+}

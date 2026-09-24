@@ -1,0 +1,1549 @@
+{
+  "flowKey": "incident_triage",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "03fd68ce74553534a13fda8d50914832",
+      "fields": {
+        "sys_id": "03fd68ce74553534a13fda8d50914832",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: flow variables, stages, if / else if / else, approval, notification, email, look-ups, for each, subflow call",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "incident_triage",
+        "label_cache": [
+          {
+            "name": "Created_1.current.number",
+            "label": "Trigger - Record Created➛incident Record➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "059772e2-fb17-134c-97a8-3df695af209b": [
+                "log_message"
+              ],
+              "9e577065-0dd8-32e9-9b73-b710e03731b6": [
+                "ah_subject"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "number"
+          },
+          {
+            "name": "Created_1.current.urgency",
+            "label": "Trigger - Record Created➛incident Record➛Urgency",
+            "type": "integer",
+            "base_type": "integer",
+            "usedInstances": {
+              "ab3ee5f9-8d30-6f23-f64d-faae26022496": [
+                "condition"
+              ],
+              "5f50313b-39ae-b91f-ce4e-011316e4a855": [
+                "condition"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "urgency"
+          },
+          {
+            "name": "Created_1.current",
+            "label": "Trigger - Record Created➛incident Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "f302f0c6-5dc8-257b-366d-f01fa26fa4df": [
+                "record"
+              ],
+              "3fbf6c6d-8da5-fbeb-3707-b4a97ff7e940": [
+                "record"
+              ],
+              "c62ad8c9-fc03-064c-afa3-4d7af01bb997": [
+                "record"
+              ],
+              "9e577065-0dd8-32e9-9b73-b710e03731b6": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "incident"
+          },
+          {
+            "name": "b77ace62-e9aa-c34e-d68f-6f75cb36c3d1.Record",
+            "label": "b77ace62-e9aa-c34e-d68f-6f75cb36c3d1➛Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "f302f0c6-5dc8-257b-366d-f01fa26fa4df": [
+                "values"
+              ],
+              "3fbf6c6d-8da5-fbeb-3707-b4a97ff7e940": [
+                "approval_conditions"
+              ]
+            },
+            "attributes": {},
+            "reference": "sys_user_group"
+          },
+          {
+            "name": "Created_1.current.short_description",
+            "label": "Trigger - Record Created➛incident Record➛Short Description",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "e28f0a81-59d0-8064-41ad-322137d68624": [
+                "values"
+              ],
+              "e119d236-76c7-b382-ddad-23dc1ace861e": [
+                "summary"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "short_description"
+          },
+          {
+            "name": "Created_1.current.caller_id.email",
+            "label": "Trigger - Record Created➛incident Record➛Caller Id➛Email",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "9e577065-0dd8-32e9-9b73-b710e03731b6": [
+                "ah_to"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "3fbf6c6d-8da5-fbeb-3707-b4a97ff7e940.approval_state",
+            "label": "3fbf6c6d-8da5-fbeb-3707-b4a97ff7e940➛approval_state",
+            "type": "choice",
+            "base_type": "choice",
+            "usedInstances": {
+              "9e577065-0dd8-32e9-9b73-b710e03731b6": [
+                "ah_subject"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Created_1.current.sys_id",
+            "label": "Trigger - Record Created➛incident Record➛Sys Id",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "e45ab70a-39a0-b96c-9c90-57303be94634": [
+                "conditions"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "sys_id"
+          },
+          {
+            "name": "e45ab70a-39a0-b96c-9c90-57303be94634.Records",
+            "label": "e45ab70a-39a0-b96c-9c90-57303be94634➛Records",
+            "type": "records",
+            "base_type": "records",
+            "usedInstances": {
+              "98a72075-0cd3-34c4-93f5-e2f215fae9b3": [
+                "items"
+              ]
+            },
+            "attributes": {},
+            "column_name": "Records"
+          },
+          {
+            "name": "98a72075-0cd3-34c4-93f5-e2f215fae9b3.item.number",
+            "label": "14 - For Each - ➛item➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "9b875de7-70b5-ee81-4f04-5c5e3daecda0": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "number"
+          },
+          {
+            "name": "flow_variable.summary",
+            "label": "Flow Variables➛Summary",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "a325bd0b-f3d0-8958-86d1-cc9d798e0511": [
+                "summary_text"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          },
+          {
+            "name": "a325bd0b-f3d0-8958-86d1-cc9d798e0511.accepted",
+            "label": "a325bd0b-f3d0-8958-86d1-cc9d798e0511➛accepted",
+            "type": "boolean",
+            "base_type": "boolean",
+            "usedInstances": {
+              "cb340aa3-627d-4e7f-539d-ab49c9b23e2d": [
+                "condition"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Incident Triage",
+        "run_as": "system",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "f5fe726321ba7ac43841812f17eb771b",
+      "fields": {
+        "sys_id": "f5fe726321ba7ac43841812f17eb771b",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "summary",
+        "hint": "",
+        "internal_type": "string",
+        "label": "Summary",
+        "mandatory": "false",
+        "max_length": "8000",
+        "model": "03fd68ce74553534a13fda8d50914832",
+        "model_id": "03fd68ce74553534a13fda8d50914832",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_03fd68ce74553534a13fda8d50914832",
+        "order": "1"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "0a7620a2a9ed3240c4f55d4a8464debf",
+      "fields": {
+        "sys_id": "0a7620a2a9ed3240c4f55d4a8464debf",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "attempts",
+        "hint": "",
+        "internal_type": "integer",
+        "label": "Attempts",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "03fd68ce74553534a13fda8d50914832",
+        "model_id": "03fd68ce74553534a13fda8d50914832",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_03fd68ce74553534a13fda8d50914832",
+        "order": "2"
+      }
+    },
+    {
+      "table": "sys_hub_flow_variable",
+      "sys_id": "d0b00628f6ec6225a76ca13a8d236217",
+      "fields": {
+        "sys_id": "d0b00628f6ec6225a76ca13a8d236217",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "escalated",
+        "hint": "",
+        "internal_type": "boolean",
+        "label": "Escalated",
+        "mandatory": "false",
+        "max_length": "32",
+        "model": "03fd68ce74553534a13fda8d50914832",
+        "model_id": "03fd68ce74553534a13fda8d50914832",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_variable_03fd68ce74553534a13fda8d50914832",
+        "order": "3"
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "243b50f9c8787a7c5775f76cdd22a1d6",
+      "fields": {
+        "sys_id": "243b50f9c8787a7c5775f76cdd22a1d6",
+        "sys_scope": "global",
+        "element": "summary",
+        "hint": "",
+        "label": "Summary",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_03fd68ce74553534a13fda8d50914832",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "5d02ee97fe55bc65b9ed851123db34a6",
+      "fields": {
+        "sys_id": "5d02ee97fe55bc65b9ed851123db34a6",
+        "sys_scope": "global",
+        "element": "attempts",
+        "hint": "",
+        "label": "Attempts",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_03fd68ce74553534a13fda8d50914832",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "d4aa94eb28b7af30c757df842efa4d63",
+      "fields": {
+        "sys_id": "d4aa94eb28b7af30c757df842efa4d63",
+        "sys_scope": "global",
+        "element": "escalated",
+        "hint": "",
+        "label": "Escalated",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_variable_03fd68ce74553534a13fda8d50914832",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_hub_flow_stage",
+      "sys_id": "fd1fa922c36128686030eab24ff19691",
+      "fields": {
+        "sys_id": "fd1fa922c36128686030eab24ff19691",
+        "sys_scope": "global",
+        "always_show": "false",
+        "ancestor_array_position": "-1",
+        "ancestor_component_id": "",
+        "ancestor_stage_id": "",
+        "ancestral_if_else_logic": "",
+        "component_indexes": "0",
+        "duration": "1970-01-01 00:00:00",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "label": "Intake",
+        "order": "0",
+        "stage_id": "fd1fa922-c361-2868-6030-eab24ff19691",
+        "states": {
+          "pending": "Pending - has not started",
+          "inprogress": "In progress",
+          "skipped": "Skipped",
+          "complete": "Completed",
+          "error": "Error"
+        },
+        "type": "standard",
+        "value": "intake"
+      }
+    },
+    {
+      "table": "sys_hub_flow_stage",
+      "sys_id": "4428e3d15bf2d64b964441532baf73a0",
+      "fields": {
+        "sys_id": "4428e3d15bf2d64b964441532baf73a0",
+        "sys_scope": "global",
+        "always_show": "true",
+        "ancestor_array_position": "-1",
+        "ancestor_component_id": "",
+        "ancestor_stage_id": "",
+        "ancestral_if_else_logic": "",
+        "component_indexes": "9",
+        "duration": "1970-01-03 00:00:00",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "label": "Review",
+        "order": "1",
+        "stage_id": "4428e3d1-5bf2-d64b-9644-41532baf73a0",
+        "states": {
+          "pending": "Pending - has not started",
+          "inprogress": "In progress",
+          "skipped": "Skipped",
+          "complete": "Completed",
+          "error": "Error"
+        },
+        "type": "standard",
+        "value": "review"
+      }
+    },
+    {
+      "table": "sys_hub_flow_stage",
+      "sys_id": "ceef3284b103d2437a79eba40bb03a24",
+      "fields": {
+        "sys_id": "ceef3284b103d2437a79eba40bb03a24",
+        "sys_scope": "global",
+        "always_show": "false",
+        "ancestor_array_position": "-1",
+        "ancestor_component_id": "",
+        "ancestor_stage_id": "",
+        "ancestral_if_else_logic": "",
+        "component_indexes": "12",
+        "duration": "1970-01-01 00:00:00",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "label": "Wrap Up",
+        "order": "2",
+        "stage_id": "ceef3284-b103-d243-7a79-eba40bb03a24",
+        "states": {
+          "pending": "Pending - has not started",
+          "inprogress": "In progress",
+          "skipped": "Skipped",
+          "complete": "Completed",
+          "error": "Error"
+        },
+        "type": "standard",
+        "value": "wrap_up"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "f12d95ad6781df1e88dcc01693bd564b",
+      "fields": {
+        "sys_id": "f12d95ad6781df1e88dcc01693bd564b",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "name": "Created",
+        "trigger_definition": "798916a0c31322002841b63b12d3ae7c",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Table",
+            "internalType": "table_name",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 1,
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "table_name",
+              "name": "table",
+              "label": "Table",
+              "attributes": {
+                "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Condition",
+            "internalType": "conditions",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "condition",
+            "value": "impact=1^active=true",
+            "displayValue": "impact=1^active=true",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "conditions",
+              "name": "condition",
+              "label": "Condition",
+              "attributes": {
+                "modelDependent": "trigger_inputs",
+                "wants_to_add_conditions": "true"
+              },
+              "dependent_on": "table",
+              "use_dependent": true
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run On Extended Tables",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "false",
+                "fLabel": "Run only on current table",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "true",
+                "fLabel": "Run on current and extended tables",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_on_extended",
+            "value": "false",
+            "displayValue": "false",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_on_extended",
+              "label": "Run On Extended Tables",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run flow In",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "background",
+                "fLabel": "Run flow in background (default)",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "foreground",
+                "fLabel": "Run flow in foreground",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_flow_in",
+            "value": "background",
+            "displayValue": "background",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_flow_in",
+              "label": "Run flow In",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User List",
+            "internalType": "glide_list",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_list",
+            "value": "",
+            "displayValue": "",
+            "displayField": "",
+            "scriptActive": false,
+            "valueSysId": "",
+            "children": [],
+            "parameter": {
+              "type": "glide_list",
+              "name": "run_when_user_list",
+              "label": "Run When User List",
+              "reference": "sys_user",
+              "reference_display": "User",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When Session Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "non_interactive",
+                "fLabel": "Only Run for Non-Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "interactive",
+                "fLabel": "Only Run for User Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "both",
+                "fLabel": "Run for Both Interactive and Non-Interactive Sessions",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_setting",
+            "value": "both",
+            "displayValue": "both",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_setting",
+              "label": "Run When Session Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "not_one_of",
+                "fLabel": "Do not run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "one_of",
+                "fLabel": "Only Run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "any",
+                "fLabel": "Run for any user",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_setting",
+            "value": "any",
+            "displayValue": "any",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_user_setting",
+              "label": "Run When User Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "record_create"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "059772e2fb17134c97a83df695af209b",
+      "fields": {
+        "sys_id": "059772e2fb17134c97a83df695af209b",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "059772e2-fb17-134c-97a8-3df695af209b",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Triage started for {{Created_1.current.number}}",
+            "displayValue": "Triage started for {{Created_1.current.number}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "b77ace62e9aac34ed68f6f75cb36c3d1",
+      "fields": {
+        "sys_id": "b77ace62e9aac34ed68f6f75cb36c3d1",
+        "sys_scope": "global",
+        "action_type": "9d09f99587003300663ca1bb36cb0ba3",
+        "action_type_parent": "b93f42810b30030085c083eb37673a63",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "2",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "b77ace62-e9aa-c34e-d68f-6f75cb36c3d1",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table",
+            "value": "sys_user_group",
+            "displayValue": "sys_user_group",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "conditions",
+            "value": "name=Network",
+            "displayValue": "name=Network",
+            "scriptActive": false,
+            "parameter": {
+              "type": "conditions"
+            }
+          },
+          {
+            "name": "sort_type",
+            "value": "sort_asc",
+            "displayValue": "sort_asc",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "if_multiple_records_are_found_action",
+            "value": "use_first_record",
+            "displayValue": "use_first_record",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "ab3ee5f98d306f23f64dfaae26022496",
+      "fields": {
+        "sys_id": "ab3ee5f98d306f23f64dfaae26022496",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "logic_definition": "af4e1945c3e232002841b63b12d3ae3e",
+        "order": "3",
+        "ui_id": "ab3ee5f9-8d30-6f23-f64d-faae26022496",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{Created_1.current.urgency}}=1",
+              "displayValue": "{{Created_1.current.urgency}}=1",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "f302f0c65dc8257b366df01fa26fa4df",
+      "fields": {
+        "sys_id": "f302f0c65dc8257b366df01fa26fa4df",
+        "sys_scope": "global",
+        "action_type": "f9d01dd2c31332002841b63b12d3aea1",
+        "action_type_parent": "baf174c8c3c232002841b63b12d3aee4",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "4",
+        "parent_ui_id": "ab3ee5f9-8d30-6f23-f64d-faae26022496",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "f302f0c6-5dc8-257b-366d-f01fa26fa4df",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "values",
+            "value": "assignment_group={{b77ace62-e9aa-c34e-d68f-6f75cb36c3d1.Record}}^urgency=1^work_notes=Routed to the network team^EQ",
+            "displayValue": "assignment_group={{b77ace62-e9aa-c34e-d68f-6f75cb36c3d1.Record}}^urgency=1^work_notes=Routed to the network team^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "5f50313b39aeb91fce4e011316e4a855",
+      "fields": {
+        "sys_id": "5f50313b39aeb91fce4e011316e4a855",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "logic_definition": "666e5545c3e232002841b63b12d3ae99",
+        "order": "5",
+        "ui_id": "5f50313b-39ae-b91f-ce4e-011316e4a855",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{Created_1.current.urgency}}=2",
+              "displayValue": "{{Created_1.current.urgency}}=2",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "e28f0a8159d0806441ad322137d68624",
+      "fields": {
+        "sys_id": "e28f0a8159d0806441ad322137d68624",
+        "sys_scope": "global",
+        "action_type": "2de05916c31332002841b63b12d3aee1",
+        "action_type_parent": "02f0b88cc3c632002841b63b12d3aeff",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "6",
+        "parent_ui_id": "5f50313b-39ae-b91f-ce4e-011316e4a855",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "e28f0a81-59d0-8064-41ad-322137d68624",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table_name",
+            "value": "problem",
+            "displayValue": "problem",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "values",
+            "value": "short_description={{Created_1.current.short_description}}^impact=2^EQ",
+            "displayValue": "short_description={{Created_1.current.short_description}}^impact=2^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "0358c65de51adb1b45af1b8cfffae8ae",
+      "fields": {
+        "sys_id": "0358c65de51adb1b45af1b8cfffae8ae",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "logic_definition": "1f781bf3c32232002841b63b12d3aee6",
+        "order": "7",
+        "ui_id": "0358c65d-e51a-db1b-45af-1b8cfffae8ae",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "db7bba4299dc769b7e42947f5b03d202",
+      "fields": {
+        "sys_id": "db7bba4299dc769b7e42947f5b03d202",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "8",
+        "parent_ui_id": "0358c65d-e51a-db1b-45af-1b8cfffae8ae",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "db7bba42-99dc-769b-7e42-947f5b03d202",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "warn",
+            "displayValue": "warn",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Urgency three: no routing",
+            "displayValue": "Urgency three: no routing",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "e119d23676c7b382ddad23dc1ace861e",
+      "fields": {
+        "sys_id": "e119d23676c7b382ddad23dc1ace861e",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "flow_variables_assigned": "summary,attempts,escalated",
+        "logic_definition": "4f787d1e0f9b0010ecf0cc52ff767ea0",
+        "order": "9",
+        "ui_id": "e119d236-76c7-b382-ddad-23dc1ace861e",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "f5fe726321ba7ac43841812f17eb771b",
+              "name": "summary",
+              "value": "{{Created_1.current.short_description}}",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "0a7620a2a9ed3240c4f55d4a8464debf",
+              "name": "attempts",
+              "value": "2",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "d0b00628f6ec6225a76ca13a8d236217",
+              "name": "escalated",
+              "value": "false",
+              "displayValue": "",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [
+            {
+              "id": "f5fe726321ba7ac43841812f17eb771b",
+              "name": "summary",
+              "value": "{{Created_1.current.short_description}}",
+              "displayValue": "{{Created_1.current.short_description}}",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "0a7620a2a9ed3240c4f55d4a8464debf",
+              "name": "attempts",
+              "value": "2",
+              "displayValue": "2",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "d0b00628f6ec6225a76ca13a8d236217",
+              "name": "escalated",
+              "value": "false",
+              "displayValue": "false",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "3fbf6c6d8da5fbeb3707b4a97ff7e940",
+      "fields": {
+        "sys_id": "3fbf6c6d8da5fbeb3707b4a97ff7e940",
+        "sys_scope": "global",
+        "action_type": "f8f2e9920b10030085c083eb37673abd",
+        "action_type_parent": "bae0a1120b10030085c083eb37673a92",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "10",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "3fbf6c6d-8da5-fbeb-3707-b4a97ff7e940",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "approval_field",
+            "value": "approval",
+            "displayValue": "approval",
+            "scriptActive": false,
+            "parameter": {
+              "type": "field_name"
+            }
+          },
+          {
+            "name": "approval_reason",
+            "value": "Impact one incident review",
+            "displayValue": "Impact one incident review",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "journal_field",
+            "value": "comments",
+            "displayValue": "comments",
+            "scriptActive": false,
+            "parameter": {
+              "type": "field_name"
+            }
+          },
+          {
+            "name": "approval_conditions",
+            "value": "ApprovesAnyG[{{b77ace62-e9aa-c34e-d68f-6f75cb36c3d1.Record}}]",
+            "displayValue": "ApprovesAnyG[{{b77ace62-e9aa-c34e-d68f-6f75cb36c3d1.Record}}]",
+            "scriptActive": false,
+            "parameter": {
+              "type": "approval_rules"
+            }
+          },
+          {
+            "name": "due_date",
+            "value": "{\"action\":\"approve\",\"date_type\":\"actual\",\"date\":\"{}\",\"duration\":3,\"duration_type\":\"days\",\"schedule\":\"\",\"schedule_label\":\"\"}",
+            "displayValue": "{\"action\":\"approve\",\"date_type\":\"actual\",\"date\":\"{}\",\"duration\":3,\"duration_type\":\"days\",\"schedule\":\"\",\"schedule_label\":\"\"}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "schedule_date_time"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c62ad8c9fc03064cafa34d7af01bb997",
+      "fields": {
+        "sys_id": "c62ad8c9fc03064cafa34d7af01bb997",
+        "sys_scope": "global",
+        "action_type": "0d8dd9f10f11101051218e8ebc767e27",
+        "action_type_parent": "7eda5d710f11101051218e8ebc767ec1",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "11",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c62ad8c9-fc03-064c-afa3-4d7af01bb997",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "notification",
+            "value": "0000000000000000000000000000a001",
+            "displayValue": "0000000000000000000000000000a001",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "9e5770650dd832e99b73b710e03731b6",
+      "fields": {
+        "sys_id": "9e5770650dd832e99b73b710e03731b6",
+        "sys_scope": "global",
+        "action_type": "c1806bf4a70323008299b39f087901cb",
+        "action_type_parent": "98c181d20b100300d97d8bf637673ab5",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "12",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "9e577065-0dd8-32e9-9b73-b710e03731b6",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "watermark_email",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "ah_to",
+            "value": "{{Created_1.current.caller_id.email}}",
+            "displayValue": "{{Created_1.current.caller_id.email}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_subject",
+            "value": "{{Created_1.current.number}}: review {{3fbf6c6d-8da5-fbeb-3707-b4a97ff7e940.approval_state}}",
+            "displayValue": "{{Created_1.current.number}}: review {{3fbf6c6d-8da5-fbeb-3707-b4a97ff7e940.approval_state}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_body",
+            "value": "<p>Your incident is under review.</p>",
+            "displayValue": "<p>Your incident is under review.</p>",
+            "scriptActive": false,
+            "parameter": {
+              "type": "html"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "e45ab70a39a0b96c9c9057303be94634",
+      "fields": {
+        "sys_id": "e45ab70a39a0b96c9c9057303be94634",
+        "sys_scope": "global",
+        "action_type": "43400a1587003300663ca1bb36cb0b4b",
+        "action_type_parent": "d1c56ec50b30030085c083eb37673a50",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "13",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "e45ab70a-39a0-b96c-9c90-57303be94634",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "conditions",
+            "value": "parent_incident={{Created_1.current.sys_id}}",
+            "displayValue": "parent_incident={{Created_1.current.sys_id}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "conditions"
+            }
+          },
+          {
+            "name": "sort_type",
+            "value": "sort_asc",
+            "displayValue": "sort_asc",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "max_results",
+            "value": 25,
+            "displayValue": 25,
+            "scriptActive": false,
+            "parameter": {
+              "type": "integer"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "98a720750cd334c493f5e2f215fae9b3",
+      "fields": {
+        "sys_id": "98a720750cd334c493f5e2f215fae9b3",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "logic_definition": "098e1dc5c3e232002841b63b12d3ae33",
+        "order": "14",
+        "ui_id": "98a72075-0cd3-34c4-93f5-e2f215fae9b3",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "items",
+              "value": "{{e45ab70a-39a0-b96c-9c90-57303be94634.Records}}",
+              "displayValue": "{{e45ab70a-39a0-b96c-9c90-57303be94634.Records}}"
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "9b875de770b5ee814f045c5e3daecda0",
+      "fields": {
+        "sys_id": "9b875de770b5ee814f045c5e3daecda0",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "15",
+        "parent_ui_id": "98a72075-0cd3-34c4-93f5-e2f215fae9b3",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "9b875de7-70b5-ee81-4f04-5c5e3daecda0",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Linked {{98a72075-0cd3-34c4-93f5-e2f215fae9b3.item.number}}",
+            "displayValue": "Linked {{98a72075-0cd3-34c4-93f5-e2f215fae9b3.item.number}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_sub_flow_instance_v2",
+      "sys_id": "a325bd0bf3d0895886d1cc9d798e0511",
+      "fields": {
+        "sys_id": "a325bd0bf3d0895886d1cc9d798e0511",
+        "sys_scope": "global",
+        "attributes": "",
+        "comment": "",
+        "display_text": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "generation_source": "",
+        "order": "16",
+        "parent_ui_id": "",
+        "show_stages": "false",
+        "subflow": "606a47f2678406975d5e7571a1bd38aa",
+        "subflow_inputs": [
+          {
+            "name": "summary_text",
+            "value": "{{flow_variable.summary}}",
+            "displayValue": "{{flow_variable.summary}}",
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "level",
+            "value": 4,
+            "displayValue": 4,
+            "parameter": {
+              "type": "integer"
+            }
+          }
+        ],
+        "sys_class_name": "sys_hub_sub_flow_instance_v2",
+        "ui_id": "a325bd0b-f3d0-8958-86d1-cc9d798e0511",
+        "wait_for_completion": "true"
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "cb340aa3627d4e7f539dab49c9b23e2d",
+      "fields": {
+        "sys_id": "cb340aa3627d4e7f539dab49c9b23e2d",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "logic_definition": "af4e1945c3e232002841b63b12d3ae3e",
+        "order": "17",
+        "ui_id": "cb340aa3-627d-4e7f-539d-ab49c9b23e2d",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{a325bd0b-f3d0-8958-86d1-cc9d798e0511.accepted}}=true",
+              "displayValue": "{{a325bd0b-f3d0-8958-86d1-cc9d798e0511.accepted}}=true",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "b93ab0d5c1db61cf15005e4f3dcf7f11",
+      "fields": {
+        "sys_id": "b93ab0d5c1db61cf15005e4f3dcf7f11",
+        "sys_scope": "global",
+        "comment": "Accepted",
+        "flow": "03fd68ce74553534a13fda8d50914832",
+        "logic_definition": "d176605ea76103004f27b0d2187901c7",
+        "order": "18",
+        "parent_ui_id": "cb340aa3-627d-4e7f-539d-ab49c9b23e2d",
+        "ui_id": "b93ab0d5-c1db-61cf-1500-5e4f3dcf7f11",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.current.number",
+      "platform": "Created_1.current.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.current.urgency",
+      "platform": "Created_1.current.urgency",
+      "type": "integer"
+    },
+    {
+      "symbolic": "trigger.current",
+      "platform": "Created_1.current",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.triage_group.Record",
+      "platform": "b77ace62-e9aa-c34e-d68f-6f75cb36c3d1.Record",
+      "type": "reference"
+    },
+    {
+      "symbolic": "trigger.current.short_description",
+      "platform": "Created_1.current.short_description",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.current.caller_id.email",
+      "platform": "Created_1.current.caller_id.email",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.triage_approval.approval_state",
+      "platform": "3fbf6c6d-8da5-fbeb-3707-b4a97ff7e940.approval_state",
+      "type": "choice"
+    },
+    {
+      "symbolic": "trigger.current.sys_id",
+      "platform": "Created_1.current.sys_id",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.triage_children.Records",
+      "platform": "e45ab70a-39a0-b96c-9c90-57303be94634.Records",
+      "type": "records"
+    },
+    {
+      "symbolic": "loop.triage_each.item.number",
+      "platform": "98a72075-0cd3-34c4-93f5-e2f215fae9b3.item.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "vars.summary",
+      "platform": "flow_variable.summary",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.triage_sub.accepted",
+      "platform": "a325bd0b-f3d0-8958-86d1-cc9d798e0511.accepted",
+      "type": "boolean"
+    }
+  ]
+}

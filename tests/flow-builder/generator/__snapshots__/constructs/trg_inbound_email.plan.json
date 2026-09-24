@@ -1,0 +1,306 @@
+{
+  "flowKey": "trg_inbound_email",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "a3416368149df8534f1dea298fd3768c",
+      "fields": {
+        "sys_id": "a3416368149df8534f1dea298fd3768c",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: email.inbound trigger with every option",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "trigger_inbound_email",
+        "label_cache": [
+          {
+            "name": "Inbound Email_1.subject",
+            "label": "Trigger - Inbound Email➛Subject",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c7a98aff-ea19-7a05-4d76-e29660c62848": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Inbound Email_1.from_address",
+            "label": "Trigger - Inbound Email➛From address",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c7a98aff-ea19-7a05-4d76-e29660c62848": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Inbound Email_1.user.name",
+            "label": "Trigger - Inbound Email➛User➛Name",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c7a98aff-ea19-7a05-4d76-e29660c62848": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Trigger Inbound Email",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "1098a147212f7f5993f844b9545ba103",
+      "fields": {
+        "sys_id": "1098a147212f7f5993f844b9545ba103",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "a3416368149df8534f1dea298fd3768c",
+        "name": "Inbound Email",
+        "trigger_definition": "6f0180400b320300f4eb8bf637673ad4",
+        "trigger_inputs": [
+          {
+            "label": "Email conditions",
+            "internalType": "conditions",
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 100,
+            "valueSysId": "",
+            "name": "email_conditions",
+            "value": "subjectLIKEpassword^ORbodyLIKEpassword",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "18010347c7312300f4eba1425a9763f7",
+              "label": "Email conditions",
+              "name": "email_conditions",
+              "type": "conditions",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "Conditions to qualify which emails start your flow.",
+              "maxsize": 4000,
+              "reference": "sys_email",
+              "reference_display": "Email",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "condition_builder": "v2",
+                "readable": "true"
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "displayField": "",
+            "scriptActive": false
+          },
+          {
+            "label": "Order",
+            "internalType": "integer",
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 200,
+            "valueSysId": "",
+            "name": "order",
+            "value": "120",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "60b307c7c7312300f4eba1425a97637e",
+              "label": "Order",
+              "name": "order",
+              "type": "integer",
+              "order": 200,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "The priority given to the trigger over other inbound email triggers.",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "visible": "false"
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
+          },
+          {
+            "label": "Stop processing",
+            "internalType": "boolean",
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 300,
+            "valueSysId": "",
+            "name": "stop_condition_evaluation",
+            "value": "1",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "312487c7c7312300f4eba1425a9763fe",
+              "label": "Stop processing",
+              "name": "stop_condition_evaluation",
+              "type": "boolean",
+              "order": 300,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "When true, processes only the flow with the lowest-value order.",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "true",
+              "defaultDisplayValue": "true",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "visible": "false"
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
+          },
+          {
+            "label": "Reply Record Type",
+            "internalType": "table_name",
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 400,
+            "valueSysId": "",
+            "name": "target_table",
+            "value": "sc_req_item",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "b914874853132300eb7c0a1806dc34b5",
+              "label": "Reply Record Type",
+              "name": "target_table",
+              "type": "table_name",
+              "order": 400,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "The table of the record associated with the incoming reply email.",
+              "maxsize": 80,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "": ""
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "displayField": "",
+            "scriptActive": false
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "email"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c7a98affea197a054d76e29660c62848",
+      "fields": {
+        "sys_id": "c7a98affea197a054d76e29660c62848",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "a3416368149df8534f1dea298fd3768c",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c7a98aff-ea19-7a05-4d76-e29660c62848",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Email \"{{Inbound Email_1.subject}}\" from {{Inbound Email_1.from_address}} ({{Inbound Email_1.user.name}})",
+            "displayValue": "Email \"{{Inbound Email_1.subject}}\" from {{Inbound Email_1.from_address}} ({{Inbound Email_1.user.name}})",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.subject",
+      "platform": "Inbound Email_1.subject",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.from_address",
+      "platform": "Inbound Email_1.from_address",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.user.name",
+      "platform": "Inbound Email_1.user.name",
+      "type": "string"
+    }
+  ]
+}

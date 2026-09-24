@@ -1,0 +1,23 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "flow_options", "name": "Flow Options", "internal_name": "flow_options_example", "description": "Construct spec: run as user with roles, priority, custom actions (typed and by sys_id), inline scripts, subflow call without waiting",
+            "run_as": "user", "allow_high_security_roles": true,
+            "run_with_roles": [ "0000000000000000000000000000b001", "0000000000000000000000000000b002" ], "flow_priority": "LOW" },
+  "trigger": { "key": "opts_trigger", "type": "record.created", "table": "incident", "condition": "category=network", "run_flow_in": "foreground" },
+  "steps": [
+    { "kind": "action", "key": "opts_prepare", "action": "updateRecord",
+      "inputs": { "table_name": "incident", "record": { "pill": "trigger.current" },
+                  "values": { "template": { "urgency": "2", "work_notes": { "script": "return 'Queued on ' + new GlideDateTime().getDisplayValue();" } } } } },
+    { "kind": "custom_action", "key": "opts_escalate", "annotation": "Custom action with a resolved definition", "definition": { "sys_id": "fcb17ab000ff0bee9273f669f910e025" },
+      "inputs": { "incident": { "pill": "trigger.current" }, "reason": { "text": "Network outage {{trigger.current.number}}" }, "notify": false } },
+    { "kind": "action", "key": "opts_script_log", "action": "log",
+      "inputs": { "log_level": "info", "log_message": { "script": "return 'Caller: ' + fd_data.trigger.current.caller_id.getDisplayValue();" } } },
+    { "kind": "custom_action", "key": "opts_by_id", "annotation": "Custom action referenced by sys_id", "definition": { "sys_id": "d4667f532d0948d01466bfbd0caf907d" },
+      "inputs": { "incident": { "pill": "trigger.current" }, "reason": "Follow-up", "notify": true } },
+    { "kind": "subflow", "key": "opts_review", "annotation": "Typed subflow call", "subflow": { "sys_id": "c0b8a2b6df77361453a1fb507267c497" }, "wait_for_completion": false,
+      "inputs": { "record": { "pill": "trigger.current" }, "expedite": { "pill": "steps.opts_escalate.escalated" }, "due": { "pill": "trigger.current.due_date" },
+                  "retries": 1, "comment": { "script": "return fd_data.trigger.current.short_description.trim();" } } },
+    { "kind": "action", "key": "opts_summary", "action": "log",
+      "inputs": { "log_level": "info", "log_message": { "text": "Escalation {{steps.opts_escalate.message}} / {{steps.opts_by_id.result}} / {{steps.opts_review.outcome}}" } } }
+  ]
+}

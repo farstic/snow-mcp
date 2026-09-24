@@ -1,0 +1,148 @@
+{
+  "flowKey": "trg_repeat",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "0082f73f639437f89071894ffeb77acc",
+      "fields": {
+        "sys_id": "0082f73f639437f89071894ffeb77acc",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: scheduled.repeat trigger",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "trigger_repeat",
+        "label_cache": [
+          {
+            "name": "Repeat_1.run_start_date_time",
+            "label": "Trigger - Repeat➛Run Start Date/Time",
+            "type": "glide_date_time",
+            "base_type": "glide_date_time",
+            "usedInstances": {
+              "f45ca802-2770-a294-9f0c-4f832fdb7237": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Trigger Repeat",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "d5b7436e3b88df1be501eb1e94341053",
+      "fields": {
+        "sys_id": "d5b7436e3b88df1be501eb1e94341053",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "0082f73f639437f89071894ffeb77acc",
+        "name": "Repeat",
+        "trigger_definition": "f63f0d94c32222002841b63b12d3aeed",
+        "trigger_inputs": [
+          {
+            "label": "Repeat",
+            "internalType": "glide_duration",
+            "mandatory": true,
+            "fromTemplate": false,
+            "order": 100,
+            "valueSysId": "",
+            "name": "repeat",
+            "value": "1970-01-01 06:20:00",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "1c5f4d94c32222002841b63b12d3aeb3",
+              "label": "Repeat",
+              "name": "repeat",
+              "type": "glide_duration",
+              "order": 100,
+              "extended": false,
+              "mandatory": true,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 100,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "displayField": "",
+            "scriptActive": false
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "repeat"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "f45ca8022770a2949f0c4f832fdb7237",
+      "fields": {
+        "sys_id": "f45ca8022770a2949f0c4f832fdb7237",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "0082f73f639437f89071894ffeb77acc",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "f45ca802-2770-a294-9f0c-4f832fdb7237",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Repeat run {{Repeat_1.run_start_date_time}}",
+            "displayValue": "Repeat run {{Repeat_1.run_start_date_time}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.run_start_date_time",
+      "platform": "Repeat_1.run_start_date_time",
+      "type": "glide_date_time"
+    }
+  ]
+}

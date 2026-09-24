@@ -1,0 +1,12 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "pdi_error_handler", "name": "Error Handler Flow", "description": "Flow Error Handler learned from the PDI" },
+  "trigger": { "key": "eh_trigger", "type": "record.created", "table": "incident" },
+  "steps": [
+    { "kind": "action", "key": "eh_update", "action": "updateRecord",
+      "inputs": { "table_name": "incident", "record": { "pill": "trigger.current" }, "values": { "template": { "work_notes": "Guarded" } } } }
+  ],
+  "error_handler": { "steps": [
+    { "kind": "action", "key": "eh_log", "action": "log", "inputs": { "log_level": "error", "log_message": { "text": "Failed: {{error.message}} ({{error.code}})" } } }
+  ] }
+}

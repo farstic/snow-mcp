@@ -1,0 +1,41 @@
+[
+  {
+    "sys_id": "00094b2d871b7a90350833b73cbb352b",
+    "name": "var__m_sys_hub_flow_variable_5bf80b2d871b7a90350833b73cbb3508",
+    "element": "taskid",
+    "label": "taskid",
+    "plural": "",
+    "language": "en",
+    "hint": "",
+    "help": "",
+    "url": "",
+    "url_target": "",
+    "sys_created_by": "pdi.user@example.com"
+  },
+  {
+    "sys_id": "024fdc53eb9ec31010aef41fbad0cda3",
+    "name": "var__m_sys_hub_flow_variable_1644193193c687104138f5353603d669",
+    "element": "error_details",
+    "label": "error_details",
+    "plural": "",
+    "language": "en",
+    "hint": "",
+    "help": "",
+    "url": "",
+    "url_target": "",
+    "sys_created_by": "admin"
+  },
+  {
+    "sys_id": "040dc8833b8e831078ca7c54c3e45a9d",
+    "name": "var__m_sys_hub_flow_variable_3519128487f083d83323c91acebb356b",
+    "element": "worker_id",
+    "label": "worker_id",
+    "plural": "",
+    "language": "en",
+    "hint": "",
+    "help": "",
+    "url": "",
+    "url_target": "",
+    "sys_created_by": "admin"
+  }
+]

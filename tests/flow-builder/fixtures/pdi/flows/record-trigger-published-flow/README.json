@@ -1,0 +1,3 @@
+{
+  "note": "Published record-trigger flow; sys_hub_flow.remote_trigger_id points at the sys_flow_record_trigger row that the platform materialises on activation (table/condition/on_insert/on_update/run_flow_in...). The flow is currently active=false; the record-trigger row is active=true (stale-activation artefact worth knowing for verify)."
+}

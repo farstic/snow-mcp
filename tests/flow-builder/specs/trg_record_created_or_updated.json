@@ -1,0 +1,29 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_record_created_or_updated",
+    "name": "Trigger Record Created Or Updated",
+    "description": "Construct spec: record.created_or_updated trigger"
+  },
+  "trigger": {
+    "key": "trg_record_created_or_updated_trigger",
+    "type": "record.created_or_updated",
+    "table": "problem",
+    "condition": "state=103",
+    "run_flow_in": "background",
+    "trigger_strategy": "always"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_record_created_or_updated_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "Problem {{trigger.current.number}} changed"
+        }
+      }
+    }
+  ]
+}

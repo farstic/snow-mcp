@@ -1,0 +1,74 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "flow_logic", "name": "Flow Logic", "description": "Construct spec: every flow-logic kind - set / append variables, for each with skip / exit, three wait forms, try / catch, do in parallel, do until", "run_as": "system" },
+  "variables": [
+    { "name": "label_text", "label": "Label Text", "type": "string", "default": "start" },
+    { "name": "counter", "label": "Counter", "type": "integer", "default": "1" },
+    { "name": "is_open", "label": "Is Open", "type": "boolean", "default": "true" },
+    { "name": "ratio", "label": "Ratio", "type": "decimal" },
+    { "name": "checked_at", "label": "Checked At", "type": "glide_date_time" },
+    { "name": "owner", "label": "Owner", "type": "reference", "reference_table": "sys_user" },
+    { "name": "weight", "label": "Weight", "type": "float" },
+    { "name": "payload", "label": "Payload", "type": "json" },
+    { "name": "entries", "label": "Entries", "type": "array.object" }
+  ],
+  "trigger": { "key": "logic_trigger", "type": "record.created", "table": "incident", "condition": "category=software", "run_flow_in": "background" },
+  "steps": [
+    { "kind": "set_variables", "key": "logic_set", "assign": {
+      "label_text": { "pill": "trigger.current.number" }, "counter": 3, "is_open": false, "ratio": 0.75,
+      "checked_at": { "pill": "trigger.current.opened_at" }, "owner": { "pill": "trigger.current.opened_by" }, "weight": 4.5, "payload": "{\"source\":\"flow\"}" } },
+    { "kind": "set_variables", "key": "logic_set_script", "annotation": "Scripted value",
+      "assign": { "label_text": { "script": "return 'Ticket ' + fd_data.trigger.current.number;" } } },
+    { "kind": "append_variables", "key": "logic_append_one",
+      "assign": { "entries": { "template": { "code": { "pill": "trigger.current.number" }, "rank": 1, "closed": true } } } },
+    { "kind": "append_variables", "key": "logic_append_two",
+      "assign": { "entries": { "list": [
+        { "template": { "code": "A-100", "rank": 2, "closed": false } },
+        { "template": { "code": "A-200", "rank": 5, "closed": true } } ] } } },
+    { "kind": "action", "key": "logic_related", "action": "lookUpRecords",
+      "inputs": { "table": "incident", "conditions": { "conditions": "caller_id={{trigger.current.caller_id}}^active=true" }, "max_results": 30 } },
+    { "kind": "for_each", "key": "logic_each", "items": { "pill": "steps.logic_related.Records" }, "steps": [
+      { "kind": "if", "key": "logic_if_same", "condition": "{{loop.logic_each.item.sys_id}}={{trigger.current.sys_id}}", "then": [
+        { "kind": "skip_iteration", "key": "logic_skip", "annotation": "Skip the triggering record" } ] },
+      { "kind": "if", "key": "logic_if_major", "condition": "{{loop.logic_each.item.major_incident_state}}=accepted", "then": [
+        { "kind": "exit_loop", "key": "logic_exit", "annotation": "Stop at a major incident" } ] },
+      { "kind": "action", "key": "logic_each_log", "action": "log", "inputs": { "log_level": "info", "log_message": { "text": "Related {{loop.logic_each.item.number}}" } } }
+    ] },
+    { "kind": "for_each", "key": "logic_each_entry", "items": { "pill": "vars.entries" }, "steps": [
+      { "kind": "action", "key": "logic_entry_log", "action": "log",
+        "inputs": { "log_level": "info", "log_message": { "text": "Entry {{loop.logic_each_entry.item.code}} rank {{loop.logic_each_entry.item.rank}}" } } }
+    ] },
+    { "kind": "wait", "key": "logic_pause", "duration_type": "explicit", "duration": { "minutes": 45 }, "schedule": "08fcd0830a0a0b2600079f56b1adb9ae", "annotation": "Fixed pause" },
+    { "kind": "wait", "key": "logic_until_due", "duration_type": "relative", "duration": { "hours": 4 }, "relative_operator": "after", "relative_datetime": { "pill": "trigger.current.opened_at" } },
+    { "kind": "wait", "key": "logic_share", "duration_type": "percentage", "percentage": 80, "percentage_datetime": { "pill": "trigger.current.opened_at" } },
+    { "kind": "action", "key": "logic_pause_log", "action": "log",
+      "inputs": { "log_level": "info", "log_message": { "text": "Paused for {{steps.logic_pause.total_duration}}, resumed at {{steps.logic_pause.scheduled_end_date_time}}" } } },
+    { "kind": "try_catch", "key": "logic_try", "annotation": "Protected update",
+      "try": [
+        { "kind": "action", "key": "logic_try_update", "action": "updateRecord",
+          "inputs": { "table_name": "incident", "record": { "pill": "trigger.current" }, "values": { "template": { "work_notes": "Checked by the logic flow" } } } }
+      ],
+      "catch": { "key": "logic_catch", "steps": [
+        { "kind": "set_variables", "key": "logic_catch_set", "assign": { "is_open": true, "label_text": "update failed" } },
+        { "kind": "action", "key": "logic_catch_log", "action": "log", "inputs": { "log_level": "error", "log_message": "The protected update failed" } }
+      ] } },
+    { "kind": "do_in_parallel", "key": "logic_parallel", "annotation": "Three branches", "branches": [
+      { "key": "logic_branch_one", "steps": [
+        { "kind": "action", "key": "logic_b1_first", "action": "log", "inputs": { "log_level": "info", "log_message": "Branch one, first" } },
+        { "kind": "action", "key": "logic_b1_second", "action": "log", "inputs": { "log_level": "info", "log_message": "Branch one, second" } } ] },
+      { "key": "logic_branch_two", "steps": [
+        { "kind": "action", "key": "logic_b2_user", "action": "lookUpRecord", "inputs": { "table": "sys_user", "conditions": "active=true^roles=itil" } },
+        { "kind": "set_variables", "key": "logic_b2_set", "assign": { "owner": { "pill": "steps.logic_b2_user.Record" } } } ] },
+      { "key": "logic_branch_three", "steps": [
+        { "kind": "action", "key": "logic_b3_log", "action": "log", "inputs": { "log_level": "info", "log_message": "Branch three" } } ] }
+    ] },
+    { "kind": "do_until", "key": "logic_poll", "annotation": "Poll the record", "label": "Until resolved or closed",
+      "condition": "{{steps.logic_poll_read.Record.state}}=6^OR{{vars.is_open}}=false", "steps": [
+        { "kind": "action", "key": "logic_poll_read", "action": "lookUpRecord",
+          "inputs": { "table": "incident", "conditions": { "conditions": "sys_id={{trigger.current.sys_id}}" } } },
+        { "kind": "wait", "key": "logic_poll_wait", "duration_type": "explicit", "duration": { "minutes": 10 } }
+    ] },
+    { "kind": "action", "key": "logic_final", "action": "log",
+      "inputs": { "log_level": "info", "log_message": { "text": "Finished {{vars.label_text}} {{vars.counter}} {{vars.owner.name}}" } } }
+  ]
+}

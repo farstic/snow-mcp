@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<record_update table="sys_hub_flow">
+  <sys_hub_flow action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>a3416368149df8534f1dea298fd3768c</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_flow_a3416368149df8534f1dea298fd3768c</sys_update_name>
+    <access>public</access>
+    <active>false</active>
+    <allow_high_security_roles>false</allow_high_security_roles>
+    <annotation/>
+    <category/>
+    <description>Construct spec: email.inbound trigger with every option</description>
+    <flow_priority/>
+    <generation_source>snow_mcp_flow_builder</generation_source>
+    <internal_name>trigger_inbound_email</internal_name>
+    <label_cache>[{"name":"Inbound Email_1.subject","label":"Trigger - Inbound Email➛Subject","type":"string","base_type":"string","usedInstances":{"c7a98aff-ea19-7a05-4d76-e29660c62848":["log_message"]},"attributes":{}},{"name":"Inbound Email_1.from_address","label":"Trigger - Inbound Email➛From address","type":"string","base_type":"string","usedInstances":{"c7a98aff-ea19-7a05-4d76-e29660c62848":["log_message"]},"attributes":{}},{"name":"Inbound Email_1.user.name","label":"Trigger - Inbound Email➛User➛Name","type":"string","base_type":"string","usedInstances":{"c7a98aff-ea19-7a05-4d76-e29660c62848":["log_message"]},"attributes":{}}]</label_cache>
+    <name>Trigger Inbound Email</name>
+    <run_as>user</run_as>
+    <run_with_roles/>
+    <show_draft_actions>false</show_draft_actions>
+    <status>draft</status>
+    <sys_policy/>
+    <type>flow</type>
+    <version>2</version>
+  </sys_hub_flow>
+  <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=a3416368149df8534f1dea298fd3768c^sys_idNOT IN1098a147212f7f5993f844b9545ba103"/>
+  <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>1098a147212f7f5993f844b9545ba103</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_trigger_instance_v2_1098a147212f7f5993f844b9545ba103</sys_update_name>
+    <category/>
+    <comment/>
+    <flow>a3416368149df8534f1dea298fd3768c</flow>
+    <name>Inbound Email</name>
+    <trigger_definition>6f0180400b320300f4eb8bf637673ad4</trigger_definition>
+    <trigger_inputs>H4sIAAAAAAAAA9WWUU/bMBDHv4rl52xKmkC7vE0bSGjTkABtD4hFjnNpPDl2sC8tGeK7T3aTNm2BgUAae4lkn+27+/v3t3J5SyXLQdKUHtVMSMK1KgQKrSwNqFAIRjF50TVAU7oVq5kqGGrT0bRk0kJAS6PrC6gbyRDWk9oUYGgahWFAF0y2cN7Zk4KmlAZUsdodCy5xtnW4X0lTatv8F3D8evLlqGHWLrUpfp6e5broxlM0oIWwjWTd934fDSivhCwMKJpeXgW0YYbVgK6U252QcNVEszAK42TKp3E0icOwTCBnUTI5YB+mh3E5pcFjOj3cCN6j3FgSuEFQBRRrvfZlNcCKUyU3E5VQSFP6aX0mQU2uWyZF2ZFlJXhFfCWWWGQGSadbQ0qpl+/9td1Y8RtomoQuv4ESDCjuxe5s5jfS0XzWKzs07pXVgsNp43KvtEaWy0F2LdtafVsJ4i4GStZKHF1MayEroHFtuz4GeM4rvTwbsh4L5TXqg1JzJtcjhmhE3iJYf5mDDFneCul30cWErnTr60LTAr3zXWVOqKG0vohs1cfdGqNjAbJn1HIjGvzIUSwGqO+CjWlO/V3uOcUN5z7wPJtMHrGJ7lMN3ogm4SuAfxjmcTjlD4A/hRH4Q6879eBuy+NeXsD3RQWkMUIbgR2ZiwUoxzlWQNCI+RwM0Qv3wQoMESrXrSpW4A8L7A7w27g/QPmbA3whrFhl9+EncfwXas9RN6QxmoO1Qs33+c21lsDUs/mNH+HXom42j2MGbhnzEo+YfgWi42iSzB4kuhwTva/DE2rFXYnGvb+A9x+VI9y0EAwlgSVayc4z795vshRY+ZHUS7D4zstGfP5/gLp/Vdezn7evrQ++fS+cQSM7cgZcm4J4/Pfc4CXJPBrPNUTyiCGQmTlgthJ89M/DMwPXmUCoX8EN+YcomU2T2UEcxc4NkE95yKJZeFjwOMkPRm64T4n7S8V7dBk3/MJX359LdOlRN6t6mLWaC4ZQbFwgFNe1UHNifOX+7d/ywew/ffJ7cl/pd+XqD0a5ubHlCwAA</trigger_inputs>
+    <trigger_outputs/>
+    <trigger_type>email</trigger_type>
+  </sys_hub_trigger_instance_v2>
+  <sys_hub_action_instance_v2 action="delete_multiple" query="flow=a3416368149df8534f1dea298fd3768c^sys_idNOT INc7a98affea197a054d76e29660c62848"/>
+  <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>c7a98affea197a054d76e29660c62848</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_action_instance_v2_c7a98affea197a054d76e29660c62848</sys_update_name>
+    <action_type>5bc1bcc6531003003bf1d9109ec587d4</action_type>
+    <action_type_parent>0e0ae8c2531003003bf1d9109ec587c8</action_type_parent>
+    <active>true</active>
+    <comment/>
+    <display_text/>
+    <flow>a3416368149df8534f1dea298fd3768c</flow>
+    <generation_source/>
+    <order>1</order>
+    <parent_ui_id/>
+    <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+    <ui_id>c7a98aff-ea19-7a05-4d76-e29660c62848</ui_id>
+    <updation_source/>
+    <values>H4sIAAAAAAAAA72QvQqDQBAGX+XYKgER0tqlSJEXSBODrOdqLtyP3N4JIvvuwVQRm1Rph4H5du8LeHQEFdgwNJYmslDAhDavzPg+QAGd4dHifNtS1tGM6ayTmQiqHi1TASNGdJQoQrVAmsfV189gNIFIsYk5YsaBvnIXh8aqGpbl6tuQfac+pDmVnNsX6SRSg+pjcGqvrLjBrovELKIOeyMzxXIdIHLcX/Xf+M/P4xSNH0Dk8Qb4TEDMqwEAAA==</values>
+  </sys_hub_action_instance_v2>
+  <sys_hub_alias_mapping action="delete_multiple" query="source_id=c7a98affea197a054d76e29660c62848"/>
+</record_update>
