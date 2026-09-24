@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<record_update table="sys_hub_flow">
+  <sys_hub_flow action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>4644cfc396f1a24f5286e74ce2c6fc1c</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_flow_4644cfc396f1a24f5286e74ce2c6fc1c</sys_update_name>
+    <access>public</access>
+    <active>false</active>
+    <allow_high_security_roles>false</allow_high_security_roles>
+    <annotation/>
+    <category/>
+    <description>Construct spec: record.created_or_updated trigger</description>
+    <flow_priority/>
+    <generation_source>snow_mcp_flow_builder</generation_source>
+    <internal_name>trigger_record_created_or_updated</internal_name>
+    <label_cache>[{"name":"Created or Updated_1.current.number","label":"Trigger - Record Created or Updated➛problem Record➛Number","type":"string","base_type":"string","usedInstances":{"3f93f159-ed60-c5e8-3ae1-d26c166cf37c":["log_message"]},"attributes":{},"parent_table_name":"problem","column_name":"number"}]</label_cache>
+    <name>Trigger Record Created Or Updated</name>
+    <run_as>user</run_as>
+    <run_with_roles/>
+    <show_draft_actions>false</show_draft_actions>
+    <status>draft</status>
+    <sys_policy/>
+    <type>flow</type>
+    <version>2</version>
+  </sys_hub_flow>
+  <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=4644cfc396f1a24f5286e74ce2c6fc1c^sys_idNOT IN8364a2e61089af3a0de5cb6a8b9c168f"/>
+  <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>8364a2e61089af3a0de5cb6a8b9c168f</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_trigger_instance_v2_8364a2e61089af3a0de5cb6a8b9c168f</sys_update_name>
+    <category/>
+    <comment/>
+    <flow>4644cfc396f1a24f5286e74ce2c6fc1c</flow>
+    <name>Created or Updated</name>
+    <trigger_definition>a45d9180c32222002841b63b12d3aea7</trigger_definition>
+    <trigger_inputs>H4sIAAAAAAAAA71XTW/bOBD9KwRPW0ALpO1NxR6yjtMaSGvAdtpDURC0OJKJ0kOVpOwVAv/3BfXh6CuJA8s5ySapmTdv3htJPx+oMzJJwMzQOo4RLHM7EzSkNKCKr0HRkK74WgENqEQHBrla5SnQkDq/zJBv/Z6AFFAAuvLWaKNlBHfSOhr+/BXQLUfBnTY5DZ3JIKDaCDA0fB/QIkAVjQZ0x1Xm/6dGrxVsfWhpU8Xz709t3EpQFWIbGZm668jJHdAw5sqCxyKVMIAlkpQbvgXnkz9QN1BJB0+XBO6ckevMgfUBYqkcGFYGsDozkb93MZ3MFzfsx/Vq8mW6YIvpcrWYTVbTG3o4HIJTKJ9oFNJJjX3ao3rLvor2ioya96urY6VRI1fNvnXcwT/vrz72+R/YOr8DraIGcA3x0u4E/Oc8E4LpFIyv2dKQfr++m3y5/vZ5uvxUXW8X86/179WcBnSrBaibBo1Vc5jENHMezp6js8xpxoVgDaD+aAb00OgC09iQTmaBNRrkT5/Y/kWGZI5kWtVECvHZAS0U/X5BBw80rntX9IMGNL5rJNKocqKRRJkxgI7U8OPZlidQBoyXoCByII49je9t899Xaa3EpFrwVR6TFiz1ch7TcRSkbl6Z256Z/FThmwyZRlYnb8i/5qkj/c7yCLKv+/ckohcV0XYBFzsvKXEU5ysEFyu9J7OhifNKla159DsxOkPRbXuRQiJ5PEH+EhDzTLl3Iyou1gaeB9A+8UZa88mZbI7ZFlMdsQ3tXUZxj7iG5TCexH5sAMm9BUMK1fSUligpgKlyb4xnmy9vvwFkmQVTB67Z73N+OtNFjEaVLzPfqu05eM8SZiAGA1i8ZtjcFjc2l1mFn4b0vtwauXtLsFZqf3XO++DsaYEaWRGClww3HDv3T6ZCi9qQbxr/nj2eq4GMODZOQVH04rIw1tptenNLG/KvdptWav/kfIKVt3yEFgK2Rzns2mV0p1pr9TLzrAPoBAlfYsKNaBD/XglMx01V3GiC2hGTIZExqcCBIOucuA2QWCul9xIT4ifEuXJoyrMP5WiQtwXCMR+yCcecVFPxTR1QjPC+DUqUHRe0Fi9ogg6ml4Q6ng1W5anzxa8x6gzjaMxvkwzlnwxYtOGYlN8ddaJbbQjwaEPKI6Q8MqZ81Z7ntucjGRe+rr6OVO4djmV7xsoMOzB5r1a/SLJUcHdulc9Z50PDOvWXtnWGO0jypmtqcrrG6ayP750BUEPCPhx+/Q96QuC2PBMAAA==</trigger_inputs>
+    <trigger_outputs/>
+    <trigger_type>record_create_or_update</trigger_type>
+  </sys_hub_trigger_instance_v2>
+  <sys_hub_action_instance_v2 action="delete_multiple" query="flow=4644cfc396f1a24f5286e74ce2c6fc1c^sys_idNOT IN3f93f159ed60c5e83ae1d26c166cf37c"/>
+  <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>3f93f159ed60c5e83ae1d26c166cf37c</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_action_instance_v2_3f93f159ed60c5e83ae1d26c166cf37c</sys_update_name>
+    <action_type>5bc1bcc6531003003bf1d9109ec587d4</action_type>
+    <action_type_parent>0e0ae8c2531003003bf1d9109ec587c8</action_type_parent>
+    <active>true</active>
+    <comment/>
+    <display_text/>
+    <flow>4644cfc396f1a24f5286e74ce2c6fc1c</flow>
+    <generation_source/>
+    <order>1</order>
+    <parent_ui_id/>
+    <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+    <ui_id>3f93f159-ed60-c5e8-3ae1-d26c166cf37c</ui_id>
+    <updation_source/>
+    <values>H4sIAAAAAAAAA52PvQrCMBSFXyXcuRRcu4kv4KKLiNymp2kgf9ykhVLy7tLN4iJuh4/D+XlsFNiDOnLRvBwWOGpoYTfvzIYxUkODzcnxej/SrMWmctbFLqBuZJfRUGJhjwKhbqOypt2vp2g1qNbmUOaRMxt81F0l9g5ebdtFwAWDiqJuadjl69TqWQShtGH2PaRWpScOBsP3wv+Dfj6Vi9hgqNbnG/8PXgVDAQAA</values>
+  </sys_hub_action_instance_v2>
+  <sys_hub_alias_mapping action="delete_multiple" query="source_id=3f93f159ed60c5e83ae1d26c166cf37c"/>
+</record_update>

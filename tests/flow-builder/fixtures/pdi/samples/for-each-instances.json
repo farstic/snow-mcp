@@ -1,0 +1,167 @@
+[
+  {
+    "sys_id": "06925392ffae3210bd2bffffffffff19",
+    "flow": "e4a11fdeff6e3210bd2bffffffffffd5",
+    "order": "5",
+    "parent_ui_id": "dcf2b450-216d-4d4e-950c-02e86914ba99",
+    "ui_id": "37b05d44-6a2d-42bb-95e9-0151707d6d68",
+    "values": "H4sIAAAAAAAA/51STW/bMAz9Lzonhj+apM6twFCgh61AV/QyFAYt0YkwWdIkOaln+L+PipVs6HEnm4/ke48iJ2aGYIfgX82D9/Kg2f7H+4pJHTH6n5iGHtmeyYC9Zyt2AjXEeJpAlMU97GBdV7xb39Uo1gAFrndVmXcodpvNps5ekBsn/DxTq5DeKhjf/p+BH6USDpNJC468BXRsP31KhdFio6BFRUKJgfqloLCoRVcXec2rcktCeXl/V7Tbqi1KUQGKLdVdO5/S0J/eILJT6G689IkuynzF8COgFkhCHSiPK9aDFhCMG9k+uIEAhyCetRpvFUepA9GxWPvh5W/iLvI8FnZIE3FckrewSQ+5wPxoJMdnG6TRCxKgVamHGzX0+ttiP64AOxhUuK6AkMETH9roObpIlrrvR3N+uQo+Sn2ZLyWV4aBuEYTgZDsE9HENqLAnoqYHa6U+NNaZk7w0k5c+OygKsk6ZM4nGc8uAR+MZPRFkj4R/ucBv4GSc4ivRUPN8mb75NUTdZY7kuFmGpgLPnbThgehOmMzN7/FeFya/HIZALj0Jvkbs6XrlMTHSkiX/Fzob9zNa/YvNfwCn28epLwMAAA==",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [
+        {
+          "name": "items",
+          "value": "{{ad218a7a-93cf-49ed-aa1e-7320fed75559.Records}}",
+          "displayValue": "{{ad218a7a-93cf-49ed-aa1e-7320fed75559.Records}}",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Records",
+            "id": "19df9109c32632002841b63b12d3aed6",
+            "label": "Items",
+            "name": "items",
+            "type": "records",
+            "order": 20,
+            "extended": false,
+            "mandatory": true,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 100,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        }
+      ],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  },
+  {
+    "sys_id": "09c8983affe63210552cffffffffff85",
+    "flow": "2c0214c2538e1210ee71b45220e5e679",
+    "order": "2",
+    "parent_ui_id": "",
+    "ui_id": "084508f3-5963-4084-a9c4-eb3ee3e74114",
+    "values": "H4sIAAAAAAAA/6VTy27bMBD8F55tQQ8/It+CBAEMpA0QB7kUgUCRS5soRSp82FEF/3uXliwXuVYXaWd3Z2dWZE9M8G3w7s3cOyf3mmx+fcyI1BHD754IZU7PZi/ZVjtPNYNd57acbMiqqO/4oqBCwKrIs3S5zJmYnvWKzIimDWCl9NA4DI9UhRj3fZmBEGVezDPBFvPFalnMa1aXc56vszxNi3LNisTCZwDngVfC2PMZCbh0raLd+//ysINU3MJotqUWdXqwZNN/S8loNCu5KLO0ZEWORtM0v1tkNbrPcl5Q4NGoojUoLN2OTr8Z910bQwvMWH4Fnsee1wnFVxSRpzMCXx40BxwvqHIwIw3VnHpjO7LxNiBggfIXrbqp4iC1RzoSa7+c/IMTszSNhQLQEIMhOYXVuM0BFo/U0x1SMx/sWMoORjJwwyo4CBqUf/gXGwpeWi+NHlo8rdW126jQ6J/DJshEcP15iASHIqCNRqP00YfYHczp9arySerLUsakMoyqKaLeW1kHH/X0BBQ0SFQ1tG2l3letNUd5aUYtTbJXGCTxOOPQeNQTyqLwBPdKkyfEHy/wO7UyuviBNNh8nhHXuQdFnbt5wSVWnyEqGZyNHqphDbGFWdn6exxwhFHu+SPegIF72imTDiW8RWx7vXMx0eEJilfuBp2M/R3F37DzXywAzgO9AwAA",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [
+        {
+          "flowLogicInstanceSysId": "63b8d43affe63210552cffffffffff76",
+          "name": "items",
+          "value": "{{91eff923-1fc4-4653-bcb9-d271200397c3.requested_for}}",
+          "displayValue": "{{91eff923-1fc4-4653-bcb9-d271200397c3.requested_for}}",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "id": "19df9109c32632002841b63b12d3aed6",
+            "label": "Items",
+            "name": "items",
+            "type": "records",
+            "typeLabel": "Records",
+            "order": 20,
+            "extended": false,
+            "mandatory": true,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 100,
+            "reference": "",
+            "reference_display": "",
+            "fDataStructure": "",
+            "choices": [],
+            "defaultChoices": [],
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+            },
+            "sysClassName": "",
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        }
+      ],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  },
+  {
+    "sys_id": "1874769c2b454b10c71ff0f8ce91bf0d",
+    "flow": "3071c4dd533620100ad0ddeeff7b122d",
+    "order": "7",
+    "parent_ui_id": "e89e8f31-e2f6-4086-a95c-596bfa5aff4c",
+    "ui_id": "0d93efab-a65c-4034-9511-f28731c0f04e",
+    "values": "H4sIAAAAAAAA/41TTWvjMBD9LzobYztL2ORWWgqF7Rba0stSzEQaJ6KypNVHUq/xf99RrLilp57seTPz5s3zeGQmBhuDfzZX3su9Zts/rwWTOmH0PjINPbItkwF7zwp2BBVTPI6dMqf2CE7CTmEZHEgt9d5PE1UJ6a2C4eVbxfwglXCYR1twNDGgY9vxS0oK4qo3otvU1YavmvWqqarm5496t17t6kasAMWaCBXsUFHpXdb8ZYUw2BQ65MaJC/Ar9zwuKD2SiKYqGL4H1AJpfAfKY8F60AKCcQPbBhcJcAjiQathqThIHYiOpdp3L//RxLqqUmGHtBDHObmEbbZshrsbCPBE1DxEl0v5wUiOfrZCYAdRhevP2FzwYIM0em4Jye3cbVTs9e/ZCbYQXL4QIdGTCLRp0SQ979E9Hczp8aLyVuqzKTmpDAe1RBCCk7sYkp6RocKeiNoerKVP3VpnjvLcTFr6cq8oKM9nITAdXgk8CS/JVyhvCb85wy/5Zu6JhpqngvnBXyvw/mMXMrH9G5OSebO8QzvbkFq4kzZc0YAjZrnTa7rlmXvxlEtPEp4Tdnf5A1JioAuS/DN0Mu4tif/Apv+A0IbFSwMAAA==",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [
+        {
+          "name": "items",
+          "value": "{{flow_variable.trainings}}",
+          "displayValue": "{{flow_variable.trainings}}",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "id": "19df9109c32632002841b63b12d3aed6",
+            "label": "Items",
+            "name": "items",
+            "type": "records",
+            "typeLabel": "Records",
+            "order": 20,
+            "extended": false,
+            "mandatory": true,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 100,
+            "reference": "",
+            "reference_display": "",
+            "fDataStructure": "",
+            "choices": [],
+            "defaultChoices": [],
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+            },
+            "sysClassName": "",
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        }
+      ],
+      "variables": [],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  }
+]

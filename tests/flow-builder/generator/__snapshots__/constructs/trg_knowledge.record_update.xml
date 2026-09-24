@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<record_update table="sys_hub_flow">
+  <sys_hub_flow action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>5580cef5622da75c5057a6decd204d53</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_flow_5580cef5622da75c5057a6decd204d53</sys_update_name>
+    <access>public</access>
+    <active>false</active>
+    <allow_high_security_roles>false</allow_high_security_roles>
+    <annotation/>
+    <category/>
+    <description>Construct spec: knowledge.management trigger</description>
+    <flow_priority/>
+    <generation_source>snow_mcp_flow_builder</generation_source>
+    <internal_name>trigger_knowledge_management</internal_name>
+    <label_cache>[{"name":"Knowledge Management_1.knowledge.number","label":"Trigger - Knowledge Management➛Knowledge➛Number","type":"string","base_type":"string","usedInstances":{"958e25a7-b831-6589-bd45-387ca0daa55e":["log_message"]},"attributes":{}},{"name":"Knowledge Management_1.table_name","label":"Trigger - Knowledge Management➛Table Name","type":"table_name","base_type":"table_name","usedInstances":{"958e25a7-b831-6589-bd45-387ca0daa55e":["log_message"]},"attributes":{}}]</label_cache>
+    <name>Trigger Knowledge Management</name>
+    <run_as>user</run_as>
+    <run_with_roles/>
+    <show_draft_actions>false</show_draft_actions>
+    <status>draft</status>
+    <sys_policy/>
+    <type>flow</type>
+    <version>2</version>
+  </sys_hub_flow>
+  <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=5580cef5622da75c5057a6decd204d53^sys_idNOT IN57cb19c5fa73b22879328dc9ae654c84"/>
+  <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>57cb19c5fa73b22879328dc9ae654c84</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_trigger_instance_v2_57cb19c5fa73b22879328dc9ae654c84</sys_update_name>
+    <category/>
+    <comment/>
+    <flow>5580cef5622da75c5057a6decd204d53</flow>
+    <name>Knowledge Management</name>
+    <trigger_definition>9bdb2c0483331210730e5b43c22bc071</trigger_definition>
+    <trigger_inputs>H4sIAAAAAAAAA4uOBQApu0wNAgAAAA==</trigger_inputs>
+    <trigger_outputs/>
+    <trigger_type>knowledge_management</trigger_type>
+  </sys_hub_trigger_instance_v2>
+  <sys_hub_action_instance_v2 action="delete_multiple" query="flow=5580cef5622da75c5057a6decd204d53^sys_idNOT IN958e25a7b8316589bd45387ca0daa55e"/>
+  <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>958e25a7b8316589bd45387ca0daa55e</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_action_instance_v2_958e25a7b8316589bd45387ca0daa55e</sys_update_name>
+    <action_type>5bc1bcc6531003003bf1d9109ec587d4</action_type>
+    <action_type_parent>0e0ae8c2531003003bf1d9109ec587c8</action_type_parent>
+    <active>true</active>
+    <comment/>
+    <display_text/>
+    <flow>5580cef5622da75c5057a6decd204d53</flow>
+    <generation_source/>
+    <order>1</order>
+    <parent_ui_id/>
+    <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+    <ui_id>958e25a7-b831-6589-bd45-387ca0daa55e</ui_id>
+    <updation_source/>
+    <values>H4sIAAAAAAAAA7WQsQqDMBRFf0XeLEJXN+fStUsp8ozXNPQlShItEvLvxaFQKYUuXQ8HDvdeEjm2oJpk1K1ggVBJC8u8MeOGkUrqTZiE1/OeBuXNFBsVzQKqB5aAkib2bBHhqU4U12nz1W00CpRzuYtZhMAab7nGR6MERUpHNz4EvUZxYscaFi62h+r+wpWbbQefc2Hcdz1yJ2i3ZM6fM/5c+/meEL1xmnK+PgEfDDphjQEAAA==</values>
+  </sys_hub_action_instance_v2>
+  <sys_hub_alias_mapping action="delete_multiple" query="source_id=958e25a7b8316589bd45387ca0daa55e"/>
+</record_update>

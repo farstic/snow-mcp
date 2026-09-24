@@ -1,0 +1,27 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_daily",
+    "name": "Trigger Daily",
+    "description": "Construct spec: scheduled.daily trigger"
+  },
+  "trigger": {
+    "key": "trg_daily_trigger",
+    "type": "scheduled.daily",
+    "time": "06:15:00",
+    "timezone": "UTC"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_daily_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "Daily run {{trigger.run_start_time}}"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "sys_id": "02968053339507109092ff889d5c7b9a",
+  "sys_class_name": "sys_flow_record_trigger",
+  "table": "incident",
+  "condition": "assigned_toISNOTEMPTY^assigned_to.identity_type!=ai_agent^state=2",
+  "on_insert": "true",
+  "on_update": "true",
+  "on_delete": "false",
+  "run_flow_in": "foreground",
+  "run_when_setting": "both",
+  "run_when_user_setting": "any",
+  "run_when_user_list": "",
+  "run_on_extended": "false",
+  "trigger_definition": "",
+  "name": "",
+  "published_version": "",
+  "active": "true",
+  "sys_scope": "3b56ea0433cf52104775b4570e5c7b4f",
+  "sys_domain": "global",
+  "sys_created_on": "2026-06-10 19:19:51"
+}

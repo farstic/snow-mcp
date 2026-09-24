@@ -1,0 +1,165 @@
+[
+  {
+    "definition_sys_id": "0e0ae8c2531003003bf1d9109ec587c8",
+    "name": "Log",
+    "internal_name": "log",
+    "latest_snapshot": "5bc1bcc6531003003bf1d9109ec587d4",
+    "catalogue_id": "5bc1bcc6531003003bf1d9109ec587d4",
+    "ui_instances_use": "5bc1bcc6531003003bf1d9109ec587d4"
+  },
+  {
+    "definition_sys_id": "b93f42810b30030085c083eb37673a63",
+    "name": "Look Up Record",
+    "internal_name": "look_up_record",
+    "latest_snapshot": "8c7665d887a1a290350833b73cbb352b",
+    "catalogue_id": "9d09f99587003300663ca1bb36cb0ba3",
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "d1c56ec50b30030085c083eb37673a50",
+    "name": "Look Up Records",
+    "internal_name": "look_up_records",
+    "latest_snapshot": "82468feb87302210350833b73cbb3599",
+    "catalogue_id": "43400a1587003300663ca1bb36cb0b4b",
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "02f0b88cc3c632002841b63b12d3aeff",
+    "name": "Create Record",
+    "internal_name": "create_record",
+    "latest_snapshot": "2de05916c31332002841b63b12d3aee1",
+    "catalogue_id": "2de05916c31332002841b63b12d3aee1",
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "baf174c8c3c232002841b63b12d3aee4",
+    "name": "Update Record",
+    "internal_name": "update_record",
+    "latest_snapshot": "f9d01dd2c31332002841b63b12d3aea1",
+    "catalogue_id": "f9d01dd2c31332002841b63b12d3aea1",
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "c40e2632c75100105312134c95c260f6",
+    "name": "Update Multiple Records",
+    "internal_name": "update_multiple_records",
+    "latest_snapshot": "b28bea25872ccfd0004fc845dabb3557",
+    "catalogue_id": "9daf2a72c75100105312134c95c26073",
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "a8f274c8c3c232002841b63b12d3aee9",
+    "name": "Delete Record",
+    "internal_name": "delete_record",
+    "latest_snapshot": "c3e09916c31332002841b63b12d3aedf",
+    "catalogue_id": "c3e09916c31332002841b63b12d3aedf",
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "3f9b1ff1531003003bf1d9109ec58775",
+    "name": "Create Task",
+    "internal_name": "create_task",
+    "latest_snapshot": "2b3a6335531003003bf1d9109ec58759",
+    "catalogue_id": "2b3a6335531003003bf1d9109ec58759",
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "f597c41073081300612c273ffff6a767",
+    "name": "Create Catalog Task",
+    "internal_name": "create_catalog_task",
+    "type": "SERVICECATALOG",
+    "latest_snapshot": "3b71dabb8757aa50004fc845dabb3583",
+    "catalogue_id": "af51fd0e73141300612c273ffff6a785",
+    "ui_instances_use": "af51fd0e73141300612c273ffff6a785"
+  },
+  {
+    "definition_sys_id": "bae0a1120b10030085c083eb37673a92",
+    "name": "Ask For Approval",
+    "internal_name": "ask_for_approval",
+    "latest_snapshot": "f8f2e9920b10030085c083eb37673abd",
+    "catalogue_id": "f8f2e9920b10030085c083eb37673abd",
+    "ui_instances_use": "f8f2e9920b10030085c083eb37673abd"
+  },
+  {
+    "definition_sys_id": "7eda5d710f11101051218e8ebc767ec1",
+    "name": "Send Notification",
+    "internal_name": "send_notification",
+    "latest_snapshot": "018dd9f10f11101051218e8ebc767e06",
+    "catalogue_id": "0d8dd9f10f11101051218e8ebc767e27",
+    "ui_instances_use": "0d8dd9f10f11101051218e8ebc767e27"
+  },
+  {
+    "definition_sys_id": "98c181d20b100300d97d8bf637673ab5",
+    "name": "Send Email",
+    "internal_name": "send_email",
+    "latest_snapshot": "ad39a9a887212690350833b73cbb35f4",
+    "catalogue_id": "c1806bf4a70323008299b39f087901cb",
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "15e10e5eff30311077a95dac793bf11e",
+    "name": "Fire Event",
+    "internal_name": "fire_event",
+    "latest_snapshot": "9b0a4e0e87ef22d0350833b73cbb35fa",
+    "catalogue_id": "80a30edeff30311077a95dac793bf19b",
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "8bb9a8160b10030085c083eb37673aec",
+    "name": "Wait For Condition",
+    "internal_name": "wait_for_condition",
+    "type": "WAITFORCONDITION",
+    "latest_snapshot": "1bec3de587548310004fc845dabb35ff",
+    "catalogue_id": "89ce8a4187120010663ca1bb36cb0be3",
+    "ui_instances_use": "89ce8a4187120010663ca1bb36cb0be3"
+  },
+  {
+    "definition_sys_id": "22f0b88cc3c632002841b63b12d3aeff",
+    "name": "Get Catalog Variables",
+    "internal_name": "get_catalog_variables",
+    "type": "GETCATALOGVARIABLES",
+    "latest_snapshot": "a30ba3abc31013002841b63b12d3aece (row does not exist)",
+    "catalogue_id": null,
+    "ui_instances_use": "330ba3abc31013002841b63b12d3aee8"
+  },
+  {
+    "definition_sys_id": "e057d2e253b3230034c6ddeeff7b1261",
+    "name": "Create or Update Record",
+    "internal_name": "create_or_update_record",
+    "latest_snapshot": "3dec3bf2531033003a51ddeeff7b12f8",
+    "catalogue_id": null,
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "95849c2a9353130079b5925cf67ffb91",
+    "name": "Copy Attachment",
+    "internal_name": "copy_attachment",
+    "latest_snapshot": "24fe6cdb0f973300dfd3694e68767e16",
+    "catalogue_id": null,
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "b8bd6765c7322300f4eba1425a9763c8",
+    "name": "Look Up Email Attachments",
+    "internal_name": "look_up_email_attachments",
+    "latest_snapshot": "6dbeaf29c7322300f4eba1425a976328",
+    "catalogue_id": null,
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "9d1a6f849f641210e9f6328dda0a1c8b",
+    "name": "Send SMS",
+    "internal_name": "send_sms_notify",
+    "latest_snapshot": "04a8fed89f681210e9f6328dda0a1c9d",
+    "catalogue_id": null,
+    "ui_instances_use": null
+  },
+  {
+    "definition_sys_id": "d2733cb27333001099792f163cf6a77f",
+    "name": "Send SMS",
+    "internal_name": "send_sms",
+    "latest_snapshot": "f97499be7333001099792f163cf6a782",
+    "catalogue_id": null,
+    "ui_instances_use": null
+  }
+]

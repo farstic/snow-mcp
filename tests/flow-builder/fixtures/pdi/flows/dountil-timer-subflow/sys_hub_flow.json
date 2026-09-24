@@ -1,0 +1,164 @@
+{
+  "sys_id": "c7b9671cffcb32103f03ffffffffff3a",
+  "name": "CBS Update Set Capture",
+  "internal_name": "trigger_update_set_capture",
+  "type": "subflow",
+  "status": "published",
+  "active": "true",
+  "run_as": "user",
+  "generation_source": "",
+  "sys_scope": "fa49067dff132210970affffffffff6e",
+  "latest_snapshot": "462babdcffcb32103f03ffffffffff83",
+  "master_snapshot": "462babdcffcb32103f03ffffffffff83",
+  "label_cache": "[{\"name\":\"653ae611-b5a9-4250-b160-59b897c5e0ec.Record.state\",\"label\":\"1➛Import Set Record➛State\",\"reference\":\"\",\"reference_display\":\"State\",\"type\":\"choice\",\"base_type\":\"choice\",\"parent_table_name\":\"sys_import_set\",\"column_name\":\"state\",\"choices\":[{\"used\":false,\"label\":\"Loading\",\"image\":\"\",\"value\":\"loading\",\"parameters\":{\"name\":\"sys_import_set\",\"dependent_values\":[\"\"]},\"rawLabel\":\"Loading\",\"selected\":false,\"reference\":false,\"missing\":false},{\"used\":false,\"label\":\"Loaded\",\"image\":\"\",\"value\":\"loaded\",\"parameters\":{\"name\":\"sys_import_set\",\"dependent_values\":[\"\"]},\"rawLabel\":\"Loaded\",\"selected\":false,\"reference\":false,\"missing\":false},{\"used\":false,\"label\":\"Processed\",\"image\":\"\",\"value\":\"processed\",\"parameters\":{\"name\":\"sys_import_set\",\"dependent_values\":[\"\"]},\"rawLabel\":\"Processed\",\"selected\":false,\"reference\":false,\"missing\":false},{\"used\":false,\"label\":\"Cancelled\",\"image\":\"\",\"value\":\"cancelled\",\"parameters\":{\"name\":\"sys_import_set\",\"dependent_values\":[\"\"]},\"rawLabel\":\"Cancelled\",\"selected\":false,\"reference\":false,\"missing\":false}],\"usedInstances\":{\"2ea1aac1-c02f-4d96-bbff-2f0e518496c9\":[\"condition\"]}},{\"name\":\"subflow.import_set_record\",\"label\":\"Input➛Import Set Record Sys ID\",\"reference\":\"\",\"reference_display\":\"\",\"type\":\"string\",\"base_type\":\"string\",\"column_name\":\"\",\"usedInstances\":{\"8345c1ab-1f5e-413d-b8c9-8f62d0aa96ca\":[\"config\"],\"653ae611-b5a9-4250-b160-59b897c5e0ec\":[\"conditions\"]},\"attributes\":{\"sourceUiUniqueId\":\"\",\"sourceType\":\"\",\"sourceId\":\"\",\"uiUniqueId\":\"a823d529-d3a2-42a8-944c-abeefde1d5ca\"}},{\"name\":\"subflow.import_set\",\"label\":\"Input➛import set\",\"reference\":\"\",\"reference_display\":\"\",\"type\":\"string\",\"base_type\":\"string\",\"column_name\":\"\",\"usedInstances\":{\"19664a22-1faf-4c01-9c68-b01209bdb80e\":[\"conditions\"]},\"attributes\":{\"sourceUiUniqueId\":\"\",\"sourceType\":\"\",\"sourceId\":\"\",\"uiUniqueId\":\"3acd5a5f-e75a-44af-8df4-1208668c21bd\",\"uiTypeLabel\":\"Reference\"}},{\"name\":\"subflow.scheduled_import_sys_id\",\"label\":\"Input➛Scheduled Import Sys ID\",\"reference\":\"\",\"reference_display\":\"\",\"type\":\"string\",\"base_type\":\"string\",\"column_name\":\"\",\"usedInstances\":{\"8345c1ab-1f5e-413d-b8c9-8f62d0aa96ca\":[\"scheduled_import_sys_id\"]},\"attributes\":{\"uiType\":\"string\",\"uiTypeLabel\":\"String\",\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\",\"uiUniqueId\":\"0b5b355f-7e0c-440f-8d7e-c4d4e4ffa7b3\",\"sourceUiUniqueId\":\"\",\"sourceType\":\"\",\"sourceId\":\"\"}}]",
+  "label_cache_parsed": [
+    {
+      "name": "653ae611-b5a9-4250-b160-59b897c5e0ec.Record.state",
+      "label": "1➛Import Set Record➛State",
+      "reference": "",
+      "reference_display": "State",
+      "type": "choice",
+      "base_type": "choice",
+      "parent_table_name": "sys_import_set",
+      "column_name": "state",
+      "choices": [
+        {
+          "used": false,
+          "label": "Loading",
+          "image": "",
+          "value": "loading",
+          "parameters": {
+            "name": "sys_import_set",
+            "dependent_values": [
+              ""
+            ]
+          },
+          "rawLabel": "Loading",
+          "selected": false,
+          "reference": false,
+          "missing": false
+        },
+        {
+          "used": false,
+          "label": "Loaded",
+          "image": "",
+          "value": "loaded",
+          "parameters": {
+            "name": "sys_import_set",
+            "dependent_values": [
+              ""
+            ]
+          },
+          "rawLabel": "Loaded",
+          "selected": false,
+          "reference": false,
+          "missing": false
+        },
+        {
+          "used": false,
+          "label": "Processed",
+          "image": "",
+          "value": "processed",
+          "parameters": {
+            "name": "sys_import_set",
+            "dependent_values": [
+              ""
+            ]
+          },
+          "rawLabel": "Processed",
+          "selected": false,
+          "reference": false,
+          "missing": false
+        },
+        {
+          "used": false,
+          "label": "Cancelled",
+          "image": "",
+          "value": "cancelled",
+          "parameters": {
+            "name": "sys_import_set",
+            "dependent_values": [
+              ""
+            ]
+          },
+          "rawLabel": "Cancelled",
+          "selected": false,
+          "reference": false,
+          "missing": false
+        }
+      ],
+      "usedInstances": {
+        "2ea1aac1-c02f-4d96-bbff-2f0e518496c9": [
+          "condition"
+        ]
+      }
+    },
+    {
+      "name": "subflow.import_set_record",
+      "label": "Input➛Import Set Record Sys ID",
+      "reference": "",
+      "reference_display": "",
+      "type": "string",
+      "base_type": "string",
+      "column_name": "",
+      "usedInstances": {
+        "8345c1ab-1f5e-413d-b8c9-8f62d0aa96ca": [
+          "config"
+        ],
+        "653ae611-b5a9-4250-b160-59b897c5e0ec": [
+          "conditions"
+        ]
+      },
+      "attributes": {
+        "sourceUiUniqueId": "",
+        "sourceType": "",
+        "sourceId": "",
+        "uiUniqueId": "a823d529-d3a2-42a8-944c-abeefde1d5ca"
+      }
+    },
+    {
+      "name": "subflow.import_set",
+      "label": "Input➛import set",
+      "reference": "",
+      "reference_display": "",
+      "type": "string",
+      "base_type": "string",
+      "column_name": "",
+      "usedInstances": {
+        "19664a22-1faf-4c01-9c68-b01209bdb80e": [
+          "conditions"
+        ]
+      },
+      "attributes": {
+        "sourceUiUniqueId": "",
+        "sourceType": "",
+        "sourceId": "",
+        "uiUniqueId": "3acd5a5f-e75a-44af-8df4-1208668c21bd",
+        "uiTypeLabel": "Reference"
+      }
+    },
+    {
+      "name": "subflow.scheduled_import_sys_id",
+      "label": "Input➛Scheduled Import Sys ID",
+      "reference": "",
+      "reference_display": "",
+      "type": "string",
+      "base_type": "string",
+      "column_name": "",
+      "usedInstances": {
+        "8345c1ab-1f5e-413d-b8c9-8f62d0aa96ca": [
+          "scheduled_import_sys_id"
+        ]
+      },
+      "attributes": {
+        "uiType": "string",
+        "uiTypeLabel": "String",
+        "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+        "uiUniqueId": "0b5b355f-7e0c-440f-8d7e-c4d4e4ffa7b3",
+        "sourceUiUniqueId": "",
+        "sourceType": "",
+        "sourceId": ""
+      }
+    }
+  ]
+}

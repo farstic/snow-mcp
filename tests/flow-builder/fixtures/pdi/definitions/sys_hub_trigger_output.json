@@ -1,0 +1,427 @@
+[
+  {
+    "model": "798916a0c31322002841b63b12d3ae7c",
+    "element": "current",
+    "internal_type": "document_id",
+    "label": "Current",
+    "order": "100",
+    "attributes": "",
+    "sys_id": "1e9b880ec37432002841b63b12d3ae89"
+  },
+  {
+    "model": "798916a0c31322002841b63b12d3ae7c",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table Name",
+    "order": "101",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "42aa40cac33432002841b63b12d3aea6"
+  },
+  {
+    "model": "798916a0c31322002841b63b12d3ae7c",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "788cb3f2c33332002841b63b12d3ae6a"
+  },
+  {
+    "model": "798916a0c31322002841b63b12d3ae7c",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "bdd0520777133010ecf06097bd5a9918"
+  },
+  {
+    "model": "bb695e60c31322002841b63b12d3aea5",
+    "element": "current",
+    "internal_type": "document_id",
+    "label": "Current",
+    "order": "100",
+    "attributes": "",
+    "sys_id": "c57b88c6c37432002841b63b12d3aeb6"
+  },
+  {
+    "model": "bb695e60c31322002841b63b12d3aea5",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table Name",
+    "order": "101",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "690bc002c37432002841b63b12d3ae52"
+  },
+  {
+    "model": "bb695e60c31322002841b63b12d3aea5",
+    "element": "changed_fields",
+    "internal_type": "string",
+    "label": "Changed Fields",
+    "order": "100",
+    "attributes": "child_label=FDChangeDetails,child_name=FDChangeDetails,child_type=object,child_type_label=Object,co_type_name=FDCollection,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,pwd2droppable=true,uiType=array.object,uiTypeLabel=Array.Object",
+    "sys_id": "e99267570f022300ecf0cc52ff767ed0"
+  },
+  {
+    "model": "bb695e60c31322002841b63b12d3aea5",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "acccf3f2c33332002841b63b12d3aee1"
+  },
+  {
+    "model": "bb695e60c31322002841b63b12d3aea5",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "f011160777133010ecf06097bd5a99aa"
+  },
+  {
+    "model": "a45d9180c32222002841b63b12d3aea7",
+    "element": "current",
+    "internal_type": "document_id",
+    "label": "Current",
+    "order": "100",
+    "attributes": "",
+    "sys_id": "418b4ccac37432002841b63b12d3ae18"
+  },
+  {
+    "model": "a45d9180c32222002841b63b12d3aea7",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table Name",
+    "order": "101",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "302bccc2c37432002841b63b12d3aec3"
+  },
+  {
+    "model": "a45d9180c32222002841b63b12d3aea7",
+    "element": "changed_fields",
+    "internal_type": "string",
+    "label": "Changed Fields",
+    "order": "100",
+    "attributes": "child_label=FDChangeDetails,child_name=FDChangeDetails,child_type=object,child_type_label=Object,co_type_name=FDCollection,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,pwd2droppable=true,uiType=array.object,uiTypeLabel=Array.Object",
+    "sys_id": "87ab63570f022300ecf0cc52ff767e43"
+  },
+  {
+    "model": "a45d9180c32222002841b63b12d3aea7",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "2b9cf3f2c33332002841b63b12d3ae7c"
+  },
+  {
+    "model": "a45d9180c32222002841b63b12d3aea7",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "48401ac377133010ecf06097bd5a993d"
+  },
+  {
+    "model": "c43a1011c36813002841b63b12d3ae15",
+    "element": "request_item",
+    "internal_type": "reference",
+    "reference": "sc_req_item",
+    "label": "Request Item",
+    "order": "100",
+    "attributes": "default_search_field=number",
+    "sys_id": "002f9851c36813002841b63b12d3ae1a"
+  },
+  {
+    "model": "c43a1011c36813002841b63b12d3ae15",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table Name",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "34de1851c36813002841b63b12d3ae43"
+  },
+  {
+    "model": "c43a1011c36813002841b63b12d3ae15",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "035e9451c36813002841b63b12d3aef0"
+  },
+  {
+    "model": "c43a1011c36813002841b63b12d3ae15",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "c50056c377133010ecf06097bd5a999c"
+  },
+  {
+    "model": "89142dc0c32222002841b63b12d3ae8a",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "4d0472e0c32132002841b63b12d3ae68"
+  },
+  {
+    "model": "89142dc0c32222002841b63b12d3ae8a",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "b270dac377133010ecf06097bd5a998e"
+  },
+  {
+    "model": "cf352104c32222002841b63b12d3ae1f",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "b534b2e0c32132002841b63b12d3aefa"
+  },
+  {
+    "model": "cf352104c32222002841b63b12d3ae1f",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "1c815a0777133010ecf06097bd5a9952"
+  },
+  {
+    "model": "2ca52504c32222002841b63b12d3ae4a",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "2544f2e0c32132002841b63b12d3aedc"
+  },
+  {
+    "model": "2ca52504c32222002841b63b12d3ae4a",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "c2bf828377133010ecf06097bd5a9944"
+  },
+  {
+    "model": "0a76e504c32222002841b63b12d3aeac",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "4fd37ea0c32132002841b63b12d3ae07"
+  },
+  {
+    "model": "0a76e504c32222002841b63b12d3aeac",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "eda09ec377133010ecf06097bd5a99be"
+  },
+  {
+    "model": "f63f0d94c32222002841b63b12d3aeed",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "795436e0c32132002841b63b12d3aea9"
+  },
+  {
+    "model": "f63f0d94c32222002841b63b12d3aeed",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "110",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "0af0d20777133010ecf06097bd5a994e"
+  },
+  {
+    "model": "7b3308f67fd21210a652b9277c8665f0",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "a64b6b457f221210a652b9277c86655a"
+  },
+  {
+    "model": "7b3308f67fd21210a652b9277c8665f0",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date/Time",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "85caef057f221210a652b9277c866505"
+  },
+  {
+    "model": "6f0180400b320300f4eb8bf637673ad4",
+    "element": "inbound_email",
+    "internal_type": "reference",
+    "reference": "sys_email",
+    "label": "Inbound Email",
+    "order": "100",
+    "attributes": "",
+    "sys_id": "03a0abaca71223008299b39f087901bf"
+  },
+  {
+    "model": "6f0180400b320300f4eb8bf637673ad4",
+    "element": "target_table_name",
+    "internal_type": "table_name",
+    "label": "Target Table Name",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "1863e34453132300eb7c0a1806dc34ba"
+  },
+  {
+    "model": "6f0180400b320300f4eb8bf637673ad4",
+    "element": "target_record",
+    "internal_type": "document_id",
+    "label": "Target Record",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "b7211f4453132300eb7c0a1806dc34bc"
+  },
+  {
+    "model": "6f0180400b320300f4eb8bf637673ad4",
+    "element": "body_text",
+    "internal_type": "string_full_utf8",
+    "label": "Body Text",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "3dfd0e450b022300f4eb8bf637673a29"
+  },
+  {
+    "model": "6f0180400b320300f4eb8bf637673ad4",
+    "element": "subject",
+    "internal_type": "string_full_utf8",
+    "label": "Subject",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "767d02450b022300f4eb8bf637673a8e"
+  },
+  {
+    "model": "6f0180400b320300f4eb8bf637673ad4",
+    "element": "from_address",
+    "internal_type": "string_full_utf8",
+    "label": "From address",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "fcdfc6850b022300f4eb8bf637673a40"
+  },
+  {
+    "model": "6f0180400b320300f4eb8bf637673ad4",
+    "element": "user",
+    "internal_type": "reference",
+    "reference": "sys_user",
+    "label": "User",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "a42156c50b022300f4eb8bf637673af8"
+  },
+  {
+    "model": "9bdb2c0483331210730e5b43c22bc071",
+    "element": "knowledge",
+    "internal_type": "reference",
+    "reference": "kb_knowledge",
+    "label": "Knowledge",
+    "order": "100",
+    "attributes": "default_search_field=number",
+    "sys_id": "6ca375d083331210730e5b43c22bc015"
+  },
+  {
+    "model": "9bdb2c0483331210730e5b43c22bc071",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table Name",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "fd2809c483f71210730e5b43c22bc0c0"
+  },
+  {
+    "model": "9bdb2c0483331210730e5b43c22bc071",
+    "element": "run_start_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Time",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "ac33384883b71210730e5b43c22bc065"
+  },
+  {
+    "model": "9bdb2c0483331210730e5b43c22bc071",
+    "element": "run_start_date_time",
+    "internal_type": "glide_date_time",
+    "label": "Run Start Date Time",
+    "order": "100",
+    "attributes": "test_input_hidden=true",
+    "sys_id": "53788dc483f71210730e5b43c22bc0e8"
+  },
+  {
+    "model": "f5ce00a873723300d70877186bf6a759",
+    "element": "task_sla_record",
+    "internal_type": "reference",
+    "reference": "task_sla",
+    "label": "Task SLA Record",
+    "order": "100",
+    "attributes": "",
+    "sys_id": "42c0dd4673723300d70877186bf6a72b"
+  },
+  {
+    "model": "f5ce00a873723300d70877186bf6a759",
+    "element": "sla_flow_inputs",
+    "internal_type": "string",
+    "label": "SLA Flow Inputs",
+    "order": "100",
+    "attributes": "co_type_name=FDcdbd0dc2bc7233000dbdb4d30db4851a,uiType=object,uiTypeLabel=Object",
+    "sys_id": "f6f2153073723300d70877186bf6a74f"
+  },
+  {
+    "model": "77ad0b76c71000101666868cb8c2601d",
+    "element": "path_parameters",
+    "internal_type": "string",
+    "label": "Path Parameters",
+    "order": "100",
+    "attributes": "canAddChildren=false,customSupportedRootLevelFieldTypes=string;integer;float;decimal,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=object,uiTypeLabel=Object,co_type_name=RESTTriggerPlaceholder",
+    "sys_id": "39685bc273b21010fbe7066a4cf6a75e"
+  },
+  {
+    "model": "77ad0b76c71000101666868cb8c2601d",
+    "element": "query_parameters",
+    "internal_type": "string",
+    "label": "Query Parameters",
+    "order": "110",
+    "sys_id": "82f808bac7121010c212868cb8c260b4"
+  },
+  {
+    "model": "77ad0b76c71000101666868cb8c2601d",
+    "element": "headers",
+    "internal_type": "string",
+    "label": "Headers",
+    "order": "120",
+    "sys_id": "78ea48fac7121010c212868cb8c26046"
+  },
+  {
+    "model": "77ad0b76c71000101666868cb8c2601d",
+    "element": "body",
+    "internal_type": "string",
+    "label": "Request Body",
+    "order": "130",
+    "sys_id": "770bc8fac7121010c212868cb8c2609c"
+  }
+]

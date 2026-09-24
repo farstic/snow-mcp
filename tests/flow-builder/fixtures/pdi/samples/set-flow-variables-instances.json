@@ -1,0 +1,492 @@
+[
+  {
+    "sys_id": "03664c0f2ba14bd4fc40f4e2fe91bf64",
+    "flow": "1666880f2ba14bd4fc40f4e2fe91bff4",
+    "order": "14",
+    "parent_ui_id": "49082014-1068-40a6-b764-a7a0cfcbe90a",
+    "ui_id": "46eb669e-019b-4b20-883b-d0904121a4d4",
+    "flow_variables_assigned": "owneremails",
+    "values": "H4sIAAAAAAAA/+1YW2/bNhT+K5ye7MRRfIsT2w9D0AvWYWuKOetLHAiURNpsKVLlJYln+L/3HFGyPTcohmFYMMx8kMWPPLfvHFIHXkfau9I7e6uvrRULFU3u7juRUIjB+zoSeTSJspSOBpeDfj9l426aD3k27PIh63M27qV8PIo6kaIFg536UTHDCiqkBfCBSo8ovObClpKuPu6QbClkblhtsqQGNDhmosn6YOmvuiBpyuQ3PjzrmFuVCFpnhFrU819q8VkDapOjO/1OxJ4cUzkDPziVlnWigqqcOm1WW8Qwmt8ouQOWQrkQaEGfrPgD7F11u13cycETldU0bKdJTVGA+WvqKLjiM+fNljEtMmYDKznj1Ev3ah8LG25KJ7QKIo6mspHW0hfqfaAj2irYy4i34AQrMVT0vQ6Ez5b68bfGy7dCVazUi1JnVG5n1AF3qXfozzry4vaA5oB8QzSTrACLSUHLEpCkNPpBVFbA6SJeSJjEXOpH8A6LNKYZRhhDCmj8FvDXFfyRGoHh/gpqQBjN/a7EF8/eYQENrkbDfr/fO+vl/PJsmF+ys6uL0fBswMZXF9mY9/OLQbTpRHZlX0lq7Y4oyFDyxWOYgbaaoCRwjCKZEaW7BqceQARyxhoMadivPJh+b3N0fjJXJyfXGWTUEozs/LoKlWCoxFtgh7glIzxPKkSnn1jmYjKrFJDCW0cMg4pRhJLq9MUENd5gKRPlixR+hCWac8scSVfktEeEIm+M0Yb8BFUt0cSMBYIrZx7Ac6SV6KquLKnrlPgSHCsNuIoy8yieR4RyOMKNeyjOnmhRSjYBbwyxS20cJCsjc9/tDvJmYwyVsFgwE2feQJW5uNqI2a7iAqtT1FVHttWC4PlczRXqLhgGZw81J71BkkitPye+TIrB6CJZGO1Lm6SrxArHEiiVQkAIEC7Uv7FhWQrrpuSFxlwdBNPC+0nzgxj3nxXUvwwnLby3yY/k59nN+xiuVstatWybTBo1LxZfFeILGv/nRii9pYfvwZvqhDcZu7ufYmFyOFUt3CKahe60ec+aPMSSqYVbwsLpaZusAzW7km4k6913AlXjFsFJa8djWI5LKIBMlFTiTftcofRCqYzq56E8noEPjQ68A8kPfxJXXsrva6iuur8nhfdA0WofCIdyDs+6cLY04dijPy69XbaeUdmuOdvM1QYTU18l+6KftFCtYKVT22xPo81mc4+NTPi0HHuiY0907ImOPdGxJ/q3x7En+q+MY0/0/+iJcpYJvCJu8SJ81/xjhAsr6C9Etg89avMZP1Y7bPMVd6sK3XsSAAA=",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [
+        {
+          "id": "cba637322be90bd4fc40f4e2fe91bf96",
+          "name": "owneremails",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "id": "cba637322be90bd4fc40f4e2fe91bf96",
+            "label": "owneremails",
+            "name": "owneremails",
+            "type": "string",
+            "typeLabel": "String",
+            "order": 2,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "fDataStructure": "",
+            "choices": [],
+            "defaultChoices": [],
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "38642221-1df7-4d7e-8564-3e985c9f2d53"
+            },
+            "sysClassName": "",
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": true,
+          "script": {
+            "owneremails": {
+              "scriptActive": true,
+              "script": "/*\n**Access Flow/Action data using the fd_data object. Script must return a value. \n**Order number is offset by +1 in Error Handling Section.\n**Available options display upon pressing \".\" after fd_data\n**example: var shortDesc = fd_data.trigger.current.short_description;\n**return shortDesc;\n*/\n\nvar members = fd_data._13__look_up_m365_groups_by_site_permission.usersgroupslist;                                                                                                                        \nmembers = (typeof members === 'string') ? JSON.parse(members) : members;                                                                                                                           \n                                                                                                                                                                                                     \nvar humanEmails = [];\n\nfor (var i = 0; i < members.length; i++) {\n    var member = members[i];\n    if (\n        member.principalType === 1 &&\n        member.userPrincipalName !== null &&\n        member.email !== null &&\n        member.email.trim() !== '' \n    ) {\n        humanEmails.push(member.email.trim());\n    }\n}\n\nreturn humanEmails.join(', ');"
+            }
+          }
+        }
+      ],
+      "variables": [
+        {
+          "id": "cba637322be90bd4fc40f4e2fe91bf96",
+          "name": "owneremails",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "id": "cba637322be90bd4fc40f4e2fe91bf96",
+            "label": "owneremails",
+            "name": "owneremails",
+            "type": "string",
+            "typeLabel": "String",
+            "order": 2,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "fDataStructure": "",
+            "choices": [],
+            "defaultChoices": [],
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "38642221-1df7-4d7e-8564-3e985c9f2d53"
+            },
+            "sysClassName": "",
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": true,
+          "script": {
+            "owneremails": {
+              "scriptActive": true,
+              "script": "/*\n**Access Flow/Action data using the fd_data object. Script must return a value. \n**Order number is offset by +1 in Error Handling Section.\n**Available options display upon pressing \".\" after fd_data\n**example: var shortDesc = fd_data.trigger.current.short_description;\n**return shortDesc;\n*/\n\nvar members = fd_data._13__look_up_m365_groups_by_site_permission.usersgroupslist;                                                                                                                        \nmembers = (typeof members === 'string') ? JSON.parse(members) : members;                                                                                                                           \n                                                                                                                                                                                                     \nvar humanEmails = [];\n\nfor (var i = 0; i < members.length; i++) {\n    var member = members[i];\n    if (\n        member.principalType === 1 &&\n        member.userPrincipalName !== null &&\n        member.email !== null &&\n        member.email.trim() !== '' \n    ) {\n        humanEmails.push(member.email.trim());\n    }\n}\n\nreturn humanEmails.join(', ');"
+            }
+          }
+        }
+      ],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  },
+  {
+    "sys_id": "0396a2182bc14b10c71ff0f8ce91bfb4",
+    "flow": "ffcc3f32532220100ad0ddeeff7b129d",
+    "order": "8",
+    "parent_ui_id": "0d93efab-a65c-4034-9511-f28731c0f04e",
+    "ui_id": "53796403-fe36-47b9-a037-a156360ccbf7",
+    "flow_variables_assigned": "training_active,training_type",
+    "values": "H4sIAAAAAAAA/+1YTW/jNhD9K4SOqa3Ikb1yvKcA7aILtA3QpHupFwJFDW22FKnlRxJv4P/eGX04i7RZ7KFIe9DJ4pCcefNm+DDwY2JjaGPwt/bKe7Uzyeb3j7NEGbLh92NieAPJJgmOK6PMruQiqDtIZskd15F28LNWvtX88OHJIvZK1w4Gdy136CWASzaPz7bCoYVS8wo0XrwJDkPgdVXjKqtWWcVX2UW1XC2rRSaKhZSZXAu4XFRytcRz48URHTuhexE2BcQNP4ayriZcy1kCDwFMDRhacu1hljTc1DxYdzhZHPD62ugnw16Z0Gfc8AevPqPrdZZldFICJikGPk7LcuBqpMkqAddtUNb0lsArPXJodWzML30ixDJIHnX4guXo0R+0hJpgDJjkzd7e/zoGfKdMl+Cwqa3g+rTiAWmoYgBPlYnq9hk5veWn5+UBDQ1GLBvetkRu6+yd6qIg6CbdaVykUtt7REdNlRL71qTIJk/fof37zvyBO0Xp/oxu8DKF+82oTxHeU/nzS3G5XhViXqy4mC+LpZivL4vFPK85VEWxyGV+kRw7astPkZLqSRroKHtG8YAXTrXhqm+ATXARRhsl/bxD0PS1C8n52dacnV0JAd4zyuX8qkuOUXIseurCsAcm67Kz2OoPECFlN50D1kQfmIMQnWGcdW8oZeTxmvqQmdhU+KM8s1J6CKw6sO8WTBn2g3PWsR+xJTWFuIGe0g7MHVeaiGS26yTPhiZjsUVgrUOodGebpNuEcYkPcYRH1+GBN62GDaJxzO+tC1gewbYxy/J6PJhi7Xc7cKmIDvsqpN1Bqm+XF0Z9S76GzE5eyHi+NYN59FUWZSmtK4GLfaoCNKm2A/9vk+PxOPu77HTP9jVEJ/+a6CyzfxKdAdsLkF8QnNUkOP8zwVlxgIs3y2yevynWKDgoPWtxIedSLjisAdaLPP83BadvjElu/hu56YnqitBpzkcSl749+sHnW2eQaUCa9GoakCbFeuUB6VunlWmQmoRpGqQmWXrNQaoGoTy6vqXk3o//JdHGAd+2El+a7q37kxruyXb8C6LlGZaVEgAA",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [
+        {
+          "name": "training_active",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "0b50ba502b454b10c71ff0f8ce91bf54",
+            "label": "training active",
+            "name": "training_active",
+            "type": "string",
+            "order": 4,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "39c9857c-75ac-474c-8971-3daeb7713f32"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": true,
+          "script": {
+            "training_active": {
+              "scriptActive": true,
+              "script": "/*\n**Access Flow/Action data using the fd_data object. Script must return a value. \n**Order number is offset by +1 in Error Handling Section.\n**Available options display upon pressing \".\" after fd_data\n**example: var shortDesc = fd_data.trigger.current.short_description;\n**return shortDesc;\n*/\nreturn fd_data._7__for_each.item.lo_active;"
+            }
+          }
+        },
+        {
+          "name": "training_type",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "0350ba502b454b10c71ff0f8ce91bf40",
+            "label": "training type",
+            "name": "training_type",
+            "type": "string",
+            "order": 5,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "5aee2640-3678-477c-8c2f-ff1ae8ee8133"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": true,
+          "script": {
+            "training_type": {
+              "scriptActive": true,
+              "script": "/*\n**Access Flow/Action data using the fd_data object. Script must return a value. \n**Order number is offset by +1 in Error Handling Section.\n**Available options display upon pressing \".\" after fd_data\n**example: var shortDesc = fd_data.trigger.current.short_description;\n**return shortDesc;\n*/\nreturn fd_data._7__for_each.item.lo_object_type;"
+            }
+          }
+        }
+      ],
+      "variables": [
+        {
+          "id": "0b50ba502b454b10c71ff0f8ce91bf54",
+          "name": "training_active",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "0b50ba502b454b10c71ff0f8ce91bf54",
+            "label": "training active",
+            "name": "training_active",
+            "type": "string",
+            "order": 4,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "39c9857c-75ac-474c-8971-3daeb7713f32"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": true,
+          "script": {
+            "training_active": {
+              "scriptActive": true,
+              "script": "/*\n**Access Flow/Action data using the fd_data object. Script must return a value. \n**Order number is offset by +1 in Error Handling Section.\n**Available options display upon pressing \".\" after fd_data\n**example: var shortDesc = fd_data.trigger.current.short_description;\n**return shortDesc;\n*/\nreturn fd_data._7__for_each.item.lo_active;"
+            }
+          }
+        },
+        {
+          "id": "0350ba502b454b10c71ff0f8ce91bf40",
+          "name": "training_type",
+          "value": "",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "0350ba502b454b10c71ff0f8ce91bf40",
+            "label": "training type",
+            "name": "training_type",
+            "type": "string",
+            "order": 5,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "5aee2640-3678-477c-8c2f-ff1ae8ee8133"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": true,
+          "script": {
+            "training_type": {
+              "scriptActive": true,
+              "script": "/*\n**Access Flow/Action data using the fd_data object. Script must return a value. \n**Order number is offset by +1 in Error Handling Section.\n**Available options display upon pressing \".\" after fd_data\n**example: var shortDesc = fd_data.trigger.current.short_description;\n**return shortDesc;\n*/\nreturn fd_data._7__for_each.item.lo_object_type;"
+            }
+          }
+        }
+      ],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  },
+  {
+    "sys_id": "04094b2d871b7a90350833b73cbb3554",
+    "flow": "5bf80b2d871b7a90350833b73cbb3508",
+    "order": "9",
+    "parent_ui_id": "f1755dcb-12f7-4f84-9eeb-683271c9df13",
+    "ui_id": "ca8fec05-ae3d-40e7-ba8b-ba4d2eaaf1d7",
+    "flow_variables_assigned": "responsestate,intervalcount",
+    "sys_created_by": "pdi.user@example.com",
+    "values": "H4sIAAAAAAAA/+1XXWvbMBT9L3qOg235K30rjEJhW2Ht+jJKkKXrREyRXElum4X8913FTtKEdXTdGBvkJURHurr3nKvDxStiOt923t2Yc+fkTJOzL3cjInXA8P+KSEHOSF1TWrNiUpWClmwS0zyuECkpx51cUDIimi0AT1pwrdEOnGceEH5gqgv4alXGeV3QlEV0wpsoo5xGFYMsilOWp3lelAmvxgfh6zVeIKRrFVve/u49fC6VsDAQbJnFej1YcrY62vLLFqaK1aAw3bW3Us8w/LUybAOPdXhBnpAMYbdNY6wINcUjAk8etABM2zDlYEQWTAvmjV3uEAtMXGm1B+ZSe7yNhMNPTn7Dq6s4jsPJBpAgh353t5wO6vYwnxvJ4ar10uge8axWQww3qlvojz2N0BdoWKf8ti+IdA7vgzZUHcoYamqu5+bx0zbhhdQbgsOmMpyp3Yp5lKHuPLjQlU7eHInTI++PWwMKFphxumBti8i0teZBbrJg0YvxTOFi3CjziNWFJz5mPDAco5psfIH4uw18y6wMdD/gNRgc0n3W8r6Dy9D6SVlnwPM8yuo0xp+kiFiR0iiDNKHQZBVPE7LeSDu97wKpXqRBjmmvKB5w3MrWn2MJDzAwX48GmzX0Z++LP3tH2Giw6C1uOtT6l20mMZoFEdyPPPZmt1xiVbONdq+ls4085vMCzcEucpfnj/sl+9/dstfm0C773vwVvySiyIpUZJHIE3RJxdJokqBzSlrHSQEQ80n1Zr/chQffZz8NqdOQ+hdsdxpSpyF1GlKnIXUwpARw6bCqm1DC5fabKmws8e1I/hx6NPZr4LPH1t8Bx3Z5nJ0NAAA=",
+    "values_decoded": {
+      "outputsToAssign": [],
+      "inputs": [
+        {
+          "id": "bb33ba6987d37a90350833b73cbb35d3",
+          "name": "responsestate",
+          "value": "{{705b632a-39cf-43c3-8ae4-02a5255671c8.responsestate}}",
+          "displayValue": "{{705b632a-39cf-43c3-8ae4-02a5255671c8.responsestate}}",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "bb33ba6987d37a90350833b73cbb35d3",
+            "label": "responsestate",
+            "name": "responsestate",
+            "type": "string",
+            "order": 0,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "97b4ec55-4b20-4b16-a623-4e213ef48c21"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "id": "f333ba6987d37a90350833b73cbb35ce",
+          "name": "intervalcount",
+          "value": "{{705b632a-39cf-43c3-8ae4-02a5255671c8.iterations}}",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Integer",
+            "id": "f333ba6987d37a90350833b73cbb35ce",
+            "label": "intervalcount",
+            "name": "intervalcount",
+            "type": "integer",
+            "order": 0,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "integer",
+              "uiTypeLabel": "Integer",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "1d6462d4-d513-48a2-9120-73b016ee0c98"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        }
+      ],
+      "variables": [
+        {
+          "id": "bb33ba6987d37a90350833b73cbb35d3",
+          "name": "responsestate",
+          "value": "{{705b632a-39cf-43c3-8ae4-02a5255671c8.responsestate}}",
+          "displayValue": "{{705b632a-39cf-43c3-8ae4-02a5255671c8.responsestate}}",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "String",
+            "id": "bb33ba6987d37a90350833b73cbb35d3",
+            "label": "responsestate",
+            "name": "responsestate",
+            "type": "string",
+            "order": 0,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 8000,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "string",
+              "uiTypeLabel": "String",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "97b4ec55-4b20-4b16-a623-4e213ef48c21"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        },
+        {
+          "id": "f333ba6987d37a90350833b73cbb35ce",
+          "name": "intervalcount",
+          "value": "{{705b632a-39cf-43c3-8ae4-02a5255671c8.iterations}}",
+          "displayValue": "",
+          "children": [],
+          "parameter": {
+            "children": [],
+            "type_label": "Integer",
+            "id": "f333ba6987d37a90350833b73cbb35ce",
+            "label": "intervalcount",
+            "name": "intervalcount",
+            "type": "integer",
+            "order": 0,
+            "extended": false,
+            "mandatory": false,
+            "readOnly": false,
+            "hint": "",
+            "maxsize": 40,
+            "reference": "",
+            "reference_display": "",
+            "choiceOption": "",
+            "table": "",
+            "columnName": "",
+            "defaultValue": "",
+            "use_dependent": false,
+            "fShowReferenceFinder": false,
+            "local": false,
+            "attributes": {
+              "uiType": "integer",
+              "uiTypeLabel": "Integer",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "1d6462d4-d513-48a2-9120-73b016ee0c98"
+            },
+            "ref_qual": "",
+            "dependent_on": ""
+          },
+          "scriptActive": false
+        }
+      ],
+      "decisionTableInputs": [],
+      "dynamicInputs": [],
+      "workflowInputs": []
+    }
+  }
+]

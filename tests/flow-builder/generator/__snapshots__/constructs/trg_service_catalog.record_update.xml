@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<record_update table="sys_hub_flow">
+  <sys_hub_flow action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>3927ba5768a31f16ce4a28ab1ee6a084</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_flow_3927ba5768a31f16ce4a28ab1ee6a084</sys_update_name>
+    <access>public</access>
+    <active>false</active>
+    <allow_high_security_roles>false</allow_high_security_roles>
+    <annotation/>
+    <category/>
+    <description>Construct spec: catalog.service_catalog trigger</description>
+    <flow_priority/>
+    <generation_source>snow_mcp_flow_builder</generation_source>
+    <internal_name>trigger_service_catalog</internal_name>
+    <label_cache>[{"name":"Service Catalog_1.request_item.number","label":"Trigger - Service Catalog➛Request Item➛Number","type":"string","base_type":"string","usedInstances":{"c4fcd265-988d-6bf4-33bd-4daee6966080":["log_message"]},"attributes":{}},{"name":"Service Catalog_1.table_name","label":"Trigger - Service Catalog➛Table Name","type":"table_name","base_type":"table_name","usedInstances":{"c4fcd265-988d-6bf4-33bd-4daee6966080":["log_message"]},"attributes":{}}]</label_cache>
+    <name>Trigger Service Catalog</name>
+    <run_as>user</run_as>
+    <run_with_roles/>
+    <show_draft_actions>false</show_draft_actions>
+    <status>draft</status>
+    <sys_policy/>
+    <type>flow</type>
+    <version>2</version>
+  </sys_hub_flow>
+  <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=3927ba5768a31f16ce4a28ab1ee6a084^sys_idNOT IN509ad2aedd79be81c1479c329b962871"/>
+  <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>509ad2aedd79be81c1479c329b962871</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_trigger_instance_v2_509ad2aedd79be81c1479c329b962871</sys_update_name>
+    <category/>
+    <comment/>
+    <flow>3927ba5768a31f16ce4a28ab1ee6a084</flow>
+    <name>Service Catalog</name>
+    <trigger_definition>c43a1011c36813002841b63b12d3ae15</trigger_definition>
+    <trigger_inputs>H4sIAAAAAAAAA81V72vbMBD9V8x92sABJ1mbRd9GoRDo2tF0+xKCUaRTIiZLriSn9UL+9yH/iJPWKWUMtm/R6XJ6792982IH3sr1Gu1MO081w3npZhwIQAyKrlABgftCR9fKPEUzDTFI7dFqqh7KHIEA2xjJEOLmx410HshiB2KOjwVqhkAGwxjED6oKrOuKm6bwYBDdGo3RYBCis4yu24w5KmQeORBBlcMYxHd3fPoqnZN63QT28fn3VpT9XFtTaH78cqAkAiWpoy4j+sBR0EL5jy/xfKOWZujROiA70DQLF650aSiSWmTG8rRREmLgmKPmqH26DTAckAXA8nU8zWgeCr4H0X7/V3URxuLbupxm/Ds1jnD8iQbLGDKqOfXGll2SNdkDZrmiHg9BYzlaIMMkiVtSttA1KRlGf9unHZcuV7RsdT2rYN6KFiiyjVTcogayWMbgyxzT1m1XraFksOFlMk3YZDSdTEbJeJwk4mIlmGBs8nmYXA4vpmdt2kvAv/DsMWN89qEbnZCvVbNI+Z1WXWAjta9nIqPPTv5CIJ+SkCfQ1jMX7g7HtNGqDtcoXLUt1Pt9ue0zdkskTHxfrZNO9LaxqTDaV4NZvXb13wKspbvLvTQaCIxDa+lKvW1DZlSR6du+uWjQH+3owmF68Gdnm/nGPN237byWuoLUXCrDqDqcqPdWrgqP1Y6gfBs+LmGivS0Q9tVUpI9F+Aec7IiKUUhwzMrcf2FebvFg5t8mUv4OsQYAAA==</trigger_inputs>
+    <trigger_outputs/>
+    <trigger_type>service_catalog</trigger_type>
+  </sys_hub_trigger_instance_v2>
+  <sys_hub_action_instance_v2 action="delete_multiple" query="flow=3927ba5768a31f16ce4a28ab1ee6a084^sys_idNOT INc4fcd265988d6bf433bd4daee6966080"/>
+  <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>c4fcd265988d6bf433bd4daee6966080</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_hub_action_instance_v2_c4fcd265988d6bf433bd4daee6966080</sys_update_name>
+    <action_type>5bc1bcc6531003003bf1d9109ec587d4</action_type>
+    <action_type_parent>0e0ae8c2531003003bf1d9109ec587c8</action_type_parent>
+    <active>true</active>
+    <comment/>
+    <display_text/>
+    <flow>3927ba5768a31f16ce4a28ab1ee6a084</flow>
+    <generation_source/>
+    <order>1</order>
+    <parent_ui_id/>
+    <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+    <ui_id>c4fcd265-988d-6bf4-33bd-4daee6966080</ui_id>
+    <updation_source/>
+    <values>H4sIAAAAAAAAA7WQsQrCQBBEfyVsHQK26cQ/ULARCZvLJC7cXeLdJhDC/bscNooWNrbDGx4zl408O1BNdhwaiwWWSlrYzjkT349UUidxsrye39Nogky6NyoLqO7ZRpQ0cWAHRaB6I12nzJvbKAaUUvkmc4iRB7zojrjPiIquEIUrtu2EsIhBcWDlXNlV4Yk0Gaj87FqElArxX2Hl1qLJypQ+Z/zZ9vM9UYP4gVK6PgC55zURjQEAAA==</values>
+  </sys_hub_action_instance_v2>
+  <sys_hub_alias_mapping action="delete_multiple" query="source_id=c4fcd265988d6bf433bd4daee6966080"/>
+</record_update>

@@ -1,0 +1,33 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "catalog_actions", "name": "Catalog Actions", "description": "Construct spec: Get Catalog Variables (selected and all), Create Catalog Task, Submit Catalog Item Request, Record Producer", "run_as": "system" },
+  "trigger": { "key": "cat_trigger", "type": "catalog.service_catalog", "run_flow_in": "background" },
+  "steps": [
+    { "kind": "action", "key": "cat_vars_some", "action": "getCatalogVariables",
+      "inputs": { "requested_item": { "pill": "trigger.request_item" },
+                  "template_catalog_item": { "reference": "0e5b6754ca2a87acbcf41d2797317f4a", "display": "Example Workstation" },
+                  "catalog_variables": { "list": [ "4e957a421d7d5b0c5d9c2abcc41dd042", "483d00f9e57f162ea9132524f0de868d" ] } } },
+    { "kind": "action", "key": "cat_vars_all", "action": "getCatalogVariables",
+      "inputs": { "requested_item": { "pill": "trigger.request_item" },
+                  "template_catalog_item": { "reference": "0e5b6754ca2a87acbcf41d2797317f4a", "display": "Example Workstation" } } },
+    { "kind": "action", "key": "cat_task", "action": "createCatalogTask",
+      "inputs": { "ah_requested_item": { "pill": "trigger.request_item" },
+                  "ah_short_description": { "text": "Set up {{trigger.request_item.number}}" },
+                  "template_catalog_item": { "reference": "0e5b6754ca2a87acbcf41d2797317f4a", "display": "Example Workstation" },
+                  "catalog_variables": { "list": [ "4e957a421d7d5b0c5d9c2abcc41dd042", "6318b2e346dd3cf758acd9dbd34a8f27" ] },
+                  "ah_fields": { "template": { "assignment_group": { "pill": "trigger.request_item.assignment_group" }, "priority": "3", "description": "Workstation set-up task" } },
+                  "ah_wait": true } },
+    { "kind": "action", "key": "cat_task_log", "action": "log",
+      "inputs": { "log_level": "info", "log_message": { "text": "Set-up task ready for {{trigger.request_item.number}}" } } },
+    { "kind": "action", "key": "cat_order", "action": "submitCatalogItemRequest",
+      "inputs": { "catalog_item": "", "catalog_item_inputs": "device_model=standard^business_reason=Replacement", "sysparm_quantity": 1,
+                  "sysparm_requested_for": { "pill": "trigger.request_item.requested_for" }, "wait_for_completion": false, "timeout_flag": false,
+                  "delivery_address": "Example building, floor 2", "special_instructions": "Deliver to reception", "schedule": "08fcd0830a0a0b2600079f56b1adb9ae",
+                  "duration": { "duration": { "days": 3 } }, "dont_fail_on_error": false } },
+    { "kind": "action", "key": "cat_produce", "action": "recordProducer",
+      "inputs": { "catalog_item": "3f1dd0320a0a0b99000a53f7604a2ef9",
+                  "catalog_item_inputs": { "text": "short_description=Follow-up for {{steps.cat_order.requested_item.number}}" }, "dont_fail_on_error": true } },
+    { "kind": "action", "key": "cat_produce_log", "action": "log",
+      "inputs": { "log_level": "info", "log_message": { "text": "Record producer {{steps.cat_produce.status}} on {{steps.cat_produce.table}}" } } }
+  ]
+}

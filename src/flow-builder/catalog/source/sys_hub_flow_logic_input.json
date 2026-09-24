@@ -1,0 +1,24 @@
+{
+  "table": "sys_hub_flow_logic_input",
+  "query": "modelIN<the logic definition sys_ids>",
+  "fields": "sys_id,model,element,label,internal_type,mandatory,order,default_value",
+  "note": "Empty-string fields are omitted; reference fields are exported as their value.",
+  "result": [
+    { "sys_id": "c78d433e5bdb2010b61ea2013781c7f0", "model": "35d60003e6022010a5e40cdd1254dd21", "label": "Error Status", "internal_type": "string", "mandatory": "false", "element": "__status__", "order": "100" },
+    { "sys_id": "dd70187cc36e20105553b740ad40dddb", "model": "35d60003e6022010a5e40cdd1254dd21", "default_value": "1", "label": "enabled", "internal_type": "boolean", "mandatory": "false", "element": "enabled", "order": "100" },
+    { "sys_id": "bda2cb0473031300612c273ffff6a750", "model": "eaeb040687210300e6c2c88fc0e3ec89", "label": "Condition Label", "internal_type": "string", "mandatory": "false", "element": "condition_name", "order": "100" },
+    { "sys_id": "d7138f0473031300612c273ffff6a78c", "model": "eaeb040687210300e6c2c88fc0e3ec89", "label": "Condition", "internal_type": "string", "mandatory": "true", "element": "condition", "order": "200" },
+    { "sys_id": "f0af19c1c32632002841b63b12d3aea1", "model": "666e5545c3e232002841b63b12d3ae99", "label": "Condition", "internal_type": "string", "mandatory": "true", "element": "condition", "order": "20" },
+    { "sys_id": "f0af19c1c32632002841b63b12d3aea2", "model": "666e5545c3e232002841b63b12d3ae99", "label": "Condition Label", "internal_type": "string", "mandatory": "false", "element": "condition_name", "order": "10" },
+    { "sys_id": "19df9109c32632002841b63b12d3aed6", "model": "098e1dc5c3e232002841b63b12d3ae33", "label": "Items", "internal_type": "records", "mandatory": "true", "element": "items", "order": "20" },
+    { "sys_id": "9a5f5105c32632002841b63b12d3ae46", "model": "af4e1945c3e232002841b63b12d3ae3e", "label": "Condition", "internal_type": "string", "mandatory": "true", "element": "condition", "order": "20" },
+    { "sys_id": "f0af19c1c32632002841b63b12d3aea3", "model": "af4e1945c3e232002841b63b12d3ae3e", "label": "Condition Label", "internal_type": "string", "mandatory": "false", "element": "condition_name", "order": "10" },
+    { "sys_id": "1f25d05473031300b61e66476bf6a773", "model": "fdb2541473031300b61e66476bf6a70e", "label": "Timer relative date time", "internal_type": "glide_date_time", "mandatory": "false", "element": "timer_relative_duration_datetime", "order": "400" },
+    { "sys_id": "4973581473031300b61e66476bf6a785", "model": "fdb2541473031300b61e66476bf6a70e", "default_value": "explicit_duration", "label": "Duration Type", "internal_type": "choice", "mandatory": "false", "element": "duration_type", "order": "100" },
+    { "sys_id": "8033309c5376230034c6ddeeff7b12e1", "model": "fdb2541473031300b61e66476bf6a70e", "label": "Percentage", "internal_type": "integer", "mandatory": "false", "element": "timer_percentage", "order": "100" },
+    { "sys_id": "bf1d6161b736230034c6ce69ee11a920", "model": "fdb2541473031300b61e66476bf6a70e", "label": "Percentage timer input date time", "internal_type": "glide_date_time", "mandatory": "false", "element": "percentage_timer_input_datetime", "order": "100" },
+    { "sys_id": "dca4105473031300b61e66476bf6a726", "model": "fdb2541473031300b61e66476bf6a70e", "default_value": "after", "label": "Timer relative duration operator", "internal_type": "choice", "mandatory": "false", "element": "timer_relative_duration_operator", "order": "300" },
+    { "sys_id": "ef145c1473031300b61e66476bf6a7be", "model": "fdb2541473031300b61e66476bf6a70e", "label": "Duration", "internal_type": "glide_duration", "mandatory": "false", "element": "timer_duration", "order": "200" },
+    { "sys_id": "fb55145473031300b61e66476bf6a762", "model": "fdb2541473031300b61e66476bf6a70e", "label": "During the following schedule", "internal_type": "reference", "mandatory": "false", "element": "timer_schedule", "order": "500" }
+  ]
+}

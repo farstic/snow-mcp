@@ -1,0 +1,36 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_record_created",
+    "name": "Trigger Record Created",
+    "description": "Construct spec: record.created trigger with every advanced option"
+  },
+  "trigger": {
+    "key": "trg_record_created_trigger",
+    "type": "record.created",
+    "annotation": "Created trigger, advanced options",
+    "table": "change_request",
+    "condition": "type=emergency",
+    "run_flow_in": "foreground",
+    "run_on_extended": true,
+    "run_when_setting": "non_interactive",
+    "run_when_user_setting": "not_one_of",
+    "run_when_user_list": [
+      "0000000000000000000000000000c001",
+      "0000000000000000000000000000c002"
+    ]
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_record_created_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "New {{trigger.table_name}} record at {{trigger.run_start_date_time}}"
+        }
+      }
+    }
+  ]
+}

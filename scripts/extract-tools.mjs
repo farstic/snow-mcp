@@ -25,8 +25,8 @@ const outPath = join(__dirname, '..', 'dist', 'tools-manifest.json');
 writeFileSync(outPath, JSON.stringify(manifest, null, 2));
 console.log(`Extracted ${manifest.length} tools → dist/tools-manifest.json`);
 
-// Migration guard: the catalog must expose exactly 394 unique, namespaced tools.
-const EXPECTED = 394;
+// Migration guard: the catalog must expose exactly 399 unique, namespaced tools.
+const EXPECTED = 399;
 const unique = new Set(manifest.map(t => t.name));
 if (manifest.length !== EXPECTED || unique.size !== EXPECTED) {
   console.error(`✗ Tool count parity failed: ${manifest.length} tools (${unique.size} unique), expected ${EXPECTED}.`);

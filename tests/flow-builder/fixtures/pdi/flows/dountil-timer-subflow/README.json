@@ -1,0 +1,3 @@
+{
+  "note": "sys_hub_flow c7b9671cffcb32103f03ffffffffff3a 'CBS Update Set Capture' (type subflow, scope fa49067dff132210970affffffffff6e, published; the rows below are the flow's own draft-model rows, flow=<flow sys_id>). DOUNTIL (order 2) with a TIMER inside (order 3, parent = DOUNTIL ui_id) and a top-level TIMER (order 5)."
+}

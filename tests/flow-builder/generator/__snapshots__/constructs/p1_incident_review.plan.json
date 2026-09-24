@@ -1,0 +1,688 @@
+{
+  "flowKey": "p1_incident_review",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "eaca29e217dbe2ea785557801ea7b33a",
+      "fields": {
+        "sys_id": "eaca29e217dbe2ea785557801ea7b33a",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Logs, tags and requests approval for new P1 incidents",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "p1_incident_review",
+        "label_cache": [
+          {
+            "name": "Created_1.current.number",
+            "label": "Trigger - Record Created➛incident Record➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "992c3151-c62b-17a5-98d0-c216270ff46a": [
+                "log_message"
+              ],
+              "271bce1a-01df-54c8-8e64-afa6993a7bd8": [
+                "values"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "number"
+          },
+          {
+            "name": "Created_1.current",
+            "label": "Trigger - Record Created➛incident Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "271bce1a-01df-54c8-8e64-afa6993a7bd8": [
+                "record"
+              ],
+              "7f576ce2-e6b4-78cd-c22d-227f7b4efa41": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "incident"
+          },
+          {
+            "name": "Created_1.current.urgency",
+            "label": "Trigger - Record Created➛incident Record➛Urgency",
+            "type": "integer",
+            "base_type": "integer",
+            "usedInstances": {
+              "d962ad39-82ea-bd49-3679-6668b1bdc0a2": [
+                "condition"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "urgency"
+          },
+          {
+            "name": "Created_1.current.assignment_group",
+            "label": "Trigger - Record Created➛incident Record➛Assignment Group",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "7f576ce2-e6b4-78cd-c22d-227f7b4efa41": [
+                "approval_conditions"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "assignment_group"
+          },
+          {
+            "name": "7f576ce2-e6b4-78cd-c22d-227f7b4efa41.approval_state",
+            "label": "7f576ce2-e6b4-78cd-c22d-227f7b4efa41➛approval_state",
+            "type": "choice",
+            "base_type": "choice",
+            "usedInstances": {
+              "a7fec338-7627-b913-1890-c053b52de971": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "P1 Incident Review",
+        "run_as": "system",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "3036742af8149d12ac33fdda67322d26",
+      "fields": {
+        "sys_id": "3036742af8149d12ac33fdda67322d26",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "eaca29e217dbe2ea785557801ea7b33a",
+        "name": "Created",
+        "trigger_definition": "798916a0c31322002841b63b12d3ae7c",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Table",
+            "internalType": "table_name",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 1,
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "table_name",
+              "name": "table",
+              "label": "Table",
+              "attributes": {
+                "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Condition",
+            "internalType": "conditions",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "condition",
+            "value": "priority=1",
+            "displayValue": "priority=1",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "conditions",
+              "name": "condition",
+              "label": "Condition",
+              "attributes": {
+                "modelDependent": "trigger_inputs",
+                "wants_to_add_conditions": "true"
+              },
+              "dependent_on": "table",
+              "use_dependent": true
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run On Extended Tables",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "false",
+                "fLabel": "Run only on current table",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "true",
+                "fLabel": "Run on current and extended tables",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_on_extended",
+            "value": "false",
+            "displayValue": "false",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_on_extended",
+              "label": "Run On Extended Tables",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run flow In",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "background",
+                "fLabel": "Run flow in background (default)",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "foreground",
+                "fLabel": "Run flow in foreground",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_flow_in",
+            "value": "background",
+            "displayValue": "background",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_flow_in",
+              "label": "Run flow In",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User List",
+            "internalType": "glide_list",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_list",
+            "value": "",
+            "displayValue": "",
+            "displayField": "",
+            "scriptActive": false,
+            "valueSysId": "",
+            "children": [],
+            "parameter": {
+              "type": "glide_list",
+              "name": "run_when_user_list",
+              "label": "Run When User List",
+              "reference": "sys_user",
+              "reference_display": "User",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When Session Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "non_interactive",
+                "fLabel": "Only Run for Non-Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "interactive",
+                "fLabel": "Only Run for User Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "both",
+                "fLabel": "Run for Both Interactive and Non-Interactive Sessions",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_setting",
+            "value": "both",
+            "displayValue": "both",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_setting",
+              "label": "Run When Session Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "not_one_of",
+                "fLabel": "Do not run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "one_of",
+                "fLabel": "Only Run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "any",
+                "fLabel": "Run for any user",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_setting",
+            "value": "any",
+            "displayValue": "any",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_user_setting",
+              "label": "Run When User Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "record_create"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "992c3151c62b17a598d0c216270ff46a",
+      "fields": {
+        "sys_id": "992c3151c62b17a598d0c216270ff46a",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "eaca29e217dbe2ea785557801ea7b33a",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "992c3151-c62b-17a5-98d0-c216270ff46a",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "P1 created {{Created_1.current.number}}",
+            "displayValue": "P1 created {{Created_1.current.number}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "271bce1a01df54c88e64afa6993a7bd8",
+      "fields": {
+        "sys_id": "271bce1a01df54c88e64afa6993a7bd8",
+        "sys_scope": "global",
+        "action_type": "f9d01dd2c31332002841b63b12d3aea1",
+        "action_type_parent": "baf174c8c3c232002841b63b12d3aee4",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "eaca29e217dbe2ea785557801ea7b33a",
+        "generation_source": "",
+        "order": "2",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "271bce1a-01df-54c8-8e64-afa6993a7bd8",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "values",
+            "value": "impact=1^work_notes=Auto-tagged by P1 review flow ({{Created_1.current.number}})^EQ",
+            "displayValue": "impact=1^work_notes=Auto-tagged by P1 review flow ({{Created_1.current.number}})^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "d962ad3982eabd4936796668b1bdc0a2",
+      "fields": {
+        "sys_id": "d962ad3982eabd4936796668b1bdc0a2",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "eaca29e217dbe2ea785557801ea7b33a",
+        "logic_definition": "af4e1945c3e232002841b63b12d3ae3e",
+        "order": "3",
+        "ui_id": "d962ad39-82ea-bd49-3679-6668b1bdc0a2",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{Created_1.current.urgency}}=1",
+              "displayValue": "{{Created_1.current.urgency}}=1",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "7f576ce2e6b478cdc22d227f7b4efa41",
+      "fields": {
+        "sys_id": "7f576ce2e6b478cdc22d227f7b4efa41",
+        "sys_scope": "global",
+        "action_type": "f8f2e9920b10030085c083eb37673abd",
+        "action_type_parent": "bae0a1120b10030085c083eb37673a92",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "eaca29e217dbe2ea785557801ea7b33a",
+        "generation_source": "",
+        "order": "4",
+        "parent_ui_id": "d962ad39-82ea-bd49-3679-6668b1bdc0a2",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "7f576ce2-e6b4-78cd-c22d-227f7b4efa41",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "approval_field",
+            "value": "approval",
+            "displayValue": "approval",
+            "scriptActive": false,
+            "parameter": {
+              "type": "field_name"
+            }
+          },
+          {
+            "name": "approval_reason",
+            "value": "P1 with urgency 1",
+            "displayValue": "P1 with urgency 1",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "journal_field",
+            "value": "work_notes",
+            "displayValue": "work_notes",
+            "scriptActive": false,
+            "parameter": {
+              "type": "field_name"
+            }
+          },
+          {
+            "name": "approval_conditions",
+            "value": "ApprovesAnyG[{{Created_1.current.assignment_group}}]",
+            "displayValue": "ApprovesAnyG[{{Created_1.current.assignment_group}}]",
+            "scriptActive": false,
+            "parameter": {
+              "type": "approval_rules"
+            }
+          },
+          {
+            "name": "due_date",
+            "value": "{\"action\":\"none\",\"date_type\":\"actual\",\"date\":\"{{}}\",\"duration\":1,\"duration_type\":\"days\",\"schedule\":\"\",\"schedule_label\":\"\"}",
+            "displayValue": "{\"action\":\"none\",\"date_type\":\"actual\",\"date\":\"{{}}\",\"duration\":1,\"duration_type\":\"days\",\"schedule\":\"\",\"schedule_label\":\"\"}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "schedule_date_time"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "a7fec3387627b9131890c053b52de971",
+      "fields": {
+        "sys_id": "a7fec3387627b9131890c053b52de971",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "eaca29e217dbe2ea785557801ea7b33a",
+        "generation_source": "",
+        "order": "5",
+        "parent_ui_id": "d962ad39-82ea-bd49-3679-6668b1bdc0a2",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "a7fec338-7627-b913-1890-c053b52de971",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Approval state: {{7f576ce2-e6b4-78cd-c22d-227f7b4efa41.approval_state}}",
+            "displayValue": "Approval state: {{7f576ce2-e6b4-78cd-c22d-227f7b4efa41.approval_state}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "3aa65a5dde50d23f925d0081bdd0e595",
+      "fields": {
+        "sys_id": "3aa65a5dde50d23f925d0081bdd0e595",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "eaca29e217dbe2ea785557801ea7b33a",
+        "logic_definition": "1f781bf3c32232002841b63b12d3aee6",
+        "order": "6",
+        "ui_id": "3aa65a5d-de50-d23f-925d-0081bdd0e595",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "6e97af31d4448c59eb20169c558f6a02",
+      "fields": {
+        "sys_id": "6e97af31d4448c59eb20169c558f6a02",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "eaca29e217dbe2ea785557801ea7b33a",
+        "logic_definition": "d176605ea76103004f27b0d2187901c7",
+        "order": "7",
+        "parent_ui_id": "3aa65a5d-de50-d23f-925d-0081bdd0e595",
+        "ui_id": "6e97af31-d444-8c59-eb20-169c558f6a02",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.current.number",
+      "platform": "Created_1.current.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.current",
+      "platform": "Created_1.current",
+      "type": "reference"
+    },
+    {
+      "symbolic": "trigger.current.urgency",
+      "platform": "Created_1.current.urgency",
+      "type": "integer"
+    },
+    {
+      "symbolic": "trigger.current.assignment_group",
+      "platform": "Created_1.current.assignment_group",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.approve.approval_state",
+      "platform": "7f576ce2-e6b4-78cd-c22d-227f7b4efa41.approval_state",
+      "type": "choice"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "p1_incident_review", "name": "P1 Incident Review",
+            "description": "Logs, tags and requests approval for new P1 incidents",
+            "scope": "global", "run_as": "system" },
+  "trigger": { "key": "trg", "type": "record.created", "table": "incident",
+               "condition": "priority=1", "run_flow_in": "background" },
+  "steps": [
+    { "kind": "action", "key": "log_p1", "action": "log",
+      "inputs": { "log_level": "info",
+                  "log_message": { "text": "P1 created {{trigger.current.number}}" } } },
+    { "kind": "action", "key": "tag", "action": "updateRecord",
+      "inputs": { "table_name": "incident", "record": { "pill": "trigger.current" },
+                  "values": { "template": { "impact": "1",
+                              "work_notes": { "text": "Auto-tagged by P1 review flow ({{trigger.current.number}})" } } } } },
+    { "kind": "if", "key": "is_urgent", "condition": "{{trigger.current.urgency}}=1",
+      "then": [
+        { "kind": "action", "key": "approve", "action": "askForApproval",
+          "inputs": { "table": "incident", "record": { "pill": "trigger.current" },
+                      "approval_field": "approval", "journal_field": "work_notes",
+                      "approval_reason": "P1 with urgency 1",
+                      "approval_conditions": { "approval_rules": { "rule_sets": [
+                        { "action": "Approves", "rules": [[
+                          { "rule": "Any", "groups": [ { "pill": "trigger.current.assignment_group" } ] } ]] } ] } } } },
+        { "kind": "action", "key": "log_result", "action": "log",
+          "inputs": { "log_level": "info",
+                      "log_message": { "text": "Approval state: {{steps.approve.approval_state}}" } } }
+      ],
+      "else": { "key": "not_urgent", "steps": [ { "kind": "end_flow", "key": "stop" } ] } }
+  ]
+}

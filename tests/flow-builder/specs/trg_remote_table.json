@@ -1,0 +1,26 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_remote_table",
+    "name": "Trigger Remote Table Query",
+    "description": "Construct spec: remote_table.query trigger"
+  },
+  "trigger": {
+    "key": "trg_remote_table_trigger",
+    "type": "remote_table.query",
+    "table": "u_example_remote"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_remote_table_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "Remote query {{trigger.query_id}} on {{trigger.table_name}}"
+        }
+      }
+    }
+  ]
+}

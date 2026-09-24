@@ -1,0 +1,147 @@
+{
+  "flowKey": "trg_remote_table",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "b713cebed090596673fed23eab8f5449",
+      "fields": {
+        "sys_id": "b713cebed090596673fed23eab8f5449",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: remote_table.query trigger",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "trigger_remote_table_query",
+        "label_cache": [
+          {
+            "name": "Remote Table Query_1.query_id",
+            "label": "Trigger - Remote Table Query➛Query ID",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "02434e07-884d-316f-6296-35eabd0b3f74": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Remote Table Query_1.table_name",
+            "label": "Trigger - Remote Table Query➛Table Name",
+            "type": "table_name",
+            "base_type": "table_name",
+            "usedInstances": {
+              "02434e07-884d-316f-6296-35eabd0b3f74": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Trigger Remote Table Query",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "3b289746ae94d812c7b41479970273b1",
+      "fields": {
+        "sys_id": "3b289746ae94d812c7b41479970273b1",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "b713cebed090596673fed23eab8f5449",
+        "name": "Remote Table Query",
+        "trigger_definition": "778cf3bf37232110aba6473174924b7c",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Table",
+            "internalType": "table_name",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "u_table",
+            "value": "u_example_remote",
+            "displayValue": "u_example_remote",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "table_name",
+              "name": "u_table",
+              "label": "Table",
+              "reference": "sys_script_vtable",
+              "reference_display": "Remote Table"
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "remote_table_query"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "02434e07884d316f629635eabd0b3f74",
+      "fields": {
+        "sys_id": "02434e07884d316f629635eabd0b3f74",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "b713cebed090596673fed23eab8f5449",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "02434e07-884d-316f-6296-35eabd0b3f74",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Remote query {{Remote Table Query_1.query_id}} on {{Remote Table Query_1.table_name}}",
+            "displayValue": "Remote query {{Remote Table Query_1.query_id}} on {{Remote Table Query_1.table_name}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.query_id",
+      "platform": "Remote Table Query_1.query_id",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.table_name",
+      "platform": "Remote Table Query_1.table_name",
+      "type": "table_name"
+    }
+  ]
+}

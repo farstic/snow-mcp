@@ -1,0 +1,78 @@
+{
+  "_comment": "Test doubles for the construct specs in this folder: a sys_dictionary double (table.field path -> internal_type) for record-field pill typing, and the subflow / custom-action definitions an instance would resolve (sys_ids are test ids, not instance ids).",
+  "dictionary": {
+    "incident.number": "string",
+    "incident.urgency": "integer",
+    "incident.short_description": "string",
+    "incident.caller_id": "reference",
+    "incident.caller_id.email": "string",
+    "incident.caller_id.mobile_phone": "string",
+    "incident.sys_id": "string",
+    "incident.problem_id": "reference",
+    "incident.assignment_group": "reference",
+    "incident.due_date": "glide_date_time",
+    "incident.opened_at": "glide_date_time",
+    "incident.opened_by": "reference",
+    "incident.state": "integer",
+    "incident.major_incident_state": "string",
+    "sc_req_item.number": "string",
+    "sc_req_item.state": "integer",
+    "sc_req_item.assignment_group": "reference",
+    "sc_req_item.requested_for": "reference",
+    "problem.number": "string",
+    "sys_user.name": "string",
+    "sys_attachment.file_name": "string",
+    "sys_email.subject": "string",
+    "sys_email_attachment.file_name": "string",
+    "task_sla.sla.name": "string",
+    "kb_knowledge.number": "string"
+  },
+  "subflows": {
+    "606a47f2678406975d5e7571a1bd38aa": {
+      "inputs": [
+        { "name": "summary_text", "type": "string" },
+        { "name": "level", "type": "integer" }
+      ],
+      "outputs": [
+        { "name": "verdict", "type": "string" },
+        { "name": "accepted", "type": "boolean" }
+      ]
+    },
+    "c0b8a2b6df77361453a1fb507267c497": {
+      "inputs": [
+        { "name": "record", "type": "reference" },
+        { "name": "expedite", "type": "boolean" },
+        { "name": "due", "type": "glide_date_time" },
+        { "name": "retries", "type": "integer" },
+        { "name": "comment", "type": "string" }
+      ],
+      "outputs": [
+        { "name": "outcome", "type": "string" },
+        { "name": "done", "type": "boolean" }
+      ]
+    }
+  },
+  "customActions": {
+    "fcb17ab000ff0bee9273f669f910e025": {
+      "inputs": [
+        { "name": "incident", "type": "reference" },
+        { "name": "reason", "type": "string" },
+        { "name": "notify", "type": "boolean" }
+      ],
+      "outputs": [
+        { "name": "escalated", "type": "boolean" },
+        { "name": "message", "type": "string" }
+      ]
+    },
+    "d4667f532d0948d01466bfbd0caf907d": {
+      "inputs": [
+        { "name": "incident", "type": "reference" },
+        { "name": "reason", "type": "string" },
+        { "name": "notify", "type": "boolean" }
+      ],
+      "outputs": [
+        { "name": "result", "type": "string" }
+      ]
+    }
+  }
+}

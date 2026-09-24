@@ -1,0 +1,18 @@
+{
+  "sys_id": "41ed340987f60714350833b73cbb35b8",
+  "name": "sys_hub_flow_cded340987f60714350833b73cbb3561",
+  "type": "Flow",
+  "table": "",
+  "target_name": "Leaver flow",
+  "action": "INSERT_OR_UPDATE",
+  "category": "customer",
+  "update_set": "5e1ee44587b20714350833b73cbb3592",
+  "application": "global",
+  "update_domain": "global",
+  "replace_on_upgrade": "false",
+  "update_guid": "9d89adcd7236471412c4e965610a676b",
+  "payload_hash": "524013495",
+  "sys_recorded_at": "1a01085bc2e0000001",
+  "sys_created_on": "2026-08-17 13:09:17",
+  "sys_created_by": "pdi.user"
+}

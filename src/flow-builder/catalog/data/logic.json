@@ -1,0 +1,339 @@
+{
+ "generated_by": "scripts/build-flow-catalog.mjs",
+ "source": "src/flow-builder/catalog/source — Flow Designer definitions exported from a ServiceNow instance (see src/flow-builder/README.md, \"Catalogue\")",
+ "values_key_order": [
+  "outputsToAssign",
+  "inputs",
+  "variables",
+  "decisionTableInputs",
+  "dynamicInputs",
+  "workflowInputs"
+ ],
+ "logic": [
+  {
+   "key": "if",
+   "sys_id": "af4e1945c3e232002841b63b12d3ae3e",
+   "name": "If",
+   "type": "IF",
+   "inputs": [
+    {
+     "id": "f0af19c1c32632002841b63b12d3aea3",
+     "name": "condition_name",
+     "label": "Condition Label",
+     "type": "string",
+     "order": 10
+    },
+    {
+     "id": "9a5f5105c32632002841b63b12d3ae46",
+     "name": "condition",
+     "label": "Condition",
+     "type": "string",
+     "mandatory": true,
+     "order": 20
+    }
+   ],
+   "outputs": []
+  },
+  {
+   "key": "else_if",
+   "sys_id": "666e5545c3e232002841b63b12d3ae99",
+   "name": "Else If",
+   "type": "ELSEIF",
+   "inputs": [
+    {
+     "id": "f0af19c1c32632002841b63b12d3aea2",
+     "name": "condition_name",
+     "label": "Condition Label",
+     "type": "string",
+     "order": 10
+    },
+    {
+     "id": "f0af19c1c32632002841b63b12d3aea1",
+     "name": "condition",
+     "label": "Condition",
+     "type": "string",
+     "mandatory": true,
+     "order": 20
+    }
+   ],
+   "outputs": []
+  },
+  {
+   "key": "else",
+   "sys_id": "1f781bf3c32232002841b63b12d3aee6",
+   "name": "Else",
+   "type": "ELSE",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "for_each",
+   "sys_id": "098e1dc5c3e232002841b63b12d3ae33",
+   "name": "For Each",
+   "type": "FOREACH",
+   "inputs": [
+    {
+     "id": "19df9109c32632002841b63b12d3aed6",
+     "name": "items",
+     "label": "Items",
+     "type": "records",
+     "mandatory": true,
+     "order": 20
+    }
+   ],
+   "outputs": [
+    {
+     "name": "item",
+     "label": "Item",
+     "type": "document_id",
+     "order": 100,
+     "attributes": {
+      "pills_draggable_outside_block": "false",
+      "pills_draggable_inside_block": "true"
+     }
+    }
+   ]
+  },
+  {
+   "key": "end_flow",
+   "sys_id": "d176605ea76103004f27b0d2187901c7",
+   "name": "End",
+   "type": "END",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "exit_loop",
+   "sys_id": "7444b31c37063110ac85cdd734924bff",
+   "name": "Exit Loop",
+   "type": "BREAK",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "skip_iteration",
+   "sys_id": "48de1b5837063110ac85cdd734924b15",
+   "name": "Skip Iteration",
+   "type": "CONTINUE",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "set_variables",
+   "sys_id": "4f787d1e0f9b0010ecf0cc52ff767ea0",
+   "name": "Set Flow Variables",
+   "type": "SETFLOWVARIABLES",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "append_variables",
+   "sys_id": "4784e82683031210d266f953d22bc0fd",
+   "name": "Append to Flow Variables",
+   "type": "APPENDFLOWVARIABLES",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "assign_subflow_outputs",
+   "sys_id": "df4e1945c3e232002841b63b12d3ae3e",
+   "name": "Assign Subflow Outputs",
+   "type": "ASSIGNSUBFLOWOUTPUTS",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "wait",
+   "sys_id": "fdb2541473031300b61e66476bf6a70e",
+   "name": "Wait for a duration of time",
+   "type": "TIMER",
+   "inputs": [
+    {
+     "id": "4973581473031300b61e66476bf6a785",
+     "name": "duration_type",
+     "label": "Duration Type",
+     "type": "choice",
+     "default": "explicit_duration",
+     "order": 100,
+     "choices": [
+      {
+       "value": "explicit_duration",
+       "label": "Explicit duration"
+      },
+      {
+       "value": "relative_duration",
+       "label": "Relative duration"
+      },
+      {
+       "value": "percentage_duration",
+       "label": "Percentage duration"
+      }
+     ]
+    },
+    {
+     "id": "bf1d6161b736230034c6ce69ee11a920",
+     "name": "percentage_timer_input_datetime",
+     "label": "Percentage timer input date time",
+     "type": "glide_date_time",
+     "order": 100
+    },
+    {
+     "id": "8033309c5376230034c6ddeeff7b12e1",
+     "name": "timer_percentage",
+     "label": "Percentage",
+     "type": "integer",
+     "order": 100
+    },
+    {
+     "id": "ef145c1473031300b61e66476bf6a7be",
+     "name": "timer_duration",
+     "label": "Duration",
+     "type": "glide_duration",
+     "order": 200
+    },
+    {
+     "id": "dca4105473031300b61e66476bf6a726",
+     "name": "timer_relative_duration_operator",
+     "label": "Timer relative duration operator",
+     "type": "choice",
+     "default": "after",
+     "order": 300,
+     "choices": [
+      {
+       "value": "after",
+       "label": "after"
+      },
+      {
+       "value": "before",
+       "label": "before"
+      }
+     ]
+    },
+    {
+     "id": "1f25d05473031300b61e66476bf6a773",
+     "name": "timer_relative_duration_datetime",
+     "label": "Timer relative date time",
+     "type": "glide_date_time",
+     "order": 400
+    },
+    {
+     "id": "fb55145473031300b61e66476bf6a762",
+     "name": "timer_schedule",
+     "label": "During the following schedule",
+     "type": "reference",
+     "order": 500
+    }
+   ],
+   "outputs": [
+    {
+     "name": "total_duration",
+     "label": "Total Duration",
+     "type": "glide_duration",
+     "order": 100,
+     "attributes": {
+      "pills_draggable_outside_block": "true",
+      "pills_draggable_inside_block": "false"
+     }
+    },
+    {
+     "name": "scheduled_end_date_time",
+     "label": "Scheduled End date/time",
+     "type": "glide_date_time",
+     "order": 200,
+     "attributes": {
+      "pills_draggable_outside_block": "true",
+      "pills_draggable_inside_block": "false"
+     }
+    }
+   ]
+  },
+  {
+   "key": "try",
+   "sys_id": "07223332de022010ec58424b73829721",
+   "name": "Try",
+   "type": "TRY",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "catch",
+   "sys_id": "35d60003e6022010a5e40cdd1254dd21",
+   "name": "Catch",
+   "type": "CATCH",
+   "inputs": [
+    {
+     "id": "c78d433e5bdb2010b61ea2013781c7f0",
+     "name": "__status__",
+     "label": "Error Status",
+     "type": "string",
+     "order": 100
+    },
+    {
+     "id": "dd70187cc36e20105553b740ad40dddb",
+     "name": "enabled",
+     "label": "enabled",
+     "type": "boolean",
+     "default": true,
+     "order": 100
+    }
+   ],
+   "outputs": []
+  },
+  {
+   "key": "do_in_parallel",
+   "sys_id": "5d31e5dedfe50300b61ecae83df26326",
+   "name": "Do the following in Parallel",
+   "type": "PARALLEL",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "parallel_block",
+   "sys_id": "a1168de173311300b61e66476bf6a7d0",
+   "name": "Parallel Branch",
+   "type": "PARALLELBLOCK",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "do_until",
+   "sys_id": "eaeb040687210300e6c2c88fc0e3ec89",
+   "name": "Do the following until",
+   "type": "DOUNTIL",
+   "inputs": [
+    {
+     "id": "bda2cb0473031300612c273ffff6a750",
+     "name": "condition_name",
+     "label": "Condition Label",
+     "type": "string",
+     "order": 100
+    },
+    {
+     "id": "d7138f0473031300612c273ffff6a78c",
+     "name": "condition",
+     "label": "Condition",
+     "type": "string",
+     "mandatory": true,
+     "order": 200
+    }
+   ],
+   "outputs": []
+  },
+  {
+   "key": "error_handler.try",
+   "sys_id": "e9060aa2c3013010ace8b740ad40dd51",
+   "name": "Top Level Try",
+   "type": "TOP_LEVEL_TRY",
+   "inputs": [],
+   "outputs": []
+  },
+  {
+   "key": "error_handler.catch",
+   "sys_id": "35d60003e6022010a5e40cdd1254dd23",
+   "name": "Top Level Catch",
+   "type": "TOP_LEVEL_CATCH",
+   "inputs": [],
+   "outputs": []
+  }
+ ]
+}

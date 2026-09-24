@@ -1,10 +1,39 @@
 /**
- * Flow Designer tools — list, inspect, trigger, and monitor flows and subflows.
- * Read tools: Tier 0. Trigger/create tools: Tier 1 (WRITE_ENABLED=true).
+ * Flow Designer tools — list, inspect and monitor flows and subflows.
+ * Read tools: Tier 0. snow_flow_flow_action_add: Tier 3 (SCRIPTING_ENABLED=true).
+ *
+ * DEPRECATED (names kept for catalogue parity, bodies replaced by a DEPRECATED_TOOL error):
+ *   snow_flow_flow_add, snow_flow_subflow_add → snow_flow_plan / snow_flow_build (src/tools/flow-builder.ts)
+ *   snow_flow_flow_publish                    → snow_flow_build activate:true (with FLOW_BUILDER_ACTIVATE_ENABLED) or Activate in Workflow Studio
+ *   snow_flow_flow_test, snow_flow_flow_trigger → snow_flow_verify + a real record/ATF trigger
+ * The old bodies wrote a bare sys_hub_flow / sys_hub_subflow row (no children, white screen in
+ * Workflow Studio), PATCHed active=true (not an activation) and posted to a non-existent
+ * sys_hub_flow_trigger table.
+ *
+ * Re-pointed reads: there is no sys_hub_subflow table — subflows are sys_hub_flow rows with
+ * type=subflow; the legacy sys_hub_action_instance table is empty on recent releases — action
+ * definitions live in sys_hub_action_type_definition.
  */
 import type { ServiceNowClient } from '../servicenow/client.js';
 import { ServiceNowError } from '../utils/errors.js';
-import { requireWrite, requireScripting } from '../utils/permissions.js';
+import { requireScripting } from '../utils/permissions.js';
+
+/** Legacy flow write tools and the replacement each one points to. */
+export const DEPRECATED_FLOW_TOOLS: Record<string, string> = {
+  snow_flow_flow_add: 'snow_flow_plan (dry run) then snow_flow_build with a FlowSpec (type "flow")',
+  snow_flow_subflow_add: 'snow_flow_plan (dry run) then snow_flow_build with a FlowSpec (flow.type "subflow")',
+  snow_flow_flow_publish: 'snow_flow_build with activate:true (requires FLOW_BUILDER_ACTIVATE_ENABLED=true and a separate approval), or Activate in Workflow Studio, then snow_flow_verify',
+  snow_flow_flow_test: 'snow_flow_verify for the read-back, then trigger the flow with a real record (or an ATF test) under its own approval',
+  snow_flow_flow_trigger: 'snow_flow_verify for the read-back, then trigger the flow with a real record (or an ATF test) under its own approval',
+};
+
+function deprecated(name: string): never {
+  throw new ServiceNowError(
+    `${name} is deprecated and no longer performs any write. Use: ${DEPRECATED_FLOW_TOOLS[name]}.`,
+    'DEPRECATED_TOOL',
+    { replacement: DEPRECATED_FLOW_TOOLS[name] }
+  );
+}
 
 export function flowToolManifest() {
   return [
@@ -35,7 +64,7 @@ export function flowToolManifest() {
     },
     {
       name: 'snow_flow_flow_trigger',
-      description: 'Trigger a Flow Designer flow with optional input parameters (requires WRITE_ENABLED=true)',
+      description: 'DEPRECATED - performs no write; use snow_flow_verify and trigger the flow with a real record/ATF test. (Kept for catalogue parity.)',
       inputSchema: {
         type: 'object',
         properties: {
@@ -71,7 +100,7 @@ export function flowToolManifest() {
     },
     {
       name: 'snow_flow_subflows_index',
-      description: 'List available subflows that can be reused across flows',
+      description: 'List available subflows (sys_hub_flow rows with type=subflow) that can be reused across flows',
       inputSchema: {
         type: 'object',
         properties: {
@@ -84,7 +113,7 @@ export function flowToolManifest() {
     },
     {
       name: 'snow_flow_subflow_read',
-      description: 'Get full details of a subflow including its inputs, outputs, and actions',
+      description: 'Get full details of a subflow (sys_hub_flow, type=subflow) including its inputs, outputs, and actions',
       inputSchema: {
         type: 'object',
         properties: {
@@ -95,7 +124,7 @@ export function flowToolManifest() {
     },
     {
       name: 'snow_flow_action_instances_index',
-      description: 'List reusable Flow Designer action instances available in the environment',
+      description: 'List Flow Designer action definitions (sys_hub_action_type_definition) available in the environment',
       inputSchema: {
         type: 'object',
         properties: {
@@ -133,7 +162,7 @@ export function flowToolManifest() {
     // ─── Flow Authoring ───────────────────────────────────────────────
     {
       name: 'snow_flow_flow_add',
-      description: 'Create a new Flow Designer flow. **[Write]**',
+      description: 'DEPRECATED - performs no write; use snow_flow_plan then snow_flow_build with a FlowSpec. (Kept for catalogue parity.)',
       inputSchema: {
         type: 'object',
         properties: {
@@ -148,7 +177,7 @@ export function flowToolManifest() {
     },
     {
       name: 'snow_flow_subflow_add',
-      description: 'Create a new reusable subflow. **[Write]**',
+      description: 'DEPRECATED - performs no write; use snow_flow_plan then snow_flow_build with a FlowSpec of type subflow. (Kept for catalogue parity.)',
       inputSchema: {
         type: 'object',
         properties: {
@@ -177,7 +206,7 @@ export function flowToolManifest() {
     },
     {
       name: 'snow_flow_flow_publish',
-      description: 'Publish (activate) a draft flow or subflow. **[Write]**',
+      description: 'DEPRECATED - performs no write; PATCHing active=true is not an activation. Use snow_flow_build activate:true or Activate in Workflow Studio. (Kept for catalogue parity.)',
       inputSchema: {
         type: 'object',
         properties: {
@@ -189,7 +218,7 @@ export function flowToolManifest() {
     },
     {
       name: 'snow_flow_flow_test',
-      description: 'Execute a flow in test mode with sample inputs. **[Write]**',
+      description: 'DEPRECATED - performs no write; use snow_flow_verify and a real record/ATF trigger. (Kept for catalogue parity.)',
       inputSchema: {
         type: 'object',
         properties: {
@@ -237,13 +266,8 @@ export async function dispatchFlowAction(
       if (resp.count === 0) throw new ServiceNowError(`Flow not found: ${args.name_or_sysid}`, 'NOT_FOUND');
       return resp.records[0];
     }
-    case 'snow_flow_flow_trigger': {
-      requireWrite();
-      if (!args.flow_sys_id) throw new ServiceNowError('flow_sys_id is required', 'INVALID_REQUEST');
-      const payload = { sys_id: args.flow_sys_id, inputs: args.inputs ?? {} };
-      const result = await client.createRecord('sys_hub_flow_trigger', payload);
-      return { ...result, summary: `Triggered flow ${args.flow_sys_id}` };
-    }
+    case 'snow_flow_flow_trigger':
+      return deprecated(name);
     case 'snow_flow_flow_execution_read': {
       if (!args.execution_sysid) throw new ServiceNowError('execution_sysid is required', 'INVALID_REQUEST');
       return await client.getRecord('sys_flow_context', args.execution_sysid);
@@ -258,14 +282,15 @@ export async function dispatchFlowAction(
       const parts: string[] = [];
       if (args.active !== false) parts.push('active=true');
       if (args.query) parts.push(`nameCONTAINS${args.query}`);
-      return await client.queryRecords({ table: 'sys_hub_subflow', query: parts.join('^') || '', limit: args.limit ?? 50 });
+      parts.push('type=subflow');
+      return await client.queryRecords({ table: 'sys_hub_flow', query: parts.join('^'), limit: args.limit ?? 50 });
     }
     case 'snow_flow_subflow_read': {
       if (!args.name_or_sysid) throw new ServiceNowError('name_or_sysid is required', 'INVALID_REQUEST');
       if (/^[0-9a-f]{32}$/i.test(args.name_or_sysid)) {
-        return await client.getRecord('sys_hub_subflow', args.name_or_sysid);
+        return await client.getRecord('sys_hub_flow', args.name_or_sysid);
       }
-      const resp = await client.queryRecords({ table: 'sys_hub_subflow', query: `nameCONTAINS${args.name_or_sysid}`, limit: 1 });
+      const resp = await client.queryRecords({ table: 'sys_hub_flow', query: `type=subflow^nameCONTAINS${args.name_or_sysid}`, limit: 1 });
       if (resp.count === 0) throw new ServiceNowError(`Subflow not found: ${args.name_or_sysid}`, 'NOT_FOUND');
       return resp.records[0];
     }
@@ -273,7 +298,7 @@ export async function dispatchFlowAction(
       const parts: string[] = [];
       if (args.category) parts.push(`category=${args.category}`);
       if (args.query) parts.push(`nameCONTAINS${args.query}`);
-      return await client.queryRecords({ table: 'sys_hub_action_instance', query: parts.join('^') || '', limit: args.limit ?? 50 });
+      return await client.queryRecords({ table: 'sys_hub_action_type_definition', query: parts.join('^') || '', limit: args.limit ?? 50 });
     }
     case 'snow_flow_process_automation_read': {
       if (!args.name_or_sysid) throw new ServiceNowError('name_or_sysid is required', 'INVALID_REQUEST');
@@ -290,37 +315,18 @@ export async function dispatchFlowAction(
       if (args.query) parts.push(`nameCONTAINS${args.query}^ORdescriptionCONTAINS${args.query}`);
       return await client.queryRecords({ table: 'pa_process', query: parts.join('^') || '', limit: args.limit ?? 50 });
     }
-    case 'snow_flow_flow_add': {
-      requireWrite();
-      if (!args.name) throw new ServiceNowError('name is required', 'INVALID_REQUEST');
-      const result = await client.createRecord('sys_hub_flow', { name: args.name, active: 'false', ...(args.description ? { description: args.description } : {}), ...(args.trigger_type ? { trigger_type: args.trigger_type } : {}), ...(args.trigger_table ? { trigger_table: args.trigger_table } : {}), ...(args.scope ? { sys_scope: args.scope } : {}) });
-      return { action: 'created', ...result };
-    }
-    case 'snow_flow_subflow_add': {
-      requireWrite();
-      if (!args.name) throw new ServiceNowError('name is required', 'INVALID_REQUEST');
-      const result = await client.createRecord('sys_hub_subflow', { name: args.name, active: 'false', ...(args.description ? { description: args.description } : {}), ...(args.scope ? { sys_scope: args.scope } : {}) });
-      return { action: 'created', ...result };
-    }
+    case 'snow_flow_flow_add':
+    case 'snow_flow_subflow_add':
+      return deprecated(name);
     case 'snow_flow_flow_action_add': {
       requireScripting();
       if (!args.name) throw new ServiceNowError('name is required', 'INVALID_REQUEST');
       const result = await client.createRecord('sys_hub_action_type_definition', { name: args.name, ...(args.description ? { description: args.description } : {}), ...(args.script ? { script: args.script } : {}) });
       return { action: 'created', ...result };
     }
-    case 'snow_flow_flow_publish': {
-      requireWrite();
-      if (!args.flow_sys_id) throw new ServiceNowError('flow_sys_id is required', 'INVALID_REQUEST');
-      const table = args.type === 'subflow' ? 'sys_hub_subflow' : 'sys_hub_flow';
-      const result = await client.updateRecord(table, args.flow_sys_id, { active: 'true' });
-      return { action: 'published', ...result };
-    }
-    case 'snow_flow_flow_test': {
-      requireWrite();
-      if (!args.flow_sys_id) throw new ServiceNowError('flow_sys_id is required', 'INVALID_REQUEST');
-      const result = await client.createRecord('sys_hub_flow_trigger', { sys_id: args.flow_sys_id, inputs: args.test_inputs ?? {}, test_mode: 'true' });
-      return { action: 'test_triggered', ...result };
-    }
+    case 'snow_flow_flow_publish':
+    case 'snow_flow_flow_test':
+      return deprecated(name);
     case 'snow_flow_flow_error_log_read': {
       if (!args.flow_sys_id) throw new ServiceNowError('flow_sys_id is required', 'INVALID_REQUEST');
       const days = args.days || 7;

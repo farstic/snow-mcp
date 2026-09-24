@@ -1,0 +1,55 @@
+{
+  "about": "max_length of flow variable / subflow input / subflow output rows by internal_type, tallied from read-only Table API queries on the PDI (24 Sep 2026; fields internal_type, max_length, sys_created_on only). Counts per max_length value. 'all' = every row of the table for those types (the sys_hub_flow_output query for the other types returned its first 1000 rows); 'since_2026_03' = rows created by the current release (sys_created_on >= 2026-03-01). Used by generator/max-length.test.ts.",
+  "sys_hub_flow_variable": {
+    "all": {
+      "string": { "8000": 970, "65000": 46, "40": 2, "32": 2, "1000000": 2 },
+      "boolean": { "40": 483, "32": 71, "65000": 4, "8000": 2 },
+      "integer": { "40": 224, "65000": 2 },
+      "reference": { "32": 107, "8000": 1 },
+      "json": { "4000": 452, "65000": 8, "8000": 4, "32": 2 },
+      "glide_date_time": { "40": 16 }
+    },
+    "since_2026_03": {
+      "boolean": { "32": 34, "40": 0 }
+    }
+  },
+  "sys_hub_flow_input": {
+    "all": {
+      "string": { "8000": 724, "65000": 110, "4000": 94, "40": 3, "2000": 3, "160": 2, "80": 2, "45000": 1, "80000": 1, "1000": 1 },
+      "boolean": { "40": 55, "65000": 2 },
+      "integer": { "40": 29, "65000": 3 },
+      "decimal": { "15": 1 },
+      "float": { "40": 12 },
+      "choice": { "32": 39, "8000": 2 },
+      "reference": { "32": 373, "1024": 1 },
+      "json": { "4000": 109, "65000": 4 },
+      "table_name": { "200": 147, "80": 16, "40": 6, "255": 5 },
+      "document_id": { "200": 115, "32": 4, "255": 3 },
+      "glide_list": { "1024": 7 },
+      "records": { "1024": 3 },
+      "url": { "1024": 7 },
+      "password2": { "255": 3 }
+    },
+    "since_2026_03": {
+      "boolean": { "40": 2 }
+    }
+  },
+  "sys_hub_flow_output": {
+    "all": {
+      "string": { "8000": 786, "65000": 120, "40": 4, "4000": 1 },
+      "boolean": { "40": 87, "65000": 1 },
+      "integer": { "40": 116, "8000": 2 },
+      "float": { "40": 12 },
+      "choice": { "32": 184, "40": 20, "80": 3 },
+      "reference": { "32": 303, "65000": 1 },
+      "json": { "4000": 287, "65000": 11, "8000": 2 },
+      "table_name": { "80": 19 },
+      "document_id": { "32": 12, "8000": 1 },
+      "glide_list": { "1024": 2 },
+      "records": { "1024": 6 }
+    },
+    "since_2026_03": {
+      "boolean": { "40": 10 }
+    }
+  }
+}

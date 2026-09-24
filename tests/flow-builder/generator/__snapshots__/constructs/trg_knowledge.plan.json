@@ -1,0 +1,124 @@
+{
+  "flowKey": "trg_knowledge",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "5580cef5622da75c5057a6decd204d53",
+      "fields": {
+        "sys_id": "5580cef5622da75c5057a6decd204d53",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: knowledge.management trigger",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "trigger_knowledge_management",
+        "label_cache": [
+          {
+            "name": "Knowledge Management_1.knowledge.number",
+            "label": "Trigger - Knowledge Management➛Knowledge➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "958e25a7-b831-6589-bd45-387ca0daa55e": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Knowledge Management_1.table_name",
+            "label": "Trigger - Knowledge Management➛Table Name",
+            "type": "table_name",
+            "base_type": "table_name",
+            "usedInstances": {
+              "958e25a7-b831-6589-bd45-387ca0daa55e": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Trigger Knowledge Management",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "57cb19c5fa73b22879328dc9ae654c84",
+      "fields": {
+        "sys_id": "57cb19c5fa73b22879328dc9ae654c84",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "5580cef5622da75c5057a6decd204d53",
+        "name": "Knowledge Management",
+        "trigger_definition": "9bdb2c0483331210730e5b43c22bc071",
+        "trigger_inputs": [],
+        "trigger_outputs": "",
+        "trigger_type": "knowledge_management"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "958e25a7b8316589bd45387ca0daa55e",
+      "fields": {
+        "sys_id": "958e25a7b8316589bd45387ca0daa55e",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "5580cef5622da75c5057a6decd204d53",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "958e25a7-b831-6589-bd45-387ca0daa55e",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Article {{Knowledge Management_1.knowledge.number}} in {{Knowledge Management_1.table_name}}",
+            "displayValue": "Article {{Knowledge Management_1.knowledge.number}} in {{Knowledge Management_1.table_name}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.knowledge.number",
+      "platform": "Knowledge Management_1.knowledge.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.table_name",
+      "platform": "Knowledge Management_1.table_name",
+      "type": "table_name"
+    }
+  ]
+}

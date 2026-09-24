@@ -1,0 +1,29 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_repeat",
+    "name": "Trigger Repeat",
+    "description": "Construct spec: scheduled.repeat trigger"
+  },
+  "trigger": {
+    "key": "trg_repeat_trigger",
+    "type": "scheduled.repeat",
+    "repeat": {
+      "hours": 6,
+      "minutes": 20
+    }
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_repeat_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "Repeat run {{trigger.run_start_date_time}}"
+        }
+      }
+    }
+  ]
+}

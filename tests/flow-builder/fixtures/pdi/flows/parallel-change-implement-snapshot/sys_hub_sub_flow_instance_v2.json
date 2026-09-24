@@ -1,0 +1,58 @@
+[
+  {
+    "sys_id": "51330b50871f4b50004fc845dabb35a4",
+    "order": "7➛8",
+    "parent_ui_id": "68dd6260-b0cc-4c4e-abcc-17568dcb8580",
+    "ui_id": "0909b196-5cb0-4580-9ba6-56a3bfa10baf",
+    "subflow": "a63faad2731310108ef62d2b04f6a7cf",
+    "wait_for_completion": "true",
+    "show_stages": "false",
+    "subflow_inputs": "H4sIAAAAAAAA/4WTW2vjMBCF/0rRs2N8SZzL25ISKOxuod32pRQzlsaJQJZdXdJmQ/77jmyTDaxh3+yjo5kz36C3M7O+2qn280FbB5rjg2AbNp8XizxLYZmneZqkyQrrIhNZlczrApbFmkVMBh8/gN5jafDDo3WkamhwSj+C8uHgfN4aBIfirjV3L50In2Uac28Mane5kFVI2yk4vY43SOnAUFmHhm3OVFoqQWa2eXsfUxRFXgOIbDqtSKmEggoVWbd9sLun/wZ2py7oBmukZhxH6ftY5+lGb40I0dKI4ZdDLZAy1aAsRqwBTSO25sQ2zngSaHjxqNXp6jhI7YYpG/iy8jc1zbPopu9EtuthObKaGqy+BwfP1JU7b0aQ/NBKjnZAJ7AGr9z2VhsMj52TrR6uOKjUZAjeKt/onwM+di13szZvKSB2gUiYcRy4fj60n1d8O6l7eOOhajmoGyuC4YedRBXWrH1TkTdi4JyRlXch9Zl5+evfXQ3i1LZQYUN5yga6Tup92Zn2KPsMNFIT7xX9xDU9CMpu5V7HwAONmPYIcXgo9738CkYGND+oTB/KyxctCU7/flbJqlgjT2bFgvPZPM/EDObrepYvclwnq+VyDTm7RMye7FaBtX8x0hDlhw8QBqgjvnLYR7jCjezcNwp1xJHU5f0PtapRi8cDAAA=",
+    "subflow_inputs_decoded": [
+      {
+        "subFlowInstanceId": "4465321a731310108ef62d2b04f6a769",
+        "id": "change_request",
+        "name": "change_request",
+        "value": "{{Created or Updated_1.current}}",
+        "displayValue": "",
+        "parameter": {
+          "children": [],
+          "id": "663faad2731310108ef62d2b04f6a7d1",
+          "label": "Change Request",
+          "name": "change_request",
+          "type": "reference",
+          "typeLabel": "Reference",
+          "order": 1,
+          "extended": false,
+          "mandatory": true,
+          "readOnly": false,
+          "hint": "",
+          "maxsize": 32,
+          "reference": "change_request",
+          "reference_display": "Change Request",
+          "fDataStructure": "",
+          "choices": [],
+          "defaultChoices": [],
+          "choiceOption": "",
+          "table": "change_request",
+          "columnName": "",
+          "defaultValue": "",
+          "use_dependent": false,
+          "fShowReferenceFinder": false,
+          "local": false,
+          "fSearchField": "number",
+          "attributes": {
+            "uiType": "reference",
+            "uiTypeLabel": "Reference",
+            "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+            "uiUniqueId": "80869ec0-65cc-432d-a49f-353e908779a3"
+          },
+          "sysClassName": "",
+          "ref_qual": "",
+          "dependent_on": ""
+        },
+        "scriptActive": false
+      }
+    ]
+  }
+]

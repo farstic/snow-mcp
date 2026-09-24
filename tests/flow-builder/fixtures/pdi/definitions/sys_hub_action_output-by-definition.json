@@ -1,0 +1,223 @@
+[
+  {
+    "model": "b93f42810b30030085c083eb37673a63",
+    "element": "Record",
+    "internal_type": "document_id",
+    "label": "Record",
+    "order": "0"
+  },
+  {
+    "model": "b93f42810b30030085c083eb37673a63",
+    "element": "Table",
+    "internal_type": "table_name",
+    "label": "Table",
+    "order": "1"
+  },
+  {
+    "model": "b93f42810b30030085c083eb37673a63",
+    "element": "status",
+    "internal_type": "choice",
+    "label": "Status",
+    "order": "2"
+  },
+  {
+    "model": "b93f42810b30030085c083eb37673a63",
+    "element": "error_message",
+    "internal_type": "string",
+    "label": "Error Message",
+    "order": "3",
+    "attributes": "pwd2droppable=true"
+  },
+  {
+    "model": "d1c56ec50b30030085c083eb37673a50",
+    "element": "Records",
+    "internal_type": "records",
+    "label": "Records",
+    "order": "0"
+  },
+  {
+    "model": "d1c56ec50b30030085c083eb37673a50",
+    "element": "Table",
+    "internal_type": "table_name",
+    "label": "Table",
+    "order": "1"
+  },
+  {
+    "model": "d1c56ec50b30030085c083eb37673a50",
+    "element": "Count",
+    "internal_type": "integer",
+    "label": "Count",
+    "order": "2"
+  },
+  {
+    "model": "02f0b88cc3c632002841b63b12d3aeff",
+    "element": "record",
+    "internal_type": "document_id",
+    "label": "Record",
+    "order": "0"
+  },
+  {
+    "model": "02f0b88cc3c632002841b63b12d3aeff",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table",
+    "order": "1"
+  },
+  {
+    "model": "baf174c8c3c232002841b63b12d3aee4",
+    "element": "record",
+    "internal_type": "document_id",
+    "label": "Record",
+    "order": "0"
+  },
+  {
+    "model": "baf174c8c3c232002841b63b12d3aee4",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table",
+    "order": "1"
+  },
+  {
+    "model": "c40e2632c75100105312134c95c260f6",
+    "element": "count",
+    "internal_type": "integer",
+    "label": "Count",
+    "order": "1"
+  },
+  {
+    "model": "c40e2632c75100105312134c95c260f6",
+    "element": "status",
+    "internal_type": "choice",
+    "label": "Status",
+    "order": "2"
+  },
+  {
+    "model": "c40e2632c75100105312134c95c260f6",
+    "element": "message",
+    "internal_type": "string",
+    "label": "Error Message",
+    "order": "3",
+    "attributes": "pwd2droppable=true"
+  },
+  {
+    "model": "3f9b1ff1531003003bf1d9109ec58775",
+    "element": "Record",
+    "internal_type": "document_id",
+    "reference": "task",
+    "label": "Record",
+    "order": "1"
+  },
+  {
+    "model": "3f9b1ff1531003003bf1d9109ec58775",
+    "element": "Table",
+    "internal_type": "table_name",
+    "label": "Table",
+    "order": "2"
+  },
+  {
+    "model": "f597c41073081300612c273ffff6a767",
+    "element": "Catalog Task",
+    "internal_type": "document_id",
+    "reference": "sc_task",
+    "label": "Catalog Task",
+    "order": "0"
+  },
+  {
+    "model": "bae0a1120b10030085c083eb37673a92",
+    "element": "approval_state",
+    "internal_type": "choice",
+    "label": "Approval State",
+    "order": "0"
+  },
+  {
+    "model": "98c181d20b100300d97d8bf637673ab5",
+    "element": "email",
+    "internal_type": "reference",
+    "reference": "sys_email",
+    "label": "email",
+    "order": "0"
+  },
+  {
+    "model": "15e10e5eff30311077a95dac793bf11e",
+    "element": "__action_status__",
+    "internal_type": "string",
+    "label": "Action Status",
+    "order": "1",
+    "attributes": "action_error_output=true,co_type_name=FDACTIONSTATUS,uiType=object"
+  },
+  {
+    "model": "15e10e5eff30311077a95dac793bf11e",
+    "element": "__dont_treat_as_error__",
+    "internal_type": "boolean",
+    "label": "Don't Treat as Error",
+    "order": "2",
+    "attributes": "action_error_output=true,visible_in_ui=false"
+  },
+  {
+    "model": "8bb9a8160b10030085c083eb37673aec",
+    "element": "state",
+    "internal_type": "choice",
+    "label": "State",
+    "order": "1"
+  },
+  {
+    "model": "e057d2e253b3230034c6ddeeff7b1261",
+    "element": "record",
+    "internal_type": "document_id",
+    "label": "Record",
+    "order": "0"
+  },
+  {
+    "model": "e057d2e253b3230034c6ddeeff7b1261",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table Name",
+    "order": "1"
+  },
+  {
+    "model": "e057d2e253b3230034c6ddeeff7b1261",
+    "element": "status",
+    "internal_type": "choice",
+    "label": "Status",
+    "order": "2"
+  },
+  {
+    "model": "e057d2e253b3230034c6ddeeff7b1261",
+    "element": "error_message",
+    "internal_type": "string",
+    "label": "Error Message",
+    "order": "3"
+  },
+  {
+    "model": "b8bd6765c7322300f4eba1425a9763c8",
+    "element": "email_attachments",
+    "internal_type": "records",
+    "reference": "sys_email_attachment",
+    "label": "Email attachments",
+    "order": "0"
+  },
+  {
+    "model": "9d1a6f849f641210e9f6328dda0a1c8b",
+    "element": "__action_status__",
+    "internal_type": "string",
+    "label": "Action Status",
+    "order": "1",
+    "attributes": "action_error_output=true,co_type_name=FDACTIONSTATUS,uiType=object"
+  },
+  {
+    "model": "9d1a6f849f641210e9f6328dda0a1c8b",
+    "element": "__dont_treat_as_error__",
+    "internal_type": "boolean",
+    "label": "Don't Treat as Error",
+    "order": "2",
+    "attributes": "action_error_output=true,visible_in_ui=false"
+  },
+  {
+    "model": "d2733cb27333001099792f163cf6a77f",
+    "element": "email",
+    "internal_type": "reference",
+    "reference": "sys_email",
+    "label": "Email",
+    "order": "1"
+  }
+]

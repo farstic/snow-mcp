@@ -1,0 +1,29 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_inbound_email",
+    "name": "Trigger Inbound Email",
+    "description": "Construct spec: email.inbound trigger with every option"
+  },
+  "trigger": {
+    "key": "trg_inbound_email_trigger",
+    "type": "email.inbound",
+    "email_conditions": "subjectLIKEpassword^ORbodyLIKEpassword",
+    "order": 120,
+    "stop_condition_evaluation": true,
+    "target_table": "sc_req_item"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_inbound_email_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "Email \"{{trigger.subject}}\" from {{trigger.from_address}} ({{trigger.user.name}})"
+        }
+      }
+    }
+  ]
+}

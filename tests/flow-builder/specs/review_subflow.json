@@ -1,0 +1,20 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "review_subflow", "name": "Review Subflow", "description": "Construct spec: subflow with reference, boolean, date/time, integer (with default) and string inputs", "type": "subflow", "run_as": "user" },
+  "inputs": [
+    { "name": "record", "label": "Record", "type": "reference", "reference_table": "incident", "mandatory": true },
+    { "name": "expedite", "label": "Expedite", "type": "boolean" },
+    { "name": "due", "label": "Due", "type": "glide_date_time" },
+    { "name": "retries", "label": "Retries", "type": "integer", "default": "2" },
+    { "name": "comment", "label": "Comment", "type": "string" }
+  ],
+  "outputs": [
+    { "name": "outcome", "label": "Outcome", "type": "string" },
+    { "name": "done", "label": "Done", "type": "boolean" }
+  ],
+  "steps": [
+    { "kind": "action", "key": "review_log", "action": "log",
+      "inputs": { "log_level": "info", "log_message": { "text": "Reviewing {{inputs.record.number}} (expedite {{inputs.expedite}}, due {{inputs.due}})" } } },
+    { "kind": "assign_subflow_outputs", "key": "review_outputs", "assign": { "outcome": { "text": "Reviewed {{inputs.record.number}}" }, "done": true } }
+  ]
+}

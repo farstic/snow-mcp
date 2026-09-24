@@ -1,0 +1,236 @@
+{
+  "flowKey": "trg_service_catalog",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "3927ba5768a31f16ce4a28ab1ee6a084",
+      "fields": {
+        "sys_id": "3927ba5768a31f16ce4a28ab1ee6a084",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: catalog.service_catalog trigger",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "trigger_service_catalog",
+        "label_cache": [
+          {
+            "name": "Service Catalog_1.request_item.number",
+            "label": "Trigger - Service Catalog➛Request Item➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c4fcd265-988d-6bf4-33bd-4daee6966080": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Service Catalog_1.table_name",
+            "label": "Trigger - Service Catalog➛Table Name",
+            "type": "table_name",
+            "base_type": "table_name",
+            "usedInstances": {
+              "c4fcd265-988d-6bf4-33bd-4daee6966080": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Trigger Service Catalog",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "509ad2aedd79be81c1479c329b962871",
+      "fields": {
+        "sys_id": "509ad2aedd79be81c1479c329b962871",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "3927ba5768a31f16ce4a28ab1ee6a084",
+        "name": "Service Catalog",
+        "trigger_definition": "c43a1011c36813002841b63b12d3ae15",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run Flow In",
+            "internalType": "choice",
+            "choiceList": [
+              {
+                "fSequence": -1,
+                "fValue": "",
+                "fLabel": "-- None --",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fSequence": -1,
+                "fValue": "background",
+                "fLabel": "Run flow in background (default)",
+                "fImage": "",
+                "fParameters": {
+                  "name": "sys_flow_record_trigger",
+                  "dependent_values": [
+                    ""
+                  ],
+                  "dependent_values_map": {
+                    "": "Run flow in background (default)"
+                  }
+                },
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fSequence": -1,
+                "fValue": "foreground",
+                "fLabel": "Run flow in foreground",
+                "fImage": "",
+                "fParameters": {
+                  "name": "sys_flow_record_trigger",
+                  "dependent_values": [
+                    ""
+                  ],
+                  "dependent_values_map": {
+                    "": "Run flow in foreground"
+                  }
+                },
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 100,
+            "name": "run_flow_in",
+            "value": "foreground",
+            "displayValue": "Run flow in foreground",
+            "parameter": {
+              "children": [],
+              "type_label": "Choice",
+              "id": "6090c72977203300f5bfcfcc78106159",
+              "label": "Run Flow In",
+              "name": "run_flow_in",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Run flow in background (default)",
+                  "value": "background",
+                  "order": 1
+                },
+                {
+                  "label": "Run flow in foreground",
+                  "value": "foreground",
+                  "order": 2
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Run flow in background (default)",
+                  "value": "background",
+                  "order": 1
+                },
+                {
+                  "label": "Run flow in foreground",
+                  "value": "foreground",
+                  "order": 2
+                }
+              ],
+              "choiceOption": "3",
+              "table": "sys_flow_record_trigger",
+              "columnName": "run_flow_in",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "advanced": "true"
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "service_catalog"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c4fcd265988d6bf433bd4daee6966080",
+      "fields": {
+        "sys_id": "c4fcd265988d6bf433bd4daee6966080",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "3927ba5768a31f16ce4a28ab1ee6a084",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c4fcd265-988d-6bf4-33bd-4daee6966080",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Requested item {{Service Catalog_1.request_item.number}} in {{Service Catalog_1.table_name}}",
+            "displayValue": "Requested item {{Service Catalog_1.request_item.number}} in {{Service Catalog_1.table_name}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.request_item.number",
+      "platform": "Service Catalog_1.request_item.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.table_name",
+      "platform": "Service Catalog_1.table_name",
+      "type": "table_name"
+    }
+  ]
+}

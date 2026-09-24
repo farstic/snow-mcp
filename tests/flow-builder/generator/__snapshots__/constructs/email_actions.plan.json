@@ -1,0 +1,943 @@
+{
+  "flowKey": "email_actions",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "1f2f4f31c3ccda97102a037e55fe5bb2",
+      "fields": {
+        "sys_id": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: inbound-email actions, record creation from an email, attachments, send email and wait for the reply",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "email_actions",
+        "label_cache": [
+          {
+            "name": "Inbound Email_1.inbound_email",
+            "label": "Trigger - Inbound Email➛Inbound Email",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "870d54c5-be63-445e-c10c-c58d825942f4": [
+                "email_record"
+              ],
+              "a76afb4b-435f-3221-016e-84e8c042d5a5": [
+                "email_record"
+              ],
+              "cf5e7a6f-1fc6-1477-93ed-6f946b3912b8": [
+                "email_record"
+              ],
+              "dd8f290d-ebf7-8c8d-bd0f-8e1fe89e654d": [
+                "email_record"
+              ],
+              "324fa572-fe7c-3ddd-498a-37c20a2f374e": [
+                "email_record"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "870d54c5-be63-445e-c10c-c58d825942f4.header_value",
+            "label": "870d54c5-be63-445e-c10c-c58d825942f4➛header_value",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "5fcc57ba-da9b-5c80-c247-31031f8e026b": [
+                "condition"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Inbound Email_1.subject",
+            "label": "Trigger - Inbound Email➛Subject",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "b238879f-507f-aef7-9b2b-065a943ab849": [
+                "values"
+              ],
+              "53df6096-11a7-0bb8-d88f-7229eb121f7a": [
+                "ah_subject"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "a76afb4b-435f-3221-016e-84e8c042d5a5.latest_response_text",
+            "label": "a76afb4b-435f-3221-016e-84e8c042d5a5➛latest_response_text",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "b238879f-507f-aef7-9b2b-065a943ab849": [
+                "values"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Inbound Email_1.user",
+            "label": "Trigger - Inbound Email➛User",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "b238879f-507f-aef7-9b2b-065a943ab849": [
+                "values"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "b238879f-507f-aef7-9b2b-065a943ab849.record",
+            "label": "b238879f-507f-aef7-9b2b-065a943ab849➛record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "cf5e7a6f-1fc6-1477-93ed-6f946b3912b8": [
+                "target_record"
+              ],
+              "324fa572-fe7c-3ddd-498a-37c20a2f374e": [
+                "target_record"
+              ],
+              "53df6096-11a7-0bb8-d88f-7229eb121f7a": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "incident"
+          },
+          {
+            "name": "dd8f290d-ebf7-8c8d-bd0f-8e1fe89e654d.email_attachments",
+            "label": "dd8f290d-ebf7-8c8d-bd0f-8e1fe89e654d➛email_attachments",
+            "type": "records",
+            "base_type": "records",
+            "usedInstances": {
+              "2480dbf2-4354-7087-b389-4564180c875d": [
+                "items"
+              ]
+            },
+            "attributes": {},
+            "column_name": "email_attachments"
+          },
+          {
+            "name": "2480dbf2-4354-7087-b389-4564180c875d.item.file_name",
+            "label": "7 - For Each - ➛item➛File Name",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "4b03fa8c-ccf7-d072-a78a-74ce2da07335": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "sys_email_attachment",
+            "column_name": "file_name"
+          },
+          {
+            "name": "Inbound Email_1.from_address",
+            "label": "Trigger - Inbound Email➛From address",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "53df6096-11a7-0bb8-d88f-7229eb121f7a": [
+                "ah_to"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "53df6096-11a7-0bb8-d88f-7229eb121f7a.email",
+            "label": "53df6096-11a7-0bb8-d88f-7229eb121f7a➛email",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "sys_email"
+          },
+          {
+            "name": "0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e.state",
+            "label": "0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e➛state",
+            "type": "choice",
+            "base_type": "choice",
+            "usedInstances": {
+              "c1a2866d-7602-a2ca-0575-f43815960315": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e.email_reply.subject",
+            "label": "0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e➛email_reply➛subject",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "c1a2866d-7602-a2ca-0575-f43815960315": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "sys_email",
+            "column_name": "subject"
+          }
+        ],
+        "name": "Email Actions",
+        "run_as": "system",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "243b07f2604c7a9c5f57a0f3adedb0ae",
+      "fields": {
+        "sys_id": "243b07f2604c7a9c5f57a0f3adedb0ae",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "name": "Inbound Email",
+        "trigger_definition": "6f0180400b320300f4eb8bf637673ad4",
+        "trigger_inputs": [
+          {
+            "label": "Email conditions",
+            "internalType": "conditions",
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 100,
+            "valueSysId": "",
+            "name": "email_conditions",
+            "value": "subjectLIKErequest",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "18010347c7312300f4eba1425a9763f7",
+              "label": "Email conditions",
+              "name": "email_conditions",
+              "type": "conditions",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "Conditions to qualify which emails start your flow.",
+              "maxsize": 4000,
+              "reference": "sys_email",
+              "reference_display": "Email",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "condition_builder": "v2",
+                "readable": "true"
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "displayField": "",
+            "scriptActive": false
+          },
+          {
+            "label": "Order",
+            "internalType": "integer",
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 200,
+            "valueSysId": "",
+            "name": "order",
+            "value": "",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "60b307c7c7312300f4eba1425a97637e",
+              "label": "Order",
+              "name": "order",
+              "type": "integer",
+              "order": 200,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "The priority given to the trigger over other inbound email triggers.",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "visible": "false"
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
+          },
+          {
+            "label": "Stop processing",
+            "internalType": "boolean",
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 300,
+            "valueSysId": "",
+            "name": "stop_condition_evaluation",
+            "value": "1",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "312487c7c7312300f4eba1425a9763fe",
+              "label": "Stop processing",
+              "name": "stop_condition_evaluation",
+              "type": "boolean",
+              "order": 300,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "When true, processes only the flow with the lowest-value order.",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "true",
+              "defaultDisplayValue": "true",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "visible": "false"
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
+          },
+          {
+            "label": "Reply Record Type",
+            "internalType": "table_name",
+            "mandatory": false,
+            "fromTemplate": false,
+            "order": 400,
+            "valueSysId": "",
+            "name": "target_table",
+            "value": "incident",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "b914874853132300eb7c0a1806dc34b5",
+              "label": "Reply Record Type",
+              "name": "target_table",
+              "type": "table_name",
+              "order": 400,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "The table of the record associated with the incoming reply email.",
+              "maxsize": 80,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "": ""
+              },
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "displayField": "",
+            "scriptActive": false
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "email"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "870d54c5be63445ec10cc58d825942f4",
+      "fields": {
+        "sys_id": "870d54c5be63445ec10cc58d825942f4",
+        "sys_scope": "global",
+        "action_type": "a8cfa3efa70223008299b39f0879018b",
+        "action_type_parent": "7e7f6fafa70223008299b39f0879018f",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "870d54c5-be63-445e-c10c-c58d825942f4",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "email_record",
+            "value": "{{Inbound Email_1.inbound_email}}",
+            "displayValue": "{{Inbound Email_1.inbound_email}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "target_header",
+            "value": "Auto-Submitted",
+            "displayValue": "Auto-Submitted",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "5fcc57bada9b5c80c24731031f8e026b",
+      "fields": {
+        "sys_id": "5fcc57bada9b5c80c24731031f8e026b",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "logic_definition": "af4e1945c3e232002841b63b12d3ae3e",
+        "order": "2",
+        "ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{870d54c5-be63-445e-c10c-c58d825942f4.header_value}}ISEMPTY",
+              "displayValue": "{{870d54c5-be63-445e-c10c-c58d825942f4.header_value}}ISEMPTY",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "a76afb4b435f3221016e84e8c042d5a5",
+      "fields": {
+        "sys_id": "a76afb4b435f3221016e84e8c042d5a5",
+        "sys_scope": "global",
+        "action_type": "a159d7820f13101051218e8ebc767eea",
+        "action_type_parent": "2cf8d3820f13101051218e8ebc767e63",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "3",
+        "parent_ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "a76afb4b-435f-3221-016e-84e8c042d5a5",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "email_record",
+            "value": "{{Inbound Email_1.inbound_email}}",
+            "displayValue": "{{Inbound Email_1.inbound_email}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "b238879f507faef79b2b065a943ab849",
+      "fields": {
+        "sys_id": "b238879f507faef79b2b065a943ab849",
+        "sys_scope": "global",
+        "action_type": "2de05916c31332002841b63b12d3aee1",
+        "action_type_parent": "02f0b88cc3c632002841b63b12d3aeff",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "4",
+        "parent_ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "b238879f-507f-aef7-9b2b-065a943ab849",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "values",
+            "value": "short_description={{Inbound Email_1.subject}}^description={{a76afb4b-435f-3221-016e-84e8c042d5a5.latest_response_text}}^caller_id={{Inbound Email_1.user}}^contact_type=email^EQ",
+            "displayValue": "short_description={{Inbound Email_1.subject}}^description={{a76afb4b-435f-3221-016e-84e8c042d5a5.latest_response_text}}^caller_id={{Inbound Email_1.user}}^contact_type=email^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "cf5e7a6f1fc6147793ed6f946b3912b8",
+      "fields": {
+        "sys_id": "cf5e7a6f1fc6147793ed6f946b3912b8",
+        "sys_scope": "global",
+        "action_type": "7b95a4c0a73133008299b39f087901b4",
+        "action_type_parent": "18a22c44a73133008299b39f08790116",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "5",
+        "parent_ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "cf5e7a6f-1fc6-1477-93ed-6f946b3912b8",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "email_record",
+            "value": "{{Inbound Email_1.inbound_email}}",
+            "displayValue": "{{Inbound Email_1.inbound_email}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "target_record",
+            "value": "{{b238879f-507f-aef7-9b2b-065a943ab849.record}}",
+            "displayValue": "{{b238879f-507f-aef7-9b2b-065a943ab849.record}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "dd8f290debf78c8dbd0f8e1fe89e654d",
+      "fields": {
+        "sys_id": "dd8f290debf78c8dbd0f8e1fe89e654d",
+        "sys_scope": "global",
+        "action_type": "2dbeaf29c7322300f4eba1425a976340",
+        "action_type_parent": "b8bd6765c7322300f4eba1425a9763c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "6",
+        "parent_ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "dd8f290d-ebf7-8c8d-bd0f-8e1fe89e654d",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "email_record",
+            "value": "{{Inbound Email_1.inbound_email}}",
+            "displayValue": "{{Inbound Email_1.inbound_email}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "2480dbf243547087b3894564180c875d",
+      "fields": {
+        "sys_id": "2480dbf243547087b3894564180c875d",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "logic_definition": "098e1dc5c3e232002841b63b12d3ae33",
+        "order": "7",
+        "parent_ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "ui_id": "2480dbf2-4354-7087-b389-4564180c875d",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "items",
+              "value": "{{dd8f290d-ebf7-8c8d-bd0f-8e1fe89e654d.email_attachments}}",
+              "displayValue": "{{dd8f290d-ebf7-8c8d-bd0f-8e1fe89e654d.email_attachments}}"
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "4b03fa8cccf7d072a78a74ce2da07335",
+      "fields": {
+        "sys_id": "4b03fa8cccf7d072a78a74ce2da07335",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "8",
+        "parent_ui_id": "2480dbf2-4354-7087-b389-4564180c875d",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "4b03fa8c-ccf7-d072-a78a-74ce2da07335",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Received file {{2480dbf2-4354-7087-b389-4564180c875d.item.file_name}}",
+            "displayValue": "Received file {{2480dbf2-4354-7087-b389-4564180c875d.item.file_name}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "324fa572fe7c3ddd498a37c20a2f374e",
+      "fields": {
+        "sys_id": "324fa572fe7c3ddd498a37c20a2f374e",
+        "sys_scope": "global",
+        "action_type": "bd8fcd48a73133008299b39f087901fc",
+        "action_type_parent": "731fc148a73133008299b39f087901a4",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "9",
+        "parent_ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "324fa572-fe7c-3ddd-498a-37c20a2f374e",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "email_record",
+            "value": "{{Inbound Email_1.inbound_email}}",
+            "displayValue": "{{Inbound Email_1.inbound_email}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "target_record",
+            "value": "{{b238879f-507f-aef7-9b2b-065a943ab849.record}}",
+            "displayValue": "{{b238879f-507f-aef7-9b2b-065a943ab849.record}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "53df609611a70bb8d88f7229eb121f7a",
+      "fields": {
+        "sys_id": "53df609611a70bb8d88f7229eb121f7a",
+        "sys_scope": "global",
+        "action_type": "c1806bf4a70323008299b39f087901cb",
+        "action_type_parent": "98c181d20b100300d97d8bf637673ab5",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "10",
+        "parent_ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "53df6096-11a7-0bb8-d88f-7229eb121f7a",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{b238879f-507f-aef7-9b2b-065a943ab849.record}}",
+            "displayValue": "{{b238879f-507f-aef7-9b2b-065a943ab849.record}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "watermark_email",
+            "value": false,
+            "displayValue": false,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "ah_to",
+            "value": "{{Inbound Email_1.from_address}}",
+            "displayValue": "{{Inbound Email_1.from_address}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_subject",
+            "value": "Received: {{Inbound Email_1.subject}}",
+            "displayValue": "Received: {{Inbound Email_1.subject}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_body",
+            "value": "<p>Reply to this message to add details.</p>",
+            "displayValue": "<p>Reply to this message to add details.</p>",
+            "scriptActive": false,
+            "parameter": {
+              "type": "html"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "0c22ddf418d4d387ea7b8ec3cf6b9f3e",
+      "fields": {
+        "sys_id": "0c22ddf418d4d387ea7b8ec3cf6b9f3e",
+        "sys_scope": "global",
+        "action_type": "8e38de067f0312108e688c90ac866501",
+        "action_type_parent": "205716c27f0312108e688c90ac8665e7",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "11",
+        "parent_ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{53df6096-11a7-0bb8-d88f-7229eb121f7a.email}}",
+            "displayValue": "{{53df6096-11a7-0bb8-d88f-7229eb121f7a.email}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "enable_timeout",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "timeout_duration",
+            "value": "1970-01-03 00:00:00",
+            "displayValue": "1970-01-03 00:00:00",
+            "scriptActive": false,
+            "parameter": {
+              "type": "glide_duration"
+            }
+          },
+          {
+            "name": "timeout_schedule",
+            "value": "08fcd0830a0a0b2600079f56b1adb9ae",
+            "displayValue": "08fcd0830a0a0b2600079f56b1adb9ae",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "c1a2866d7602a2ca0575f43815960315",
+      "fields": {
+        "sys_id": "c1a2866d7602a2ca0575f43815960315",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "1f2f4f31c3ccda97102a037e55fe5bb2",
+        "generation_source": "",
+        "order": "12",
+        "parent_ui_id": "5fcc57ba-da9b-5c80-c247-31031f8e026b",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "c1a2866d-7602-a2ca-0575-f43815960315",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Reply {{0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e.state}}: {{0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e.email_reply.subject}}",
+            "displayValue": "Reply {{0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e.state}}: {{0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e.email_reply.subject}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.inbound_email",
+      "platform": "Inbound Email_1.inbound_email",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.mail_header.header_value",
+      "platform": "870d54c5-be63-445e-c10c-c58d825942f4.header_value",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.subject",
+      "platform": "Inbound Email_1.subject",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.mail_reply_text.latest_response_text",
+      "platform": "a76afb4b-435f-3221-016e-84e8c042d5a5.latest_response_text",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.user",
+      "platform": "Inbound Email_1.user",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.mail_new_incident.record",
+      "platform": "b238879f-507f-aef7-9b2b-065a943ab849.record",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.mail_atts.email_attachments",
+      "platform": "dd8f290d-ebf7-8c8d-bd0f-8e1fe89e654d.email_attachments",
+      "type": "records"
+    },
+    {
+      "symbolic": "loop.mail_each_att.item.file_name",
+      "platform": "2480dbf2-4354-7087-b389-4564180c875d.item.file_name",
+      "type": "string"
+    },
+    {
+      "symbolic": "trigger.from_address",
+      "platform": "Inbound Email_1.from_address",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.mail_ack.email",
+      "platform": "53df6096-11a7-0bb8-d88f-7229eb121f7a.email",
+      "type": "reference"
+    },
+    {
+      "symbolic": "steps.mail_wait.state",
+      "platform": "0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e.state",
+      "type": "choice"
+    },
+    {
+      "symbolic": "steps.mail_wait.email_reply.subject",
+      "platform": "0c22ddf4-18d4-d387-ea7b-8ec3cf6b9f3e.email_reply.subject",
+      "type": "string"
+    }
+  ]
+}

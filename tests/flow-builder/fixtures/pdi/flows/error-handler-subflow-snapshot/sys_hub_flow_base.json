@@ -1,0 +1,53 @@
+{
+  "sys_id": "5146ef09ff1e321006beffffffffff35",
+  "sys_class_name": "sys_hub_flow_snapshot",
+  "name": "Create bulk risk classification assessments for any object",
+  "internal_name": "create_bulk_risk_classification_assessments_for_any_object",
+  "type": "subflow",
+  "status": "published",
+  "active": "true",
+  "run_as": "user",
+  "generation_source": "",
+  "sys_scope": "148ac647304d1210b989d9b25db193c0",
+  "sys_created_by": "admin",
+  "label_cache": "[{\"name\":\"c04c5a6d-a622-4d8e-a28a-77dc0025140c.__status__.message\",\"label\":\"1 - Error Handler➛Error Status➛Message\",\"reference\":\"\",\"reference_display\":\"Message\",\"type\":\"string\",\"base_type\":\"string\",\"usedInstances\":{\"18a5ce64-dd8d-4da1-b7cb-289f90bb82f7\":[\"log_message\"]},\"attributes\":{}},{\"name\":\"subflow.asmtpayload\",\"label\":\"Input➛Assessment payload\",\"reference\":\"\",\"reference_display\":\"\",\"type\":\"json\",\"base_type\":\"json\",\"column_name\":\"\",\"usedInstances\":{\"f1f84836-8b56-4a9f-8586-de2c4753ac05\":[\"risk_classification_payload\"]},\"attributes\":{\"uiType\":\"json\",\"uiTypeLabel\":\"JSON\",\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\",\"uiUniqueId\":\"a97e11b1-4277-47bd-a354-717436f7ac87\",\"sourceUiUniqueId\":\"\",\"sourceType\":\"\",\"sourceId\":\"\"}}]",
+  "label_cache_parsed": [
+    {
+      "name": "c04c5a6d-a622-4d8e-a28a-77dc0025140c.__status__.message",
+      "label": "1 - Error Handler➛Error Status➛Message",
+      "reference": "",
+      "reference_display": "Message",
+      "type": "string",
+      "base_type": "string",
+      "usedInstances": {
+        "18a5ce64-dd8d-4da1-b7cb-289f90bb82f7": [
+          "log_message"
+        ]
+      },
+      "attributes": {}
+    },
+    {
+      "name": "subflow.asmtpayload",
+      "label": "Input➛Assessment payload",
+      "reference": "",
+      "reference_display": "",
+      "type": "json",
+      "base_type": "json",
+      "column_name": "",
+      "usedInstances": {
+        "f1f84836-8b56-4a9f-8586-de2c4753ac05": [
+          "risk_classification_payload"
+        ]
+      },
+      "attributes": {
+        "uiType": "json",
+        "uiTypeLabel": "JSON",
+        "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+        "uiUniqueId": "a97e11b1-4277-47bd-a354-717436f7ac87",
+        "sourceUiUniqueId": "",
+        "sourceType": "",
+        "sourceId": ""
+      }
+    }
+  ]
+}

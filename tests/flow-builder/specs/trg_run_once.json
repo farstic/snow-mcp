@@ -1,0 +1,26 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_run_once",
+    "name": "Trigger Run Once",
+    "description": "Construct spec: scheduled.run_once trigger"
+  },
+  "trigger": {
+    "key": "trg_run_once_trigger",
+    "type": "scheduled.run_once",
+    "run_in": "2027-03-01 07:45:00"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_run_once_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "One-off run {{trigger.run_start_date_time}}"
+        }
+      }
+    }
+  ]
+}

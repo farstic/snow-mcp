@@ -71,6 +71,42 @@ export function isFluentEnabled(): boolean {
   return process.env.FLUENT_ENABLED === 'true';
 }
 
+/**
+ * Flow Builder (src/flow-builder). Not mapped by the setup wizard — these flags can only
+ * come from the .mcp.json / process env. Every snow_flow_{catalog_read,plan,build,verify,export_xml}
+ * tool requires FLOW_BUILDER_ENABLED=true; build additionally requires WRITE_ENABLED=true
+ * (requireWrite) and activate:true additionally requires FLOW_BUILDER_ACTIVATE_ENABLED=true.
+ */
+export function requireFlowBuilder(): void {
+  if (process.env.FLOW_BUILDER_ENABLED !== 'true') {
+    throw new ServiceNowError(
+      'Flow Builder tools are disabled. Set FLOW_BUILDER_ENABLED=true to enable.',
+      'FLOW_BUILDER_NOT_ENABLED'
+    );
+  }
+}
+
+export function requireFlowBuilderActivate(): void {
+  requireFlowBuilder();
+  requireWrite();
+  if (process.env.FLOW_BUILDER_ACTIVATE_ENABLED !== 'true') {
+    throw new ServiceNowError(
+      'Flow activation via the builder is disabled. Set FLOW_BUILDER_ACTIVATE_ENABLED=true to enable activate:true (activation makes the flow live).',
+      'FLOW_BUILDER_ACTIVATE_NOT_ENABLED'
+    );
+  }
+}
+
+export function isFlowBuilderEnabled(): boolean {
+  return process.env.FLOW_BUILDER_ENABLED === 'true';
+}
+
+export function isFlowBuilderActivateEnabled(): boolean {
+  return process.env.FLOW_BUILDER_ENABLED === 'true'
+    && process.env.WRITE_ENABLED === 'true'
+    && process.env.FLOW_BUILDER_ACTIVATE_ENABLED === 'true';
+}
+
 export function isWriteEnabled(): boolean {
   return process.env.WRITE_ENABLED === 'true';
 }

@@ -1,0 +1,618 @@
+{
+  "sys_id": "cded340987f60714350833b73cbb3561",
+  "sys_class_name": "sys_hub_flow",
+  "name": "Leaver flow",
+  "internal_name": "leaver_flow",
+  "type": "flow",
+  "status": "draft",
+  "active": "false",
+  "run_as": "system",
+  "run_with_roles": "",
+  "generation_source": "",
+  "updation_source": "",
+  "sys_scope": "global",
+  "sys_package": "global",
+  "sys_domain": "global",
+  "sys_domain_path": "/",
+  "category": "",
+  "flow_priority": "",
+  "access": "public",
+  "acls": "",
+  "sys_policy": "",
+  "annotation": "",
+  "description": "",
+  "version": "2",
+  "authored_on_release_version": "29000",
+  "compiler_build": "glide-zurich-07-01-2025__patch0-07-15-2025_07-23-2025_1759.zip",
+  "copied_from": "30f3d26187e92300e0ef0cf888cb0b91",
+  "copied_from_name": "Service Catalog item request",
+  "latest_snapshot": "",
+  "master_snapshot": "",
+  "master_snapshot_digest": "",
+  "version_record": "0e8921c987ba8314004fc845dabb3570",
+  "remote_trigger_id": "",
+  "show_draft_actions": "false",
+  "show_triggered_flows": "false",
+  "sc_callable": "false",
+  "callable_by_client_api": "false",
+  "allow_high_security_roles": "false",
+  "pre_compiled": "false",
+  "natlang": "",
+  "outputs": "",
+  "substatus": "",
+  "display_name_after_preview": "",
+  "sys_update_name": "sys_hub_flow_cded340987f60714350833b73cbb3561",
+  "sys_name": "Leaver flow",
+  "attributes": "browserActivatedIn=chrome,integrationActivatedIn=standalone,viewActivatedIn=naturalLanguage",
+  "sys_created_by": "pdi.user",
+  "sys_created_on": "2026-08-17 13:09:17",
+  "sys_updated_by": "pdi.user",
+  "sys_updated_on": "2026-08-17 16:19:54",
+  "sys_mod_count": "10",
+  "label_cache": "[{\"name\":\"Service Catalog_1.request_item.cat_item.name\",\"label\":\"Trigger➛Requested Item Record➛Item➛Name\",\"reference\":\"\",\"reference_display\":\"Name\",\"type\":\"translated_text\",\"base_type\":\"translated_text\",\"parent_table_name\":\"sc_cat_item\",\"column_name\":\"name\",\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"cf9244ad-bbbb-4c62-bce1-39fa5b7d543f.table_name\",\"label\":\"4.1➛Requested Item Table\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"3faeaac8-0672-4771-a034-3775af849760.rejected\",\"label\":\"1➛Rejected\",\"reference\":null,\"reference_display\":\"Rejected\",\"type\":\"string\",\"base_type\":\"string\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":{\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\"}},{\"name\":\"Service Catalog_1.request_item.number\",\"label\":\"Trigger➛Requested Item Record➛Number\",\"reference\":\"\",\"reference_display\":\"Number\",\"type\":\"string\",\"base_type\":\"string\",\"parent_table_name\":\"sc_req_item\",\"column_name\":\"number\",\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"8481bc05-e548-4129-b3e2-a9c8ff2b54cd.table_name\",\"label\":\"6➛Requested Item Table\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"b61e14f4-55cb-4ec1-b01c-263bcfbe568a.table_name\",\"label\":\"11➛Requested Item Table\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"00650513-fb14-4686-8132-a96694fdca1f.record\",\"label\":\"5➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"31c81fa5-be90-4056-991a-ccb82bed9f23.table_name\",\"label\":\"4.1➛Table\",\"reference\":null,\"reference_display\":\"Table\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"f4840c5b-980b-420b-9b02-02a99ede1185.table_name\",\"label\":\"1➛Requested Item Table\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"15e2a816-5182-446c-9ae5-2a1480e701e9.record\",\"label\":\"5.6➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"14b3534a-a680-4563-88f0-7577d069d61e.approval_state\",\"label\":\"1➛Approval State\",\"reference\":null,\"reference_display\":\"Approval State\",\"type\":\"choice\",\"base_type\":\"choice\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"8481bc05-e548-4129-b3e2-a9c8ff2b54cd.record\",\"label\":\"6➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"Service Catalog_1.request_item.backordered\",\"label\":\"Trigger➛Requested Item Record➛Backordered\",\"reference\":\"\",\"reference_display\":\"Backordered\",\"type\":\"boolean\",\"base_type\":\"boolean\",\"parent_table_name\":\"sc_req_item\",\"column_name\":\"backordered\",\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"{{static.f298d2d2c611227b0106c6be7f154bc8}}\",\"label\":\"Example Approver\",\"reference\":\"sys_user\",\"reference_display\":\"User\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"00650513-fb14-4686-8132-a96694fdca1f.table_name\",\"label\":\"5➛Requested Item Table\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"f1e81137-404a-4399-83bb-d285ce956ec0.record\",\"label\":\"2.1➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"cf9244ad-bbbb-4c62-bce1-39fa5b7d543f.record\",\"label\":\"4.1➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"Service Catalog_1.request_item.request.requested_for.department.dept_head\",\"label\":\"Trigger➛Requested Item Record➛Request➛Requested for➛Department➛Department head\",\"reference\":\"sys_user\",\"reference_display\":\"User\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":\"cmn_department\",\"column_name\":\"dept_head\",\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"Service Catalog_1.request_item.approval\",\"label\":\"Trigger➛Requested Item Record➛Approval\",\"reference\":\"\",\"reference_display\":\"Approval\",\"type\":\"choice\",\"base_type\":\"choice\",\"parent_table_name\":\"sc_req_item\",\"column_name\":\"approval\",\"choices\":[{\"parameters\":{\"name\":\"task\",\"dependent_values\":[\"\"],\"dependent_values_map\":{\"\":\"Not Yet Requested\"}},\"image\":\"\",\"sequence\":0.0,\"selected\":false,\"label\":\"Not Yet Requested\",\"used\":false,\"reference\":false,\"rawLabel\":\"Not Yet Requested\",\"missing\":false,\"value\":\"not requested\"},{\"parameters\":{\"name\":\"task\",\"dependent_values\":[\"\"],\"dependent_values_map\":{\"\":\"Requested\"}},\"image\":\"\",\"sequence\":1.0,\"selected\":false,\"label\":\"Requested\",\"used\":false,\"reference\":false,\"rawLabel\":\"Requested\",\"missing\":false,\"value\":\"requested\"},{\"parameters\":{\"name\":\"task\",\"dependent_values\":[\"\"],\"dependent_values_map\":{\"\":\"Approved\"}},\"image\":\"\",\"sequence\":2.0,\"selected\":false,\"label\":\"Approved\",\"used\":false,\"reference\":false,\"rawLabel\":\"Approved\",\"missing\":false,\"value\":\"approved\"},{\"parameters\":{\"name\":\"task\",\"dependent_values\":[\"\"],\"dependent_values_map\":{\"\":\"Rejected\"}},\"image\":\"\",\"sequence\":3.0,\"selected\":false,\"label\":\"Rejected\",\"used\":false,\"reference\":false,\"rawLabel\":\"Rejected\",\"missing\":false,\"value\":\"rejected\"}],\"usedInstances\":null,\"attributes\":null},{\"name\":\"31c81fa5-be90-4056-991a-ccb82bed9f23.record\",\"label\":\"4.1➛Record\",\"reference\":null,\"reference_display\":\"Record\",\"type\":\"document_id\",\"base_type\":\"document_id\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"01e45724-d5be-4196-bd53-a9f1d583d31c.Catalog Task\",\"label\":\"7➛Catalog Task\",\"reference\":\"sc_task\",\"reference_display\":\"Catalog Task\",\"type\":\"document_id\",\"base_type\":\"document_id\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":{\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\"}},{\"name\":\"trigger.request_item\",\"label\":\"Trigger - Service Catalog➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":[{\"label\":null,\"value\":null,\"order\":0.0}],\"usedInstances\":{\"55ee6b36-3c7e-4b5d-9f0b-2b99dcfeb43e\":[\"record\"],\"0ac64576-c619-4615-8701-57a3e9d75dae\":[\"record\"]},\"attributes\":{\"default_search_field\":\"number\"}},{\"name\":\"f4840c5b-980b-420b-9b02-02a99ede1185.record\",\"label\":\"1➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"e07ba4a1-2c76-4dfb-ab9a-82185f7dd678.Catalog Task\",\"label\":\"17➛Catalog Task\",\"reference\":\"sc_task\",\"reference_display\":\"Catalog Task\",\"type\":\"document_id\",\"base_type\":\"document_id\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":{},\"attributes\":{\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\"}},{\"name\":\"3fae8899-1eab-4c78-b7ef-cff0a502931a.Catalog Task\",\"label\":\"10➛Catalog Task\",\"reference\":\"sc_task\",\"reference_display\":\"Catalog Task\",\"type\":\"document_id\",\"base_type\":\"document_id\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":{\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\"}},{\"name\":\"Service Catalog_1.request_item.cat_item\",\"label\":\"Trigger➛Requested Item Record➛Item\",\"reference\":\"sc_cat_item\",\"reference_display\":\"Catalog Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":\"sc_req_item\",\"column_name\":\"cat_item\",\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"a57906e1-45ba-4c36-a73c-bcc74899ae68.Catalog Task\",\"label\":\"12➛Catalog Task\",\"reference\":\"sc_task\",\"reference_display\":\"Catalog Task\",\"type\":\"document_id\",\"base_type\":\"document_id\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":{\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\"}},{\"name\":\"b61e14f4-55cb-4ec1-b01c-263bcfbe568a.record\",\"label\":\"11➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"bfe364ba-0932-4544-862f-e789b03fbae9.table_name\",\"label\":\"2.1➛Requested Item Table\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"Service Catalog_1.request_item\",\"label\":\"Trigger➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"15e2a816-5182-446c-9ae5-2a1480e701e9.table_name\",\"label\":\"5.6➛Requested Item Table\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"bfe364ba-0932-4544-862f-e789b03fbae9.record\",\"label\":\"2.1➛Requested Item Record\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"reference\",\"base_type\":\"reference\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"4e67e8ef-6096-4229-8b3d-a639c9c04f56.approval_state\",\"label\":\"3➛Approval State\",\"reference\":null,\"reference_display\":\"Approval State\",\"type\":\"choice\",\"base_type\":\"choice\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null},{\"name\":\"e234704c-a2ef-4870-990a-454d7b7d7c5d.approval_state\",\"label\":\"4➛Rejected\",\"reference\":null,\"reference_display\":\"Rejected\",\"type\":\"string\",\"base_type\":\"string\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":{\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\"}},{\"name\":\"f1e81137-404a-4399-83bb-d285ce956ec0.table_name\",\"label\":\"2.1➛Requested Item Table\",\"reference\":\"sc_req_item\",\"reference_display\":\"Requested Item\",\"type\":\"table_name\",\"base_type\":\"table_name\",\"parent_table_name\":null,\"column_name\":null,\"choices\":null,\"usedInstances\":null,\"attributes\":null}]",
+  "label_cache_parsed": [
+    {
+      "name": "Service Catalog_1.request_item.cat_item.name",
+      "label": "Trigger➛Requested Item Record➛Item➛Name",
+      "reference": "",
+      "reference_display": "Name",
+      "type": "translated_text",
+      "base_type": "translated_text",
+      "parent_table_name": "sc_cat_item",
+      "column_name": "name",
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "cf9244ad-bbbb-4c62-bce1-39fa5b7d543f.table_name",
+      "label": "4.1➛Requested Item Table",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "table_name",
+      "base_type": "table_name",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "3faeaac8-0672-4771-a034-3775af849760.rejected",
+      "label": "1➛Rejected",
+      "reference": null,
+      "reference_display": "Rejected",
+      "type": "string",
+      "base_type": "string",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": {
+        "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+      }
+    },
+    {
+      "name": "Service Catalog_1.request_item.number",
+      "label": "Trigger➛Requested Item Record➛Number",
+      "reference": "",
+      "reference_display": "Number",
+      "type": "string",
+      "base_type": "string",
+      "parent_table_name": "sc_req_item",
+      "column_name": "number",
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "8481bc05-e548-4129-b3e2-a9c8ff2b54cd.table_name",
+      "label": "6➛Requested Item Table",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "table_name",
+      "base_type": "table_name",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "b61e14f4-55cb-4ec1-b01c-263bcfbe568a.table_name",
+      "label": "11➛Requested Item Table",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "table_name",
+      "base_type": "table_name",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "00650513-fb14-4686-8132-a96694fdca1f.record",
+      "label": "5➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "31c81fa5-be90-4056-991a-ccb82bed9f23.table_name",
+      "label": "4.1➛Table",
+      "reference": null,
+      "reference_display": "Table",
+      "type": "table_name",
+      "base_type": "table_name",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "f4840c5b-980b-420b-9b02-02a99ede1185.table_name",
+      "label": "1➛Requested Item Table",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "table_name",
+      "base_type": "table_name",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "15e2a816-5182-446c-9ae5-2a1480e701e9.record",
+      "label": "5.6➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "14b3534a-a680-4563-88f0-7577d069d61e.approval_state",
+      "label": "1➛Approval State",
+      "reference": null,
+      "reference_display": "Approval State",
+      "type": "choice",
+      "base_type": "choice",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "8481bc05-e548-4129-b3e2-a9c8ff2b54cd.record",
+      "label": "6➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "Service Catalog_1.request_item.backordered",
+      "label": "Trigger➛Requested Item Record➛Backordered",
+      "reference": "",
+      "reference_display": "Backordered",
+      "type": "boolean",
+      "base_type": "boolean",
+      "parent_table_name": "sc_req_item",
+      "column_name": "backordered",
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "{{static.f298d2d2c611227b0106c6be7f154bc8}}",
+      "label": "Example Approver",
+      "reference": "sys_user",
+      "reference_display": "User",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "00650513-fb14-4686-8132-a96694fdca1f.table_name",
+      "label": "5➛Requested Item Table",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "table_name",
+      "base_type": "table_name",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "f1e81137-404a-4399-83bb-d285ce956ec0.record",
+      "label": "2.1➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "cf9244ad-bbbb-4c62-bce1-39fa5b7d543f.record",
+      "label": "4.1➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "Service Catalog_1.request_item.request.requested_for.department.dept_head",
+      "label": "Trigger➛Requested Item Record➛Request➛Requested for➛Department➛Department head",
+      "reference": "sys_user",
+      "reference_display": "User",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": "cmn_department",
+      "column_name": "dept_head",
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "Service Catalog_1.request_item.approval",
+      "label": "Trigger➛Requested Item Record➛Approval",
+      "reference": "",
+      "reference_display": "Approval",
+      "type": "choice",
+      "base_type": "choice",
+      "parent_table_name": "sc_req_item",
+      "column_name": "approval",
+      "choices": [
+        {
+          "parameters": {
+            "name": "task",
+            "dependent_values": [
+              ""
+            ],
+            "dependent_values_map": {
+              "": "Not Yet Requested"
+            }
+          },
+          "image": "",
+          "sequence": 0,
+          "selected": false,
+          "label": "Not Yet Requested",
+          "used": false,
+          "reference": false,
+          "rawLabel": "Not Yet Requested",
+          "missing": false,
+          "value": "not requested"
+        },
+        {
+          "parameters": {
+            "name": "task",
+            "dependent_values": [
+              ""
+            ],
+            "dependent_values_map": {
+              "": "Requested"
+            }
+          },
+          "image": "",
+          "sequence": 1,
+          "selected": false,
+          "label": "Requested",
+          "used": false,
+          "reference": false,
+          "rawLabel": "Requested",
+          "missing": false,
+          "value": "requested"
+        },
+        {
+          "parameters": {
+            "name": "task",
+            "dependent_values": [
+              ""
+            ],
+            "dependent_values_map": {
+              "": "Approved"
+            }
+          },
+          "image": "",
+          "sequence": 2,
+          "selected": false,
+          "label": "Approved",
+          "used": false,
+          "reference": false,
+          "rawLabel": "Approved",
+          "missing": false,
+          "value": "approved"
+        },
+        {
+          "parameters": {
+            "name": "task",
+            "dependent_values": [
+              ""
+            ],
+            "dependent_values_map": {
+              "": "Rejected"
+            }
+          },
+          "image": "",
+          "sequence": 3,
+          "selected": false,
+          "label": "Rejected",
+          "used": false,
+          "reference": false,
+          "rawLabel": "Rejected",
+          "missing": false,
+          "value": "rejected"
+        }
+      ],
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "31c81fa5-be90-4056-991a-ccb82bed9f23.record",
+      "label": "4.1➛Record",
+      "reference": null,
+      "reference_display": "Record",
+      "type": "document_id",
+      "base_type": "document_id",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "01e45724-d5be-4196-bd53-a9f1d583d31c.Catalog Task",
+      "label": "7➛Catalog Task",
+      "reference": "sc_task",
+      "reference_display": "Catalog Task",
+      "type": "document_id",
+      "base_type": "document_id",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": {
+        "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+      }
+    },
+    {
+      "name": "trigger.request_item",
+      "label": "Trigger - Service Catalog➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": [
+        {
+          "label": null,
+          "value": null,
+          "order": 0
+        }
+      ],
+      "usedInstances": {
+        "55ee6b36-3c7e-4b5d-9f0b-2b99dcfeb43e": [
+          "record"
+        ],
+        "0ac64576-c619-4615-8701-57a3e9d75dae": [
+          "record"
+        ]
+      },
+      "attributes": {
+        "default_search_field": "number"
+      }
+    },
+    {
+      "name": "f4840c5b-980b-420b-9b02-02a99ede1185.record",
+      "label": "1➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "e07ba4a1-2c76-4dfb-ab9a-82185f7dd678.Catalog Task",
+      "label": "17➛Catalog Task",
+      "reference": "sc_task",
+      "reference_display": "Catalog Task",
+      "type": "document_id",
+      "base_type": "document_id",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": {},
+      "attributes": {
+        "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+      }
+    },
+    {
+      "name": "3fae8899-1eab-4c78-b7ef-cff0a502931a.Catalog Task",
+      "label": "10➛Catalog Task",
+      "reference": "sc_task",
+      "reference_display": "Catalog Task",
+      "type": "document_id",
+      "base_type": "document_id",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": {
+        "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+      }
+    },
+    {
+      "name": "Service Catalog_1.request_item.cat_item",
+      "label": "Trigger➛Requested Item Record➛Item",
+      "reference": "sc_cat_item",
+      "reference_display": "Catalog Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": "sc_req_item",
+      "column_name": "cat_item",
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "a57906e1-45ba-4c36-a73c-bcc74899ae68.Catalog Task",
+      "label": "12➛Catalog Task",
+      "reference": "sc_task",
+      "reference_display": "Catalog Task",
+      "type": "document_id",
+      "base_type": "document_id",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": {
+        "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+      }
+    },
+    {
+      "name": "b61e14f4-55cb-4ec1-b01c-263bcfbe568a.record",
+      "label": "11➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "bfe364ba-0932-4544-862f-e789b03fbae9.table_name",
+      "label": "2.1➛Requested Item Table",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "table_name",
+      "base_type": "table_name",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "Service Catalog_1.request_item",
+      "label": "Trigger➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "15e2a816-5182-446c-9ae5-2a1480e701e9.table_name",
+      "label": "5.6➛Requested Item Table",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "table_name",
+      "base_type": "table_name",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "bfe364ba-0932-4544-862f-e789b03fbae9.record",
+      "label": "2.1➛Requested Item Record",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "reference",
+      "base_type": "reference",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "4e67e8ef-6096-4229-8b3d-a639c9c04f56.approval_state",
+      "label": "3➛Approval State",
+      "reference": null,
+      "reference_display": "Approval State",
+      "type": "choice",
+      "base_type": "choice",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    },
+    {
+      "name": "e234704c-a2ef-4870-990a-454d7b7d7c5d.approval_state",
+      "label": "4➛Rejected",
+      "reference": null,
+      "reference_display": "Rejected",
+      "type": "string",
+      "base_type": "string",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": {
+        "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+      }
+    },
+    {
+      "name": "f1e81137-404a-4399-83bb-d285ce956ec0.table_name",
+      "label": "2.1➛Requested Item Table",
+      "reference": "sc_req_item",
+      "reference_display": "Requested Item",
+      "type": "table_name",
+      "base_type": "table_name",
+      "parent_table_name": null,
+      "column_name": null,
+      "choices": null,
+      "usedInstances": null,
+      "attributes": null
+    }
+  ]
+}

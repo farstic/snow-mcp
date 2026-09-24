@@ -1,0 +1,32 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "email_actions", "name": "Email Actions", "description": "Construct spec: inbound-email actions, record creation from an email, attachments, send email and wait for the reply", "run_as": "system" },
+  "trigger": { "key": "mail_trigger", "type": "email.inbound", "email_conditions": "subjectLIKErequest", "target_table": "incident" },
+  "steps": [
+    { "kind": "action", "key": "mail_header", "action": "getEmailHeader",
+      "inputs": { "target_header": "Auto-Submitted", "email_record": { "pill": "trigger.inbound_email" } } },
+    { "kind": "if", "key": "mail_if_human", "condition": "{{steps.mail_header.header_value}}ISEMPTY", "then": [
+      { "kind": "action", "key": "mail_reply_text", "action": "getLatestResponseTextFromEmail", "inputs": { "email_record": { "pill": "trigger.inbound_email" } } },
+      { "kind": "action", "key": "mail_new_incident", "action": "createRecord",
+        "inputs": { "table_name": "incident", "values": { "template": {
+          "short_description": { "pill": "trigger.subject" }, "description": { "pill": "steps.mail_reply_text.latest_response_text" },
+          "caller_id": { "pill": "trigger.user" }, "contact_type": "email" } } } },
+      { "kind": "action", "key": "mail_link", "action": "associateRecordToEmail",
+        "inputs": { "target_record": { "pill": "steps.mail_new_incident.record" }, "email_record": { "pill": "trigger.inbound_email" } } },
+      { "kind": "action", "key": "mail_atts", "action": "lookUpEmailAttachments", "inputs": { "email_record": { "pill": "trigger.inbound_email" } } },
+      { "kind": "for_each", "key": "mail_each_att", "items": { "pill": "steps.mail_atts.email_attachments" }, "steps": [
+        { "kind": "action", "key": "mail_each_log", "action": "log", "inputs": { "log_level": "info", "log_message": { "text": "Received file {{loop.mail_each_att.item.file_name}}" } } }
+      ] },
+      { "kind": "action", "key": "mail_move_atts", "action": "moveEmailAttachmentsToRecord",
+        "inputs": { "target_record": { "pill": "steps.mail_new_incident.record" }, "email_record": { "pill": "trigger.inbound_email" } } },
+      { "kind": "action", "key": "mail_ack", "action": "sendEmail",
+        "inputs": { "ah_to": { "pill": "trigger.from_address" }, "ah_subject": { "text": "Received: {{trigger.subject}}" }, "ah_body": "<p>Reply to this message to add details.</p>",
+                    "watermark_email": false, "record": { "pill": "steps.mail_new_incident.record" }, "table_name": "incident" } },
+      { "kind": "action", "key": "mail_wait", "action": "waitForEmailReply",
+        "inputs": { "record": { "pill": "steps.mail_ack.email" }, "enable_timeout": true, "timeout_duration": { "duration": { "days": 2 } },
+                    "timeout_schedule": "08fcd0830a0a0b2600079f56b1adb9ae" } },
+      { "kind": "action", "key": "mail_wait_log", "action": "log",
+        "inputs": { "log_level": "info", "log_message": { "text": "Reply {{steps.mail_wait.state}}: {{steps.mail_wait.email_reply.subject}}" } } }
+    ] }
+  ]
+}

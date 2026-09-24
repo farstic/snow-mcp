@@ -1,0 +1,449 @@
+[
+  {
+    "model": "5bc1bcc6531003003bf1d9109ec587d4",
+    "element": "log_level",
+    "internal_type": "choice",
+    "label": "Level",
+    "mandatory": "false",
+    "default_value": "info",
+    "order": "0",
+    "choice": "1",
+    "sys_id": "5bc1bcc6531003003bf1d9109ec587d7"
+  },
+  {
+    "model": "5bc1bcc6531003003bf1d9109ec587d4",
+    "element": "log_message",
+    "internal_type": "string",
+    "label": "Message",
+    "mandatory": "false",
+    "default_value": "",
+    "order": "1",
+    "sys_id": "23c1bcc6531003003bf1d9109ec587e5"
+  },
+  {
+    "model": "9d09f99587003300663ca1bb36cb0ba3",
+    "element": "table",
+    "internal_type": "table_name",
+    "label": "Table",
+    "mandatory": "false",
+    "order": "0",
+    "attributes": "filter_table_source=v_cluster_transaction",
+    "sys_id": "d909f99587003300663ca1bb36cb0ba4"
+  },
+  {
+    "model": "9d09f99587003300663ca1bb36cb0ba3",
+    "element": "conditions",
+    "internal_type": "conditions",
+    "label": "Conditions",
+    "mandatory": "false",
+    "order": "1",
+    "dependent_on_field": "table",
+    "sys_id": "d509f99587003300663ca1bb36cb0ba9"
+  },
+  {
+    "model": "9d09f99587003300663ca1bb36cb0ba3",
+    "element": "sort_column",
+    "internal_type": "field_name",
+    "label": "Order by",
+    "mandatory": "false",
+    "order": "2",
+    "dependent_on_field": "table",
+    "sys_id": "1d09f99587003300663ca1bb36cb0bad"
+  },
+  {
+    "model": "9d09f99587003300663ca1bb36cb0ba3",
+    "element": "sort_type",
+    "internal_type": "choice",
+    "label": "Sort Type",
+    "mandatory": "false",
+    "default_value": "sort_asc",
+    "order": "3",
+    "choice": "3",
+    "sys_id": "5d09f99587003300663ca1bb36cb0bb1"
+  },
+  {
+    "model": "9d09f99587003300663ca1bb36cb0ba3",
+    "element": "if_multiple_records_are_found_action",
+    "internal_type": "choice",
+    "label": "If multiple records are found action",
+    "mandatory": "false",
+    "default_value": "use_first_record",
+    "order": "4",
+    "choice": "3",
+    "sys_id": "1909f99587003300663ca1bb36cb0bb9"
+  },
+  {
+    "model": "9d09f99587003300663ca1bb36cb0ba3",
+    "element": "__snc_dont_fail_on_error",
+    "internal_type": "boolean",
+    "label": "Don't fail on error",
+    "mandatory": "false",
+    "order": "5",
+    "sys_id": "ceab42a673110010d70877186bf6a74f"
+  },
+  {
+    "model": "43400a1587003300663ca1bb36cb0b4b",
+    "element": "table",
+    "internal_type": "table_name",
+    "label": "Table",
+    "mandatory": "false",
+    "order": "0",
+    "attributes": "filter_table_source=v_cluster_transaction",
+    "sys_id": "8f400a1587003300663ca1bb36cb0b4b"
+  },
+  {
+    "model": "43400a1587003300663ca1bb36cb0b4b",
+    "element": "conditions",
+    "internal_type": "conditions",
+    "label": "Conditions",
+    "mandatory": "false",
+    "order": "1",
+    "dependent_on_field": "table",
+    "sys_id": "8f400a1587003300663ca1bb36cb0b50"
+  },
+  {
+    "model": "43400a1587003300663ca1bb36cb0b4b",
+    "element": "sort_column",
+    "internal_type": "field_name",
+    "label": "Order by",
+    "mandatory": "false",
+    "order": "2",
+    "dependent_on_field": "table",
+    "sys_id": "c7400a1587003300663ca1bb36cb0b55"
+  },
+  {
+    "model": "43400a1587003300663ca1bb36cb0b4b",
+    "element": "sort_type",
+    "internal_type": "choice",
+    "label": "Sort Type",
+    "mandatory": "false",
+    "default_value": "sort_asc",
+    "order": "3",
+    "choice": "3",
+    "sys_id": "0f400a1587003300663ca1bb36cb0b59"
+  },
+  {
+    "model": "43400a1587003300663ca1bb36cb0b4b",
+    "element": "max_results",
+    "internal_type": "integer",
+    "label": "Max Results",
+    "mandatory": "false",
+    "default_value": "1000",
+    "order": "4",
+    "sys_id": "4f400a1587003300663ca1bb36cb0b61"
+  },
+  {
+    "model": "2de05916c31332002841b63b12d3aee1",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table",
+    "mandatory": "true",
+    "order": "0",
+    "sys_id": "61e05916c31332002841b63b12d3aee4"
+  },
+  {
+    "model": "2de05916c31332002841b63b12d3aee1",
+    "element": "values",
+    "internal_type": "template_value",
+    "label": "Fields",
+    "mandatory": "true",
+    "order": "1",
+    "dependent_on_field": "table_name",
+    "sys_id": "6de09916c31332002841b63b12d3ae1b"
+  },
+  {
+    "model": "f9d01dd2c31332002841b63b12d3aea1",
+    "element": "record",
+    "internal_type": "document_id",
+    "label": "Record",
+    "mandatory": "true",
+    "order": "10",
+    "dependent_on_field": "table_name",
+    "sys_id": "4ed01916c31332002841b63b12d3aee1"
+  },
+  {
+    "model": "f9d01dd2c31332002841b63b12d3aea1",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table",
+    "mandatory": "true",
+    "order": "50",
+    "sys_id": "b5d01916c31332002841b63b12d3aec9"
+  },
+  {
+    "model": "f9d01dd2c31332002841b63b12d3aea1",
+    "element": "values",
+    "internal_type": "template_value",
+    "label": "Fields",
+    "mandatory": "true",
+    "order": "100",
+    "dependent_on_field": "table_name",
+    "sys_id": "02d01916c31332002841b63b12d3aeee"
+  },
+  {
+    "model": "af51fd0e73141300612c273ffff6a785",
+    "element": "ah_table_name",
+    "internal_type": "table_name",
+    "label": "Table Name",
+    "mandatory": "false",
+    "default_value": "sc_task",
+    "order": "0",
+    "attributes": "allow_sc_tables=true,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,is_scriptable=false",
+    "sys_id": "af51fd0e73141300612c273ffff6a788"
+  },
+  {
+    "model": "af51fd0e73141300612c273ffff6a785",
+    "element": "ah_requested_item",
+    "internal_type": "reference",
+    "reference": "sc_req_item",
+    "label": "Requested Item",
+    "mandatory": "true",
+    "order": "1",
+    "attributes": "only_droppable=true,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper",
+    "sys_id": "7351fd0e73141300612c273ffff6a7a0"
+  },
+  {
+    "model": "af51fd0e73141300612c273ffff6a785",
+    "element": "ah_short_description",
+    "internal_type": "string",
+    "label": "Short Description",
+    "mandatory": "false",
+    "order": "2",
+    "sys_id": "3751fd0e73141300612c273ffff6a7a6"
+  },
+  {
+    "model": "af51fd0e73141300612c273ffff6a785",
+    "element": "ah_fields",
+    "internal_type": "template_value",
+    "reference": "sc_task",
+    "label": "Fields",
+    "mandatory": "false",
+    "order": "3",
+    "dependent_on_field": "inputs.ah_table_name",
+    "sys_id": "7751fd0e73141300612c273ffff6a7ac"
+  },
+  {
+    "model": "af51fd0e73141300612c273ffff6a785",
+    "element": "ah_wait",
+    "internal_type": "boolean",
+    "label": "Wait",
+    "mandatory": "false",
+    "default_value": "true",
+    "order": "4",
+    "sys_id": "f751fd0e73141300612c273ffff6a7b2"
+  },
+  {
+    "model": "af51fd0e73141300612c273ffff6a785",
+    "element": "template_catalog_item",
+    "internal_type": "reference",
+    "reference": "sc_cat_item",
+    "label": "Template Catalog Item",
+    "mandatory": "false",
+    "order": "5",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,show_search=true",
+    "sys_id": "f751fd0e73141300612c273ffff6a7b8"
+  },
+  {
+    "model": "af51fd0e73141300612c273ffff6a785",
+    "element": "catalog_variables",
+    "internal_type": "slushbucket",
+    "label": "Catalog Variables",
+    "mandatory": "false",
+    "order": "6",
+    "attributes": "source_table=item_option_new,use_flow_designer_wrapper=true,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,include_multirow_variablesets=true,is_flatten_variables_needed=false,script=wf_variables()",
+    "sys_id": "7b51fd0e73141300612c273ffff6a7be"
+  },
+  {
+    "model": "f8f2e9920b10030085c083eb37673abd",
+    "element": "record",
+    "internal_type": "document_id",
+    "label": "Record",
+    "mandatory": "true",
+    "order": "0",
+    "dependent_on_field": "table",
+    "sys_id": "78f2e9920b10030085c083eb37673ac0"
+  },
+  {
+    "model": "f8f2e9920b10030085c083eb37673abd",
+    "element": "table",
+    "internal_type": "table_name",
+    "label": "Table",
+    "mandatory": "false",
+    "order": "1",
+    "sys_id": "bcf2e9920b10030085c083eb37673acc"
+  },
+  {
+    "model": "f8f2e9920b10030085c083eb37673abd",
+    "element": "approval_field",
+    "internal_type": "field_name",
+    "label": "Approval Field",
+    "mandatory": "false",
+    "order": "2",
+    "dependent_on_field": "table",
+    "sys_id": "01f2e9920b10030085c083eb37673ad8"
+  },
+  {
+    "model": "f8f2e9920b10030085c083eb37673abd",
+    "element": "approval_reason",
+    "internal_type": "string",
+    "label": "Approval Reason",
+    "mandatory": "false",
+    "order": "2",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=string,uiTypeLabel=String,uiUniqueId=62b6908d-df0b-4835-ace0-e615e5d6c513",
+    "sys_id": "e4635e467f3012108e688c90ac866543"
+  },
+  {
+    "model": "f8f2e9920b10030085c083eb37673abd",
+    "element": "journal_field",
+    "internal_type": "field_name",
+    "label": "Journal Field",
+    "mandatory": "false",
+    "order": "3",
+    "dependent_on_field": "table",
+    "sys_id": "c1f2e9920b10030085c083eb37673ae3"
+  },
+  {
+    "model": "f8f2e9920b10030085c083eb37673abd",
+    "element": "approval_conditions",
+    "internal_type": "approval_rules",
+    "label": "Approval Conditions",
+    "mandatory": "true",
+    "order": "4",
+    "sys_id": "45f2e9920b10030085c083eb37673aee"
+  },
+  {
+    "model": "f8f2e9920b10030085c083eb37673abd",
+    "element": "due_date",
+    "internal_type": "schedule_date_time",
+    "label": "Due Date",
+    "mandatory": "false",
+    "order": "5",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,ui_approval=true",
+    "sys_id": "c5f2e9920b10030085c083eb37673af9"
+  },
+  {
+    "model": "0d8dd9f10f11101051218e8ebc767e27",
+    "element": "record",
+    "internal_type": "document_id",
+    "label": "Record",
+    "mandatory": "false",
+    "order": "1",
+    "dependent_on_field": "table_name",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=document_id,uiTypeLabel=Document ID,uiUniqueId=d107390c-7253-40ca-b8db-ab2f544686b1",
+    "sys_id": "4d8dd9f10f11101051218e8ebc767e28"
+  },
+  {
+    "model": "0d8dd9f10f11101051218e8ebc767e27",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table",
+    "mandatory": "false",
+    "order": "2",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=table_name,uiTypeLabel=Table Name,uiUniqueId=cbbbfbe9-1bcc-47e8-82a7-e50c3f23007f",
+    "sys_id": "818dd9f10f11101051218e8ebc767e32"
+  },
+  {
+    "model": "0d8dd9f10f11101051218e8ebc767e27",
+    "element": "notification",
+    "internal_type": "reference",
+    "reference": "sysevent_email_action",
+    "label": "Notification",
+    "mandatory": "true",
+    "order": "3",
+    "dependent_on_field": "table_name",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,notification=true,set_default_data_format=false,uiType=reference,uiTypeLabel=Reference,uiUniqueId=491e7328-962c-4e35-bd33-11bceeaef2d1",
+    "sys_id": "418dd9f10f11101051218e8ebc767e38"
+  },
+  {
+    "model": "89ce8a4187120010663ca1bb36cb0be3",
+    "element": "record",
+    "internal_type": "document_id",
+    "label": "Record",
+    "mandatory": "true",
+    "order": "1",
+    "dependent_on_field": "table_name",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=document_id,uiTypeLabel=Document ID,uiUniqueId=4ff13166-1103-41b6-98e5-0e5a45246562,filter_table_source=RECORD_WATCHER_RESTRICTED",
+    "sys_id": "49ce8a4187120010663ca1bb36cb0be4"
+  },
+  {
+    "model": "89ce8a4187120010663ca1bb36cb0be3",
+    "element": "table_name",
+    "internal_type": "table_name",
+    "label": "Table",
+    "mandatory": "false",
+    "order": "2",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,is_scriptable=false,uiType=table_name,uiTypeLabel=Table Name,uiUniqueId=218984b3-3b45-49ff-8084-4ea0c52d741c",
+    "sys_id": "45ce8a4187120010663ca1bb36cb0bea"
+  },
+  {
+    "model": "89ce8a4187120010663ca1bb36cb0be3",
+    "element": "conditions",
+    "internal_type": "conditions",
+    "label": "Conditions",
+    "mandatory": "true",
+    "order": "3",
+    "dependent_on_field": "table_name",
+    "sys_id": "49ce8a4187120010663ca1bb36cb0bef"
+  },
+  {
+    "model": "89ce8a4187120010663ca1bb36cb0be3",
+    "element": "timeout_flag",
+    "internal_type": "boolean",
+    "label": "Enable timeout",
+    "mandatory": "false",
+    "order": "4",
+    "sys_id": "0dce8a4187120010663ca1bb36cb0bf4"
+  },
+  {
+    "model": "89ce8a4187120010663ca1bb36cb0be3",
+    "element": "timeout_duration",
+    "internal_type": "glide_duration",
+    "label": "Duration",
+    "mandatory": "false",
+    "order": "5",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=glide_duration,uiTypeLabel=Duration,uiUniqueId=cce1a75b-98ea-4291-a942-96e7e4f863a9,hideDays=true",
+    "sys_id": "cdce8a4187120010663ca1bb36cb0bf9"
+  },
+  {
+    "model": "89ce8a4187120010663ca1bb36cb0be3",
+    "element": "timeout_schedule",
+    "internal_type": "reference",
+    "reference": "cmn_schedule",
+    "label": "Schedule",
+    "mandatory": "false",
+    "order": "6",
+    "sys_id": "81ce8a4187120010663ca1bb36cb0bff"
+  },
+  {
+    "model": "330ba3abc31013002841b63b12d3aee8",
+    "element": "requested_item",
+    "internal_type": "reference",
+    "reference": "sc_req_item",
+    "label": "Submitted Request",
+    "mandatory": "true",
+    "order": "0",
+    "attributes": "only_droppable=true,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper",
+    "sys_id": "bf0ba3abc31013002841b63b12d3aeea"
+  },
+  {
+    "model": "330ba3abc31013002841b63b12d3aee8",
+    "element": "template_catalog_item",
+    "internal_type": "reference",
+    "reference": "st_sys_catalog_items_and_variable_sets",
+    "label": "Template Catalog Items and Variable Sets",
+    "mandatory": "true",
+    "order": "1",
+    "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,show_search=true,is_remote_table_reference=true,hide_runtime_value_in_opsview=true",
+    "sys_id": "bb0ba3abc31013002841b63b12d3aef1"
+  },
+  {
+    "model": "330ba3abc31013002841b63b12d3aee8",
+    "element": "catalog_variables",
+    "internal_type": "slushbucket",
+    "label": "Catalog Variables",
+    "mandatory": "false",
+    "order": "2",
+    "attributes": "source_table=item_option_new,use_flow_designer_wrapper=true,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,include_multirow_variablesets=true,is_flatten_variables_needed=false,preserve_selected=true,hide_runtime_value_in_opsview=true",
+    "sys_id": "7b0ba3abc31013002841b63b12d3aef7"
+  }
+]

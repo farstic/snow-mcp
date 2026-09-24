@@ -1,0 +1,392 @@
+{
+  "flowKey": "level_check_subflow",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "6f40af268904d7d1640d5c138256f225",
+      "fields": {
+        "sys_id": "6f40af268904d7d1640d5c138256f225",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: subflow inputs / outputs, if / else, assign subflow outputs",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "level_check_subflow",
+        "label_cache": [
+          {
+            "name": "subflow.summary_text",
+            "label": "Input➛Summary Text",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "853f9025-b788-5e54-c33c-55b8524b722b": [
+                "log_message"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          },
+          {
+            "name": "subflow.level",
+            "label": "Input➛Level",
+            "type": "integer",
+            "base_type": "integer",
+            "usedInstances": {
+              "8cc79819-26fa-cd1e-2c3e-d921bf39115d": [
+                "condition"
+              ]
+            },
+            "attributes": {},
+            "reference_table": null,
+            "reference_display": null
+          }
+        ],
+        "name": "Level Check Subflow",
+        "run_as": "system",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "subflow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_flow_input",
+      "sys_id": "7c8bf7f6d82ce1bcce0ecba766e1181b",
+      "fields": {
+        "sys_id": "7c8bf7f6d82ce1bcce0ecba766e1181b",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "summary_text",
+        "hint": "",
+        "internal_type": "string",
+        "label": "Summary Text",
+        "mandatory": "true",
+        "max_length": "8000",
+        "model": "6f40af268904d7d1640d5c138256f225",
+        "model_id": "6f40af268904d7d1640d5c138256f225",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_input_6f40af268904d7d1640d5c138256f225",
+        "order": "1"
+      }
+    },
+    {
+      "table": "sys_hub_flow_input",
+      "sys_id": "2765ecfceea9c1aeb4d0a036375cdf76",
+      "fields": {
+        "sys_id": "2765ecfceea9c1aeb4d0a036375cdf76",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "level",
+        "hint": "",
+        "internal_type": "integer",
+        "label": "Level",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "6f40af268904d7d1640d5c138256f225",
+        "model_id": "6f40af268904d7d1640d5c138256f225",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_input_6f40af268904d7d1640d5c138256f225",
+        "order": "2"
+      }
+    },
+    {
+      "table": "sys_hub_flow_output",
+      "sys_id": "1b5eae26e943b0aa032485c5d6cad989",
+      "fields": {
+        "sys_id": "1b5eae26e943b0aa032485c5d6cad989",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "verdict",
+        "hint": "",
+        "internal_type": "string",
+        "label": "Verdict",
+        "mandatory": "false",
+        "max_length": "8000",
+        "model": "6f40af268904d7d1640d5c138256f225",
+        "model_id": "6f40af268904d7d1640d5c138256f225",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_output_6f40af268904d7d1640d5c138256f225",
+        "order": "1"
+      }
+    },
+    {
+      "table": "sys_hub_flow_output",
+      "sys_id": "fcfbce5a407649fc368c0d213deb8126",
+      "fields": {
+        "sys_id": "fcfbce5a407649fc368c0d213deb8126",
+        "sys_scope": "global",
+        "active": "true",
+        "attributes": "",
+        "default_value": "",
+        "element": "accepted",
+        "hint": "",
+        "internal_type": "boolean",
+        "label": "Accepted",
+        "mandatory": "false",
+        "max_length": "40",
+        "model": "6f40af268904d7d1640d5c138256f225",
+        "model_id": "6f40af268904d7d1640d5c138256f225",
+        "model_table": "sys_hub_flow",
+        "name": "var__m_sys_hub_flow_output_6f40af268904d7d1640d5c138256f225",
+        "order": "2"
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "5524f496f948a25d2b733a074da2c68b",
+      "fields": {
+        "sys_id": "5524f496f948a25d2b733a074da2c68b",
+        "sys_scope": "global",
+        "element": "summary_text",
+        "hint": "",
+        "label": "Summary Text",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_input_6f40af268904d7d1640d5c138256f225",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "f9e6bd49b171c81efd272b76eb532a75",
+      "fields": {
+        "sys_id": "f9e6bd49b171c81efd272b76eb532a75",
+        "sys_scope": "global",
+        "element": "level",
+        "hint": "",
+        "label": "Level",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_input_6f40af268904d7d1640d5c138256f225",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "4078cca920706ec9267a51567ef0a667",
+      "fields": {
+        "sys_id": "4078cca920706ec9267a51567ef0a667",
+        "sys_scope": "global",
+        "element": "verdict",
+        "hint": "",
+        "label": "Verdict",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_output_6f40af268904d7d1640d5c138256f225",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_documentation",
+      "sys_id": "3663d8c5dac42726caec5c70a801d140",
+      "fields": {
+        "sys_id": "3663d8c5dac42726caec5c70a801d140",
+        "sys_scope": "global",
+        "element": "accepted",
+        "hint": "",
+        "label": "Accepted",
+        "language": "en",
+        "name": "var__m_sys_hub_flow_output_6f40af268904d7d1640d5c138256f225",
+        "plural": ""
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "853f9025b7885e54c33c55b8524b722b",
+      "fields": {
+        "sys_id": "853f9025b7885e54c33c55b8524b722b",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "6f40af268904d7d1640d5c138256f225",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "853f9025-b788-5e54-c33c-55b8524b722b",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Checking {{subflow.summary_text}}",
+            "displayValue": "Checking {{subflow.summary_text}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "8cc7981926facd1e2c3ed921bf39115d",
+      "fields": {
+        "sys_id": "8cc7981926facd1e2c3ed921bf39115d",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "6f40af268904d7d1640d5c138256f225",
+        "logic_definition": "af4e1945c3e232002841b63b12d3ae3e",
+        "order": "2",
+        "ui_id": "8cc79819-26fa-cd1e-2c3e-d921bf39115d",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{subflow.level}}>=4",
+              "displayValue": "{{subflow.level}}>=4",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "24d6421b6cb6819d7a30a5137e964f04",
+      "fields": {
+        "sys_id": "24d6421b6cb6819d7a30a5137e964f04",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "6f40af268904d7d1640d5c138256f225",
+        "logic_definition": "df4e1945c3e232002841b63b12d3ae3e",
+        "order": "3",
+        "outputs_assigned": "verdict,accepted",
+        "parent_ui_id": "8cc79819-26fa-cd1e-2c3e-d921bf39115d",
+        "ui_id": "24d6421b-6cb6-819d-7a30-a5137e964f04",
+        "values": {
+          "outputsToAssign": [
+            {
+              "id": "",
+              "name": "verdict",
+              "value": "escalate",
+              "displayValue": "escalate",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "",
+              "name": "accepted",
+              "value": "true",
+              "displayValue": "true",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "7a91d69f1f0c093cc39fcec4ce87089a",
+      "fields": {
+        "sys_id": "7a91d69f1f0c093cc39fcec4ce87089a",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "6f40af268904d7d1640d5c138256f225",
+        "logic_definition": "1f781bf3c32232002841b63b12d3aee6",
+        "order": "4",
+        "ui_id": "7a91d69f-1f0c-093c-c39f-cec4ce87089a",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "b37a04b2594f62b0deeed29dc60b1e90",
+      "fields": {
+        "sys_id": "b37a04b2594f62b0deeed29dc60b1e90",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "6f40af268904d7d1640d5c138256f225",
+        "logic_definition": "df4e1945c3e232002841b63b12d3ae3e",
+        "order": "5",
+        "outputs_assigned": "verdict,accepted",
+        "parent_ui_id": "7a91d69f-1f0c-093c-c39f-cec4ce87089a",
+        "ui_id": "b37a04b2-594f-62b0-deee-d29dc60b1e90",
+        "values": {
+          "outputsToAssign": [
+            {
+              "id": "",
+              "name": "verdict",
+              "value": "monitor",
+              "displayValue": "monitor",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            },
+            {
+              "id": "",
+              "name": "accepted",
+              "value": "false",
+              "displayValue": "false",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "inputs.summary_text",
+      "platform": "subflow.summary_text",
+      "type": "string"
+    },
+    {
+      "symbolic": "inputs.level",
+      "platform": "subflow.level",
+      "type": "integer"
+    }
+  ]
+}

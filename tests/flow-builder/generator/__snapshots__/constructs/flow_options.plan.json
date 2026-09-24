@@ -1,0 +1,741 @@
+{
+  "flowKey": "flow_options",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "5955bf3504b4e35ff4b90a66110f35cf",
+      "fields": {
+        "sys_id": "5955bf3504b4e35ff4b90a66110f35cf",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "true",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: run as user with roles, priority, custom actions (typed and by sys_id), inline scripts, subflow call without waiting",
+        "flow_priority": "LOW",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "flow_options_example",
+        "label_cache": [
+          {
+            "name": "Created_1.current",
+            "label": "Trigger - Record Created➛incident Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "3bd1b579-34ab-1883-05ee-3f42d1fff11b": [
+                "record"
+              ],
+              "cb695b1f-f3e9-c26c-e2ec-f8b2a8160366": [
+                "incident"
+              ],
+              "51b90d09-bc8e-46b6-aeb6-eae698752423": [
+                "incident"
+              ],
+              "1dd7db7e-ce96-f154-6ac5-ac66394a56dd": [
+                "record"
+              ]
+            },
+            "attributes": {},
+            "reference": "incident"
+          },
+          {
+            "name": "Created_1.current.number",
+            "label": "Trigger - Record Created➛incident Record➛Number",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "cb695b1f-f3e9-c26c-e2ec-f8b2a8160366": [
+                "reason"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "number"
+          },
+          {
+            "name": "cb695b1f-f3e9-c26c-e2ec-f8b2a8160366.escalated",
+            "label": "cb695b1f-f3e9-c26c-e2ec-f8b2a8160366➛escalated",
+            "type": "boolean",
+            "base_type": "boolean",
+            "usedInstances": {
+              "1dd7db7e-ce96-f154-6ac5-ac66394a56dd": [
+                "expedite"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "Created_1.current.due_date",
+            "label": "Trigger - Record Created➛incident Record➛Due Date",
+            "type": "glide_date_time",
+            "base_type": "glide_date_time",
+            "usedInstances": {
+              "1dd7db7e-ce96-f154-6ac5-ac66394a56dd": [
+                "due"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "incident",
+            "column_name": "due_date"
+          },
+          {
+            "name": "cb695b1f-f3e9-c26c-e2ec-f8b2a8160366.message",
+            "label": "cb695b1f-f3e9-c26c-e2ec-f8b2a8160366➛message",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "06ae8728-056a-3109-5b86-d6b7fd6c8512": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "51b90d09-bc8e-46b6-aeb6-eae698752423.result",
+            "label": "51b90d09-bc8e-46b6-aeb6-eae698752423➛result",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "06ae8728-056a-3109-5b86-d6b7fd6c8512": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          },
+          {
+            "name": "1dd7db7e-ce96-f154-6ac5-ac66394a56dd.outcome",
+            "label": "1dd7db7e-ce96-f154-6ac5-ac66394a56dd➛outcome",
+            "type": "string",
+            "base_type": "string",
+            "usedInstances": {
+              "06ae8728-056a-3109-5b86-d6b7fd6c8512": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Flow Options",
+        "run_as": "user",
+        "run_with_roles": "0000000000000000000000000000b001,0000000000000000000000000000b002",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "1bb9e923fa10d82dc19a34c10bd5080b",
+      "fields": {
+        "sys_id": "1bb9e923fa10d82dc19a34c10bd5080b",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "5955bf3504b4e35ff4b90a66110f35cf",
+        "name": "Created",
+        "trigger_definition": "798916a0c31322002841b63b12d3ae7c",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Table",
+            "internalType": "table_name",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 1,
+            "name": "table",
+            "value": "incident",
+            "displayValue": "incident",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "table_name",
+              "name": "table",
+              "label": "Table",
+              "attributes": {
+                "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Condition",
+            "internalType": "conditions",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "condition",
+            "value": "category=network",
+            "displayValue": "category=network",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "conditions",
+              "name": "condition",
+              "label": "Condition",
+              "attributes": {
+                "modelDependent": "trigger_inputs",
+                "wants_to_add_conditions": "true"
+              },
+              "dependent_on": "table",
+              "use_dependent": true
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run On Extended Tables",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "false",
+                "fLabel": "Run only on current table",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "true",
+                "fLabel": "Run on current and extended tables",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_on_extended",
+            "value": "false",
+            "displayValue": "false",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_on_extended",
+              "label": "Run On Extended Tables",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run flow In",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "background",
+                "fLabel": "Run flow in background (default)",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "foreground",
+                "fLabel": "Run flow in foreground",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_flow_in",
+            "value": "foreground",
+            "displayValue": "foreground",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_flow_in",
+              "label": "Run flow In",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User List",
+            "internalType": "glide_list",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_list",
+            "value": "",
+            "displayValue": "",
+            "displayField": "",
+            "scriptActive": false,
+            "valueSysId": "",
+            "children": [],
+            "parameter": {
+              "type": "glide_list",
+              "name": "run_when_user_list",
+              "label": "Run When User List",
+              "reference": "sys_user",
+              "reference_display": "User",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When Session Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "non_interactive",
+                "fLabel": "Only Run for Non-Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "interactive",
+                "fLabel": "Only Run for User Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "both",
+                "fLabel": "Run for Both Interactive and Non-Interactive Sessions",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_setting",
+            "value": "both",
+            "displayValue": "both",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_setting",
+              "label": "Run When Session Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "not_one_of",
+                "fLabel": "Do not run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "one_of",
+                "fLabel": "Only Run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "any",
+                "fLabel": "Run for any user",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_setting",
+            "value": "any",
+            "displayValue": "any",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_user_setting",
+              "label": "Run When User Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "record_create"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "3bd1b57934ab188305ee3f42d1fff11b",
+      "fields": {
+        "sys_id": "3bd1b57934ab188305ee3f42d1fff11b",
+        "sys_scope": "global",
+        "action_type": "f9d01dd2c31332002841b63b12d3aea1",
+        "action_type_parent": "baf174c8c3c232002841b63b12d3aee4",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "5955bf3504b4e35ff4b90a66110f35cf",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "3bd1b579-34ab-1883-05ee-3f42d1fff11b",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "document_id"
+            }
+          },
+          {
+            "name": "table_name",
+            "value": "incident",
+            "displayValue": "incident",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "values",
+            "value": "urgency=2^work_notes=fd-scripted^EQ",
+            "displayValue": "urgency=2^work_notes=fd-scripted^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            },
+            "script": {
+              "work_notes": {
+                "scriptActive": true,
+                "script": "return 'Queued on ' + new GlideDateTime().getDisplayValue();"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "cb695b1ff3e9c26ce2ecf8b2a8160366",
+      "fields": {
+        "sys_id": "cb695b1ff3e9c26ce2ecf8b2a8160366",
+        "sys_scope": "global",
+        "action_type": "fcb17ab000ff0bee9273f669f910e025",
+        "action_type_parent": "fcb17ab000ff0bee9273f669f910e025",
+        "active": "true",
+        "comment": "Custom action with a resolved definition",
+        "display_text": "",
+        "flow": "5955bf3504b4e35ff4b90a66110f35cf",
+        "generation_source": "",
+        "order": "2",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "cb695b1f-f3e9-c26c-e2ec-f8b2a8160366",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "incident",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "reason",
+            "value": "Network outage {{Created_1.current.number}}",
+            "displayValue": "Network outage {{Created_1.current.number}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "notify",
+            "value": false,
+            "displayValue": false,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "58b83175dd5c366c65a034a589a5cb79",
+      "fields": {
+        "sys_id": "58b83175dd5c366c65a034a589a5cb79",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "5955bf3504b4e35ff4b90a66110f35cf",
+        "generation_source": "",
+        "order": "3",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "58b83175-dd5c-366c-65a0-34a589a5cb79",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "id": "",
+            "name": "log_message",
+            "value": "",
+            "displayValue": "",
+            "children": [],
+            "scriptActive": true,
+            "script": {
+              "log_message": {
+                "scriptActive": true,
+                "script": "return 'Caller: ' + fd_data.trigger.current.caller_id.getDisplayValue();"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "51b90d09bc8e46b6aeb6eae698752423",
+      "fields": {
+        "sys_id": "51b90d09bc8e46b6aeb6eae698752423",
+        "sys_scope": "global",
+        "action_type": "d4667f532d0948d01466bfbd0caf907d",
+        "action_type_parent": "d4667f532d0948d01466bfbd0caf907d",
+        "active": "true",
+        "comment": "Custom action referenced by sys_id",
+        "display_text": "",
+        "flow": "5955bf3504b4e35ff4b90a66110f35cf",
+        "generation_source": "",
+        "order": "4",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "51b90d09-bc8e-46b6-aeb6-eae698752423",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "incident",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "reason",
+            "value": "Follow-up",
+            "displayValue": "Follow-up",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "notify",
+            "value": true,
+            "displayValue": true,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_sub_flow_instance_v2",
+      "sys_id": "1dd7db7ece96f1546ac5ac66394a56dd",
+      "fields": {
+        "sys_id": "1dd7db7ece96f1546ac5ac66394a56dd",
+        "sys_scope": "global",
+        "attributes": "",
+        "comment": "Typed subflow call",
+        "display_text": "",
+        "flow": "5955bf3504b4e35ff4b90a66110f35cf",
+        "generation_source": "",
+        "order": "5",
+        "parent_ui_id": "",
+        "show_stages": "false",
+        "subflow": "c0b8a2b6df77361453a1fb507267c497",
+        "subflow_inputs": [
+          {
+            "name": "record",
+            "value": "{{Created_1.current}}",
+            "displayValue": "{{Created_1.current}}",
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "expedite",
+            "value": "{{cb695b1f-f3e9-c26c-e2ec-f8b2a8160366.escalated}}",
+            "displayValue": "{{cb695b1f-f3e9-c26c-e2ec-f8b2a8160366.escalated}}",
+            "parameter": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "due",
+            "value": "{{Created_1.current.due_date}}",
+            "displayValue": "{{Created_1.current.due_date}}",
+            "parameter": {
+              "type": "glide_date_time"
+            }
+          },
+          {
+            "name": "retries",
+            "value": 1,
+            "displayValue": 1,
+            "parameter": {
+              "type": "integer"
+            }
+          },
+          {
+            "id": "",
+            "name": "comment",
+            "value": "",
+            "displayValue": "",
+            "children": [],
+            "scriptActive": true,
+            "script": {
+              "comment": {
+                "scriptActive": true,
+                "script": "return fd_data.trigger.current.short_description.trim();"
+              }
+            }
+          }
+        ],
+        "sys_class_name": "sys_hub_sub_flow_instance_v2",
+        "ui_id": "1dd7db7e-ce96-f154-6ac5-ac66394a56dd",
+        "wait_for_completion": "false"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "06ae8728056a31095b86d6b7fd6c8512",
+      "fields": {
+        "sys_id": "06ae8728056a31095b86d6b7fd6c8512",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "5955bf3504b4e35ff4b90a66110f35cf",
+        "generation_source": "",
+        "order": "6",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "06ae8728-056a-3109-5b86-d6b7fd6c8512",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Escalation {{cb695b1f-f3e9-c26c-e2ec-f8b2a8160366.message}} / {{51b90d09-bc8e-46b6-aeb6-eae698752423.result}} / {{1dd7db7e-ce96-f154-6ac5-ac66394a56dd.outcome}}",
+            "displayValue": "Escalation {{cb695b1f-f3e9-c26c-e2ec-f8b2a8160366.message}} / {{51b90d09-bc8e-46b6-aeb6-eae698752423.result}} / {{1dd7db7e-ce96-f154-6ac5-ac66394a56dd.outcome}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.current",
+      "platform": "Created_1.current",
+      "type": "reference"
+    },
+    {
+      "symbolic": "trigger.current.number",
+      "platform": "Created_1.current.number",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.opts_escalate.escalated",
+      "platform": "cb695b1f-f3e9-c26c-e2ec-f8b2a8160366.escalated",
+      "type": "boolean"
+    },
+    {
+      "symbolic": "trigger.current.due_date",
+      "platform": "Created_1.current.due_date",
+      "type": "glide_date_time"
+    },
+    {
+      "symbolic": "steps.opts_escalate.message",
+      "platform": "cb695b1f-f3e9-c26c-e2ec-f8b2a8160366.message",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.opts_by_id.result",
+      "platform": "51b90d09-bc8e-46b6-aeb6-eae698752423.result",
+      "type": "string"
+    },
+    {
+      "symbolic": "steps.opts_review.outcome",
+      "platform": "1dd7db7e-ce96-f154-6ac5-ac66394a56dd.outcome",
+      "type": "string"
+    }
+  ]
+}

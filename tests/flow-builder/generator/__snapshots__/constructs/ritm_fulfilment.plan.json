@@ -1,0 +1,513 @@
+{
+  "flowKey": "ritm_fulfilment",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "14d91adcb931d35f91dd62159cdab99f",
+      "fields": {
+        "sys_id": "14d91adcb931d35f91dd62159cdab99f",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: record.updated trigger (unique changes), Create Catalog Task, if / end",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "ritm_fulfilment",
+        "label_cache": [
+          {
+            "name": "Updated_1.current",
+            "label": "Trigger - Record Updated➛sc_req_item Record",
+            "type": "reference",
+            "base_type": "reference",
+            "usedInstances": {
+              "e2da82d9-52d3-34b7-1af8-fc4b35698485": [
+                "ah_requested_item"
+              ]
+            },
+            "attributes": {},
+            "reference": "sc_req_item"
+          },
+          {
+            "name": "Updated_1.current.state",
+            "label": "Trigger - Record Updated➛sc_req_item Record➛State",
+            "type": "integer",
+            "base_type": "integer",
+            "usedInstances": {
+              "e43c8a32-3f3f-c226-62ac-3bbad185dfa1": [
+                "condition"
+              ]
+            },
+            "attributes": {},
+            "parent_table_name": "sc_req_item",
+            "column_name": "state"
+          }
+        ],
+        "name": "RITM Fulfilment",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "1716a9e4e47803d33a1fc7ae6cec82a3",
+      "fields": {
+        "sys_id": "1716a9e4e47803d33a1fc7ae6cec82a3",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "14d91adcb931d35f91dd62159cdab99f",
+        "name": "Updated",
+        "trigger_definition": "bb695e60c31322002841b63b12d3aea5",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Table",
+            "internalType": "table_name",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 1,
+            "name": "table",
+            "value": "sc_req_item",
+            "displayValue": "sc_req_item",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "table_name",
+              "name": "table",
+              "label": "Table",
+              "attributes": {
+                "filter_table_source": "RECORD_WATCHER_RESTRICTED"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Condition",
+            "internalType": "conditions",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "condition",
+            "value": "approval=approved",
+            "displayValue": "approval=approved",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "conditions",
+              "name": "condition",
+              "label": "Condition",
+              "attributes": {
+                "extended_operators": "VALCHANGES;CHANGESFROM;CHANGESTO",
+                "modelDependent": "trigger_inputs",
+                "wants_to_add_conditions": "true"
+              },
+              "dependent_on": "table",
+              "use_dependent": true
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run On Extended Tables",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "false",
+                "fLabel": "Run only on current table",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "true",
+                "fLabel": "Run on current and extended tables",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_on_extended",
+            "value": "false",
+            "displayValue": "false",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_on_extended",
+              "label": "Run On Extended Tables",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run flow In",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "background",
+                "fLabel": "Run flow in background (default)",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "foreground",
+                "fLabel": "Run flow in foreground",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_flow_in",
+            "value": "background",
+            "displayValue": "background",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_flow_in",
+              "label": "Run flow In",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User List",
+            "internalType": "glide_list",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_list",
+            "value": "",
+            "displayValue": "",
+            "displayField": "",
+            "scriptActive": false,
+            "valueSysId": "",
+            "children": [],
+            "parameter": {
+              "type": "glide_list",
+              "name": "run_when_user_list",
+              "label": "Run When User List",
+              "reference": "sys_user",
+              "reference_display": "User",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When Session Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "non_interactive",
+                "fLabel": "Only Run for Non-Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "interactive",
+                "fLabel": "Only Run for User Interactive Session",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "both",
+                "fLabel": "Run for Both Interactive and Non-Interactive Sessions",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_setting",
+            "value": "both",
+            "displayValue": "both",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_setting",
+              "label": "Run When Session Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run When User Setting",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "not_one_of",
+                "fLabel": "Do not run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "one_of",
+                "fLabel": "Only Run if triggered by the following users",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "any",
+                "fLabel": "Run for any user",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 100,
+            "name": "run_when_user_setting",
+            "value": "any",
+            "displayValue": "any",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "run_when_user_setting",
+              "label": "Run When User Setting",
+              "attributes": {
+                "advanced": "true"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Run Trigger",
+            "internalType": "choice",
+            "dependent": "",
+            "choiceList": [
+              {
+                "fValue": "once",
+                "fLabel": "Once",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "unique_changes",
+                "fLabel": "For each unique change",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "always",
+                "fLabel": "Only if not currently running",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              },
+              {
+                "fValue": "every",
+                "fLabel": "For every update",
+                "fImage": "",
+                "fSelected": false,
+                "fUsed": false,
+                "fMissing": false
+              }
+            ],
+            "mandatory": false,
+            "order": 101,
+            "name": "trigger_strategy",
+            "value": "unique_changes",
+            "displayValue": "unique_changes",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "choice",
+              "name": "trigger_strategy",
+              "label": "Run Trigger"
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "record_update"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "e2da82d952d334b71af8fc4b35698485",
+      "fields": {
+        "sys_id": "e2da82d952d334b71af8fc4b35698485",
+        "sys_scope": "global",
+        "action_type": "af51fd0e73141300612c273ffff6a785",
+        "action_type_parent": "f597c41073081300612c273ffff6a767",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "14d91adcb931d35f91dd62159cdab99f",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "e2da82d9-52d3-34b7-1af8-fc4b35698485",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "ah_table_name",
+            "value": "sc_task",
+            "displayValue": "sc_task",
+            "scriptActive": false,
+            "parameter": {
+              "type": "table_name"
+            }
+          },
+          {
+            "name": "ah_requested_item",
+            "value": "{{Updated_1.current}}",
+            "displayValue": "{{Updated_1.current}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "reference"
+            }
+          },
+          {
+            "name": "ah_short_description",
+            "value": "Prepare the requested equipment",
+            "displayValue": "Prepare the requested equipment",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ah_fields",
+            "value": "assignment_group=Hardware^EQ",
+            "displayValue": "assignment_group=Hardware^EQ",
+            "scriptActive": false,
+            "parameter": {
+              "type": "template_value"
+            }
+          },
+          {
+            "name": "ah_wait",
+            "value": false,
+            "displayValue": false,
+            "scriptActive": false,
+            "parameter": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "e43c8a323f3fc22662ac3bbad185dfa1",
+      "fields": {
+        "sys_id": "e43c8a323f3fc22662ac3bbad185dfa1",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "14d91adcb931d35f91dd62159cdab99f",
+        "logic_definition": "af4e1945c3e232002841b63b12d3ae3e",
+        "order": "2",
+        "ui_id": "e43c8a32-3f3f-c226-62ac-3bbad185dfa1",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [
+            {
+              "id": "",
+              "name": "condition",
+              "value": "{{Updated_1.current.state}}=4",
+              "displayValue": "{{Updated_1.current.state}}=4",
+              "children": [],
+              "parameter": {},
+              "scriptActive": false
+            }
+          ],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    },
+    {
+      "table": "sys_hub_flow_logic_instance_v2",
+      "sys_id": "a1646f5b03223db0512457c976df2dba",
+      "fields": {
+        "sys_id": "a1646f5b03223db0512457c976df2dba",
+        "sys_scope": "global",
+        "comment": "",
+        "flow": "14d91adcb931d35f91dd62159cdab99f",
+        "logic_definition": "d176605ea76103004f27b0d2187901c7",
+        "order": "3",
+        "parent_ui_id": "e43c8a32-3f3f-c226-62ac-3bbad185dfa1",
+        "ui_id": "a1646f5b-0322-3db0-5124-57c976df2dba",
+        "values": {
+          "outputsToAssign": [],
+          "inputs": [],
+          "variables": [],
+          "decisionTableInputs": [],
+          "dynamicInputs": [],
+          "workflowInputs": []
+        }
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.current",
+      "platform": "Updated_1.current",
+      "type": "reference"
+    },
+    {
+      "symbolic": "trigger.current.state",
+      "platform": "Updated_1.current.state",
+      "type": "integer"
+    }
+  ]
+}

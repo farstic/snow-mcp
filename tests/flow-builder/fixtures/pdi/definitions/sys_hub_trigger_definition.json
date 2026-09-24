@@ -1,0 +1,137 @@
+[
+  {
+    "sys_id": "798916a0c31322002841b63b12d3ae7c",
+    "name": "Created",
+    "trigger_type_seen": "record_create",
+    "category": "8886dd64c3d322002841b63b12d3aed4",
+    "order": "1"
+  },
+  {
+    "sys_id": "bb695e60c31322002841b63b12d3aea5",
+    "name": "Updated",
+    "trigger_type_seen": "record_update",
+    "category": "8886dd64c3d322002841b63b12d3aed4",
+    "order": "2"
+  },
+  {
+    "sys_id": "a45d9180c32222002841b63b12d3aea7",
+    "name": "Created or Updated",
+    "trigger_type_seen": "record_create_or_update",
+    "category": "8886dd64c3d322002841b63b12d3aed4",
+    "order": "3"
+  },
+  {
+    "sys_id": "c43a1011c36813002841b63b12d3ae15",
+    "name": "Service Catalog",
+    "trigger_type_seen": "service_catalog",
+    "category": "727a5011c36813002841b63b12d3ae10",
+    "order": "9"
+  },
+  {
+    "sys_id": "89142dc0c32222002841b63b12d3ae8a",
+    "name": "Daily",
+    "trigger_type_seen": "daily",
+    "category": "ec965da4c3d322002841b63b12d3ae01",
+    "order": "1"
+  },
+  {
+    "sys_id": "cf352104c32222002841b63b12d3ae1f",
+    "name": "Weekly",
+    "trigger_type_seen": null,
+    "category": "ec965da4c3d322002841b63b12d3ae01",
+    "order": "2"
+  },
+  {
+    "sys_id": "2ca52504c32222002841b63b12d3ae4a",
+    "name": "Monthly",
+    "trigger_type_seen": null,
+    "category": "ec965da4c3d322002841b63b12d3ae01",
+    "order": "3"
+  },
+  {
+    "sys_id": "0a76e504c32222002841b63b12d3aeac",
+    "name": "Run Once",
+    "trigger_type_seen": null,
+    "category": "ec965da4c3d322002841b63b12d3ae01",
+    "order": "4"
+  },
+  {
+    "sys_id": "f63f0d94c32222002841b63b12d3aeed",
+    "name": "Repeat",
+    "trigger_type_seen": "repeat",
+    "category": "ec965da4c3d322002841b63b12d3ae01",
+    "order": "5"
+  },
+  {
+    "sys_id": "7b3308f67fd21210a652b9277c8665f0",
+    "name": "Recurrence",
+    "trigger_type_seen": null,
+    "category": "ec965da4c3d322002841b63b12d3ae01",
+    "order": ""
+  },
+  {
+    "sys_id": "6f0180400b320300f4eb8bf637673ad4",
+    "name": "Inbound Email",
+    "trigger_type_seen": "email",
+    "category": "727a5011c36813002841b63b12d3ae10",
+    "order": "10"
+  },
+  {
+    "sys_id": "36442d80c32222002841b63b12d3aec5",
+    "name": "Trigger Rest",
+    "trigger_type_seen": null,
+    "category": "8f8659a4c3d322002841b63b12d3ae0d",
+    "order": "1"
+  },
+  {
+    "sys_id": "77ad0b76c71000101666868cb8c2601d",
+    "name": "REST API - Asynchronous",
+    "trigger_type_seen": null,
+    "category": "727a5011c36813002841b63b12d3ae10",
+    "order": ""
+  },
+  {
+    "sys_id": "9bdb2c0483331210730e5b43c22bc071",
+    "name": "Knowledge Management",
+    "trigger_type_seen": "knowledge_management",
+    "category": "727a5011c36813002841b63b12d3ae10",
+    "order": "11"
+  },
+  {
+    "sys_id": "f5ce00a873723300d70877186bf6a759",
+    "name": "SLA Task",
+    "trigger_type_seen": "sla_task",
+    "category": "727a5011c36813002841b63b12d3ae10",
+    "order": ""
+  },
+  {
+    "sys_id": "89d12df3c32303002841b63b12d3aefa",
+    "name": "MetricBase",
+    "trigger_type_seen": null,
+    "category": "727a5011c36813002841b63b12d3ae10",
+    "order": "9"
+  },
+  {
+    "sys_id": "019c9c764310311010515042e9b8f2f5",
+    "name": "Proactive Analytics",
+    "trigger_type_seen": null,
+    "category": "727a5011c36813002841b63b12d3ae10",
+    "order": ""
+  },
+  {
+    "sys_id": "778cf3bf37232110aba6473174924b7c",
+    "name": "Remote Table Query",
+    "trigger_type_seen": null,
+    "category": "727a5011c36813002841b63b12d3ae10",
+    "order": ""
+  },
+  {
+    "sys_id": "b5665700ffb007105ed9ffffffffff4c",
+    "name": "Trigger TextToResults Log Insertion",
+    "sys_class_name": "sys_hub_trigger_template",
+    "trigger_type_seen": null,
+    "category": "8886dd64c3d322002841b63b12d3aed4",
+    "order": "0",
+    "sys_scope": "a491b57f9f0b0210a1daf697790a1c9e"
+  }
+]

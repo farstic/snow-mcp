@@ -1,0 +1,40 @@
+[
+  {
+    "sys_id": "0091d510ff64b210ca9bffffffffff5d",
+    "table": "help_user_interaction",
+    "condition": "guidance.process_definition=3cdab88e93c0621083a97a518bba1004",
+    "on_insert": "true",
+    "on_update": "true",
+    "on_delete": "false",
+    "run_flow_in": "background",
+    "run_when_setting": "both",
+    "run_when_user_setting": "any",
+    "run_when_user_list": "",
+    "run_on_extended": "false",
+    "trigger_definition": "",
+    "name": "",
+    "published_version": "",
+    "active": "true",
+    "sys_scope": "7e3c2481539260100c54ddeeff7b127b",
+    "sys_created_on": "2025-10-08 14:07:22"
+  },
+  {
+    "sys_id": "01b7b9afc7eac010ba92eb861dc26075",
+    "table": "sn_customerservice_task",
+    "condition": "parentVALCHANGES^parentISNOTEMPTY^parent.active=true^parent.sys_class_name=sn_complaint_case^state=1",
+    "on_insert": "true",
+    "on_update": "true",
+    "on_delete": "false",
+    "run_flow_in": "background",
+    "run_when_setting": "both",
+    "run_when_user_setting": "any",
+    "run_when_user_list": "",
+    "run_on_extended": "",
+    "trigger_definition": "",
+    "name": "",
+    "published_version": "",
+    "active": "true",
+    "sys_scope": "e2d4e20787410010f734a7da0acb0bf0",
+    "sys_created_on": "2020-01-30 23:17:09"
+  }
+]

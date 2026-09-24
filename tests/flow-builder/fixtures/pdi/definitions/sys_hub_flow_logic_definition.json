@@ -1,0 +1,184 @@
+[
+  {
+    "sys_id": "af4e1945c3e232002841b63b12d3ae3e",
+    "name": "If",
+    "type": "IF",
+    "order": "1",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "666e5545c3e232002841b63b12d3ae99",
+    "name": "Else If",
+    "type": "ELSEIF",
+    "order": "2",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "1f781bf3c32232002841b63b12d3aee6",
+    "name": "Else",
+    "type": "ELSE",
+    "order": "3",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "098e1dc5c3e232002841b63b12d3ae33",
+    "name": "For Each",
+    "type": "FOREACH",
+    "order": "4",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "eaeb040687210300e6c2c88fc0e3ec89",
+    "name": "Do the following until",
+    "type": "DOUNTIL",
+    "order": "5",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "5d31e5dedfe50300b61ecae83df26326",
+    "name": "Do the following in Parallel",
+    "type": "PARALLEL",
+    "order": "6",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "a1168de173311300b61e66476bf6a7d0",
+    "name": "Parallel Branch",
+    "type": "PARALLELBLOCK",
+    "order": "1",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "7444b31c37063110ac85cdd734924bff",
+    "name": "Exit Loop",
+    "type": "BREAK",
+    "order": "6",
+    "sys_scope": "801cef500b312200c438ee6537673a04"
+  },
+  {
+    "sys_id": "48de1b5837063110ac85cdd734924b15",
+    "name": "Skip Iteration",
+    "type": "CONTINUE",
+    "order": "6",
+    "sys_scope": "801cef500b312200c438ee6537673a04"
+  },
+  {
+    "sys_id": "59ea75fd77502110b2b4ddd9cf5a99ef",
+    "name": "Go back to",
+    "type": "GOBACKTO",
+    "order": "6",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "578e90270b2313009002cab937673a7d",
+    "name": "Make a decision",
+    "type": "DECISION",
+    "order": "7",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "b1f542d673331300612c273ffff6a7c7",
+    "name": "Decision",
+    "type": "DECISIONBLOCK",
+    "order": "",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "fdb2541473031300b61e66476bf6a70e",
+    "name": "Wait for a duration of time",
+    "type": "TIMER",
+    "order": "8",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "e6edace2733203006715b45a4cf6a7b2",
+    "name": "Call a Workflow",
+    "type": "RUNWORKFLOW",
+    "order": "9",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "d176605ea76103004f27b0d2187901c7",
+    "name": "End",
+    "type": "END",
+    "order": "10",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "df4e1945c3e232002841b63b12d3ae3e",
+    "name": "Assign Subflow Outputs",
+    "type": "ASSIGNSUBFLOWOUTPUTS",
+    "order": "11",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "5ede711653223300414eddeeff7b1256",
+    "name": "Dynamic Flow",
+    "type": "RUNDYNAMICFLOW",
+    "order": "12",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "167796d8731f33008dcbedcc5ef6a7ce",
+    "name": "Get Flow Outputs",
+    "type": "GETFLOWOUTPUTS",
+    "order": "13",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "4f787d1e0f9b0010ecf0cc52ff767ea0",
+    "name": "Set Flow Variables",
+    "type": "SETFLOWVARIABLES",
+    "order": "14",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "4784e82683031210d266f953d22bc0fd",
+    "name": "Append to Flow Variables",
+    "type": "APPENDFLOWVARIABLES",
+    "order": "14",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "07223332de022010ec58424b73829721",
+    "name": "Try",
+    "type": "TRY",
+    "order": "15",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "35d60003e6022010a5e40cdd1254dd21",
+    "name": "Catch",
+    "type": "CATCH",
+    "order": "16",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "35d60003e6022010a5e40cdd1254dd23",
+    "name": "Top Level Catch",
+    "type": "TOP_LEVEL_CATCH",
+    "order": "17",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "e9060aa2c3013010ace8b740ad40dd51",
+    "name": "Top Level Try",
+    "type": "TOP_LEVEL_TRY",
+    "order": "18",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "2f6feee173f03010e46b4a2214f6a776",
+    "name": "Update Flow Template",
+    "type": "UPDATEFLOWTEMPLATE",
+    "order": "18",
+    "sys_scope": "global"
+  },
+  {
+    "sys_id": "4fa4aa3bfbb031100a4a3d6176af26d2",
+    "name": "Placeholder",
+    "type": "PLACEHOLDER",
+    "order": "1",
+    "sys_scope": "global"
+  }
+]

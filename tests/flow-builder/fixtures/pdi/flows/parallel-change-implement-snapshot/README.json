@@ -1,0 +1,13 @@
+{
+  "note": "sys_hub_flow_snapshot row of flow 1f54be96731310108ef62d2b04f6a7d7 'Change - Normal - Implement' (global, remote_trigger_id a445bb67735310108ef62d2b04f6a7f4), copy authored 2026-09-09 by pdi.user@example.com. Do-in-parallel (PARALLEL order 1) with two PARALLELBLOCK branches (orders 2 and 7); children inside branches carry '➛' orders (2➛3, 7➛8) for the first element and plain orders for later ones.",
+  "parent_flow": {
+    "sys_id": "1f54be96731310108ef62d2b04f6a7d7",
+    "type": "flow",
+    "status": "published",
+    "active": "true",
+    "latest_snapshot": "2742456a87767a90004fc845dabb355b",
+    "master_snapshot": "8e65b21a731310108ef62d2b04f6a79a",
+    "remote_trigger_id": "a445bb67735310108ef62d2b04f6a7f4",
+    "sys_created_on": "2020-09-19 09:28:01"
+  }
+}

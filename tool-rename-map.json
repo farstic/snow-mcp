@@ -392,5 +392,10 @@
   "create_workspace": "snow_ws_workspace_add",
   "configure_workspace_list": "snow_ws_workspace_list_configure",
   "create_ux_app_route": "snow_ws_ux_app_route_add",
-  "create_ux_experience": "snow_ws_ux_experience_add"
+  "create_ux_experience": "snow_ws_ux_experience_add",
+  "read_flow_catalog": "snow_flow_catalog_read",
+  "plan_flow": "snow_flow_plan",
+  "build_flow": "snow_flow_build",
+  "verify_flow": "snow_flow_verify",
+  "export_flow_xml": "snow_flow_export_xml"
 }

@@ -1,0 +1,155 @@
+{
+  "flowKey": "trg_monthly",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "b4f35c11f3bd88d8655570ad9c316d40",
+      "fields": {
+        "sys_id": "b4f35c11f3bd88d8655570ad9c316d40",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: scheduled.monthly trigger",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "trigger_monthly",
+        "label_cache": [
+          {
+            "name": "Monthly_1.run_start_date_time",
+            "label": "Trigger - Monthly➛Run Start Date/Time",
+            "type": "glide_date_time",
+            "base_type": "glide_date_time",
+            "usedInstances": {
+              "b8793a43-5260-72de-3f97-67a721adfb02": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Trigger Monthly",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "49bf4299113bab39004b2e544f82d70a",
+      "fields": {
+        "sys_id": "49bf4299113bab39004b2e544f82d70a",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "b4f35c11f3bd88d8655570ad9c316d40",
+        "name": "Monthly",
+        "trigger_definition": "2ca52504c32222002841b63b12d3ae4a",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Day of Month",
+            "internalType": "integer",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 10,
+            "name": "day_of_month",
+            "value": 1,
+            "displayValue": "1",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "integer",
+              "name": "day_of_month",
+              "label": "Day of Month",
+              "attributes": {
+                "integer_type": "day_of_month",
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Time",
+            "internalType": "glide_time",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 100,
+            "name": "time",
+            "value": "1970-01-01 00:05:00",
+            "displayValue": "1970-01-01 00:05:00",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "glide_time",
+              "name": "time",
+              "label": "Time",
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              }
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "monthly"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "b8793a43526072de3f9767a721adfb02",
+      "fields": {
+        "sys_id": "b8793a43526072de3f9767a721adfb02",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "b4f35c11f3bd88d8655570ad9c316d40",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "b8793a43-5260-72de-3f97-67a721adfb02",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Monthly run {{Monthly_1.run_start_date_time}}",
+            "displayValue": "Monthly run {{Monthly_1.run_start_date_time}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.run_start_date_time",
+      "platform": "Monthly_1.run_start_date_time",
+      "type": "glide_date_time"
+    }
+  ]
+}

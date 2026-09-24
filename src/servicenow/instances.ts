@@ -198,7 +198,7 @@ class InstanceManager {
 
   /**
    * Resolve a user-supplied instance name to the actual Map key.
-   * Registration preserves the configured casing (e.g. "FIBTEST" from
+   * Registration preserves the configured casing (e.g. "DEVTEST" from
    * instances.json), so lookups must be case-insensitive: exact match first,
    * then a case-insensitive scan.
    */

@@ -53,6 +53,13 @@ function validateQuery(query: string): string {
   return query;
 }
 
+/** A relative instance API path: no scheme, not protocol-relative, no '..' segment, not empty. */
+function assertRelativeApiPath(fn: string, path: string): void {
+  if (typeof path !== 'string' || path.trim() === '' || /^[a-z][a-z0-9+.-]*:/i.test(path) || path.startsWith('//') || /(^|[\\/])\.\.([\\/]|$)/.test(path)) {
+    throw new ServiceNowError(`${fn}: path must be a relative API path (got ${JSON.stringify(path)})`, 'VALIDATION_ERROR');
+  }
+}
+
 export class ServiceNowClient {
   private baseUrl: string;
   private authMethod: 'oauth' | 'basic';
@@ -82,6 +89,116 @@ export class ServiceNowClient {
     this.requestTimeoutMs = config.requestTimeoutMs || 30000;
     this.impersonateUserSysId = config.impersonateUserSysId;
     this.perUserBearerToken = config.perUserBearerToken;
+  }
+
+  /**
+   * The username this client authenticates AS, when it can be stated from configuration:
+   * the Basic username (authMethod 'basic') or the OAuth password-grant username. Returns
+   * undefined for impersonation / per-user modes and when no username is configured, because
+   * the effective user is then not the configured one. Never exposes a password or token.
+   * Used by the flow builder to derive the §2.2 sys_user_preference owner from the session
+   * instead of a caller-supplied user name.
+   */
+  getConfiguredUsername(): string | undefined {
+    if (this.authMode === 'impersonation' || this.authMode === 'per-user') return undefined;
+    const name = this.authMethod === 'basic' ? this.basicConfig?.username : this.oauthConfig?.username;
+    return typeof name === 'string' && name.trim() !== '' ? name : undefined;
+  }
+
+  /**
+   * Public JSON request against an arbitrary instance API path (e.g. 'api/now/wfa_fluent/activate_flows?x=y').
+   * Thin, additive wrapper around the private request(): same auth, retry, timeout and error mapping.
+   * `path` is joined to the instance base URL — it must be relative (no scheme, no '..'), `method`
+   * one of GET/POST/PUT/PATCH/DELETE. `body` (when given) is JSON-serialised. A non-2xx response
+   * throws ServiceNowError whose `details` carry `status`, `detail` and the raw `body`.
+   */
+  async requestJson<T = unknown>(
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+    path: string,
+    body?: unknown,
+    headers?: Record<string, string>
+  ): Promise<T> {
+    if (!['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+      throw new ServiceNowError(`requestJson: unsupported method "${method}"`, 'VALIDATION_ERROR');
+    }
+    if (typeof path !== 'string' || path.trim() === '' || /^[a-z][a-z0-9+.-]*:/i.test(path) || path.startsWith('//') || /(^|[\\/])\.\.([\\/]|$)/.test(path)) {
+      throw new ServiceNowError(`requestJson: path must be a relative API path (got ${JSON.stringify(path)})`, 'VALIDATION_ERROR');
+    }
+    await this.authenticate();
+    const url = `${this.baseUrl}/${path.replace(/^\/+/, '')}`;
+    logger.info(`${method} ${path.split('?')[0]}`);
+    return this.request<T>(url, {
+      method,
+      ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+      ...(headers ? { headers } : {}),
+    });
+  }
+
+  /**
+   * Public multipart/form-data POST against an arbitrary instance API path (e.g. the ServiceNow IDE
+   * loader 'api/fluent/load/<scope>'). Additive: same auth headers (Basic / OAuth bearer / per-user
+   * token, X-Sn-Impersonate) as request(), but NO Content-Type header — fetch sets the multipart
+   * boundary — and NO retry (a load is never re-sent blindly). Each file becomes one form part
+   * (`field`, `filename`, `contentType`). `query` is appended to the path's query string.
+   * Never throws on a non-2xx: returns { status, ok, statusText, json | text } for the caller to map.
+   * A network failure / timeout throws ServiceNowError NETWORK_ERROR / TIMEOUT.
+   */
+  async postMultipart(
+    path: string,
+    files: { field: string; filename: string; content: string; contentType: string }[],
+    query?: Record<string, string>,
+    timeoutMs?: number
+  ): Promise<{ status: number; ok: boolean; statusText: string; json?: unknown; text?: string }> {
+    assertRelativeApiPath('postMultipart', path);
+    if (!Array.isArray(files) || files.length === 0) {
+      throw new ServiceNowError('postMultipart: at least one file is required', 'VALIDATION_ERROR');
+    }
+    for (const f of files) {
+      if (!f || typeof f.field !== 'string' || !f.field || typeof f.filename !== 'string' || !f.filename || typeof f.content !== 'string' || typeof f.contentType !== 'string' || !f.contentType) {
+        throw new ServiceNowError('postMultipart: every file needs field, filename, content (string) and contentType', 'VALIDATION_ERROR');
+      }
+    }
+    await this.authenticate();
+    let url = `${this.baseUrl}/${path.replace(/^\/+/, '')}`;
+    const qs = new URLSearchParams(query ?? {}).toString();
+    if (qs) url += (url.includes('?') ? '&' : '?') + qs;
+
+    const form = new FormData();
+    for (const f of files) form.append(f.field, new Blob([f.content], { type: f.contentType }), f.filename);
+
+    const headers: Record<string, string> = { 'Accept': 'application/json', 'Authorization': this.getAuthHeader() };
+    const impersonate = this.getImpersonateHeader();
+    if (impersonate) headers['X-Sn-Impersonate'] = impersonate;
+
+    const limit = timeoutMs && timeoutMs > 0 ? timeoutMs : this.requestTimeoutMs;
+    logger.info(`POST (multipart, ${files.length} part${files.length === 1 ? '' : 's'}) ${path.split('?')[0]}`);
+    // The timer also covers the response BODY: it is cleared only after response.text() resolves, so a
+    // stalled body is aborted like a stalled connection (the signal aborts the body stream too).
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), limit);
+    let response: Response;
+    let raw: string;
+    try {
+      response = await fetch(url, { method: 'POST', headers, body: form, signal: controller.signal });
+      raw = await response.text();
+    } catch (error) {
+      const aborted = controller.signal.aborted || (error instanceof Error && error.name === 'AbortError');
+      const cause = (error as Error & { cause?: Error }).cause;
+      throw new ServiceNowError(
+        aborted ? `postMultipart: no complete response within ${limit} ms` : `postMultipart failed: ${cause?.message ?? (error instanceof Error ? error.message : String(error))}`,
+        aborted ? 'TIMEOUT' : 'NETWORK_ERROR'
+      );
+    } finally {
+      clearTimeout(timer);
+    }
+    let json: unknown;
+    if (raw) { try { json = JSON.parse(raw); } catch { json = undefined; } }
+    return {
+      status: response.status,
+      ok: response.ok,
+      statusText: response.statusText ?? '',
+      ...(json !== undefined ? { json } : { text: raw.length > 65536 ? raw.slice(0, 65536) : raw }),
+    };
   }
 
   /**
@@ -296,6 +413,9 @@ export class ServiceNowClient {
           throw new ServiceNowError(errorMessage, errorCode, {
             status: response.status,
             detail: errorDetail,
+            // Raw response body (capped) so callers of requestJson() can read structured
+            // non-2xx payloads (e.g. the 422 result of wfa_fluent/activate_flows). Additive only.
+            body: errorText.length > 16384 ? errorText.slice(0, 16384) : errorText,
           });
         }
 

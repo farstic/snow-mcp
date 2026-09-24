@@ -1,0 +1,13 @@
+{
+  "note": "sys_hub_flow_snapshot row (published copy) of subflow 9518f201ff9a321006beffffffffff6f 'Create bulk risk classification assessments for any object' (scope 148ac647304d1210b989d9b25db193c0). Snapshot children live in the same *_v2 tables keyed by flow=<snapshot sys_id>. Contains the Flow Error Handler: TOP_LEVEL_TRY (order 0) wrapping the body + TOP_LEVEL_CATCH (order 2) wrapping the handler steps.",
+  "parent_flow": {
+    "sys_id": "9518f201ff9a321006beffffffffff6f",
+    "type": "subflow",
+    "status": "published",
+    "active": "true",
+    "latest_snapshot": "5146ef09ff1e321006beffffffffff35",
+    "master_snapshot": "5146ef09ff1e321006beffffffffff35",
+    "remote_trigger_id": "",
+    "sys_created_on": "2026-01-06 05:20:36"
+  }
+}

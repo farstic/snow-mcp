@@ -1,0 +1,154 @@
+{
+  "flowKey": "trg_weekly",
+  "rows": [
+    {
+      "table": "sys_hub_flow",
+      "sys_id": "ac559e8b1ce985ee9baf4f404ce4a170",
+      "fields": {
+        "sys_id": "ac559e8b1ce985ee9baf4f404ce4a170",
+        "sys_scope": "global",
+        "access": "public",
+        "active": "false",
+        "allow_high_security_roles": "false",
+        "annotation": "",
+        "category": "",
+        "description": "Construct spec: scheduled.weekly trigger (time zone converted to UTC)",
+        "flow_priority": "",
+        "generation_source": "snow_mcp_flow_builder",
+        "internal_name": "trigger_weekly",
+        "label_cache": [
+          {
+            "name": "Weekly_1.run_start_date_time",
+            "label": "Trigger - Weekly➛Run Start Date/Time",
+            "type": "glide_date_time",
+            "base_type": "glide_date_time",
+            "usedInstances": {
+              "f8f0adbb-1075-4605-5c09-3ea4fbff237c": [
+                "log_message"
+              ]
+            },
+            "attributes": {}
+          }
+        ],
+        "name": "Trigger Weekly",
+        "run_as": "user",
+        "run_with_roles": "",
+        "show_draft_actions": "false",
+        "status": "draft",
+        "sys_policy": "",
+        "type": "flow",
+        "version": "2"
+      }
+    },
+    {
+      "table": "sys_hub_trigger_instance_v2",
+      "sys_id": "43d55ed9e8554f386b4fc475a2641a86",
+      "fields": {
+        "sys_id": "43d55ed9e8554f386b4fc475a2641a86",
+        "sys_scope": "global",
+        "category": "",
+        "comment": "",
+        "flow": "ac559e8b1ce985ee9baf4f404ce4a170",
+        "name": "Weekly",
+        "trigger_definition": "cf352104c32222002841b63b12d3ae1f",
+        "trigger_inputs": [
+          {
+            "triggerInstanceSysId": "",
+            "label": "Day of Week",
+            "internalType": "day_of_week",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 10,
+            "name": "day_of_week",
+            "value": "5",
+            "displayValue": "Friday",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "day_of_week",
+              "name": "day_of_week",
+              "label": "Day of Week",
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              }
+            }
+          },
+          {
+            "triggerInstanceSysId": "",
+            "label": "Time",
+            "internalType": "glide_time",
+            "dependent": "",
+            "choiceList": [],
+            "mandatory": true,
+            "order": 100,
+            "name": "time",
+            "value": "1970-01-01 22:30:00",
+            "displayValue": "1970-01-01 22:30:00",
+            "displayField": "",
+            "scriptActive": false,
+            "children": [],
+            "parameter": {
+              "type": "glide_time",
+              "name": "time",
+              "label": "Time",
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              }
+            }
+          }
+        ],
+        "trigger_outputs": "",
+        "trigger_type": "weekly"
+      }
+    },
+    {
+      "table": "sys_hub_action_instance_v2",
+      "sys_id": "f8f0adbb107546055c093ea4fbff237c",
+      "fields": {
+        "sys_id": "f8f0adbb107546055c093ea4fbff237c",
+        "sys_scope": "global",
+        "action_type": "5bc1bcc6531003003bf1d9109ec587d4",
+        "action_type_parent": "0e0ae8c2531003003bf1d9109ec587c8",
+        "active": "true",
+        "comment": "",
+        "display_text": "",
+        "flow": "ac559e8b1ce985ee9baf4f404ce4a170",
+        "generation_source": "",
+        "order": "1",
+        "parent_ui_id": "",
+        "sys_class_name": "sys_hub_action_instance_v2",
+        "ui_id": "f8f0adbb-1075-4605-5c09-3ea4fbff237c",
+        "updation_source": "",
+        "values": [
+          {
+            "name": "log_level",
+            "value": "info",
+            "displayValue": "info",
+            "scriptActive": false,
+            "parameter": {
+              "type": "choice"
+            }
+          },
+          {
+            "name": "log_message",
+            "value": "Weekly run {{Weekly_1.run_start_date_time}}",
+            "displayValue": "Weekly run {{Weekly_1.run_start_date_time}}",
+            "scriptActive": false,
+            "parameter": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "pills": [
+    {
+      "symbolic": "trigger.run_start_date_time",
+      "platform": "Weekly_1.run_start_date_time",
+      "type": "glide_date_time"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "spec_version": "1",
+  "flow": {
+    "key": "trg_monthly",
+    "name": "Trigger Monthly",
+    "description": "Construct spec: scheduled.monthly trigger"
+  },
+  "trigger": {
+    "key": "trg_monthly_trigger",
+    "type": "scheduled.monthly",
+    "day_of_month": 1,
+    "time": "00:05:00",
+    "timezone": "UTC"
+  },
+  "steps": [
+    {
+      "kind": "action",
+      "key": "trg_monthly_log",
+      "action": "log",
+      "inputs": {
+        "log_level": "info",
+        "log_message": {
+          "text": "Monthly run {{trigger.run_start_date_time}}"
+        }
+      }
+    }
+  ]
+}

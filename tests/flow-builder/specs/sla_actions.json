@@ -1,0 +1,14 @@
+{
+  "spec_version": "1",
+  "flow": { "key": "sla_actions", "name": "SLA Actions", "description": "Construct spec: SLA Percentage Timer outputs used in a condition and in log text", "run_as": "system" },
+  "trigger": { "key": "sla_trigger", "type": "sla.task" },
+  "steps": [
+    { "kind": "action", "key": "sla_warn_timer", "action": "slaPercentageTimer", "inputs": { "percentage": 75 } },
+    { "kind": "if", "key": "sla_warn_if", "condition": "{{steps.sla_warn_timer.status}}=completed", "then": [
+      { "kind": "action", "key": "sla_warn_log", "action": "log", "inputs": { "log_level": "warn", "log_message": { "text": "75 percent reached at {{steps.sla_warn_timer.scheduled_end_date_time}}" } } }
+    ] },
+    { "kind": "action", "key": "sla_breach_timer", "action": "slaPercentageTimer", "inputs": { "percentage": 100 } },
+    { "kind": "action", "key": "sla_breach_log", "action": "log",
+      "inputs": { "log_level": "error", "log_message": { "text": "Breached ({{steps.sla_breach_timer.status}}, {{steps.sla_breach_timer.total_duration}}) for {{trigger.task_sla_record.sla.name}}" } } }
+  ]
+}

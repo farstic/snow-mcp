@@ -1,0 +1,11 @@
+{
+  "table": "sys_hub_flow_logic_variable",
+  "query": "modelIN<the logic definition sys_ids>",
+  "fields": "sys_id,model,element,label,internal_type,order,reference,attributes",
+  "note": "The static outputs of flow logic (only For Each and Wait for a duration of time have rows).",
+  "result": [
+    { "sys_id": "2c72debc73031300b61e66476bf6a74b", "model": "fdb2541473031300b61e66476bf6a70e", "attributes": "pills_draggable_outside_block=true,pills_draggable_inside_block=false", "label": "Total Duration", "internal_type": "glide_duration", "element": "total_duration", "order": "100" },
+    { "sys_id": "5efe198dc3e232002841b63b12d3ae9c", "model": "098e1dc5c3e232002841b63b12d3ae33", "attributes": "pills_draggable_outside_block=false,pills_draggable_inside_block=true", "label": "Item", "internal_type": "document_id", "element": "item", "order": "100" },
+    { "sys_id": "bdc212fc73031300b61e66476bf6a7f6", "model": "fdb2541473031300b61e66476bf6a70e", "attributes": "pills_draggable_outside_block=true,pills_draggable_inside_block=false", "label": "Scheduled End date/time", "internal_type": "glide_date_time", "element": "scheduled_end_date_time", "order": "200" }
+  ]
+}

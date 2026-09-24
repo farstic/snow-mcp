@@ -7,6 +7,12 @@ import type { ServiceNowClient } from '../servicenow/client.js';
 import { ServiceNowError } from '../utils/errors.js';
 import { requireNowAssist, requireWrite } from '../utils/permissions.js';
 
+/**
+ * Tools a playbook may never execute: high-risk writes whose approval must name the tool itself
+ * (snow_flow_build also refuses any nested invocation on its own — see flow-builder/guards.ts).
+ */
+export const NESTED_TOOL_DENYLIST: ReadonlySet<string> = new Set(['snow_flow_build']);
+
 interface PlaybookStep {
   tool_name: string;
   args_template: Record<string, any>;
@@ -269,6 +275,19 @@ export async function dispatchOrchestrationAction(
       const context: Record<string, any> = args.context || {};
       const dryRun = args.dry_run !== false;
       const stepResults: StepResult[] = [];
+
+      // Tools that must never run nested inside a playbook: the MCP permission prompt and the
+      // write approval would only see snow_orch_playbook_exec. Refused before any step executes.
+      if (!dryRun) {
+        const nested = steps.map((s, i) => ({ i, name: String(s?.tool_name) })).filter(s => NESTED_TOOL_DENYLIST.has(s.name));
+        if (nested.length) {
+          throw new ServiceNowError(
+            `playbook step(s) ${nested.map(s => `${s.i} (${s.name})`).join(', ')} call a tool that cannot run inside a playbook — invoke it directly`,
+            'NESTED_TOOL_REFUSED',
+            { steps: nested }
+          );
+        }
+      }
 
       // Dynamically import routeToolInvocation for live execution
       let routeToolInvocation: ((client: ServiceNowClient, name: string, args: Record<string, any>) => Promise<any>) | undefined;
