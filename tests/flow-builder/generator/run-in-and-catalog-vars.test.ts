@@ -295,7 +295,7 @@ describe('Get Catalog Variables outputs (D18)', () => {
 
   it('offline (or when the selection cannot be checked): a non-sys_id catalog_variables string is a spec error; sys_ids and tokens are encoded', async () => {
     const offline = await errorsOf(generatePlan(gcvFlow('x', { catalog_variables: { list: ['1'.repeat(32), 'laptop_type'] } })));
-    expect(offline).toEqual([`step "vars": "catalog_variables" {list}[1] "laptop_type" is not a sys_id — the slushbucket stores "<sys_id>:item_option_new" / "<set sys_id>:item_option_new_set" and a bare name would select nothing at runtime; give the variable sys_id ("<sys_id>" or "<sys_id>:item_option_new") or a variable set as "<set sys_id>:item_option_new_set" (a Get Catalog Variables step resolves variable names against its static template_catalog_item only on a live plan / build)`]);
+    expect(offline).toEqual([`step "vars": "catalog_variables" {list}[1] "laptop_type" is not a sys_id — the slushbucket stores "<sys_id>:item_option_new" / "<set sys_id>:item_option_new_set" and a bare name would select nothing at runtime; give the variable sys_id ("<sys_id>" or "<sys_id>:item_option_new") or a variable set as "<set sys_id>:item_option_new_set" (Get Catalog Variables / Create Catalog Task resolve variable names against a static template_catalog_item only on a live plan / build)`]);
     const ok = await generatePlan(gcvFlow('x', { catalog_variables: { list: ['1'.repeat(32), { reference: '2'.repeat(32) }, `${'5'.repeat(32)}:item_option_new_set`] } }));
     expect(storedSelection(ok).value).toBe(`${'1'.repeat(32)}:item_option_new,${'2'.repeat(32)}:item_option_new,${'5'.repeat(32)}:item_option_new_set`);
     // live, but the read failed: the name cannot be resolved either
@@ -313,6 +313,24 @@ describe('Get Catalog Variables outputs (D18)', () => {
     const thrown = await generatePlan(gcvFlow('{{steps.vars.laptop_type}}'), { resolveCatalogVariables: async () => { throw new Error('read refused'); } });
     expect(thrown.warnings.join('\n')).toMatch(/could not be read \(read refused\)/);
     expect(thrown.pills.find(p => p.symbolic === 'steps.vars.laptop_type')?.type).toBe('string');
+  });
+
+  it('live: Create Catalog Task resolves catalog_variables names against its template_catalog_item too (outputs stay the task\'s)', async () => {
+    const taskFlow = (vars: unknown[]) => spec({
+      spec_version: '1', flow: { key: 'cct', name: 'CCT Test' },
+      trigger: { key: 't', type: 'catalog.service_catalog' },
+      steps: [{ kind: 'action', key: 'task', action: 'createCatalogTask', inputs: {
+        ah_requested_item: { pill: 'trigger.request_item' }, ah_short_description: 'x',
+        template_catalog_item: { reference: ITEM, display: 'Example Laptop' }, catalog_variables: { list: vars } } }],
+    });
+    const plan = await generatePlan(taskFlow(['laptop_type', '5'.repeat(32)]), { resolveCatalogVariables: async () => VARS });
+    expect(storedSelection(plan).value).toBe(`${'1'.repeat(32)}:item_option_new,${'5'.repeat(32)}:item_option_new_set`);
+    expect(plan.warnings).toEqual([]);
+    const unknown = await errorsOf(generatePlan(taskFlow(['laptop_typ']), { resolveCatalogVariables: async () => VARS }));
+    expect(unknown).toHaveLength(1);
+    expect(unknown[0]).toMatch(/step "task" \(createCatalogTask\): catalog_variables "laptop_typ" is not a variable \(or variable set\) of catalog item "Example Laptop"/);
+    // offline a name still cannot be resolved
+    expect((await errorsOf(generatePlan(taskFlow(['laptop_type'])))).join('\n')).toMatch(/"catalog_variables" \{list\}\[0\] "laptop_type" is not a sys_id/);
   });
 
   it('offline: unchanged — the pill is typed string with a warning', async () => {

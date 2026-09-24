@@ -1091,8 +1091,11 @@ class Generator {
     const info: StepOutputsInfo = { uuid: sysIdToUuid(sysId), order: n, outputs: def.outputs.map(o => ({ name: o.name, type: o.type, label: o.label, reference: this.outputTable(o, step.inputs) })), table };
     if (def.key === 'getCatalogVariables') {
       // dynamic outputs: the variables of the template catalog item (live only; offline they stay untyped)
-      const dyn = await this.catalogVariableOutputs(step);
+      const dyn = await this.catalogVariableOutputs(step, def.key);
       if (dyn) { info.outputs = dyn.outputs; info.strictOutputs = dyn.strict; }
+    } else if (def.key === 'createCatalogTask' && step.inputs.catalog_variables !== undefined) {
+      // same slushbucket: resolve the selection (names / set sys_ids) against template_catalog_item; outputs stay the task's
+      await this.catalogVariableOutputs(step, def.key);
     }
     this.stepInfo.set(step.key, info);
     const row: RecordRow = { table: 'sys_hub_action_instance_v2', sys_id: sysId, fields: this.actionRowFields(sysId, ids.snapshot, ids.definition, orderStr, parentUuid, step.annotation ?? '') };
@@ -1107,20 +1110,21 @@ class Generator {
    * variable sets). A pill naming anything else is then a spec error listing the valid names (typing.ts strictOutputs).
    * Offline, or when the item is not a static sys_id / cannot be read, undefined → today's untyped string + warning.
    */
-  private async catalogVariableOutputs(step: Extract<Step, { kind: 'action' }>): Promise<{ outputs: StepOutputsInfo['outputs']; strict: string } | undefined> {
+  private async catalogVariableOutputs(step: Extract<Step, { kind: 'action' }>, actionKey: 'getCatalogVariables' | 'createCatalogTask'): Promise<{ outputs: StepOutputsInfo['outputs']; strict: string } | undefined> {
     const resolver = this.opts.resolveCatalogVariables;
     if (!resolver) return undefined;
-    const what = `step "${step.key}" (getCatalogVariables)`;
+    const what = `step "${step.key}" (${actionKey})`;
+    const consequence = actionKey === 'getCatalogVariables' ? 'pills on them are typed "string"' : 'catalog_variables must be given as sys_ids';
     const itemValue = step.inputs.template_catalog_item;
     const item = typeof itemValue === 'string' ? itemValue
       : itemValue && typeof itemValue === 'object' && 'reference' in itemValue ? (itemValue as { reference: string }).reference : undefined;
     if (!item || !SYS_ID_RE.test(item)) {
-      this.warn(`${what}: template_catalog_item is not a static sys_id — its variables (the step's outputs) cannot be read; pills on them are typed "string"`);
+      this.warn(`${what}: template_catalog_item is not a static sys_id — its variables cannot be read; ${consequence}`);
       return undefined;
     }
     let res: CatalogVariablesInfo | DefinitionError | undefined;
     try { res = await resolver(item); } catch (e) {
-      this.warn(`${what}: the variables of catalog item ${item} could not be read (${(e as Error).message}) — pills on them are typed "string"`);
+      this.warn(`${what}: the variables of catalog item ${item} could not be read (${(e as Error).message}) — ${consequence}`);
       return undefined;
     }
     if (!res) return undefined;
@@ -1257,7 +1261,7 @@ class Generator {
       if (SYS_ID_RE.test(raw) || SLUSHBUCKET_TOKEN_RE.test(raw)) return item;
       // checked selections already reported this entry as not a variable (or set) of the item
       if (!tokens) {
-        this.error(`step "${ownerKey}": "${stored}" {list}[${i}] "${raw}" is not a sys_id — the slushbucket stores "<sys_id>:item_option_new" / "<set sys_id>:item_option_new_set" and a bare name would select nothing at runtime; give the variable sys_id ("<sys_id>" or "<sys_id>:item_option_new") or a variable set as "<set sys_id>:item_option_new_set" (a Get Catalog Variables step resolves variable names against its static template_catalog_item only on a live plan / build)`);
+        this.error(`step "${ownerKey}": "${stored}" {list}[${i}] "${raw}" is not a sys_id — the slushbucket stores "<sys_id>:item_option_new" / "<set sys_id>:item_option_new_set" and a bare name would select nothing at runtime; give the variable sys_id ("<sys_id>" or "<sys_id>:item_option_new") or a variable set as "<set sys_id>:item_option_new_set" (Get Catalog Variables / Create Catalog Task resolve variable names against a static template_catalog_item only on a live plan / build)`);
       }
       return item;
     });

@@ -14,7 +14,7 @@ import { collectToolCatalog } from './tools/index.js';
 import { getResources, readResource } from './resources/index.js';
 import { getPrompts, resolvePromptAsync } from './prompts/index.js';
 import { logger } from './utils/logging.js';
-import { ServiceNowError } from './utils/errors.js';
+import { ServiceNowError, formatServiceNowError } from './utils/errors.js';
 import { getPackageVersion } from './utils/version.js';
 import { connectTransport, getTransportType } from './transport/index.js';
 import { runInToolInvocationContext } from './utils/invocation-context.js';
@@ -93,7 +93,7 @@ export function createServer(): Server {
           content: [
             {
               type: 'text' as const,
-              text: `Error: ${error.message} (Code: ${error.code})`,
+              text: formatServiceNowError(error),
             },
           ],
           isError: true,
