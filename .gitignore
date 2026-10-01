@@ -60,3 +60,6 @@ CLAUDE.md
 PROGRESS.md
 LEARNINGS.md
 .claude/
+
+# Legacy Electron/web dashboard (servicenow-mcp web); not used, not developed since 2026-06
+desktop/
