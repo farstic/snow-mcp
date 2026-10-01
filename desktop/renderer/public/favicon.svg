@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <!-- MONOLITH monogram: ink block + cobalt lower-right quadrant + paper inset notch -->
-  <rect x="0" y="0" width="32" height="32" fill="#0B0B0A"/>
-  <rect x="16" y="16" width="16" height="16" fill="#2B27E0"/>
-  <rect x="6.5" y="6.5" width="9" height="9" fill="#FBFAF5"/>
-</svg>
