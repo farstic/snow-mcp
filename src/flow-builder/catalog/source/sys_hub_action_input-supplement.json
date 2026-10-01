@@ -1,0 +1,241 @@
+{
+  "table": "sys_hub_action_input",
+  "query": "modelIN<the snapshots read on the PDI>^active=true (tests/flow-builder/fixtures/pdi/definitions/sys_hub_action_input-by-snapshot.json — 10 snapshots; read_only from the definition rows of -by-definition.json joined on the snapshot parent_action + element)",
+  "fields": "sys_id,model,element,read_only,hint",
+  "note": "Supplement to sys_hub_action_input.json: the snapshot input sys_id (the values entry id and parameter.id Workflow Studio writes), read_only and hint. Rows are joined to sys_hub_action_input.json by model + element; a row without sys_id only supplies read_only / hint. Empty-string fields are omitted.",
+  "result": [
+    {
+      "sys_id": "418dd9f10f11101051218e8ebc767e38",
+      "model": "0d8dd9f10f11101051218e8ebc767e27",
+      "element": "notification"
+    },
+    {
+      "sys_id": "4d8dd9f10f11101051218e8ebc767e28",
+      "model": "0d8dd9f10f11101051218e8ebc767e27",
+      "element": "record"
+    },
+    {
+      "sys_id": "818dd9f10f11101051218e8ebc767e32",
+      "model": "0d8dd9f10f11101051218e8ebc767e27",
+      "element": "table_name",
+      "read_only": "true"
+    },
+    {
+      "sys_id": "61e05916c31332002841b63b12d3aee4",
+      "model": "2de05916c31332002841b63b12d3aee1",
+      "element": "table_name"
+    },
+    {
+      "sys_id": "6de09916c31332002841b63b12d3ae1b",
+      "model": "2de05916c31332002841b63b12d3aee1",
+      "element": "values"
+    },
+    {
+      "sys_id": "7b0ba3abc31013002841b63b12d3aef7",
+      "model": "330ba3abc31013002841b63b12d3aee8",
+      "element": "catalog_variables"
+    },
+    {
+      "sys_id": "bf0ba3abc31013002841b63b12d3aeea",
+      "model": "330ba3abc31013002841b63b12d3aee8",
+      "element": "requested_item"
+    },
+    {
+      "sys_id": "bb0ba3abc31013002841b63b12d3aef1",
+      "model": "330ba3abc31013002841b63b12d3aee8",
+      "element": "template_catalog_item"
+    },
+    {
+      "sys_id": "8f400a1587003300663ca1bb36cb0b50",
+      "model": "43400a1587003300663ca1bb36cb0b4b",
+      "element": "conditions"
+    },
+    {
+      "sys_id": "4f400a1587003300663ca1bb36cb0b61",
+      "model": "43400a1587003300663ca1bb36cb0b4b",
+      "element": "max_results"
+    },
+    {
+      "sys_id": "c7400a1587003300663ca1bb36cb0b55",
+      "model": "43400a1587003300663ca1bb36cb0b4b",
+      "element": "sort_column"
+    },
+    {
+      "sys_id": "0f400a1587003300663ca1bb36cb0b59",
+      "model": "43400a1587003300663ca1bb36cb0b4b",
+      "element": "sort_type"
+    },
+    {
+      "sys_id": "8f400a1587003300663ca1bb36cb0b4b",
+      "model": "43400a1587003300663ca1bb36cb0b4b",
+      "element": "table"
+    },
+    {
+      "sys_id": "5bc1bcc6531003003bf1d9109ec587d7",
+      "model": "5bc1bcc6531003003bf1d9109ec587d4",
+      "element": "log_level"
+    },
+    {
+      "sys_id": "23c1bcc6531003003bf1d9109ec587e5",
+      "model": "5bc1bcc6531003003bf1d9109ec587d4",
+      "element": "log_message"
+    },
+    {
+      "model": "80a30edeff30311077a95dac793bf19b",
+      "element": "table",
+      "read_only": "true"
+    },
+    {
+      "sys_id": "49ce8a4187120010663ca1bb36cb0bef",
+      "model": "89ce8a4187120010663ca1bb36cb0be3",
+      "element": "conditions"
+    },
+    {
+      "sys_id": "49ce8a4187120010663ca1bb36cb0be4",
+      "model": "89ce8a4187120010663ca1bb36cb0be3",
+      "element": "record"
+    },
+    {
+      "sys_id": "45ce8a4187120010663ca1bb36cb0bea",
+      "model": "89ce8a4187120010663ca1bb36cb0be3",
+      "element": "table_name"
+    },
+    {
+      "sys_id": "cdce8a4187120010663ca1bb36cb0bf9",
+      "model": "89ce8a4187120010663ca1bb36cb0be3",
+      "element": "timeout_duration"
+    },
+    {
+      "sys_id": "0dce8a4187120010663ca1bb36cb0bf4",
+      "model": "89ce8a4187120010663ca1bb36cb0be3",
+      "element": "timeout_flag"
+    },
+    {
+      "sys_id": "81ce8a4187120010663ca1bb36cb0bff",
+      "model": "89ce8a4187120010663ca1bb36cb0be3",
+      "element": "timeout_schedule"
+    },
+    {
+      "sys_id": "ceab42a673110010d70877186bf6a74f",
+      "model": "9d09f99587003300663ca1bb36cb0ba3",
+      "element": "__snc_dont_fail_on_error"
+    },
+    {
+      "sys_id": "d509f99587003300663ca1bb36cb0ba9",
+      "model": "9d09f99587003300663ca1bb36cb0ba3",
+      "element": "conditions"
+    },
+    {
+      "sys_id": "1909f99587003300663ca1bb36cb0bb9",
+      "model": "9d09f99587003300663ca1bb36cb0ba3",
+      "element": "if_multiple_records_are_found_action"
+    },
+    {
+      "sys_id": "1d09f99587003300663ca1bb36cb0bad",
+      "model": "9d09f99587003300663ca1bb36cb0ba3",
+      "element": "sort_column"
+    },
+    {
+      "sys_id": "5d09f99587003300663ca1bb36cb0bb1",
+      "model": "9d09f99587003300663ca1bb36cb0ba3",
+      "element": "sort_type"
+    },
+    {
+      "sys_id": "d909f99587003300663ca1bb36cb0ba4",
+      "model": "9d09f99587003300663ca1bb36cb0ba3",
+      "element": "table"
+    },
+    {
+      "sys_id": "7751fd0e73141300612c273ffff6a7ac",
+      "model": "af51fd0e73141300612c273ffff6a785",
+      "element": "ah_fields"
+    },
+    {
+      "sys_id": "7351fd0e73141300612c273ffff6a7a0",
+      "model": "af51fd0e73141300612c273ffff6a785",
+      "element": "ah_requested_item"
+    },
+    {
+      "sys_id": "3751fd0e73141300612c273ffff6a7a6",
+      "model": "af51fd0e73141300612c273ffff6a785",
+      "element": "ah_short_description"
+    },
+    {
+      "sys_id": "af51fd0e73141300612c273ffff6a788",
+      "model": "af51fd0e73141300612c273ffff6a785",
+      "element": "ah_table_name",
+      "read_only": "true"
+    },
+    {
+      "sys_id": "f751fd0e73141300612c273ffff6a7b2",
+      "model": "af51fd0e73141300612c273ffff6a785",
+      "element": "ah_wait"
+    },
+    {
+      "sys_id": "7b51fd0e73141300612c273ffff6a7be",
+      "model": "af51fd0e73141300612c273ffff6a785",
+      "element": "catalog_variables"
+    },
+    {
+      "sys_id": "f751fd0e73141300612c273ffff6a7b8",
+      "model": "af51fd0e73141300612c273ffff6a785",
+      "element": "template_catalog_item"
+    },
+    {
+      "model": "c1806bf4a70323008299b39f087901cb",
+      "element": "table_name",
+      "read_only": "true"
+    },
+    {
+      "sys_id": "45f2e9920b10030085c083eb37673aee",
+      "model": "f8f2e9920b10030085c083eb37673abd",
+      "element": "approval_conditions"
+    },
+    {
+      "sys_id": "01f2e9920b10030085c083eb37673ad8",
+      "model": "f8f2e9920b10030085c083eb37673abd",
+      "element": "approval_field"
+    },
+    {
+      "sys_id": "e4635e467f3012108e688c90ac866543",
+      "model": "f8f2e9920b10030085c083eb37673abd",
+      "element": "approval_reason"
+    },
+    {
+      "sys_id": "c5f2e9920b10030085c083eb37673af9",
+      "model": "f8f2e9920b10030085c083eb37673abd",
+      "element": "due_date"
+    },
+    {
+      "sys_id": "c1f2e9920b10030085c083eb37673ae3",
+      "model": "f8f2e9920b10030085c083eb37673abd",
+      "element": "journal_field"
+    },
+    {
+      "sys_id": "78f2e9920b10030085c083eb37673ac0",
+      "model": "f8f2e9920b10030085c083eb37673abd",
+      "element": "record"
+    },
+    {
+      "sys_id": "bcf2e9920b10030085c083eb37673acc",
+      "model": "f8f2e9920b10030085c083eb37673abd",
+      "element": "table",
+      "read_only": "true"
+    },
+    {
+      "sys_id": "4ed01916c31332002841b63b12d3aee1",
+      "model": "f9d01dd2c31332002841b63b12d3aea1",
+      "element": "record"
+    },
+    {
+      "sys_id": "b5d01916c31332002841b63b12d3aec9",
+      "model": "f9d01dd2c31332002841b63b12d3aea1",
+      "element": "table_name"
+    },
+    {
+      "sys_id": "02d01916c31332002841b63b12d3aeee",
+      "model": "f9d01dd2c31332002841b63b12d3aea1",
+      "element": "values"
+    }
+  ]
+}

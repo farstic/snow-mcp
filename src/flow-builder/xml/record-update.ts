@@ -16,6 +16,8 @@
  *       <group action="delete_multiple" query="model=<flow>^sys_idNOT IN…"/> + its rows;
  *       after the FIRST populated group: every sys_documentation row, then sys_complex_object rows
  *     [stages]   delete_multiple flow=… + rows
+ *     [catalog model] catalog flows only: delete_multiple id=… + the sys_flow_cat_variable_model row, then a
+ *                sys_flow_cat_variable delete_multiple (flow_catalog_model=<row>) — the platform capture's layout
  *     [trigger]  delete_multiple flow=… + row
  *     [actions]  delete_multiple flow=… + rows, then one sys_hub_alias_mapping delete_multiple
  *                (query source_id=<instance>) per action
@@ -48,6 +50,8 @@ const INDENT = '  ';
 /** Tables whose rows key to the flow through `model` instead of `flow`. */
 const MODEL_KEYED = new Set(['sys_hub_flow_variable', 'sys_hub_flow_input', 'sys_hub_flow_output']);
 const VARIABLE_GROUPS = ['sys_hub_flow_variable', 'sys_hub_flow_input', 'sys_hub_flow_output'] as const;
+/** The catalog-variable model of a catalog flow: keyed by `id=<flow>`, one row, followed by its sys_flow_cat_variable cleanup (as captured). */
+const CAT_MODEL_TABLE = 'sys_flow_cat_variable_model';
 const INSTANCE_TABLES = ['sys_hub_action_instance_v2', 'sys_hub_flow_logic_instance_v2', 'sys_hub_sub_flow_instance_v2'] as const;
 /** Instance tables whose rows get a per-row sys_hub_alias_mapping cleanup. */
 const ALIASED = new Set(['sys_hub_action_instance_v2', 'sys_hub_sub_flow_instance_v2']);
@@ -81,8 +85,13 @@ export interface RecordUpdateOptions {
   cleanTables?: readonly string[];
 }
 
-/** Child tables `cleanTables` may name (flow= / model= keyed, the tables the emitter knows). */
-export const CLEANABLE_TABLES: readonly string[] = [...VARIABLE_GROUPS, 'sys_hub_flow_stage', 'sys_hub_trigger_instance_v2', ...INSTANCE_TABLES];
+/** Child tables `cleanTables` may name (flow= / model= / id= keyed, the tables the emitter knows). */
+export const CLEANABLE_TABLES: readonly string[] = [...VARIABLE_GROUPS, 'sys_hub_flow_stage', CAT_MODEL_TABLE, 'sys_hub_trigger_instance_v2', ...INSTANCE_TABLES];
+
+/** The parent column a child table keys to the flow by (`flow`, `model` for variable tables, `id` for the catalog-variable model). */
+export function parentKeyOf(table: string): 'flow' | 'model' | 'id' {
+  return MODEL_KEYED.has(table) ? 'model' : table === CAT_MODEL_TABLE ? 'id' : 'flow';
+}
 
 /** One `<table action="INSERT_OR_UPDATE" apply_defaults="true">` element. */
 export function recordElement(row: RecordRow, scope: string, scopeRef?: ScopeRef): string {
@@ -110,8 +119,7 @@ function deleteMultiple(table: string, query: string): string {
 }
 
 function childCleanup(table: string, flowSysId: string, rows: RecordRow[]): string {
-  const key = MODEL_KEYED.has(table) ? 'model' : 'flow';
-  return deleteMultiple(table, `${key}=${flowSysId}^sys_idNOT IN${rows.map(r => r.sys_id).join(',')}`);
+  return deleteMultiple(table, `${parentKeyOf(table)}=${flowSysId}^sys_idNOT IN${rows.map(r => r.sys_id).join(',')}`);
 }
 
 /**
@@ -130,7 +138,7 @@ export function planToRecordUpdateXml(plan: RecordPlan, opts: RecordUpdateOption
   }
   /** delete_multiple for a child table the plan leaves empty (only when asked to clean it). */
   const cleanEmpty = (table: string) => {
-    if (clean.has(table)) out.push(deleteMultiple(table, `${MODEL_KEYED.has(table) ? 'model' : 'flow'}=${flowSysId}`));
+    if (clean.has(table)) out.push(deleteMultiple(table, `${parentKeyOf(table)}=${flowSysId}`));
   };
   const out: string[] = ['<?xml version="1.0"?>', '<record_update table="sys_hub_flow">', recordElement(plan.flow, scope, opts.scope)];
   const emit = (rows: RecordRow[]) => { for (const r of rows) out.push(recordElement(r, scope, opts.scope)); };
@@ -147,9 +155,15 @@ export function planToRecordUpdateXml(plan: RecordPlan, opts: RecordUpdateOption
     if (!docsEmitted) { emit(plan.documentation ?? []); emit(complexObjects); docsEmitted = true; }
   }
   if (!docsEmitted) { emit(plan.documentation ?? []); emit(complexObjects); }
-  emit(variableRows.filter(r => r.table !== 'sys_complex_object' && !(VARIABLE_GROUPS as readonly string[]).includes(r.table)));
+  emit(variableRows.filter(r => r.table !== 'sys_complex_object' && r.table !== CAT_MODEL_TABLE && !(VARIABLE_GROUPS as readonly string[]).includes(r.table)));
 
   if (plan.stages?.length) { out.push(childCleanup('sys_hub_flow_stage', flowSysId, plan.stages)); emit(plan.stages); } else cleanEmpty('sys_hub_flow_stage');
+  // catalog flows: the model row after the stages, each followed by its sys_flow_cat_variable cleanup (the capture's layout)
+  const models = variableRows.filter(r => r.table === CAT_MODEL_TABLE);
+  if (models.length) {
+    out.push(childCleanup(CAT_MODEL_TABLE, flowSysId, models));
+    for (const r of models) { out.push(recordElement(r, scope, opts.scope)); out.push(deleteMultiple('sys_flow_cat_variable', `flow_catalog_model=${r.sys_id}`)); }
+  } else cleanEmpty(CAT_MODEL_TABLE);
   if (plan.trigger) { out.push(childCleanup(plan.trigger.table, flowSysId, [plan.trigger])); emit([plan.trigger]); } else cleanEmpty('sys_hub_trigger_instance_v2');
 
   for (const table of INSTANCE_TABLES) {

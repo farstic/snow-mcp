@@ -1,0 +1,61 @@
+{
+ "generated_by": "scripts/build-flow-catalog.mjs",
+ "source": "src/flow-builder/catalog/source — Flow Designer definitions exported from a ServiceNow instance (see src/flow-builder/README.md, \"Catalogue\")",
+ "tables": [
+  {
+   "name": "change_request",
+   "label": "Change Request"
+  },
+  {
+   "name": "incident",
+   "label": "Incident"
+  },
+  {
+   "name": "sc_cat_item",
+   "label": "Catalog Item",
+   "display_field": "name"
+  },
+  {
+   "name": "sc_req_item",
+   "label": "Requested Item",
+   "display_field": "number"
+  },
+  {
+   "name": "sc_task",
+   "label": "Catalog Task"
+  },
+  {
+   "name": "st_sys_catalog_items_and_variable_sets",
+   "label": "Catalog Items and Variable Sets",
+   "display_field": "name"
+  },
+  {
+   "name": "sys_email",
+   "label": "Email"
+  },
+  {
+   "name": "sys_flow_context",
+   "label": "Flow engine context"
+  },
+  {
+   "name": "sys_import_set",
+   "label": "Import Set"
+  },
+  {
+   "name": "sys_script_vtable",
+   "label": "Remote Table"
+  },
+  {
+   "name": "sys_user",
+   "label": "User"
+  },
+  {
+   "name": "sys_user_group",
+   "label": "Group"
+  },
+  {
+   "name": "sysevent_email_action",
+   "label": "Notification"
+  }
+ ]
+}

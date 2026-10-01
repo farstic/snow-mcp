@@ -45,7 +45,7 @@ describe('rewritePills / platformPillsInText', () => {
 });
 
 describe('buildLabelCache', () => {
-  it('one entry per pill in first-use order; each input listed once per instance; static pills excluded', () => {
+  it('one entry per pill in first-use order; each input listed once per instance; static pills named with their braces', () => {
     const u = (platform: string, instanceUuid: string, inputName: string): PillUsage => ({ platform, symbolic: '', instanceUuid, inputName });
     const lc = buildLabelCache([
       u('Created_1.current.number', 'i1', 'log_message'),
@@ -54,18 +54,24 @@ describe('buildLabelCache', () => {
       u('Created_1.current.number', 'i3', 'ah_subject'),
       u(`static.${'a'.repeat(32)}`, 'i3', 'approval_conditions'),
     ], p => (p === 'Created_1.current'
-      ? { type: 'reference', base_type: 'reference', label: 'Trigger - Record Created➛incident Record', ui: { reference: 'incident' } }
-      : { type: 'string', base_type: 'string', label: 'Trigger - Record Created➛incident Record➛Number', ui: { parent_table_name: 'incident', column_name: 'number' } }));
-    expect(lc.map(e => e.name)).toEqual(['Created_1.current.number', 'Created_1.current']);
+      ? { type: 'reference', base_type: 'reference', label: 'Trigger - Record Created➛Incident Record', reference: 'incident', reference_display: 'Incident', attributes: {} }
+      : p.startsWith('static.')
+        ? { type: 'reference', base_type: 'reference', label: 'Example Group', reference: 'sys_user_group', reference_display: 'Group' }
+        : { type: 'string', base_type: 'string', label: 'Trigger - Record Created➛Incident Record➛Number', reference: '', reference_display: 'Number', parent_table_name: 'incident', column_name: 'number' }));
+    expect(lc.map(e => e.name)).toEqual(['Created_1.current.number', 'Created_1.current', `{{static.${'a'.repeat(32)}}}`]);
     expect(lc[0].usedInstances).toEqual({ i1: ['log_message'], i3: ['ah_subject'] });
-    expect(Object.keys(lc[0])).toEqual(['name', 'label', 'type', 'base_type', 'usedInstances', 'attributes', 'parent_table_name', 'column_name']);
-    expect(lc[1]).toMatchObject({ reference: 'incident' });
+    // the UI key order (PDI-FACTS §6): reference keys before type, parent_table_name / column_name after base_type, usedInstances, then attributes (absent on a dot-walk)
+    expect(Object.keys(lc[0])).toEqual(['name', 'label', 'reference', 'reference_display', 'type', 'base_type', 'parent_table_name', 'column_name', 'usedInstances']);
+    expect(Object.keys(lc[1])).toEqual(['name', 'label', 'reference', 'reference_display', 'type', 'base_type', 'usedInstances', 'attributes']);
+    expect(lc[1]).toMatchObject({ reference: 'incident', reference_display: 'Incident' });
+    expect(lc[2]).toEqual({ name: `{{static.${'a'.repeat(32)}}}`, label: 'Example Group', reference: 'sys_user_group', reference_display: 'Group', type: 'reference', base_type: 'reference', usedInstances: { i3: ['approval_conditions'] } });
   });
 
-  it('keeps the base column_name of records pills over a UI column_name', () => {
+  it('writes choices after column_name and keeps column_name of records pills', () => {
     const lc = buildLabelCache([{ platform: 'x.Records', symbolic: '', instanceUuid: 'i', inputName: 'items' }],
-      () => ({ type: 'records', base_type: 'records', label: 'x➛Records', column_name: 'Records', ui: { column_name: 'other' } }));
+      () => ({ type: 'records', base_type: 'records', label: 'x➛Records', column_name: 'Records', choices: [{ label: 'A', value: 'a', order: 0 }], attributes: {} }));
     expect(lc[0].column_name).toBe('Records');
+    expect(Object.keys(lc[0])).toEqual(['name', 'label', 'type', 'base_type', 'column_name', 'choices', 'usedInstances', 'attributes']);
   });
 });
 

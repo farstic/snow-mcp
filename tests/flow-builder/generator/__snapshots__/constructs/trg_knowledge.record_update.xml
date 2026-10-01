@@ -13,7 +13,7 @@
     <flow_priority/>
     <generation_source>snow_mcp_flow_builder</generation_source>
     <internal_name>trigger_knowledge_management</internal_name>
-    <label_cache>[{"name":"Knowledge Management_1.knowledge.number","label":"Trigger - Knowledge Management➛Knowledge➛Number","type":"string","base_type":"string","usedInstances":{"958e25a7-b831-6589-bd45-387ca0daa55e":["log_message"]},"attributes":{}},{"name":"Knowledge Management_1.table_name","label":"Trigger - Knowledge Management➛Table Name","type":"table_name","base_type":"table_name","usedInstances":{"958e25a7-b831-6589-bd45-387ca0daa55e":["log_message"]},"attributes":{}}]</label_cache>
+    <label_cache>[{"name":"Knowledge Management_1.knowledge.number","label":"Trigger - Knowledge Management➛Kb Knowledge Record➛Number","reference":"","reference_display":"Number","type":"string","base_type":"string","parent_table_name":"kb_knowledge","column_name":"number","usedInstances":{"958e25a7-b831-6589-bd45-387ca0daa55e":["log_message"]}},{"name":"Knowledge Management_1.table_name","label":"Trigger - Knowledge Management➛Table Name","reference_display":"Table Name","type":"table_name","base_type":"table_name","usedInstances":{"958e25a7-b831-6589-bd45-387ca0daa55e":["log_message"]},"attributes":{"test_input_hidden":"true"}}]</label_cache>
     <name>Trigger Knowledge Management</name>
     <run_as>user</run_as>
     <run_with_roles/>
@@ -54,7 +54,7 @@
     <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
     <ui_id>958e25a7-b831-6589-bd45-387ca0daa55e</ui_id>
     <updation_source/>
-    <values>H4sIAAAAAAAAA7WQsQqDMBRFf0XeLEJXN+fStUsp8ozXNPQlShItEvLvxaFQKYUuXQ8HDvdeEjm2oJpk1K1ggVBJC8u8MeOGkUrqTZiE1/OeBuXNFBsVzQKqB5aAkib2bBHhqU4U12nz1W00CpRzuYtZhMAab7nGR6MERUpHNz4EvUZxYscaFi62h+r+wpWbbQefc2Hcdz1yJ2i3ZM6fM/5c+/meEL1xmnK+PgEfDDphjQEAAA==</values>
+    <values>H4sIAAAAAAAAA+VUy27bMBD8FWPPsiDZcdPoFiQNUDQPoAHSQxAIK3IlE6VIlaLsuIb+vaBE2WriFjGQnnrkcAjuzO7s4xYEhwQWGYszxj4s5nEUzaNonuUxP4ujM2KLj6f8FAJQWBIkIHWRSlqRhABWKBuHCZVrCICLupK4efDo5x5lSyG5IQXJ41MAFRosyZKBZPvi6q2FSMxIQgLXvooDhdlN5SC21IKRP1/7ZxcDqA13ZUQB0LMlxYlDkqOsKYASFUerzWaHGEJ+p+QeWAplIQFw5Oda/CRITiLHy8mQYtTf7Y6pN6eH80u0eG9Nw2xjPLUvtobkcbuTOJ1ObrWiyXQ6cntUehvsud7uFz3xzHjM/IZGCVWMyGs0ak+ejcmfjNFmRCV/9tx5+xQApxwbaS+OVxC/WcHsGAXzIxScOAW9+XeVFVpBArGbGczk0Botm1Ld9nMGO70PL8a/Ry8PpqCpKeVUuTFzc+OHKL9f6vXXYUauhOoq8pdSM5S7E1prRNZY5+8WSFJJyqYlVpVQRVoZvRLdY2C6DAspOIW51OuUUy0KFSJz0kKOFsMrqdeXHfyARjiZN1hVZKANoN7UFxLrei/WUJ7+aFwlvXSvIe2M6p4wIyp7zqxYkS/X2d/FeTb/W5xp8Xt8S6prLGjUq3NjBZM02W6/KL2WxAua3KDCopcfh98HOFRNmZFp24lQf6Z3TU3dl237emP949+O24RvsG6Y8JudbwfN9NuwtqbPzHgb3g/gEMh324azxeJ91uGhBfM6skcl9v8L5NMvqDolE+oHAAA=</values>
   </sys_hub_action_instance_v2>
   <sys_hub_alias_mapping action="delete_multiple" query="source_id=958e25a7b8316589bd45387ca0daa55e"/>
 </record_update>

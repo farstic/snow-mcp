@@ -137,7 +137,7 @@ spec (JSON) ──parseSpec──▶ FlowSpec ──generatePlan──▶ Record
 | `xml/unload.ts` | `planToUnloadXml(plan, { updateSetName, description? })` | **WRITER** | **done** |
 | `writer/index.ts` | `writePlan` (Table API, diagnostics), `verifyFlow`, `planFieldDiffs`, `describeCaptureProtocol`, shared checks (`resolveUpdateSet`, `resolveScope`, `assertUpdateSetMatchesScope`, `checkActiveFlow`, `childRowsOnInstance`, `verifyCapture`, `activateFlow`) | **WRITER** | **done** |
 | `writer/loader.ts` | `loadPlan` (ServiceNow IDE loader — the default transport), `describeLoadProtocol`, `isRecordTriggeredFlow` | **WRITER** | **done** — PDI round trip proven 24 Sep 2026 (Basic auth, version 2, capture, activation, real run); findings 1-2 fixed and unit-tested on the fake client |
-| `resolvers.ts` | read-only instance resolvers for the generator: `makeSubflowResolver` / `makeCustomActionResolver` (by sys_id or name / internal_name + scope → sys_id + typed inputs / outputs; missing, ambiguous or not-a-subflow = spec error), `makeActionTypeResolver` (catalogue snapshot if it exists + `parent_action`, else the definition's existing `latest_snapshot` — the definition by the catalogue id, or by name only when it is the core one: `sys_scope=global`, name AND internal_name match, and its `sys_hub_action_input` elements cover the catalogue inputs; a same-named scoped/custom action is never taken, and a name match is said in the warning — else catalogue ids; cached per instance per process, failed reads not cached), `makeInstanceTimeZoneResolver` (the zone a glide_date_time trigger input is read in: the authenticated user's `sys_user.time_zone`, else `glide.sys.default.tz`; unknown = `{error}`), `makeCatalogVariablesResolver` + `catalogVariableType` (Get Catalog Variables outputs from `item_option_new` / `io_set_item`, typed by question type), `instanceResolvers`, `clearActionTypeCache` | WRITER (tool wiring) | **done** — unit-tested on the fake client |
+| `resolvers.ts` | read-only instance resolvers for the generator: `makeSubflowResolver` / `makeCustomActionResolver` (by sys_id or name / internal_name + scope → sys_id + typed inputs / outputs; missing, ambiguous or not-a-subflow = spec error), `makeActionTypeResolver` (catalogue snapshot if it exists + `parent_action`, else the definition's existing `latest_snapshot` — the definition by the catalogue id, or by name only when it is the core one: `sys_scope=global`, name AND internal_name match, and its `sys_hub_action_input` elements cover the catalogue inputs; a same-named scoped/custom action is never taken, and a name match is said in the warning — else catalogue ids; cached per instance per process, failed reads not cached), `makeInstanceTimeZoneResolver` (the zone a glide_date_time trigger input is read in: the authenticated user's `sys_user.time_zone`, else `glide.sys.default.tz`; unknown = `{error}`), `makeCatalogVariablesResolver` + `catalogVariableType` (Get Catalog Variables outputs from `item_option_new` / `io_set_item`, typed by question type), `makeDictionaryPillFieldResolver` (the `sys_dictionary` walk of a dot-walk pill: type, labels, walked table, referenced table + label, `choice` attribute), `makeFieldChoicesResolver` (the `sys_choice` list of a choice-list field — en, active, no dependent value, sequence order — on the walked table, then up its super_class chain; the table with rows names the list, so a choice-field pill is typed `choice` with its list in label_cache instead of integer / string), `instanceResolvers`, `clearActionTypeCache` | WRITER (tool wiring) | **done** — unit-tested on the fake client |
 | `guards.ts` | instance policy (allow list + deny pattern, deny wins), client re-resolution, export-root confinement | SCAFFOLD | **done** |
 | `src/utils/permissions.ts` | `requireFlowBuilder`, `requireFlowBuilderActivate`, `isFlowBuilder*Enabled` | SCAFFOLD | **done** |
 | `src/tools/flow-builder.ts` | the five tools (manifest + dispatcher), argument validation, decode-for-review, dictionary pill typing | SCAFFOLD → WRITER | **done** |
@@ -205,7 +205,7 @@ is rejected by the schema (`FLOW_BUILDER_INVALID_SPEC`) and again by `encodeTemp
 Use a `{script}` sub-value when a literal `^` is really needed.
 
 ### `generatePlan` (GENERATOR)
-Pure apart from `opts.resolvePillType` and the `GeneratorExtras` resolvers `resolveSubflow` / `resolveCustomAction` / `resolveActionType` / `resolveInstanceTimeZone` / `resolveCatalogVariables` (+ the `now` clock)
+Pure apart from `opts.resolvePillType` and the `GeneratorExtras` resolvers `resolveSubflow` / `resolveCustomAction` / `resolveActionType` / `resolveInstanceTimeZone` / `resolveCatalogVariables` / `resolvePillField` / `resolveFieldChoices` / `resolveTableLabel` (+ the `now` clock)
 (reads; `resolvers.ts` supplies them for a live instance — a resolver `{error}` becomes a spec error, a resolved definition is authoritative:
 unknown inputs and missing mandatory inputs without a default are errors; inputs hidden in Flow Designer (`attributes` visible=false / visible_in_fd=false) are never "missing" and cannot be set; a definition in another application scope than the flow is a warning). Deterministic ids via `ids.ts` (`ELEMENT_KEYS`), or `flow.sys_id` when the spec adopts an existing flow.
 Flat 1-based `order` assigned depth-first (children right after their block; stages consume none; do_in_parallel children `'<parent>➛<n>'`);
@@ -354,6 +354,13 @@ action snapshots, 18 logic definitions) under their FlowSpec keys, the label pre
 | `sys_hub_flow_logic_input.json` | `sys_hub_flow_logic_input` | `modelIN<logic definitions>` | sys_id, model, element, label, internal_type, mandatory, order, default_value |
 | `sys_hub_flow_logic_variable.json` | `sys_hub_flow_logic_variable` | `modelIN<logic definitions>` (static logic outputs) | sys_id, model, element, label, internal_type, order, reference, attributes |
 | `sys_choice-logic-input.json` | `sys_choice` | `nameINvar__m_sys_hub_flow_logic_input_<definition>,…^language=en^inactive=false` | name, element, value, label, sequence |
+| `sys_hub_action_input-supplement.json` (optional) | `sys_hub_action_input` | `modelIN<snapshots>^active=true` — the columns the main export lacks; today the 10 snapshots read on the PDI (`tests/flow-builder/fixtures/pdi/definitions`), joined by model + element | sys_id, model, element, read_only, hint |
+| `sys_hub_flow_logic_input-supplement.json` (optional) | `sys_hub_flow_logic_input` | `sys_idIN<logic inputs>` — the columns the main export lacks (from the parameter mirrors of UI-built logic rows), joined by sys_id | sys_id, element, max_length, attributes |
+| `sys_db_object-action-references.json` (optional) | `sys_db_object` | `nameIN<every table an action input / output references, plus the tables UI-built label_cache entries name>` | name, label, display_field (the table's display column, only where a UI-built row showed it) |
+
+The two `sys_db_object` exports are merged into a fourth data file, `tables.json` (name, label, display_field): the table labels
+the generator writes into `label_cache` (`<Table label> Record`), table_name `displayValue` and `parameter.reference_display`,
+and the display field of `parameter.fSearchField` — a live `sys_db_object` read (`resolveTableLabel`) takes precedence.
 
 Rules the script applies (header of `scripts/build-flow-catalog.mjs`): the Flow Designer type is `internal_type`, or
 `attributes.uiType` for a complex object (`co_type_name`); inputs and outputs are kept in definition order (then by
@@ -365,9 +372,10 @@ Run Once and Remote Table Query — no UI-built flow on the PDI uses their pills
 
 What the generator derives from the definitions (no copied strings): the `trigger_inputs` descriptor of every trigger
 without a UI-captured one (`catalog/triggers.ts` `descriptorTemplate`: one entry per input, the definition's label,
-type, mandatory, order, default and choices, parameter `{type, name, label, reference?, reference_display?, attributes?, dependent_on?,
-use_dependent?}`);
-the inputs every action row carries even when the spec omits them (`isAlwaysStored`: a non-empty default, or hidden);
+type, mandatory, order, default and choices, and the full parameter mirror in the trigger-descriptor form);
+the `parameter` mirror of every values entry (`generator/parameter.ts`: the 29-key action form, the 24-key logic form —
+id, labels, type labels, maxsize, reference + table label, choices, defaults, attributes, dependent field);
+one values entry per definition input (an unset input with its default, else empty);
 the key order of every logic `values` object (the one order UI-built rows use).
 
 Re-sourcing (read-only): run the queries above against the instance (the snow-mcp read tools `snow_core_records_query` /

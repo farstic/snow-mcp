@@ -13,7 +13,7 @@
     <flow_priority/>
     <generation_source>snow_mcp_flow_builder</generation_source>
     <internal_name>trigger_service_catalog</internal_name>
-    <label_cache>[{"name":"Service Catalog_1.request_item.number","label":"Trigger - Service Catalog➛Request Item➛Number","type":"string","base_type":"string","usedInstances":{"c4fcd265-988d-6bf4-33bd-4daee6966080":["log_message"]},"attributes":{}},{"name":"Service Catalog_1.table_name","label":"Trigger - Service Catalog➛Table Name","type":"table_name","base_type":"table_name","usedInstances":{"c4fcd265-988d-6bf4-33bd-4daee6966080":["log_message"]},"attributes":{}}]</label_cache>
+    <label_cache>[{"name":"Service Catalog_1.request_item.number","label":"Trigger - Service Catalog➛Requested Item Record➛Number","reference":"","reference_display":"Number","type":"string","base_type":"string","parent_table_name":"sc_req_item","column_name":"number","usedInstances":{"c4fcd265-988d-6bf4-33bd-4daee6966080":["log_message"]}},{"name":"Service Catalog_1.table_name","label":"Trigger - Service Catalog➛Requested Item Table","reference":"sc_req_item","reference_display":"Requested Item","type":"table_name","base_type":"table_name","usedInstances":{"c4fcd265-988d-6bf4-33bd-4daee6966080":["log_message"]},"attributes":{"test_input_hidden":"true"}}]</label_cache>
     <name>Trigger Service Catalog</name>
     <run_as>user</run_as>
     <run_with_roles/>
@@ -23,6 +23,15 @@
     <type>flow</type>
     <version>2</version>
   </sys_hub_flow>
+  <sys_flow_cat_variable_model action="delete_multiple" query="id=3927ba5768a31f16ce4a28ab1ee6a084^sys_idNOT INbcef2355853b96ca28bb3e07e78321bd"/>
+  <sys_flow_cat_variable_model action="INSERT_OR_UPDATE" apply_defaults="true">
+    <sys_id>bcef2355853b96ca28bb3e07e78321bd</sys_id>
+    <sys_scope display_value="global">global</sys_scope>
+    <sys_update_name>sys_flow_cat_variable_model_bcef2355853b96ca28bb3e07e78321bd</sys_update_name>
+    <id>3927ba5768a31f16ce4a28ab1ee6a084</id>
+    <name>Trigger Service Catalog</name>
+  </sys_flow_cat_variable_model>
+  <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=bcef2355853b96ca28bb3e07e78321bd"/>
   <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=3927ba5768a31f16ce4a28ab1ee6a084^sys_idNOT IN509ad2aedd79be81c1479c329b962871"/>
   <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE" apply_defaults="true">
     <sys_id>509ad2aedd79be81c1479c329b962871</sys_id>
@@ -54,7 +63,7 @@
     <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
     <ui_id>c4fcd265-988d-6bf4-33bd-4daee6966080</ui_id>
     <updation_source/>
-    <values>H4sIAAAAAAAAA7WQsQrCQBBEfyVsHQK26cQ/ULARCZvLJC7cXeLdJhDC/bscNooWNrbDGx4zl408O1BNdhwaiwWWSlrYzjkT349UUidxsrye39Nogky6NyoLqO7ZRpQ0cWAHRaB6I12nzJvbKAaUUvkmc4iRB7zojrjPiIquEIUrtu2EsIhBcWDlXNlV4Yk0Gaj87FqElArxX2Hl1qLJypQ+Z/zZ9vM9UYP4gVK6PgC55zURjQEAAA==</values>
+    <values>H4sIAAAAAAAAA+VUXWvjMBD8K2GfHWMnzfXqtyO9wkE/oIHeQwlmLa0TgSy5kpw0F/zfD8VK4mvD0UDv6R41GqGd2Z193oLgkMGkYGnB2JfJOE2ScZKMizLlV2lyRWzy9ZJfQgQKK4IMpF7kklYkIYIVysZjQpUaIuDC1hI3TwH90aFsKSQ3pCB7nkdQo8GKHBnItm+uPlqIxIIkZHAbqjhRmNvUHmJLLRiF8214Nt2D2nBfRhIBvTpSnDhkJUpLEVSoODptNgfEEPIHJY/AUigHGYAnv1rxiyC7SDyvJEOKUXd3OObBnA4ur9HhzJmGucYEaleshex5e5A4HA7utaLBcNhzu1d6Gx25we43PQnMtM/8iUYJteiR12jUkTzqk78bo02PSuEcuON2HgGnEhvppucrSD+sYHSOgvEZCi68gs78h9oJrSCD1M8MFnLfGi2bSt13cwYHvU9vxr9Dr0+moLGUc6r9mPm5CUNUzpZ6/bifkRuhdhWFS6kZysMJnTOiaJz3dwskqSLl8grrWqhFXhu9ErvHwHQVL6TgFJdSr3NOVixUjMxLizk6jG+kXl/v4Cc0wsu8w7omA20EdmOnEq09ijVU5i+Nr6STHjTkO6N2T5gRtfvGnFhRKNfbv4vzaPy3ONPkz/hWZC0uqNerR3ppyDriA+GoGmy3MzIrwWgwRYf+SRqbjpJ7QqyaqiDTtgOhTpJ3Tc39l237fmP949/O24QfsG4/4XcH306aGbahdabLTH8bzvbgPpCftg1Hk8nnrMNTC+Z9ZM9K7P8XyPlvqfz73uoHAAA=</values>
   </sys_hub_action_instance_v2>
   <sys_hub_alias_mapping action="delete_multiple" query="source_id=c4fcd265988d6bf433bd4daee6966080"/>
 </record_update>

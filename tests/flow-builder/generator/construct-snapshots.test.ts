@@ -20,7 +20,7 @@ import { allActions, actionTypeIds } from '../../../src/flow-builder/catalog/act
 import type { ServiceNowClient } from '../../../src/servicenow/client.js';
 import { makeFakeClient, specInstanceTables, TEST_NOW, type Row } from '../writer/fake-client.js';
 import { planRows, specNames } from './plans.js';
-import { CTX, loadParsedSpec, planFor } from './context.js';
+import { CTX, contextDefinitionName, contextVariableSysId, loadParsedSpec, planFor } from './context.js';
 
 const SPECS = specNames();
 
@@ -45,12 +45,10 @@ describe('construct specs: snapshots of the generated plan and <record_update>',
 
 // ─── the same specs through the instance resolvers ────────────────────────────
 
-let seq = 0;
-const rowId = () => (++seq).toString(16).padStart(32, '0');
-
-function variableRows(model: string, vars: DefinitionVariable[]): Row[] {
+/** The instance rows of a definition's inputs / outputs, with the deterministic sys_ids the offline doubles carry (context.ts). */
+function variableRows(model: string, kind: 'input' | 'output', vars: DefinitionVariable[]): Row[] {
   return vars.map((v, i) => ({
-    sys_id: rowId(), model, element: v.name, label: v.label ?? v.name, internal_type: v.type,
+    sys_id: contextVariableSysId(model, kind, v.name), model, element: v.name, label: v.label ?? v.name, internal_type: v.type,
     mandatory: v.mandatory ? 'true' : 'false', order: String(i + 1), default_value: v.default ?? '', reference: v.reference ?? '', attributes: '',
   }));
 }
@@ -62,14 +60,14 @@ function contextInstanceTables(): Record<string, Row[]> {
     sys_hub_action_type_definition: [], sys_hub_action_input: [], sys_hub_action_output: [], sys_hub_action_type_snapshot: [],
   };
   for (const [sysId, d] of Object.entries(CTX.subflows)) {
-    t.sys_hub_flow.push({ sys_id: sysId, name: `Example Subflow ${sysId.slice(0, 6)}`, internal_name: `example_subflow_${sysId.slice(0, 6)}`, type: 'subflow', 'sys_scope.scope': 'global' });
-    t.sys_hub_flow_input.push(...variableRows(sysId, d.inputs));
-    t.sys_hub_flow_output.push(...variableRows(sysId, d.outputs));
+    t.sys_hub_flow.push({ sys_id: sysId, name: contextDefinitionName('subflow', sysId), internal_name: `example_subflow_${sysId.slice(0, 6)}`, type: 'subflow', 'sys_scope.scope': 'global' });
+    t.sys_hub_flow_input.push(...variableRows(sysId, 'input', d.inputs));
+    t.sys_hub_flow_output.push(...variableRows(sysId, 'output', d.outputs));
   }
   for (const [sysId, d] of Object.entries(CTX.customActions)) {
-    t.sys_hub_action_type_definition.push({ sys_id: sysId, name: `Example Action ${sysId.slice(0, 6)}`, internal_name: `example_action_${sysId.slice(0, 6)}`, 'sys_scope.scope': 'global' });
-    t.sys_hub_action_input.push(...variableRows(sysId, d.inputs));
-    t.sys_hub_action_output.push(...variableRows(sysId, d.outputs));
+    t.sys_hub_action_type_definition.push({ sys_id: sysId, name: contextDefinitionName('action', sysId), internal_name: `example_action_${sysId.slice(0, 6)}`, 'sys_scope.scope': 'global' });
+    t.sys_hub_action_input.push(...variableRows(sysId, 'input', d.inputs));
+    t.sys_hub_action_output.push(...variableRows(sysId, 'output', d.outputs));
   }
   for (const a of allActions()) {
     const ids = actionTypeIds(a);

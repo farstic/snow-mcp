@@ -19,9 +19,13 @@
         "label_cache": [
           {
             "name": "subflow.record.number",
-            "label": "Input➛Record",
+            "label": "Input➛Record➛Number",
+            "reference": "",
+            "reference_display": "Number",
             "type": "string",
             "base_type": "string",
+            "parent_table_name": "incident",
+            "column_name": "number",
             "usedInstances": {
               "e86fe5ac-597a-4a0e-ea1a-e539b6c2da68": [
                 "log_message"
@@ -29,38 +33,53 @@
               "11beeb6f-e7b9-3731-4a19-f3ae308af755": [
                 "outcome"
               ]
-            },
-            "attributes": {},
-            "reference_table": null,
-            "reference_display": null
+            }
           },
           {
             "name": "subflow.expedite",
             "label": "Input➛Expedite",
+            "reference": "",
+            "reference_display": "",
             "type": "boolean",
             "base_type": "boolean",
+            "column_name": "",
             "usedInstances": {
               "e86fe5ac-597a-4a0e-ea1a-e539b6c2da68": [
                 "log_message"
               ]
             },
-            "attributes": {},
-            "reference_table": null,
-            "reference_display": null
+            "attributes": {
+              "uiType": "boolean",
+              "uiTypeLabel": "True/False",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "477532ab-5b14-8b69-a30e-40b8a9a14750",
+              "sourceUiUniqueId": "",
+              "sourceType": "",
+              "sourceId": ""
+            }
           },
           {
             "name": "subflow.due",
             "label": "Input➛Due",
+            "reference": "",
+            "reference_display": "",
             "type": "glide_date_time",
             "base_type": "glide_date_time",
+            "column_name": "",
             "usedInstances": {
               "e86fe5ac-597a-4a0e-ea1a-e539b6c2da68": [
                 "log_message"
               ]
             },
-            "attributes": {},
-            "reference_table": null,
-            "reference_display": null
+            "attributes": {
+              "uiType": "glide_date_time",
+              "uiTypeLabel": "Date/Time",
+              "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+              "uiUniqueId": "2071f229-3307-7014-f0da-2fcc25964402",
+              "sourceUiUniqueId": "",
+              "sourceType": "",
+              "sourceId": ""
+            }
           }
         ],
         "name": "Review Subflow",
@@ -346,22 +365,127 @@
         "updation_source": "",
         "values": [
           {
+            "id": "5bc1bcc6531003003bf1d9109ec587d7",
             "name": "log_level",
             "value": "info",
-            "displayValue": "info",
-            "scriptActive": false,
+            "displayValue": "Info",
+            "children": [],
             "parameter": {
-              "type": "choice"
-            }
+              "children": [],
+              "id": "5bc1bcc6531003003bf1d9109ec587d7",
+              "label": "Level",
+              "name": "log_level",
+              "type": "choice",
+              "typeLabel": "Choice",
+              "order": 0,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "fDataStructure": "",
+              "choices": [
+                {
+                  "label": "-- None --",
+                  "value": "",
+                  "order": 0
+                },
+                {
+                  "label": "Info",
+                  "value": "info",
+                  "order": 1
+                },
+                {
+                  "label": "Warning",
+                  "value": "warn",
+                  "order": 2
+                },
+                {
+                  "label": "Error",
+                  "value": "error",
+                  "order": 3
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "-- None --",
+                  "value": "",
+                  "order": 1
+                },
+                {
+                  "label": "Info",
+                  "value": "info",
+                  "order": 2
+                },
+                {
+                  "label": "Warning",
+                  "value": "warn",
+                  "order": 3
+                },
+                {
+                  "label": "Error",
+                  "value": "error",
+                  "order": 4
+                }
+              ],
+              "choiceOption": "1",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "info",
+              "defaultDisplayValue": "Info",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
           },
           {
+            "id": "23c1bcc6531003003bf1d9109ec587e5",
             "name": "log_message",
             "value": "Reviewing {{subflow.record.number}} (expedite {{subflow.expedite}}, due {{subflow.due}})",
             "displayValue": "Reviewing {{subflow.record.number}} (expedite {{subflow.expedite}}, due {{subflow.due}})",
-            "scriptActive": false,
+            "children": [],
             "parameter": {
-              "type": "string"
-            }
+              "children": [],
+              "id": "23c1bcc6531003003bf1d9109ec587e5",
+              "label": "Message",
+              "name": "log_message",
+              "type": "string",
+              "typeLabel": "String",
+              "order": 1,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 255,
+              "reference": "",
+              "reference_display": "",
+              "fDataStructure": "",
+              "choices": [],
+              "defaultChoices": [],
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
           }
         ]
       }
@@ -381,21 +505,81 @@
         "values": {
           "outputsToAssign": [
             {
-              "id": "",
+              "id": "8d1b355d131e30cf4b83d4ae8eb1d6ee",
               "name": "outcome",
               "value": "Reviewed {{subflow.record.number}}",
               "displayValue": "Reviewed {{subflow.record.number}}",
               "children": [],
-              "parameter": {},
+              "parameter": {
+                "children": [],
+                "type_label": "String",
+                "id": "8d1b355d131e30cf4b83d4ae8eb1d6ee",
+                "label": "Outcome",
+                "name": "outcome",
+                "type": "string",
+                "order": 1,
+                "extended": false,
+                "mandatory": false,
+                "readOnly": false,
+                "hint": "",
+                "maxsize": 8000,
+                "reference": "",
+                "reference_display": "",
+                "choiceOption": "",
+                "table": "",
+                "columnName": "",
+                "defaultValue": "",
+                "use_dependent": false,
+                "fShowReferenceFinder": false,
+                "local": false,
+                "attributes": {
+                  "uiType": "string",
+                  "uiTypeLabel": "String",
+                  "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                  "uiUniqueId": "8d1b355d-131e-30cf-4b83-d4ae8eb1d6ee"
+                },
+                "ref_qual": "",
+                "dependent_on": ""
+              },
               "scriptActive": false
             },
             {
-              "id": "",
+              "id": "5b0c0ad1d4abc2280bb453ab91ab2c39",
               "name": "done",
               "value": "true",
               "displayValue": "true",
               "children": [],
-              "parameter": {},
+              "parameter": {
+                "children": [],
+                "type_label": "True/False",
+                "id": "5b0c0ad1d4abc2280bb453ab91ab2c39",
+                "label": "Done",
+                "name": "done",
+                "type": "boolean",
+                "order": 2,
+                "extended": false,
+                "mandatory": false,
+                "readOnly": false,
+                "hint": "",
+                "maxsize": 40,
+                "reference": "",
+                "reference_display": "",
+                "choiceOption": "",
+                "table": "",
+                "columnName": "",
+                "defaultValue": "",
+                "use_dependent": false,
+                "fShowReferenceFinder": false,
+                "local": false,
+                "attributes": {
+                  "uiType": "boolean",
+                  "uiTypeLabel": "True/False",
+                  "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                  "uiUniqueId": "5b0c0ad1-d4ab-c228-0bb4-53ab91ab2c39"
+                },
+                "ref_qual": "",
+                "dependent_on": ""
+              },
               "scriptActive": false
             }
           ],

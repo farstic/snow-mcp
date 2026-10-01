@@ -19,17 +19,18 @@
         "label_cache": [
           {
             "name": "Created or Updated_1.current.number",
-            "label": "Trigger - Record Created or Updated➛problem Record➛Number",
+            "label": "Trigger - Record Created or Updated➛Problem Record➛Number",
+            "reference": "",
+            "reference_display": "Number",
             "type": "string",
             "base_type": "string",
+            "parent_table_name": "problem",
+            "column_name": "number",
             "usedInstances": {
               "3f93f159-ed60-c5e8-3ae1-d26c166cf37c": [
                 "log_message"
               ]
-            },
-            "attributes": {},
-            "parent_table_name": "problem",
-            "column_name": "number"
+            }
           }
         ],
         "name": "Trigger Record Created Or Updated",
@@ -69,12 +70,31 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "table_name",
-              "name": "table",
+              "children": [],
+              "id": "cf1e1980c32222002841b63b12d3aea0",
               "label": "Table",
+              "name": "table",
+              "type": "table_name",
+              "order": 1,
+              "extended": false,
+              "mandatory": true,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 80,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "filter_table_source": "RECORD_WATCHER_RESTRICTED"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -92,16 +112,33 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "conditions",
-              "name": "condition",
+              "children": [],
+              "id": "707dd180c32222002841b63b12d3aecb",
               "label": "Condition",
+              "name": "condition",
+              "type": "conditions",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 4000,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": true,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "extended_operators": "VALCHANGES;CHANGESFROM;CHANGESTO",
                 "modelDependent": "trigger_inputs",
                 "wants_to_add_conditions": "true"
               },
-              "dependent_on": "table",
-              "use_dependent": true
+              "ref_qual": "",
+              "dependent_on": "table"
             }
           },
           {
@@ -136,12 +173,56 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
-              "name": "run_on_extended",
+              "children": [],
+              "id": "1c4203b6072200103bf10705afd300b8",
               "label": "Run On Extended Tables",
+              "name": "run_on_extended",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Run only on current table",
+                  "value": "false",
+                  "order": 0
+                },
+                {
+                  "label": "Run on current and extended tables",
+                  "value": "true",
+                  "order": 1
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Run only on current table",
+                  "value": "false",
+                  "order": 1
+                },
+                {
+                  "label": "Run on current and extended tables",
+                  "value": "true",
+                  "order": 2
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "false",
+              "defaultDisplayValue": "Run only on current table",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -176,12 +257,56 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
-              "name": "run_flow_in",
+              "children": [],
+              "id": "231e76460f103300b599bca2ff767e11",
               "label": "Run flow In",
+              "name": "run_flow_in",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Run flow in background (default)",
+                  "value": "background",
+                  "order": 0
+                },
+                {
+                  "label": "Run flow in foreground",
+                  "value": "foreground",
+                  "order": 1
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Run flow in background (default)",
+                  "value": "background",
+                  "order": 1
+                },
+                {
+                  "label": "Run flow in foreground",
+                  "value": "foreground",
+                  "order": 2
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "any",
+              "defaultDisplayValue": "any",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -200,14 +325,31 @@
             "valueSysId": "",
             "children": [],
             "parameter": {
-              "type": "glide_list",
-              "name": "run_when_user_list",
+              "children": [],
+              "id": "cb9d5577c7002300f4eba1425a9763ef",
               "label": "Run When User List",
+              "name": "run_when_user_list",
+              "type": "glide_list",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 4000,
               "reference": "sys_user",
               "reference_display": "User",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -250,12 +392,66 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
-              "name": "run_when_setting",
+              "children": [],
+              "id": "a22a9137c7002300f4eba1425a976376",
               "label": "Run When Session Setting",
+              "name": "run_when_setting",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Only Run for Non-Interactive Session",
+                  "value": "non_interactive",
+                  "order": 0
+                },
+                {
+                  "label": "Only Run for User Interactive Session",
+                  "value": "interactive",
+                  "order": 1
+                },
+                {
+                  "label": "Run for Both Interactive and Non-Interactive Sessions",
+                  "value": "both",
+                  "order": 2
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Only Run for Non-Interactive Session",
+                  "value": "non_interactive",
+                  "order": 1
+                },
+                {
+                  "label": "Only Run for User Interactive Session",
+                  "value": "interactive",
+                  "order": 2
+                },
+                {
+                  "label": "Run for Both Interactive and Non-Interactive Sessions",
+                  "value": "both",
+                  "order": 3
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "both",
+              "defaultDisplayValue": "Run for Both Interactive and Non-Interactive Sessions",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -298,12 +494,66 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
-              "name": "run_when_user_setting",
+              "children": [],
+              "id": "ed3c9d37c7002300f4eba1425a976347",
               "label": "Run When User Setting",
+              "name": "run_when_user_setting",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Do not run if triggered by the following users",
+                  "value": "not_one_of",
+                  "order": 0
+                },
+                {
+                  "label": "Only Run if triggered by the following users",
+                  "value": "one_of",
+                  "order": 1
+                },
+                {
+                  "label": "Run for any user",
+                  "value": "any",
+                  "order": 2
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Do not run if triggered by the following users",
+                  "value": "not_one_of",
+                  "order": 1
+                },
+                {
+                  "label": "Only Run if triggered by the following users",
+                  "value": "one_of",
+                  "order": 2
+                },
+                {
+                  "label": "Run for any user",
+                  "value": "any",
+                  "order": 3
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "any",
+              "defaultDisplayValue": "Run for any user",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -354,9 +604,74 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
+              "children": [],
+              "id": "2b9def50c31132002841b63b12d3ae5b",
+              "label": "Run Trigger",
               "name": "trigger_strategy",
-              "label": "Run Trigger"
+              "type": "choice",
+              "order": 200,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Once",
+                  "value": "once",
+                  "order": 0
+                },
+                {
+                  "label": "For each unique change",
+                  "value": "unique_changes",
+                  "order": 1
+                },
+                {
+                  "label": "Only if not currently running",
+                  "value": "always",
+                  "order": 2
+                },
+                {
+                  "label": "For every update",
+                  "value": "every",
+                  "order": 3
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Once",
+                  "value": "once",
+                  "order": 1
+                },
+                {
+                  "label": "For each unique change",
+                  "value": "unique_changes",
+                  "order": 2
+                },
+                {
+                  "label": "Only if not currently running",
+                  "value": "always",
+                  "order": 3
+                },
+                {
+                  "label": "For every update",
+                  "value": "every",
+                  "order": 4
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "once",
+              "defaultDisplayValue": "Once",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {},
+              "ref_qual": "",
+              "dependent_on": ""
             }
           }
         ],
@@ -384,22 +699,127 @@
         "updation_source": "",
         "values": [
           {
+            "id": "5bc1bcc6531003003bf1d9109ec587d7",
             "name": "log_level",
             "value": "info",
-            "displayValue": "info",
-            "scriptActive": false,
+            "displayValue": "Info",
+            "children": [],
             "parameter": {
-              "type": "choice"
-            }
+              "children": [],
+              "id": "5bc1bcc6531003003bf1d9109ec587d7",
+              "label": "Level",
+              "name": "log_level",
+              "type": "choice",
+              "typeLabel": "Choice",
+              "order": 0,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "fDataStructure": "",
+              "choices": [
+                {
+                  "label": "-- None --",
+                  "value": "",
+                  "order": 0
+                },
+                {
+                  "label": "Info",
+                  "value": "info",
+                  "order": 1
+                },
+                {
+                  "label": "Warning",
+                  "value": "warn",
+                  "order": 2
+                },
+                {
+                  "label": "Error",
+                  "value": "error",
+                  "order": 3
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "-- None --",
+                  "value": "",
+                  "order": 1
+                },
+                {
+                  "label": "Info",
+                  "value": "info",
+                  "order": 2
+                },
+                {
+                  "label": "Warning",
+                  "value": "warn",
+                  "order": 3
+                },
+                {
+                  "label": "Error",
+                  "value": "error",
+                  "order": 4
+                }
+              ],
+              "choiceOption": "1",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "info",
+              "defaultDisplayValue": "Info",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
           },
           {
+            "id": "23c1bcc6531003003bf1d9109ec587e5",
             "name": "log_message",
             "value": "Problem {{Created or Updated_1.current.number}} changed",
             "displayValue": "Problem {{Created or Updated_1.current.number}} changed",
-            "scriptActive": false,
+            "children": [],
             "parameter": {
-              "type": "string"
-            }
+              "children": [],
+              "id": "23c1bcc6531003003bf1d9109ec587e5",
+              "label": "Message",
+              "name": "log_message",
+              "type": "string",
+              "typeLabel": "String",
+              "order": 1,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 255,
+              "reference": "",
+              "reference_display": "",
+              "fDataStructure": "",
+              "choices": [],
+              "defaultChoices": [],
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
           }
         ]
       }

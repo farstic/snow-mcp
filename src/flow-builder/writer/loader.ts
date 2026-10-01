@@ -106,6 +106,7 @@ import { planToRecordUpdateXml } from '../xml/record-update.js';
 import { listDeleteMultiples, type DeleteMultiple } from '../xml/unload.js';
 import {
   CHILD_TABLES_BY_FLOW,
+  CHILD_TABLES_BY_ID,
   CHILD_TABLES_BY_MODEL,
   activateFlow,
   assertUpdateSetMatchesScope,
@@ -147,8 +148,10 @@ export const PLATFORM_MANAGED_INPUT_ELEMENTS = ['current', 'table_name'] as cons
 export const ACTIVATION_PREFERENCES = ['sys_update_set', 'apps.current_app'] as const;
 
 const FLOW_STATE_FIELDS = 'sys_id,name,version,status,active,latest_snapshot';
-const CHILD_TABLES: readonly string[] = [...CHILD_TABLES_BY_FLOW, ...CHILD_TABLES_BY_MODEL];
+const CHILD_TABLES: readonly string[] = [...CHILD_TABLES_BY_FLOW, ...CHILD_TABLES_BY_MODEL, ...CHILD_TABLES_BY_ID];
 const ALIAS_TABLE = 'sys_hub_alias_mapping';
+/** The catalog-variable references hung on a flow's sys_flow_cat_variable_model row (the document cleans them by flow_catalog_model=<row>, as the capture does). */
+const CAT_VARIABLE_TABLE = 'sys_flow_cat_variable';
 const ID_CHUNK = 100;
 const XML_ROW_FIELDS = 'sys_id,name,update_set,sys_updated_on,sys_mod_count,sys_created_by,sys_created_on';
 /**
@@ -400,9 +403,10 @@ function flowElementActive(payload: string | undefined): boolean {
   return !!m && /<active>true<\/active>/.test(m[1]);
 }
 
-/** Is a delete_multiple one of the flow's child cleanups (flow=<id>[^…] / model=<id>[^…])? */
+/** Is a delete_multiple one of the flow's child cleanups (flow=<id>[^…] / model=<id>[^…] / id=<id>[^…] on the catalog model)? */
 function isChildCleanup(d: DeleteMultiple, flowSysId: string): boolean {
-  return [`flow=${flowSysId}`, `model=${flowSysId}`].some(p => d.query === p || d.query.startsWith(`${p}^`));
+  const keys = [`flow=${flowSysId}`, `model=${flowSysId}`, ...((CHILD_TABLES_BY_ID as readonly string[]).includes(d.table) ? [`id=${flowSysId}`] : [])];
+  return keys.some(p => d.query === p || d.query.startsWith(`${p}^`));
 }
 
 // ─── platform-managed trigger inputs (PDI finding 2) ──────────────────────────
@@ -618,7 +622,9 @@ export async function loadPlan(client: ServiceNowClient, plan: RecordPlan, opts:
   const deleteMultiple = listDeleteMultiples(xml);
   const childDeletes = deleteMultiple.filter(d => isChildCleanup(d, flowSysId));
   const aliasDeletes = deleteMultiple.filter(d => d.table === ALIAS_TABLE && /^source_id=[0-9a-f]{32}$/.test(d.query));
-  const unexpected = deleteMultiple.filter(d => !childDeletes.includes(d) && !aliasDeletes.includes(d));
+  const plannedModels = new Set(rows.filter(r => (CHILD_TABLES_BY_ID as readonly string[]).includes(r.table)).map(r => r.sys_id));
+  const catVariableDeletes = deleteMultiple.filter(d => d.table === CAT_VARIABLE_TABLE && /^flow_catalog_model=[0-9a-f]{32}$/.test(d.query) && plannedModels.has(d.query.slice('flow_catalog_model='.length)));
+  const unexpected = deleteMultiple.filter(d => !childDeletes.includes(d) && !aliasDeletes.includes(d) && !catVariableDeletes.includes(d));
   if (unexpected.length) {
     throw new ServiceNowError(`the document carries delete_multiple elements outside the flow's child tables: ${unexpected.map(d => `${d.table} ${d.query}`).join('; ')} — refusing; nothing was sent`, 'FLOW_BUILDER_INVALID_PLAN', { unexpected });
   }
@@ -646,6 +652,14 @@ export async function loadPlan(client: ServiceNowClient, plan: RecordPlan, opts:
     for (const rec of found.records) housekeepingDeletes.push({ table: ALIAS_TABLE, sys_id: str(rec.sys_id), source_id: str(rec.source_id) });
   }
   if (housekeepingDeletes.length) warnings.push(`the loader's housekeeping delete_multiple (sys_hub_alias_mapping source_id=<planned instance>, as the platform's capture of a flow carries it) removes ${housekeepingDeletes.length} alias-mapping row(s) of the planned instances: ${housekeepingDeletes.map(h => h.sys_id).join(', ')}`);
+  // the catalog-variable references of the planned model row(s) (sys_flow_cat_variable flow_catalog_model=<row>): the platform rebuilds them on save / activation
+  for (const d of catVariableDeletes) {
+    const model = d.query.slice('flow_catalog_model='.length);
+    const found = await client.queryRecords({ table: CAT_VARIABLE_TABLE, query: d.query, fields: 'sys_id,flow_catalog_model', limit: 1000 });
+    for (const rec of found.records) housekeepingDeletes.push({ table: CAT_VARIABLE_TABLE, sys_id: str(rec.sys_id), source_id: model });
+  }
+  const catVariableRows = housekeepingDeletes.filter(h => h.table === CAT_VARIABLE_TABLE);
+  if (catVariableRows.length) warnings.push(`the loader's housekeeping delete_multiple (sys_flow_cat_variable flow_catalog_model=<planned model row>, as the platform's capture of a catalog flow carries it) removes ${catVariableRows.length} catalog-variable reference row(s); the platform re-creates them when the flow is saved / activated: ${catVariableRows.map(h => h.sys_id).join(', ')}`);
 
   // the target set's parent capture row BEFORE the load (change detection)
   const captureBefore = await captureRowState(client, updateSet.sys_id, flowSysId);

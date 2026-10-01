@@ -89,6 +89,9 @@ export const CHILD_TABLES_BY_FLOW = [
 /** Variable-style child tables keyed by `model=<flow sys_id>`. */
 export const CHILD_TABLES_BY_MODEL = ['sys_hub_flow_variable', 'sys_hub_flow_input', 'sys_hub_flow_output'] as const;
 
+/** The catalog-variable model of a catalog flow, keyed by `id=<flow sys_id>` (one row per catalog flow). */
+export const CHILD_TABLES_BY_ID = ['sys_flow_cat_variable_model'] as const;
+
 const INSTANCE_TABLES = ['sys_hub_action_instance_v2', 'sys_hub_sub_flow_instance_v2', 'sys_hub_flow_logic_instance_v2'] as const;
 
 /** sys_idIN chunk size: 33 chars per id keeps the encoded query well under the client's 4096 limit. */
@@ -379,6 +382,7 @@ export async function childRowsOnInstance(client: ServiceNowClient, flowSysId: s
   const onInstance: { table: string; sys_id: string }[] = [];
   for (const t of CHILD_TABLES_BY_FLOW) for (const rec of await queryAll(client, t, `flow=${flowSysId}`, 'sys_id')) onInstance.push({ table: t, sys_id: str(rec.sys_id) });
   for (const t of CHILD_TABLES_BY_MODEL) for (const rec of await queryAll(client, t, `model=${flowSysId}`, 'sys_id')) onInstance.push({ table: t, sys_id: str(rec.sys_id) });
+  for (const t of CHILD_TABLES_BY_ID) for (const rec of await queryAll(client, t, `id=${flowSysId}`, 'sys_id')) onInstance.push({ table: t, sys_id: str(rec.sys_id) });
   const docQuery = ['variable', 'input', 'output'].map(k => `name=var__m_sys_hub_flow_${k}_${flowSysId}`).join('^OR');
   for (const rec of await queryAll(client, 'sys_documentation', docQuery, 'sys_id')) onInstance.push({ table: 'sys_documentation', sys_id: str(rec.sys_id) });
   return onInstance;

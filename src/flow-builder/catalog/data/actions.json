@@ -83,6 +83,7 @@
      "order": 0,
      "maxLength": 32,
      "dependent": "table",
+     "sys_id": "78f2e9920b10030085c083eb37673ac0",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -93,6 +94,8 @@
      "type": "table_name",
      "order": 1,
      "maxLength": 80,
+     "sys_id": "bcf2e9920b10030085c083eb37673acc",
+     "read_only": true,
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -104,6 +107,7 @@
      "order": 2,
      "maxLength": 8000,
      "dependent": "table",
+     "sys_id": "01f2e9920b10030085c083eb37673ad8",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -114,6 +118,7 @@
      "type": "string",
      "order": 2,
      "maxLength": 160,
+     "sys_id": "e4635e467f3012108e688c90ac866543",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "string",
@@ -128,6 +133,7 @@
      "order": 3,
      "maxLength": 8000,
      "dependent": "table",
+     "sys_id": "c1f2e9920b10030085c083eb37673ae3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -139,6 +145,7 @@
      "mandatory": true,
      "order": 4,
      "maxLength": 8000,
+     "sys_id": "45f2e9920b10030085c083eb37673aee",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -149,6 +156,7 @@
      "type": "schedule_date_time",
      "order": 5,
      "maxLength": 40,
+     "sys_id": "c5f2e9920b10030085c083eb37673af9",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "ui_approval": "true"
@@ -162,6 +170,7 @@
      "type": "choice",
      "order": 0,
      "maxLength": 40,
+     "choice_option": "1",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -272,6 +281,8 @@
      "default": "sc_task",
      "order": 0,
      "maxLength": 80,
+     "sys_id": "af51fd0e73141300612c273ffff6a788",
+     "read_only": true,
      "attributes": {
       "allow_sc_tables": "true",
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
@@ -286,10 +297,12 @@
      "order": 1,
      "reference": "sc_req_item",
      "maxLength": 32,
+     "sys_id": "7351fd0e73141300612c273ffff6a7a0",
      "attributes": {
       "only_droppable": "true",
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
-     }
+     },
+     "reference_display": "Requested Item"
     },
     {
      "name": "ah_short_description",
@@ -297,6 +310,7 @@
      "type": "string",
      "order": 2,
      "maxLength": 12000,
+     "sys_id": "3751fd0e73141300612c273ffff6a7a6",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -310,9 +324,11 @@
      "maxLength": 65000,
      "dependent": "inputs.ah_table_name",
      "use_dependent": true,
+     "sys_id": "7751fd0e73141300612c273ffff6a7ac",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
-     }
+     },
+     "reference_display": "Catalog Task"
     },
     {
      "name": "ah_wait",
@@ -321,6 +337,7 @@
      "default": true,
      "order": 4,
      "maxLength": 40,
+     "sys_id": "f751fd0e73141300612c273ffff6a7b2",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -332,10 +349,12 @@
      "order": 5,
      "reference": "sc_cat_item",
      "maxLength": 32,
+     "sys_id": "f751fd0e73141300612c273ffff6a7b8",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "show_search": "true"
-     }
+     },
+     "reference_display": "Catalog Item"
     },
     {
      "name": "catalog_variables",
@@ -343,6 +362,7 @@
      "type": "slushbucket",
      "order": 6,
      "maxLength": 12000,
+     "sys_id": "7b51fd0e73141300612c273ffff6a7be",
      "attributes": {
       "source_table": "item_option_new",
       "use_flow_designer_wrapper": "true",
@@ -363,7 +383,8 @@
      "maxLength": 32,
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
-     }
+     },
+     "reference_display": "Catalog Task"
     }
    ]
   },
@@ -434,6 +455,7 @@
      "type": "choice",
      "order": 2,
      "maxLength": 8000,
+     "choice_option": "1",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "choice",
@@ -468,6 +490,7 @@
      "mandatory": true,
      "order": 0,
      "maxLength": 80,
+     "sys_id": "61e05916c31332002841b63b12d3aee4",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -480,6 +503,7 @@
      "order": 1,
      "maxLength": 16000000,
      "dependent": "table_name",
+     "sys_id": "6de09916c31332002841b63b12d3ae1b",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -594,7 +618,8 @@
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "document_id",
       "uiTypeLabel": "Document ID"
-     }
+     },
+     "reference_display": "Incident"
     },
     {
      "name": "table",
@@ -704,6 +729,7 @@
      "type": "table_name",
      "order": 3,
      "maxLength": 80,
+     "read_only": true,
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "table_name",
@@ -849,10 +875,12 @@
      "order": 0,
      "reference": "sc_req_item",
      "maxLength": 32,
+     "sys_id": "bf0ba3abc31013002841b63b12d3aeea",
      "attributes": {
       "only_droppable": "true",
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
-     }
+     },
+     "reference_display": "Requested Item"
     },
     {
      "name": "template_catalog_item",
@@ -862,12 +890,14 @@
      "order": 1,
      "reference": "st_sys_catalog_items_and_variable_sets",
      "maxLength": 32,
+     "sys_id": "bb0ba3abc31013002841b63b12d3aef1",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "show_search": "true",
       "is_remote_table_reference": "true",
       "hide_runtime_value_in_opsview": "true"
-     }
+     },
+     "reference_display": "Catalog Items and Variable Sets"
     },
     {
      "name": "catalog_variables",
@@ -875,6 +905,7 @@
      "type": "slushbucket",
      "order": 2,
      "maxLength": 12000,
+     "sys_id": "7b0ba3abc31013002841b63b12d3aef7",
      "attributes": {
       "source_table": "item_option_new",
       "use_flow_designer_wrapper": "true",
@@ -907,7 +938,8 @@
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "reference",
       "uiTypeLabel": ""
-     }
+     },
+     "reference_display": "Email"
     },
     {
      "name": "target_header",
@@ -958,7 +990,8 @@
       "uiType": "reference",
       "uiTypeLabel": "Reference",
       "uiUniqueId": "2192cfc6-da37-478d-b539-73456efa75fd"
-     }
+     },
+     "reference_display": "Email"
     }
    ],
    "outputs": [
@@ -993,6 +1026,8 @@
      "default": "info",
      "order": 0,
      "maxLength": 40,
+     "sys_id": "5bc1bcc6531003003bf1d9109ec587d7",
+     "choice_option": "1",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      },
@@ -1017,6 +1052,7 @@
      "type": "string",
      "order": 1,
      "maxLength": 255,
+     "sys_id": "23c1bcc6531003003bf1d9109ec587e5",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -1105,7 +1141,8 @@
      "maxLength": 32,
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
-     }
+     },
+     "reference_display": "Email"
     }
    ],
    "outputs": [
@@ -1135,6 +1172,7 @@
      "type": "table_name",
      "order": 0,
      "maxLength": 80,
+     "sys_id": "d909f99587003300663ca1bb36cb0ba4",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "filter_table_source": "v_cluster_transaction"
@@ -1148,6 +1186,7 @@
      "maxLength": 4000,
      "dependent": "table",
      "use_dependent": true,
+     "sys_id": "d509f99587003300663ca1bb36cb0ba9",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -1160,6 +1199,7 @@
      "maxLength": 80,
      "dependent": "table",
      "use_dependent": true,
+     "sys_id": "1d09f99587003300663ca1bb36cb0bad",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "fd_field_inline": "true"
@@ -1172,6 +1212,8 @@
      "default": "sort_asc",
      "order": 3,
      "maxLength": 32,
+     "sys_id": "5d09f99587003300663ca1bb36cb0bb1",
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "fd_display_label": "false",
@@ -1197,6 +1239,8 @@
      "default": "use_first_record",
      "order": 4,
      "maxLength": 40,
+     "sys_id": "1909f99587003300663ca1bb36cb0bb9",
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      },
@@ -1217,6 +1261,7 @@
      "type": "boolean",
      "order": 5,
      "maxLength": 40,
+     "sys_id": "ceab42a673110010d70877186bf6a74f",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "boolean",
@@ -1253,6 +1298,7 @@
      "type": "choice",
      "order": 2,
      "maxLength": 40,
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "choice",
@@ -1289,6 +1335,7 @@
      "type": "table_name",
      "order": 0,
      "maxLength": 80,
+     "sys_id": "8f400a1587003300663ca1bb36cb0b4b",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "filter_table_source": "v_cluster_transaction"
@@ -1302,6 +1349,7 @@
      "maxLength": 4000,
      "dependent": "table",
      "use_dependent": true,
+     "sys_id": "8f400a1587003300663ca1bb36cb0b50",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -1314,6 +1362,7 @@
      "maxLength": 80,
      "dependent": "table",
      "use_dependent": true,
+     "sys_id": "c7400a1587003300663ca1bb36cb0b55",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "fd_field_inline": "true"
@@ -1326,6 +1375,8 @@
      "default": "sort_asc",
      "order": 3,
      "maxLength": 32,
+     "sys_id": "0f400a1587003300663ca1bb36cb0b59",
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "fd_display_label": "false",
@@ -1351,6 +1402,7 @@
      "default": 1000,
      "order": 4,
      "maxLength": 40,
+     "sys_id": "4f400a1587003300663ca1bb36cb0b61",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -1502,7 +1554,8 @@
       "uiTypeLabel": "Reference",
       "uiUniqueId": "94144eb4-d5c0-406e-986b-3a892a090520",
       "disable_drop": "true"
-     }
+     },
+     "reference_display": "Catalog Item"
     },
     {
      "name": "catalog_item_inputs",
@@ -1598,6 +1651,7 @@
      "type": "choice",
      "order": 4,
      "maxLength": 32,
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "choice",
@@ -1625,7 +1679,8 @@
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "clear_dependent_on": "true"
-     }
+     },
+     "reference_display": "Incident"
     },
     {
      "name": "table_name",
@@ -1633,6 +1688,7 @@
      "type": "table_name",
      "order": 1,
      "maxLength": 80,
+     "read_only": true,
      "attributes": {
       "is_scriptable": "false",
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
@@ -1716,7 +1772,8 @@
      "maxLength": 32,
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
-     }
+     },
+     "reference_display": "Email"
     }
    ]
   },
@@ -1734,6 +1791,7 @@
      "order": 1,
      "maxLength": 32,
      "dependent": "table_name",
+     "sys_id": "4d8dd9f10f11101051218e8ebc767e28",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "document_id",
@@ -1747,6 +1805,8 @@
      "type": "table_name",
      "order": 2,
      "maxLength": 80,
+     "sys_id": "818dd9f10f11101051218e8ebc767e32",
+     "read_only": true,
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "table_name",
@@ -1763,6 +1823,7 @@
      "reference": "sysevent_email_action",
      "maxLength": 32,
      "dependent": "table_name",
+     "sys_id": "418dd9f10f11101051218e8ebc767e38",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "notification": "true",
@@ -1770,7 +1831,8 @@
       "uiType": "reference",
       "uiTypeLabel": "Reference",
       "uiUniqueId": "491e7328-962c-4e35-bd33-11bceeaef2d1"
-     }
+     },
+     "reference_display": "Notification"
     }
    ],
    "outputs": []
@@ -1825,7 +1887,8 @@
       "uiType": "reference",
       "uiTypeLabel": "Reference",
       "uiUniqueId": "138380a7-e484-4080-b196-b42d33aa57b0"
-     }
+     },
+     "reference_display": "Email"
     }
    ]
   },
@@ -1902,6 +1965,7 @@
      "type": "choice",
      "order": 2,
      "maxLength": 32,
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "choice",
@@ -1946,7 +2010,8 @@
       "uiType": "reference",
       "uiTypeLabel": "Reference",
       "uiUniqueId": "f05339c9-9e1a-4d41-ae95-10ae267169ce"
-     }
+     },
+     "reference_display": "Catalog Item"
     },
     {
      "name": "catalog_item_inputs",
@@ -2017,7 +2082,8 @@
       "uiType": "reference",
       "uiTypeLabel": "Reference",
       "uiUniqueId": "57314bea-138a-424b-b75e-6bb74762bb12"
-     }
+     },
+     "reference_display": "User"
     },
     {
      "name": "_snc_dont_fail_on_error",
@@ -2096,6 +2162,7 @@
      "type": "choice",
      "order": 1,
      "maxLength": 32,
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "choice",
@@ -2115,7 +2182,8 @@
       "uiType": "document_id",
       "uiTypeLabel": "Document ID",
       "uiUniqueId": "aad3452b-309c-469c-9797-4df9ef6f86be"
-     }
+     },
+     "reference_display": "Requested Item"
     },
     {
      "name": "error_message",
@@ -2205,6 +2273,7 @@
      "default": "sort_asc",
      "order": 5,
      "maxLength": 32,
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "choice",
@@ -2256,6 +2325,7 @@
      "type": "choice",
      "order": 2,
      "maxLength": 32,
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "choice",
@@ -2294,6 +2364,7 @@
      "order": 10,
      "maxLength": 40,
      "dependent": "table_name",
+     "sys_id": "4ed01916c31332002841b63b12d3aee1",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -2305,6 +2376,7 @@
      "mandatory": true,
      "order": 50,
      "maxLength": 80,
+     "sys_id": "b5d01916c31332002841b63b12d3aec9",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -2317,6 +2389,7 @@
      "order": 100,
      "maxLength": 16000000,
      "dependent": "table_name",
+     "sys_id": "02d01916c31332002841b63b12d3aeee",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -2360,6 +2433,7 @@
      "order": 1,
      "maxLength": 32,
      "dependent": "table_name",
+     "sys_id": "49ce8a4187120010663ca1bb36cb0be4",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "document_id",
@@ -2374,6 +2448,7 @@
      "type": "table_name",
      "order": 2,
      "maxLength": 80,
+     "sys_id": "45ce8a4187120010663ca1bb36cb0bea",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "is_scriptable": "false",
@@ -2390,6 +2465,7 @@
      "order": 3,
      "maxLength": 4000,
      "dependent": "table_name",
+     "sys_id": "49ce8a4187120010663ca1bb36cb0bef",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "conditions",
@@ -2403,6 +2479,7 @@
      "type": "boolean",
      "order": 4,
      "maxLength": 40,
+     "sys_id": "0dce8a4187120010663ca1bb36cb0bf4",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "boolean",
@@ -2416,6 +2493,7 @@
      "type": "glide_duration",
      "order": 5,
      "maxLength": 40,
+     "sys_id": "cdce8a4187120010663ca1bb36cb0bf9",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "glide_duration",
@@ -2431,6 +2509,7 @@
      "order": 6,
      "reference": "cmn_schedule",
      "maxLength": 8000,
+     "sys_id": "81ce8a4187120010663ca1bb36cb0bff",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "reference",
@@ -2446,6 +2525,7 @@
      "type": "choice",
      "order": 1,
      "maxLength": 32,
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "choice",
@@ -2475,7 +2555,8 @@
       "uiType": "reference",
       "uiTypeLabel": "Reference",
       "uiUniqueId": "624a9445-a132-491a-9111-53d5c5721a2b"
-     }
+     },
+     "reference_display": "Email"
     },
     {
      "name": "enable_timeout",
@@ -2532,7 +2613,8 @@
       "uiType": "reference",
       "uiTypeLabel": "Reference",
       "uiUniqueId": "c9a085a9-956e-4077-9436-e8662a5f9ef3"
-     }
+     },
+     "reference_display": "Email"
     },
     {
      "name": "__action_status__",
@@ -2555,6 +2637,7 @@
      "type": "choice",
      "order": 3,
      "maxLength": 32,
+     "choice_option": "3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
       "uiType": "choice",

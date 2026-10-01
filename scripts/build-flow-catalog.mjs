@@ -23,7 +23,14 @@
  *   - hidden: attributes visible=false, visible_in_fd=false, visible_in_ui=false, or a property-driven
  *     visible=<property>:false;
  *   - choices: sys_choice (language en, active), by sequence then label;
- *   - trigger input reference_display: the label (sys_db_object) of the referenced table;
+ *   - trigger input reference_display: the label (sys_db_object) of the referenced table; an action input / output
+ *     reference_display where sys_db_object-action-references.json lists the table (no error when it does not);
+ *   - sys_id / read_only / hint of an action input from sys_hub_action_input-supplement.json (joined by model +
+ *     element), max_length / attributes of a logic input from sys_hub_flow_logic_input-supplement.json (joined by
+ *     sys_id) — read-only exports of the same tables with the columns the main exports lack;
+ *   - choice_option: the input's `choice` column when set and not 0 (the parameter.choiceOption of UI-built rows);
+ *   - tables.json: every sys_db_object export (name, label, display_field) — the table labels the generator writes
+ *     into label_cache / displayValue / parameter.reference_display, and the display field of parameter.fSearchField;
  *   - trigger pill prefix: <definition name>_1; label prefix: the manifest's observed value, else
  *     "Trigger - <definition name>" (label_prefix_verified=false); an output's pill_label only where the
  *     manifest records the label Workflow Studio shows for it.
@@ -34,9 +41,12 @@ import { join, resolve } from 'node:path';
 const sourceDir = resolve(process.argv[2] ?? 'src/flow-builder/catalog/source');
 const outDir = resolve(process.argv[3] ?? 'src/flow-builder/catalog/data');
 
-function readExport(file) {
+function readExport(file, { optional = false } = {}) {
   const path = join(sourceDir, file);
-  if (!existsSync(path)) throw new Error(`missing export ${path}`);
+  if (!existsSync(path)) {
+    if (optional) return [];
+    throw new Error(`missing export ${path}`);
+  }
   const json = JSON.parse(readFileSync(path, 'utf8'));
   const rows = Array.isArray(json) ? json : json.result;
   if (!Array.isArray(rows)) throw new Error(`${file}: no result array`);
@@ -104,6 +114,10 @@ function variable(row, choiceRows, choiceName, { withDefault = true } = {}) {
     v.dependent = f(row, 'dependent_on_field');
     if (bool(f(row, 'use_dependent_field'))) v.use_dependent = true;
   }
+  if (f(row, 'sys_id')) v.sys_id = f(row, 'sys_id');
+  if (bool(f(row, 'read_only'))) v.read_only = true;
+  if (f(row, 'hint')) v.hint = f(row, 'hint');
+  if (f(row, 'choice') && f(row, 'choice') !== '0') v.choice_option = f(row, 'choice');
   if (Object.keys(attrs).length) v.attributes = attrs;
   if (isHidden(attrs)) v.hidden = true;
   if (choiceName && ((f(row, 'choice') && f(row, 'choice') !== '0') || type === 'choice')) {
@@ -131,6 +145,19 @@ function inManifestOrder(inputs, order) {
 // ── triggers ──
 const trigDefs = new Map(readExport('sys_hub_trigger_definition.json').map(r => [f(r, 'sys_id'), r]));
 const tableLabels = new Map(readExport('sys_db_object-trigger-references.json').map(r => [f(r, 'name'), f(r, 'label')]));
+const tableRows = new Map();
+for (const r of [...readExport('sys_db_object-trigger-references.json'), ...readExport('sys_db_object-action-references.json', { optional: true })]) {
+  const t = { name: f(r, 'name'), label: f(r, 'label') };
+  if (f(r, 'display_field')) t.display_field = f(r, 'display_field');
+  const prev = tableRows.get(t.name);
+  if (prev && prev.label !== t.label) throw new Error(`sys_db_object exports disagree on the label of ${t.name}`);
+  tableRows.set(t.name, { ...prev, ...t });
+}
+const tables = [...tableRows.values()].sort((a, b) => a.name.localeCompare(b.name));
+const withReferenceDisplay = v => {
+  if (v.reference && tableRows.has(v.reference)) v.reference_display = tableRows.get(v.reference).label;
+  return v;
+};
 const trigInputs = readExport('sys_hub_trigger_input.json').filter(r => f(r, 'active') !== 'false');
 const trigOutputs = readExport('sys_hub_trigger_output.json');
 const trigChoices = readExport('sys_choice-trigger-input.json');
@@ -166,13 +193,19 @@ const triggers = manifest.triggers.map(m => {
 // ── actions ──
 const snapshots = new Map(readExport('sys_hub_action_type_snapshot.json').map(r => [f(r, 'sys_id'), r]));
 const actInputs = readExport('sys_hub_action_input.json');
+const actSupplement = readExport('sys_hub_action_input-supplement.json', { optional: true });
+for (const r of actInputs) {
+  const s = actSupplement.find(x => f(x, 'model') === f(r, 'model') && f(x, 'element') === f(r, 'element'));
+  if (!s) continue;
+  for (const k of ['sys_id', 'read_only', 'hint']) if (f(s, k) && !f(r, k)) r[k] = f(s, k);
+}
 const actOutputs = readExport('sys_hub_action_output.json');
 const actChoices = readExport('sys_choice-action-input.json');
 const hiddenValues = readExport('sys_hub_action_instance_v2-hidden-values.json');
 const actions = manifest.actions.map(m => {
   const s = need(snapshots, m.snapshot, 'action snapshot');
   const varName = `var__m_sys_hub_action_input_${m.snapshot}`;
-  const inputs = actInputs.filter(r => f(r, 'model') === m.snapshot).sort(byOrder).map(r => variable(r, actChoices, varName));
+  const inputs = actInputs.filter(r => f(r, 'model') === m.snapshot).sort(byOrder).map(r => withReferenceDisplay(variable(r, actChoices, varName)));
   const entry = {
     key: m.key,
     sys_id: m.snapshot,
@@ -180,7 +213,7 @@ const actions = manifest.actions.map(m => {
     internal_name: f(s, 'internal_name'),
     name: f(s, 'name'),
     inputs,
-    outputs: actOutputs.filter(r => f(r, 'model') === m.snapshot).sort(byOrder).map(r => variable(r, [], undefined, { withDefault: false })),
+    outputs: actOutputs.filter(r => f(r, 'model') === m.snapshot).sort(byOrder).map(r => withReferenceDisplay(variable(r, [], undefined, { withDefault: false }))),
   };
   const hv = {};
   for (const r of hiddenValues) {
@@ -195,6 +228,12 @@ const actions = manifest.actions.map(m => {
 // ── logic ──
 const logicDefs = new Map(readExport('sys_hub_flow_logic_definition.json').map(r => [f(r, 'sys_id'), r]));
 const logicInputs = readExport('sys_hub_flow_logic_input.json');
+const logicSupplement = readExport('sys_hub_flow_logic_input-supplement.json', { optional: true });
+for (const r of logicInputs) {
+  const s = logicSupplement.find(x => f(x, 'sys_id') === f(r, 'sys_id'));
+  if (!s) continue;
+  for (const k of ['max_length', 'attributes']) if (f(s, k) && !f(r, k)) r[k] = f(s, k);
+}
 const logicVars = readExport('sys_hub_flow_logic_variable.json');
 const logicChoices = readExport('sys_choice-logic-input.json');
 const logic = manifest.logic.map(m => {
@@ -218,4 +257,5 @@ const write = (file, body) => writeFileSync(join(outDir, file), JSON.stringify({
 write('triggers.json', { triggers });
 write('actions.json', { actions });
 write('logic.json', { values_key_order: manifest.logic_values_key_order.order, logic });
-console.log(`catalogue written to ${outDir}: ${triggers.length} triggers, ${actions.length} actions, ${logic.length} logic definitions`);
+write('tables.json', { tables });
+console.log(`catalogue written to ${outDir}: ${triggers.length} triggers, ${actions.length} actions, ${logic.length} logic definitions, ${tables.length} tables`);

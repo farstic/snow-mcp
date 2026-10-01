@@ -6,11 +6,13 @@
  * listed in src/flow-builder/FORMAT-DECISIONS.md:
  *   - flat 1-based `order` assigned depth-first (children right after their block; stages consume
  *     none; the first child of a Do-In-Parallel block carries '<blockOrder>➛<n>'), parent_ui_id
- *   - default / hidden input merge from the catalogue (entry order = definition order)
- *   - value encoders (generator/values.ts), pill typing + labels (generator/typing.ts)
+ *   - one values entry per definition input (entry order = definition order), each with the full `parameter`
+ *     mirror of the definition (generator/parameter.ts) and the UI displayValue per type
+ *   - value encoders (generator/values.ts), pill typing + label_cache entries (generator/typing.ts)
  *   - extra logic columns flow_variables_assigned / outputs_assigned / connected_to
  *   - stages: component_indexes / stage_id / states / duration
  *   - Flow Error Handler: TOP_LEVEL_TRY (order 0, body nested) + TOP_LEVEL_CATCH (__status__/enabled) + handler steps
+ *   - the sys_flow_cat_variable_model row of a catalog-triggered flow
  *   - label_cache via labels.ts; pill table; warnings
  *
  * Two passes: the walk assigns ids / orders / parents and registers every step's outputs, then the
@@ -29,15 +31,19 @@ import { encodeValues } from '../encode.js';
 import { toPlatformPill, rewritePills, platformPillsInText, PLATFORM_PILL_RE, type PillContext } from '../pills.js';
 import { buildLabelCache, labelCase, type PillUsage, type PillTypeInfo } from '../labels.js';
 import { findTrigger, descriptorTemplate, isRecordTrigger, DAY_OF_WEEK_LABELS, type TriggerDef, type TriggerDescriptorEntry } from '../catalog/triggers.js';
-import { findAction, findActionInput, actionTypeIds, storedInputName, specInputNames, isHiddenInput, isAlwaysStored, type ActionDef, type CatalogInputRaw } from '../catalog/actions.js';
-import { findLogic, LOGIC_KEY_BY_KIND, valuesKeyOrder, TIMER_INPUTS, TIMER_DURATION_TYPES, TIMER_OUTPUTS, TOP_LEVEL_TRY, TOP_LEVEL_CATCH } from '../catalog/logic.js';
+import { findAction, findActionInput, actionTypeIds, storedInputName, specInputNames, isHiddenInput, type ActionDef, type CatalogInputRaw } from '../catalog/actions.js';
+import { findLogic, LOGIC_KEY_BY_KIND, valuesKeyOrder, TIMER_INPUTS, TIMER_DURATION_TYPES, TIMER_OUTPUTS, TOP_LEVEL_TRY, TOP_LEVEL_CATCH, type LogicDef } from '../catalog/logic.js';
 import { topLevelCatchInputs } from '../catalog/error-handler.js';
 import { uiDescriptorTemplate } from '../catalog/ui-descriptors.js';
 import { buildCatalogEntries, filterCatalogEntries } from '../catalog/index.js';
+import { knownTableLabel } from '../catalog/load.js';
 import * as V from './values.js';
-import { resolvePillInfo, labelTypeFor, type TypingContext, type StepOutputsInfo } from './typing.js';
+import { resolvePillInfo, labelTypeFor, type TypingContext, type StepOutputsInfo, type PillFieldResolver, type FieldChoicesResolver, type StaticRefInfo } from './typing.js';
+import { actionParameter, logicParameter, variableParameter, typeLabelFor, definitionDefault } from './parameter.js';
 
 export type { FlowSpec, GenerateOptions, RecordPlan, CatalogEntry };
+export type { PillFieldInfo, PillFieldResolver, FieldChoice, FieldChoicesInfo, FieldChoicesResolver } from './typing.js';
+export { uiChoiceEntries, isChoiceList } from './typing.js';
 
 /** Marker written to `sys_hub_flow.generation_source` so our flows are recognisable on the instance. */
 export const GENERATION_SOURCE = 'snow_mcp_flow_builder';
@@ -48,6 +54,15 @@ export const STAGE_STATES_JSON = '{"pending":"Pending - has not started","inprog
 /** Inputs the generator fills when the spec omits them (the UI always stores them). */
 const GENERATOR_INPUT_DEFAULTS: Record<string, Record<string, ValueInput>> = {
   askForApproval: { due_date: V.DUE_DATE_DEFAULT },
+};
+
+/** Labels of the catalog question types (sys_choice of item_option_new.type) for label_cache catalogTypeLabel, by type code. */
+export const CATALOG_QUESTION_TYPE_LABELS: Record<string, string> = {
+  '1': 'Yes / No', '2': 'Multi Line Text', '3': 'Multiple Choice', '4': 'Numeric Scale', '5': 'Select Box', '6': 'Single Line Text', '7': 'CheckBox',
+  '8': 'Reference', '9': 'Date', '10': 'Date/Time', '11': 'Label', '12': 'Break', '14': 'Macro', '15': 'UI Page', '16': 'Wide Single Line Text',
+  '17': 'Macro with Label', '18': 'Lookup Select Box', '19': 'Container Start', '20': 'Container End', '21': 'List Collector', '22': 'Lookup Multiple Choice',
+  '23': 'HTML', '24': 'Container Split', '25': 'Masked', '26': 'Email', '27': 'URL', '28': 'IP Address', '29': 'Duration', '31': 'Requested For', '32': 'Rich Text Label',
+  '33': 'Attachment',
 };
 
 /**
@@ -90,6 +105,10 @@ export interface DefinitionVariable {
   default?: string;
   /** Hidden in Flow Designer (attributes visible=false / visible_in_fd=false): never set by a spec, never "missing". */
   hidden?: boolean;
+  /** max_length of the row (parameter.maxsize). */
+  maxLength?: number;
+  /** attributes of the row (parameter.attributes). */
+  attributes?: Record<string, string>;
 }
 
 /** A subflow or custom-action definition as resolved on an instance (or supplied by a test double). */
@@ -130,9 +149,13 @@ export interface CatalogVariable {
   type: string;
   /** item_option_new.type (the question type code). */
   type_code?: string;
+  /** Label of the question type (sys_choice item_option_new.type), e.g. 'Select Box' — label_cache catalogTypeLabel. */
+  type_label?: string;
   label?: string;
   /** Reference table of a reference variable (type 8). */
   reference?: string;
+  /** Choices of a choice variable (question_choice), in the UI's label_cache form {label, value, order}. */
+  choices?: { label: string; value: string; order: number }[];
   /** The variable set it belongs to (io_set_item / item_option_new_set), when not the item itself. */
   variable_set?: string;
 }
@@ -179,6 +202,22 @@ export interface GeneratorExtras {
    * at runtime, so it must never be written) or 'report' (snow_flow_plan: listed in plan.unverifiedApprovers).
    */
   approverPillPolicy?: 'error' | 'report';
+  /**
+   * Dictionary walk for record-field pills with the field labels, owning table, referenced table and the dictionary
+   * `choice` attribute the label_cache entry of a dot-walk needs (resolvers.ts makeDictionaryPillFieldResolver). Preferred
+   * over GenerateOptions.resolvePillType, which types only.
+   */
+  resolvePillField?: PillFieldResolver;
+  /**
+   * The choice list (sys_choice: language en, active, no dependent value, in sequence order) of a field a dot-walk ends on
+   * when the dictionary says it is a choice list (choice 1 / 3): looked up on the walked table, then its parents
+   * (resolvers.ts makeFieldChoicesResolver). The pill is then typed `choice` with the list in the UI's entry shape, as
+   * UI-built flows store it — so Workflow Studio shows the choice label ("State is Closed Complete"), not the raw value.
+   * Absent (offline) → the dictionary type (integer / string) is kept, with a warning.
+   */
+  resolveFieldChoices?: FieldChoicesResolver;
+  /** sys_db_object label of a table (table_name displayValue, label_cache '<Table label> Record'); absent / undefined → the catalogue's tables.json, else the table name. */
+  resolveTableLabel?: (table: string) => Promise<string | undefined>;
 }
 
 type Fields = Record<string, string | number | boolean>;
@@ -224,6 +263,11 @@ class Generator {
    * Present only when the selection was checked against the item (unknown entries are then already reported).
    */
   private readonly catalogSelections = new Map<string, Map<string, string>>();
+  /** Get Catalog Variables steps: whether the spec selects any catalog_variables, and whether the selection was checked live. */
+  private readonly catalogSteps = new Map<string, { selects: boolean; checked: boolean }>();
+  /** Static references the spec describes ({reference, display, table} in approver / list slots), for label_cache. */
+  private readonly staticRefs = new Map<string, StaticRefInfo>();
+  private readonly tableLabels = new Map<string, Promise<string | undefined>>();
   private readonly pillCtx: PillContext;
   private readonly typing: TypingContext;
 
@@ -242,7 +286,12 @@ class Generator {
       inputs: new Map(),
       steps: this.stepInfo,
       resolvePillType: opts.resolvePillType,
+      resolvePillField: opts.resolvePillField,
+      resolveFieldChoices: opts.resolveFieldChoices,
       declaredPillTypes: spec.flow.pill_types,
+      tableLabel: t => this.tableLabel(t),
+      variableUiId: (kind, name) => sysIdToUuid(sysIdFor(this.flowKey, kind === 'variable' ? ELEMENT_KEYS.variable(name) : ELEMENT_KEYS.input(name))),
+      staticRefs: this.staticRefs,
       warn: m => this.warn(m),
       error: m => this.error(m),
     };
@@ -254,6 +303,32 @@ class Generator {
   // ── ids ──
   stepSysId(key: string): string { return sysIdFor(this.flowKey, ELEMENT_KEYS.step(key)); }
   branchSysId(key: string): string { return sysIdFor(this.flowKey, ELEMENT_KEYS.branch(key)); }
+
+  // ── table labels ──
+  /** The sys_db_object label of a table: the live resolver, else the catalogue, else undefined. Read once per table. */
+  private knownTableLabel(table: string): Promise<string | undefined> {
+    let p = this.tableLabels.get(table);
+    if (!p) {
+      p = (async () => {
+        if (this.opts.resolveTableLabel) {
+          try {
+            const live = await this.opts.resolveTableLabel(table);
+            if (live) return live;
+          } catch (e) {
+            this.warn(`table ${table}: its label could not be read (${(e as Error).message}) — the catalogue label or the table name is used`);
+          }
+        }
+        return knownTableLabel(table);
+      })();
+      this.tableLabels.set(table, p);
+    }
+    return p;
+  }
+
+  /** The label for label_cache text ('Incident Record'): the known label, else the title-cased table name. */
+  private async tableLabel(table: string): Promise<string> {
+    return (await this.knownTableLabel(table)) ?? labelCase(table);
+  }
 
   // ── main ──
   async run(): Promise<RecordPlan> {
@@ -296,6 +371,7 @@ class Generator {
     const stages = this.stageRows();
     const trigger = this.triggerRow();
     await this.flushTyping();
+    this.checkCatalogVariablePills();
     const labelCache = buildLabelCache(this.usages, platform => this.platformInfo.get(platform) ?? { type: 'string', base_type: 'string', label: platform });
     const flow = this.flowRow(labelCache);
 
@@ -318,6 +394,24 @@ class Generator {
       ...(this.unverifiedApprovers.length ? { unverifiedApprovers: this.unverifiedApprovers } : {}),
       ...(this.dateTimeInputs.size ? { dateTimeInputs: [...this.dateTimeInputs.values()] } : {}),
     };
+  }
+
+  /**
+   * A Get Catalog Variables step whose outputs are used as pills must select them in catalog_variables: with an empty
+   * selection the step outputs nothing and activation fails ("Action [undefined] references catalog variables that
+   * don't exist or are inactive"). Live (selection checked against the item) a pill outside the selection is already a
+   * spec error (typing.ts strictOutputs); offline a sys_id selection cannot be matched to the pill names — noted.
+   */
+  private checkCatalogVariablePills(): void {
+    for (const [key, s] of this.catalogSteps) {
+      const used = [...new Set([...this.pillTable.keys()].filter(sym => sym.startsWith(`steps.${key}.`)).map(sym => sym.split('.')[2]))];
+      if (!used.length) continue;
+      if (!s.selects) {
+        this.error(`step "${key}" (getCatalogVariables): ${used.length === 1 ? 'output' : 'outputs'} ${used.map(u => `"${u}"`).join(', ')} ${used.length === 1 ? 'is used as a pill' : 'are used as pills'} but catalog_variables selects nothing — the step then outputs no variable and activation fails with "Action [undefined] references catalog variables that don't exist or are inactive"; list ${used.length === 1 ? 'it' : 'them'} in catalog_variables (by sys_id, or by name on a live plan / build)`);
+      } else if (!s.checked) {
+        this.warn(`step "${key}" (getCatalogVariables): whether catalog_variables covers the pill${used.length === 1 ? '' : 's'} ${used.map(u => `"${u}"`).join(', ')} cannot be checked offline (sys_ids are not matched to variable names) — a live plan / build verifies it`);
+      }
+    }
   }
 
   // ── variables / inputs / outputs ──
@@ -395,7 +489,7 @@ class Generator {
       if (v.type.startsWith('array.')) {
         const coId = `FD${vi.sys_id}`;
         const elementType = v.type.slice('array.'.length);
-        const childTypeLabel = uiTypeLabel(elementType);
+        const childTypeLabel = typeLabelFor(elementType);
         fields.attributes = [
           `co_type_name=${coId}`,
           'element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper',
@@ -431,7 +525,21 @@ class Generator {
     for (const vi of this.variables.values()) await emit('sys_hub_flow_variable', vi);
     for (const vi of this.inputs.values()) await emit('sys_hub_flow_input', vi);
     for (const vi of this.outputs.values()) await emit('sys_hub_flow_output', vi);
+    const model = this.catalogVariableModelRow();
+    if (model) rows.push(model);
     return rows;
+  }
+
+  /**
+   * A catalog-triggered flow carries exactly one sys_flow_cat_variable_model row `{id: <flow sys_id>, name: <flow name>}`
+   * (PDI-FACTS §5, the leaver-flow capture) — the anchor the platform hangs the flow's catalog-variable references on;
+   * without it Workflow Studio cannot resolve Get Catalog Variables selections. The captured UI row has an empty sys_scope, but the IDE loader refuses a row whose scope differs from the load scope ("invalid scope", live 28 Sep 2026), so the row carries the flow scope.
+   */
+  private catalogVariableModelRow(): RecordRow | undefined {
+    const t = this.spec.trigger;
+    if (!t || t.type !== 'catalog.service_catalog' || this.spec.flow.type !== 'flow') return undefined;
+    const sysId = sysIdFor(this.flowKey, ELEMENT_KEYS.catVariableModel);
+    return { table: 'sys_flow_cat_variable_model', sys_id: sysId, fields: { sys_id: sysId, sys_scope: this.scope, id: this.flowSysId, name: this.spec.flow.name } };
   }
 
   private variableInternalType(t: string): string {
@@ -449,7 +557,7 @@ class Generator {
     for (const [f, t] of Object.entries(vi.objectFields ?? {})) {
       i++;
       item[f] = coTypeName(t);
-      item[`${f}.$field_facets`] = facet({ uiTypeLabel: uiTypeLabel(t), read_only: 'false', uiType: t, choiceOption: '', default_value: '', hint: '', label: labelCase(f), mandatory: 'false', order: String(i), max_length: '0' });
+      item[`${f}.$field_facets`] = facet({ uiTypeLabel: typeLabelFor(t), read_only: 'false', uiType: t, choiceOption: '', default_value: '', hint: '', label: labelCase(f), mandatory: 'false', order: String(i), max_length: '0' });
     }
     const typeFacets = facet(this.arrayTypeFacets(vi));
     const schema: Record<string, unknown> = {};
@@ -483,6 +591,15 @@ class Generator {
       choiceOption: '', table: '', columnName: '', defaultValue: '', use_dependent: false, fShowReferenceFinder: false, local: false,
       attributes, ref_qual: '', dependent_on: '',
     };
+  }
+
+  /** The Set Flow Variables / Assign Subflow Outputs parameter mirror of a scalar flow variable / subflow output. */
+  private scalarVariableParameter(table: 'sys_hub_flow_variable' | 'sys_hub_flow_output', vi: VarInfo): Record<string, unknown> {
+    const v = vi.def;
+    return variableParameter({
+      sys_id: vi.sys_id, name: v.name, label: v.label ?? labelCase(v.name), type: this.variableInternalType(v.type), order: vi.index + 1,
+      maxLength: Number(v.max_length ?? maxLengthFor(table, v.type)), reference: v.reference_table, uiUniqueId: sysIdToUuid(vi.sys_id),
+    });
   }
 
   private documentationRows(): RecordRow[] {
@@ -530,6 +647,8 @@ class Generator {
       this.triggerDef = def;
       this.triggerPrefix = def.pill_prefix;
       if ('table' in t && isRecordTrigger(def)) this.triggerTable = t.table;
+      // a catalog flow always runs on a requested item: its table_name output is sc_req_item
+      if (t.type === 'catalog.service_catalog') this.triggerTable = 'sc_req_item';
       this.typing.trigger = def;
       this.typing.triggerTable = this.triggerTable;
     }
@@ -808,7 +927,8 @@ class Generator {
         case 'skip_iteration': this.emitLogic(step.key, this.stepSysId(step.key), 'skip_iteration', parentUuid, step, async () => this.emptyValues('skip_iteration')); break;
         case 'wait': {
           const r = this.emitLogic(step.key, this.stepSysId(step.key), 'wait', parentUuid, step, () => this.waitValues(step));
-          this.stepInfo.set(step.key, { uuid: r.uuid, order: r.n, outputs: Object.entries(TIMER_OUTPUTS).map(([name, type]) => ({ name, type })) });
+          const def = findLogic('wait')!;
+          this.stepInfo.set(step.key, { uuid: r.uuid, order: r.n, name: def.name, outputs: def.outputs.map(o => ({ name: o.name, type: TIMER_OUTPUTS[o.name] ?? o.type, label: o.label, attributes: o.attributes })) });
           break;
         }
         case 'set_variables':
@@ -846,7 +966,7 @@ class Generator {
     if (parentUuid) fields.parent_ui_id = parentUuid;
     const row: RecordRow = { table: 'sys_hub_flow_logic_instance_v2', sys_id: sysId, fields };
     this.instances.push(row);
-    if (!this.stepInfo.has(key)) this.stepInfo.set(key, { uuid, order: n, outputs: [] });
+    if (!this.stepInfo.has(key)) this.stepInfo.set(key, { uuid, order: n, name: def.name, outputs: [] });
     this.deferred.push({ row, build: async () => { row.fields.values = encodeValues(await build()); } });
     return { uuid, n };
   }
@@ -861,17 +981,27 @@ class Generator {
     return out;
   }
 
-  private logicEntry(name: string, value: unknown, displayValue: unknown, id = ''): Entry {
-    return { id, name, value, displayValue, children: [], parameter: {}, scriptActive: false };
+  /** A logic values entry: `{[id], name, value, displayValue, children:[], parameter, scriptActive}` (UI rows carry `id` only on variable / output entries). */
+  private logicEntry(name: string, value: unknown, displayValue: unknown, parameter: Record<string, unknown>, id?: string): Entry {
+    return { ...(id !== undefined ? { id } : {}), name, value, displayValue, children: [], parameter, scriptActive: false };
   }
 
-  /** If / Else If / Do-Until values: [condition_name (only when the step / branch has a `label`), condition]. */
+  /** The definition input of a logic row (its parameter mirror), by name. */
+  private logicInput(def: LogicDef, name: string): CatalogInputRaw {
+    const i = def.inputs.find(x => x.name === name);
+    if (!i) throw new ServiceNowError(`flow-builder catalogue: logic "${def.key}" has no input "${name}"`, 'FLOW_BUILDER_CATALOG');
+    return i;
+  }
+
+  /** If / Else If / Do-Until values: [condition_name (the step's `label`, '' when none — UI rows always carry it), condition]. */
   private async conditionValues(logicKey: string, condition: string, ownerKey: string, allowForward = false, label?: string): Promise<Record<string, unknown>> {
     const uuid = this.stepInfo.get(ownerKey)!.uuid;
+    const def = findLogic(logicKey)!;
     const value = this.renderText(condition, uuid, 'condition', ownerKey, allowForward);
-    const inputs: Entry[] = [];
-    if (label) inputs.push(this.logicEntry('condition_name', label, label));
-    inputs.push(this.logicEntry('condition', value, value));
+    const inputs: Entry[] = [
+      this.logicEntry('condition_name', label ?? '', label ?? '', logicParameter(this.logicInput(def, 'condition_name'))),
+      this.logicEntry('condition', value, value, logicParameter(this.logicInput(def, 'condition'))),
+    ];
     return this.orderedValues(logicKey, { inputs });
   }
 
@@ -898,7 +1028,7 @@ class Generator {
       loop.fromVariable = true;
       if (vi?.def.type === 'array.reference') loop.table = vi.def.reference_table;
     }
-    this.stepInfo.set(step.key, { uuid, order, outputs: [{ name: 'item', type: 'reference' }], loop });
+    this.stepInfo.set(step.key, { uuid, order, name: findLogic('for_each')!.name, outputs: [{ name: 'item', type: 'reference' }], loop });
   }
 
   private async forEachValues(step: Extract<Step, { kind: 'for_each' }>): Promise<Record<string, unknown>> {
@@ -911,7 +1041,7 @@ class Generator {
       if (vi?.def.type === 'array.object') info.loop.objectFields = vi.objectFields ?? {};
     }
     const value = await this.renderPillTyped(step.items.pill, uuid, 'items', step.key);
-    return this.orderedValues('for_each', { inputs: [{ id: '', name: 'items', value, displayValue: value }] });
+    return this.orderedValues('for_each', { inputs: [this.logicEntry('items', value, value, logicParameter(this.logicInput(findLogic('for_each')!, 'items')))] });
   }
 
   private async waitValues(step: Extract<Step, { kind: 'wait' }>): Promise<Record<string, unknown>> {
@@ -944,24 +1074,21 @@ class Generator {
       const s = typeof step.schedule === 'string' ? step.schedule : 'pill' in step.schedule ? this.renderPill(step.schedule.pill, uuid, 'timer_schedule', step.key) : step.schedule.reference;
       vals.timer_schedule = { value: s, displayValue: s };
     }
-    const inputs = TIMER_INPUTS.map(ti => {
-      const e: Entry = { id: ti.id, name: ti.name, value: vals[ti.name].value, displayValue: vals[ti.name].displayValue, children: [], scriptActive: false };
-      if (ti.glideDuration) e.parameter = { type: 'glide_duration' };
-      return e;
-    });
+    const def = findLogic('wait')!;
+    const inputs = TIMER_INPUTS.map(ti => this.logicEntry(ti.name, vals[ti.name].value, vals[ti.name].displayValue, logicParameter(this.logicInput(def, ti.name))));
     return this.orderedValues('wait', { inputs });
   }
 
-  private async assignmentEntry(name: string, v: ValueInput, uuid: string, ownerKey: string, id: string, displayValueForInputs: 'same' | 'empty'): Promise<{ variables: Entry; inputs: Entry }> {
+  private async assignmentEntry(name: string, v: ValueInput, uuid: string, ownerKey: string, id: string, parameter: Record<string, unknown>, displayValueForInputs: 'same' | 'empty'): Promise<{ variables: Entry; inputs: Entry }> {
     if (V.valueKind(v) === 'script') {
       const script = (v as { script: string }).script;
-      const e: Entry = { id, name, value: '', displayValue: '', children: [], scriptActive: true, script: { [name]: { scriptActive: true, script } } };
-      return { variables: e, inputs: { ...e, script: { [name]: { scriptActive: true, script } } } };
+      const e: Entry = { id, name, value: '', displayValue: '', children: [], parameter, scriptActive: true, script: { [name]: { scriptActive: true, script } } };
+      return { variables: e, inputs: { ...e, parameter: { ...parameter }, script: { [name]: { scriptActive: true, script } } } };
     }
     const value = await this.renderValueAsString(v, uuid, name, ownerKey);
     return {
-      variables: this.logicEntry(name, value, value, id),
-      inputs: this.logicEntry(name, value, displayValueForInputs === 'same' ? value : '', id),
+      variables: this.logicEntry(name, value, value, parameter, id),
+      inputs: this.logicEntry(name, value, displayValueForInputs === 'same' ? value : '', { ...parameter }, id),
     };
   }
 
@@ -972,7 +1099,7 @@ class Generator {
       const vi = this.variables.get(name);
       if (!vi) { this.error(`set_variables "${step.key}": unknown flow variable "${name}"`); continue; }
       if (vi.def.type.startsWith('array.') || V.valueKind(v) === 'template') { this.error(`set_variables "${step.key}": variable "${name}" is an array/object — use append_variables`); continue; }
-      const e = await this.assignmentEntry(name, v, uuid, step.key, vi.sys_id, 'empty');
+      const e = await this.assignmentEntry(name, v, uuid, step.key, vi.sys_id, this.scalarVariableParameter('sys_hub_flow_variable', vi), 'empty');
       variables.push(e.variables); inputs.push(e.inputs);
     }
     return this.orderedValues('set_variables', { variables, inputs });
@@ -1004,15 +1131,14 @@ class Generator {
         }
         const collection = isArray ? rendered : rendered[0];
         const value = JSON.stringify({ version: '1.0', complexObjectSchema: this.complexObjectSchema(vi), complexObject: { name$: `FD${vi.sys_id}`, $COCollectionField: collection }, serializationFormat: 'JSON' });
-        const e = this.logicEntry(name, value, value, vi.sys_id);
-        // an array literal adds one "item" descriptor per element (FORMAT-DECISIONS D15)
+        // an array literal adds one "item" descriptor per element and keeps parameter {}; a single object carries a
+        // parameter mirror of the array variable (FORMAT-DECISIONS D15)
+        const e = this.logicEntry(name, value, value, isArray ? {} : this.arrayVariableParameter(vi), vi.sys_id);
         if (isArray) e.children = rendered.map(() => ({ name: 'item', value: '', displayValue: '', children: Object.entries(vi.objectFields ?? {}).map(([f, t]) => objectFieldDescriptor(f, t)) }));
-        // a single object carries a parameter mirror of the array variable; an array literal keeps {} (FORMAT-DECISIONS D15)
-        else e.parameter = this.arrayVariableParameter(vi);
         variables.push(e); inputs.push(JSON.parse(JSON.stringify(e)) as Entry);
       } else {
         this.warn(`append_variables "${step.key}": appending to a scalar array ("${name}", ${vi.def.type}) was not observed on a UI-built flow or a live run — value stored as a plain string, verify on the PDI`);
-        const e = await this.assignmentEntry(name, v, uuid, step.key, vi.sys_id, 'same');
+        const e = await this.assignmentEntry(name, v, uuid, step.key, vi.sys_id, this.arrayVariableParameter(vi), 'same');
         variables.push(e.variables); inputs.push(e.inputs);
       }
     }
@@ -1029,8 +1155,9 @@ class Generator {
     const uuid = this.stepInfo.get(step.key)!.uuid;
     const outputsToAssign: Entry[] = [];
     for (const [name, v] of Object.entries(step.assign)) {
-      if (!this.outputs.has(name)) { this.error(`assign_subflow_outputs "${step.key}": unknown subflow output "${name}"`); continue; }
-      const e = await this.assignmentEntry(name, v, uuid, step.key, '', 'same');
+      const vi = this.outputs.get(name);
+      if (!vi) { this.error(`assign_subflow_outputs "${step.key}": unknown subflow output "${name}"`); continue; }
+      const e = await this.assignmentEntry(name, v, uuid, step.key, vi.sys_id, this.scalarVariableParameter('sys_hub_flow_output', vi), 'same');
       outputsToAssign.push(e.variables);
     }
     return this.orderedValues('assign_subflow_outputs', { outputsToAssign });
@@ -1088,11 +1215,18 @@ class Generator {
     }
     let table = this.staticTableOf(step.inputs);
     if (def.key === 'createCatalogTask') table = table ?? 'sc_task';
-    const info: StepOutputsInfo = { uuid: sysIdToUuid(sysId), order: n, outputs: def.outputs.map(o => ({ name: o.name, type: o.type, label: o.label, reference: this.outputTable(o, step.inputs) })), table };
+    const info: StepOutputsInfo = {
+      uuid: sysIdToUuid(sysId), order: n, name: def.name,
+      outputs: def.outputs.map(o => ({ name: o.name, type: o.type, label: o.label, reference: this.outputTable(o, step.inputs), attributes: o.attributes })),
+      table,
+    };
     if (def.key === 'getCatalogVariables') {
       // dynamic outputs: the variables of the template catalog item (live only; offline they stay untyped)
+      const selection = step.inputs.catalog_variables;
+      const selects = !!selection && typeof selection === 'object' && 'list' in selection && (selection as { list: unknown[] }).list.length > 0;
       const dyn = await this.catalogVariableOutputs(step, def.key);
       if (dyn) { info.outputs = dyn.outputs; info.strictOutputs = dyn.strict; }
+      this.catalogSteps.set(step.key, { selects, checked: this.catalogSelections.has(step.key) });
     } else if (def.key === 'createCatalogTask' && step.inputs.catalog_variables !== undefined) {
       // same slushbucket: resolve the selection (names / set sys_ids) against template_catalog_item; outputs stay the task's
       await this.catalogVariableOutputs(step, def.key);
@@ -1151,9 +1285,21 @@ class Generator {
         strict = `selected in catalog_variables of ${itemName}`;
       }
     }
-    return { outputs: vars.map(v => ({ name: v.name, type: v.type, ...(v.label ? { label: v.label } : {}), ...(v.reference ? { reference: v.reference } : {}) })), strict };
+    return {
+      outputs: vars.map(v => ({
+        name: v.name, type: v.type, ...(v.label ? { label: v.label } : {}), ...(v.reference ? { reference: v.reference } : {}),
+        catalog: { type_code: v.type_code ?? '', type_label: v.type_label ?? CATALOG_QUESTION_TYPE_LABELS[v.type_code ?? ''], ...(v.choices?.length ? { choices: v.choices } : {}) },
+      })),
+      strict,
+    };
   }
 
+  /**
+   * The values entries of a catalogue action: one per definition input in definition order — the entry Workflow
+   * Studio stores (`{id, name, value, displayValue, children:[], parameter, scriptActive}`, `id` = the snapshot input
+   * sys_id). Inputs the spec does not set carry their definition default (or the value UI-built rows store for a
+   * hidden input), else '' / ''.
+   */
   private async actionValues(step: Extract<Step, { kind: 'action' }>, def: ActionDef): Promise<Entry[]> {
     const uuid = sysIdToUuid(this.stepSysId(step.key));
     const supplied = step.inputs;
@@ -1168,33 +1314,44 @@ class Generator {
       const stored = storedInputName(input.name);
       const given = specInputNames(input).filter(n => supplied[n] !== undefined);
       if (given.length > 1) this.error(`step "${step.key}" (${def.key}): input "${input.name}" is set more than once (${given.join(', ')})`);
-      let v = specInputNames(input).map(n => supplied[n]).find(x => x !== undefined) ?? defaults[input.name];
+      const v = specInputNames(input).map(n => supplied[n]).find(x => x !== undefined) ?? defaults[input.name];
       if (v !== undefined) {
         entries.push(await this.actionInputEntry(input, stored, v, uuid, step.key));
         continue;
       }
-      if (isAlwaysStored(input)) {
-        // a default value is stored as defined; a hidden input without one carries the value UI-built rows store (or '')
-        const hidden = isHiddenInput(input);
-        const value = (input.default !== undefined && input.default !== '' ? input.default : hidden ? def.hidden_values?.[input.name] ?? '' : '') as string | number | boolean;
-        const parameter: Record<string, unknown> = { type: input.type };
-        if (hidden) {
-          if (input.attributes && Object.keys(input.attributes).length) parameter.attributes = { ...input.attributes };
-          if (input.reference) parameter.reference = input.reference;
-        }
-        entries.push({ name: stored, value, displayValue: value, scriptActive: false, parameter });
-        continue;
-      }
-      if (input.mandatory && !isHiddenInput(input)) this.error(`step "${step.key}" (${def.key}): mandatory input "${input.name}" is missing`);
+      const hidden = isHiddenInput(input);
+      const d = definitionDefault(input);
+      let value: unknown = d.value; let displayValue: unknown = d.display;
+      if (d.value === '' && hidden) value = displayValue = def.hidden_values?.[input.name] ?? '';
+      if (d.value !== '' && input.type === 'boolean') { value = d.value === 'true' ? '1' : '0'; displayValue = d.value; }
+      entries.push(this.valuesEntry(input, stored, value, displayValue));
+      if (input.mandatory && !hidden && d.value === '') this.error(`step "${step.key}" (${def.key}): mandatory input "${input.name}" is missing`);
     }
     return entries;
   }
 
+  /** The values entry shape of an action / subflow input (`id` = the definition row sys_id where known). */
+  private valuesEntry(input: CatalogInputRaw, stored: string, value: unknown, displayValue: unknown, extra: Entry = {}): Entry {
+    return { id: input.sys_id ?? '', name: stored, value, displayValue, children: [], parameter: actionParameter({ ...input, name: stored }), scriptActive: false, ...extra };
+  }
+
+  /** A subflow_inputs entry: the action entry without `children` (UI subflow entries carry subFlowInstanceId, id, name, value, displayValue, parameter, scriptActive). */
+  private subflowEntry(e: Entry): Entry {
+    const { children: _children, ...rest } = e;
+    return rest;
+  }
+
+  /**
+   * The stored value / displayValue of a set input (PDI-FACTS §6, FORMAT-DECISIONS §5): boolean "1"/"0" with display
+   * "true"/"false"; choice → its label; table_name → the table label (a read-only table left at its own default keeps the raw name); a
+   * document_id / reference input holding a pill → ''; a reference sys_id → its display value; schedule_date_time →
+   * ''; everything else (strings, templates, conditions, approval rules, slushbuckets) displayValue == value.
+   */
   private async actionInputEntry(input: CatalogInputRaw, stored: string, v: ValueInput, uuid: string, ownerKey: string): Promise<Entry> {
     const kind = V.valueKind(v);
     if (kind === 'script') {
       const script = (v as { script: string }).script;
-      return { id: '', name: stored, value: '', displayValue: '', children: [], scriptActive: true, script: { [stored]: { scriptActive: true, script } } };
+      return this.valuesEntry(input, stored, '', '', { scriptActive: true, script: { [stored]: { scriptActive: true, script } } });
     }
     const renderPill = (s: string) => this.renderPill(s, uuid, stored, ownerKey);
     const renderText = (s: string) => this.renderText(s, uuid, stored, ownerKey);
@@ -1202,6 +1359,7 @@ class Generator {
     switch (kind) {
       case 'scalar': {
         const c = V.coerceScalar(v as string | number | boolean, input.type);
+        if (input.type === 'boolean' && typeof c === 'boolean') { value = c ? '1' : '0'; displayValue = c ? 'true' : 'false'; break; }
         value = typeof c === 'string' ? renderText(c) : c;
         displayValue = value;
         break;
@@ -1210,8 +1368,9 @@ class Generator {
       case 'text': value = displayValue = renderText((v as { text: string }).text); break;
       case 'conditions': value = displayValue = renderText((v as { conditions: string }).conditions); break;
       case 'reference': {
-        const r = v as { reference: string; display?: string };
+        const r = v as { reference: string; display?: string; table?: string };
         value = r.reference; displayValue = r.display ?? r.reference;
+        this.rememberStaticRef(r);
         break;
       }
       case 'template': {
@@ -1231,17 +1390,33 @@ class Generator {
       case 'list': {
         const list = (v as { list: V.ListItem[] }).list;
         if (V.templateItemIndex(list) >= 0) { this.error(listTemplateError(ownerKey, stored)); value = displayValue = ''; break; }
+        for (const item of list) if (typeof item === 'object' && item !== null && 'reference' in item) this.rememberStaticRef(item);
         value = displayValue = V.encodeList(input.type === 'slushbucket' ? this.slushbucketItems(list, ownerKey, stored) : list, input.type, renderPill);
         break;
       }
     }
-    const entry: Entry = { name: stored, value, displayValue, scriptActive: false, parameter: { type: input.type } };
+    // displayValue per input type
+    const text = typeof value === 'string' ? value : '';
+    const holdsPill = PLATFORM_PILL_RE.test(text);
+    PLATFORM_PILL_RE.lastIndex = 0;
+    if ((input.type === 'document_id' || input.type === 'reference') && holdsPill) displayValue = '';
+    else if (input.type === 'schedule_date_time') displayValue = '';
+    else if (input.type === 'choice' && typeof value === 'string') displayValue = input.choices?.find(c => c.value === value)?.label ?? value;
+    else if (input.type === 'table_name' && typeof value === 'string' && value !== '' && !holdsPill && !(input.read_only && value === definitionDefault(input).value)) displayValue = (await this.knownTableLabel(value)) ?? value;
+    const entry = this.valuesEntry(input, stored, value, displayValue);
     if (scripts) {
       const script: Record<string, unknown> = {};
       for (const [f, s] of Object.entries(scripts)) script[f] = { scriptActive: true, script: s };
       entry.script = script;
     }
     return entry;
+  }
+
+  /** Keep the display value / table of a {reference} the spec describes, for the label_cache entry of its static pill. */
+  private rememberStaticRef(r: { reference: string; display?: string; table?: string }): void {
+    if (!SYS_ID_RE.test(r.reference)) return;
+    const prev = this.staticRefs.get(r.reference) ?? {};
+    this.staticRefs.set(r.reference, { display: r.display ?? prev.display, table: r.table ?? prev.table });
   }
 
   /**
@@ -1271,6 +1446,7 @@ class Generator {
   private async checkApprovers(rules: ApprovalRules, ownerKey: string): Promise<void> {
     for (const set of rules.rule_sets) for (const group of set.rules) for (const cond of group) {
       for (const a of [...(cond.users ?? []), ...(cond.groups ?? [])]) {
+        if (typeof a === 'object' && 'reference' in a) { this.rememberStaticRef(a as { reference: string; display?: string; table?: string }); continue; }
         if (typeof a !== 'object' || !('pill' in a)) continue;
         const info = await this.typeOf(a.pill);
         if (info.unresolved) {
@@ -1297,16 +1473,16 @@ class Generator {
     this.markStage(step, n);
     this.stepOrder.set(step.key, n);
     const def = await this.resolveDefinition(step.definition, 'custom action', step.key, this.opts.resolveCustomAction);
-    this.stepInfo.set(step.key, { uuid: sysIdToUuid(sysId), order: n, outputs: def?.outputs ?? [], table: this.staticTableOf(step.inputs), inferred: !def || def.inferred });
+    this.stepInfo.set(step.key, { uuid: sysIdToUuid(sysId), order: n, name: def?.name ?? step.key, outputs: def?.outputs ?? [], table: this.staticTableOf(step.inputs), inferred: !def || def.inferred });
     if (!def) return;
     const row: RecordRow = { table: 'sys_hub_action_instance_v2', sys_id: sysId, fields: this.actionRowFields(sysId, def.sys_id, def.sys_id, orderStr, parentUuid, step.annotation ?? '') };
     this.instances.push(row);
     this.deferred.push({ row, build: async () => {
       const uuid = sysIdToUuid(sysId);
       const entries: Entry[] = [];
-      for (const [name, type] of await this.typedInputList(def, step.inputs, step.key)) {
-        const v = step.inputs[name];
-        entries.push(await this.actionInputEntry({ name, label: name, type }, name, v, uuid, step.key));
+      for (const input of await this.definitionInputList(def, step.inputs, step.key)) {
+        const v = step.inputs[input.name];
+        entries.push(v === undefined ? this.valuesEntry(input, input.name, definitionDefault(input).value, definitionDefault(input).display) : await this.actionInputEntry(input, input.name, v, uuid, step.key));
       }
       row.fields.values = encodeValues(entries);
     } });
@@ -1333,9 +1509,12 @@ class Generator {
     return undefined;
   }
 
-  /** [name, type] for every supplied input: definition order + types when known, else spec order + inferred types. */
-  private async typedInputList(def: DefinitionInfo & { inferred?: boolean }, supplied: Record<string, ValueInput>, ownerKey: string): Promise<[string, string][]> {
-    const out: [string, string][] = [];
+  /**
+   * The inputs a resolved definition declares (every visible one, in definition order, as catalogue-style definitions —
+   * UI rows store an entry per declared input), else — inferred — the supplied inputs in spec order with inferred types.
+   */
+  private async definitionInputList(def: DefinitionInfo & { inferred?: boolean }, supplied: Record<string, ValueInput>, ownerKey: string): Promise<CatalogInputRaw[]> {
+    const out: CatalogInputRaw[] = [];
     if (!def.inferred) {
       // a resolved definition is authoritative: its declared inputs, in definition order, with their types
       const known = new Set(def.inputs.map(i => i.name));
@@ -1347,11 +1526,11 @@ class Generator {
           if (supplied[i.name] !== undefined) this.error(`step "${ownerKey}": input "${i.name}" of ${def.name ? `"${def.name}"` : def.sys_id} is hidden in Flow Designer and cannot be set`);
           continue;
         }
-        if (supplied[i.name] !== undefined) out.push([i.name, i.type]);
-        else if (i.mandatory && !i.default) this.error(`step "${ownerKey}": mandatory input "${i.name}" of ${def.name ? `"${def.name}"` : def.sys_id} is missing`);
+        if (supplied[i.name] === undefined && i.mandatory && !i.default) this.error(`step "${ownerKey}": mandatory input "${i.name}" of ${def.name ? `"${def.name}"` : def.sys_id} is missing`);
+        out.push(definitionInput(i));
       }
     } else {
-      for (const [n, v] of Object.entries(supplied)) out.push([n, await this.inferValueType(v, `step "${ownerKey}" input "${n}"`)]);
+      for (const [n, v] of Object.entries(supplied)) out.push({ name: n, label: n, type: await this.inferValueType(v, `step "${ownerKey}" input "${n}"`) });
     }
     return out;
   }
@@ -1378,7 +1557,7 @@ class Generator {
     this.markStage(step, n);
     this.stepOrder.set(step.key, n);
     const def = await this.resolveDefinition(step.subflow, 'subflow', step.key, this.opts.resolveSubflow);
-    this.stepInfo.set(step.key, { uuid: sysIdToUuid(sysId), order: n, outputs: def?.outputs ?? [], inferred: !def || def.inferred });
+    this.stepInfo.set(step.key, { uuid: sysIdToUuid(sysId), order: n, name: def?.name ?? step.key, outputs: def?.outputs ?? [], inferred: !def || def.inferred });
     if (!def) return;
     const fields: Fields = {
       sys_id: sysId, sys_scope: this.scope, attributes: '', comment: step.annotation ?? '', display_text: '', flow: this.flowSysId, generation_source: '',
@@ -1390,15 +1569,15 @@ class Generator {
     this.deferred.push({ row, build: async () => {
       const uuid = sysIdToUuid(sysId);
       const entries: Entry[] = [];
-      for (const [name, type] of await this.typedInputList(def, step.inputs, step.key)) {
-        const v = step.inputs[name];
+      for (const input of await this.definitionInputList(def, step.inputs, step.key)) {
+        const v = step.inputs[input.name];
+        if (v === undefined) { entries.push(this.subflowEntry(this.valuesEntry(input, input.name, definitionDefault(input).value, definitionDefault(input).display))); continue; }
         if (V.valueKind(v) === 'script') {
           const script = (v as { script: string }).script;
-          entries.push({ id: '', name, value: '', displayValue: '', children: [], scriptActive: true, script: { [name]: { scriptActive: true, script } } });
+          entries.push(this.subflowEntry(this.valuesEntry(input, input.name, '', '', { scriptActive: true, script: { [input.name]: { scriptActive: true, script } } })));
           continue;
         }
-        const e = await this.actionInputEntry({ name, label: name, type }, name, v, uuid, step.key);
-        entries.push({ name, value: e.value, displayValue: e.displayValue, parameter: { type } });
+        entries.push(this.subflowEntry(await this.actionInputEntry(input, input.name, v, uuid, step.key)));
       }
       row.fields.subflow_inputs = encodeValues(entries);
     } });
@@ -1483,11 +1662,12 @@ class Generator {
       case 'pill': return this.renderPillTyped((v as { pill: string }).pill, uuid, inputName, ownerKey);
       case 'text': return this.renderText((v as { text: string }).text, uuid, inputName, ownerKey);
       case 'conditions': return this.renderText((v as { conditions: string }).conditions, uuid, inputName, ownerKey);
-      case 'reference': return (v as { reference: string }).reference;
+      case 'reference': this.rememberStaticRef(v as { reference: string; display?: string; table?: string }); return (v as { reference: string }).reference;
       case 'duration': return V.durationToGlide((v as { duration: never }).duration);
       case 'list': {
         const list = (v as { list: V.ListItem[] }).list;
         if (V.templateItemIndex(list) >= 0) { this.error(listTemplateError(ownerKey, inputName)); return ''; }
+        for (const item of list) if (typeof item === 'object' && item !== null && 'reference' in item) this.rememberStaticRef(item);
         return V.encodeList(list, 'glide_list', s => this.renderPill(s, uuid, inputName, ownerKey));
       }
       case 'template': return V.encodeTemplate((v as { template: Record<string, ValueInput> }).template, s => this.renderPill(s, uuid, inputName, ownerKey), s => this.renderText(s, uuid, inputName, ownerKey)).value;
@@ -1550,6 +1730,19 @@ export function setUiDescriptorValue(e: TriggerDescriptorEntry, raw: unknown): v
   if (hasDisplay) e.displayValue = display;
 }
 
+/** A resolved definition variable (subflow input / custom action input) as a catalogue-style input definition. */
+function definitionInput(i: DefinitionVariable): CatalogInputRaw {
+  const out: CatalogInputRaw = { name: i.name, label: i.label ?? i.name, type: i.type };
+  if (i.sys_id) out.sys_id = i.sys_id;
+  if (i.mandatory) out.mandatory = true;
+  if (i.order !== undefined) out.order = i.order;
+  if (i.default !== undefined && i.default !== '') out.default = i.default;
+  if (i.reference) { out.reference = i.reference; const l = knownTableLabel(i.reference); if (l) out.reference_display = l; }
+  if (i.maxLength !== undefined) out.maxLength = i.maxLength;
+  if (i.attributes && Object.keys(i.attributes).length) out.attributes = { ...i.attributes };
+  return out;
+}
+
 /** Optional condition label (condition_name) on an if / else_if / do_until. */
 function labelOf(o: object): string | undefined {
   const l = (o as { label?: unknown }).label;
@@ -1598,7 +1791,7 @@ function objectFieldDescriptor(name: string, type: string): Entry {
   return {
     id: '', name, value: '', displayValue: '', children: [],
     parameter: {
-      children: [], uiDisplayType: type, type_label: uiTypeLabel(type), id: '', label: name, name, type, order: 0, extended: false,
+      children: [], uiDisplayType: type, type_label: typeLabelFor(type), id: '', label: name, name, type, order: 0, extended: false,
       mandatory: false, readOnly: false, hint: '', maxsize: 0, reference: '', reference_display: '', choiceOption: '', table: '',
       columnName: '', defaultValue: '', defaultDisplayValue: '', use_dependent: false, fShowReferenceFinder: false, local: false,
       attributes: {}, ref_qual: '', dependent_on: '',
@@ -1629,15 +1822,6 @@ function coTypeName(internalType: string): string {
     case 'reference': return 'Reference';
     case 'json': return 'Json';
     default: return 'String';
-  }
-}
-
-function uiTypeLabel(internalType: string): string {
-  switch (internalType) {
-    case 'boolean': return 'True/False';
-    case 'object': return 'Object';
-    case 'glide_date_time': return 'Date/Time';
-    default: return internalType.charAt(0).toUpperCase() + internalType.slice(1);
   }
 }
 

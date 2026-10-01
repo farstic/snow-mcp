@@ -94,20 +94,22 @@ export type ParsedPill =
 export interface PillEntry { symbolic: string; platform: string; type: string }
 
 /**
- * A `label_cache` entry as stored on `sys_hub_flow.label_cache` (JSON array).
- * The generator's entry shape (UI entries carry more keys — PDI-FACTS §6): records pills carry `column_name`,
- * flow-variable / subflow-input pills carry `reference_table` / `reference_display`.
+ * A `label_cache` entry as stored on `sys_hub_flow.label_cache` (JSON array), in the key order Workflow Studio writes
+ * (PDI-FACTS §6): name, label, reference?, reference_display?, type, base_type, parent_table_name?, column_name?,
+ * choices?, usedInstances, attributes?. Which optional keys are present depends on the pill kind (labels.ts).
  */
 export interface LabelCacheEntry {
   name: string;
   label: string;
+  reference?: string;
+  reference_display?: string;
   type: string;
   base_type: string;
-  usedInstances: Record<string, string[]>;
-  attributes: Record<string, unknown>;
+  parent_table_name?: string;
   column_name?: string;
-  reference_table?: string | null;
-  reference_display?: string | null;
+  choices?: unknown[];
+  usedInstances: Record<string, string[]>;
+  attributes?: Record<string, unknown>;
 }
 
 // ─── Plan (fixed interface from the brief) ────────────────────────────────────

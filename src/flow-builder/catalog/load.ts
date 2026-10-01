@@ -14,6 +14,7 @@
 import triggersJson from './data/triggers.json' with { type: 'json' };
 import actionsJson from './data/actions.json' with { type: 'json' };
 import logicJson from './data/logic.json' with { type: 'json' };
+import tablesJson from './data/tables.json' with { type: 'json' };
 
 // ─── Shapes ──────────────────────────────────────────────────────────────────
 
@@ -34,13 +35,30 @@ export interface CatalogInputRaw {
   hidden?: boolean;
   attributes?: Record<string, string>;
   reference?: string;
-  /** Label of the referenced table (sys_db_object) — trigger inputs only. */
+  /** Label of the referenced table (sys_db_object) — trigger inputs, and action inputs / outputs whose table tables.json lists. */
   reference_display?: string;
   maxLength?: number;
   choices?: CatalogChoice[];
   /** dependent_on_field, and whether the definition uses it (use_dependent_field). */
   dependent?: string;
   use_dependent?: boolean;
+  /** sys_id of the definition row (trigger inputs: always; action inputs: where the supplement export lists the snapshot input). */
+  sys_id?: string;
+  /** read_only column of the definition row (Workflow Studio's parameter.readOnly). */
+  read_only?: boolean;
+  /** hint column of the definition row (parameter.hint). */
+  hint?: string;
+  /** The `choice` column when set and not 0 (parameter.choiceOption: 1 = dropdown with none, 3 = dropdown without none). */
+  choice_option?: string;
+}
+
+/** A table Workflow Studio names in label_cache / displayValue / parameter mirrors (tables.json). */
+export interface TableInfo {
+  name: string;
+  /** sys_db_object label ('Requested Item'). */
+  label: string;
+  /** The table's display field (sys_dictionary display=true), where a UI-built row showed it (parameter.fSearchField). */
+  display_field?: string;
 }
 
 export interface CatalogOutputRaw extends CatalogInputRaw {
@@ -109,6 +127,8 @@ export interface CatalogData {
   logic: LogicDef[];
   /** Key order of a logic row's values object, as UI-built rows store it. */
   logicValuesKeyOrder: readonly string[];
+  /** Table labels (and display fields) by table name. */
+  tables: Map<string, TableInfo>;
 }
 
 let cache: CatalogData | undefined;
@@ -119,8 +139,19 @@ export function catalogData(): CatalogData {
   const t = triggersJson as unknown as { triggers: TriggerDef[] };
   const a = actionsJson as unknown as { actions: ActionDef[] };
   const l = logicJson as unknown as { values_key_order: string[]; logic: LogicDef[] };
-  cache = { triggers: t.triggers, actions: a.actions, logic: l.logic, logicValuesKeyOrder: l.values_key_order };
+  const tb = tablesJson as unknown as { tables: TableInfo[] };
+  cache = { triggers: t.triggers, actions: a.actions, logic: l.logic, logicValuesKeyOrder: l.values_key_order, tables: new Map(tb.tables.map(x => [x.name, x])) };
   return cache;
+}
+
+/** The sys_db_object label of a table the catalogue knows, else undefined. */
+export function knownTableLabel(table: string): string | undefined {
+  return catalogData().tables.get(table)?.label;
+}
+
+/** The display field of a table the catalogue knows (parameter.fSearchField), else undefined. */
+export function knownTableDisplayField(table: string): string | undefined {
+  return catalogData().tables.get(table)?.display_field;
 }
 
 /** Deep clone via JSON (all catalogue structures are plain JSON). */

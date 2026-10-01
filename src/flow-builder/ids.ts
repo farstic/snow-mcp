@@ -31,6 +31,8 @@ export const ELEMENT_KEYS = {
   branch: (key: string) => `branch:${key}`,
   errorHandler: (key: string) => `error_handler:${key}`,
   aliasMapping: (stepKey: string) => `alias:${stepKey}`,
+  /** The one sys_flow_cat_variable_model row of a catalog-triggered flow. */
+  catVariableModel: 'cat_variable_model',
 } as const;
 
 export function isSysId(value: unknown): value is string {

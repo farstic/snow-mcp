@@ -240,7 +240,8 @@ describe('B — Get Catalog Variables outputs typed from the catalog item', () =
   it('live plan: each question type code maps to its flow type; variable sets are included (a multi-row set is one output)', async () => {
     const f = newFake();
     const names = ['short_name', 'notes', 'laptop_type', 'size', 'urgent', 'requested_for', 'needed_by', 'deliver_at', 'wide_text', 'watchers', 'header_label', 'address_line', 'devices'];
-    const r = await call(f, 'snow_flow_plan', { spec: gcvSpec(names.map(n => `{{steps.vars.${n}}}`).join(' ') + ' {{steps.vars.requested_for.email}}'), instance: 'otherdev' });
+    // the used outputs must be selected in catalog_variables (by name on a live plan); an empty selection is a spec error
+    const r = await call(f, 'snow_flow_plan', { spec: gcvSpec(names.map(n => `{{steps.vars.${n}}}`).join(' ') + ' {{steps.vars.requested_for.email}}', { catalog_variables: { list: names } }), instance: 'otherdev' });
     expect(r.ok, JSON.stringify(r.errors)).toBe(true);
     expect(typesOf(r)).toEqual({
       short_name: 'string', notes: 'string', laptop_type: 'choice', size: 'choice', urgent: 'boolean', requested_for: 'reference',
@@ -263,6 +264,8 @@ describe('B — Get Catalog Variables outputs typed from the catalog item', () =
     expect(r.errors).toEqual([
       `pill steps.vars.retired_one: "retired_one" is not a variable of catalog item "Example Laptop" (${ITEM}) — valid outputs of step "vars": ${valid}`,
       `pill steps.vars.laptoptype: "laptoptype" is not a variable of catalog item "Example Laptop" (${ITEM}) — valid outputs of step "vars": ${valid}`,
+      // and the step selects nothing while its outputs are used (the activation failure "Action [undefined] references catalog variables …")
+      'step "vars" (getCatalogVariables): outputs "retired_one", "laptoptype" are used as pills but catalog_variables selects nothing — the step then outputs no variable and activation fails with "Action [undefined] references catalog variables that don\'t exist or are inactive"; list them in catalog_variables (by sys_id, or by name on a live plan / build)',
     ]);
   });
 
@@ -278,7 +281,7 @@ describe('B — Get Catalog Variables outputs typed from the catalog item', () =
 
   it('a variable set as template_catalog_item: its own variables are the outputs', async () => {
     const f = newFake();
-    const spec = gcvSpec('{{steps.vars.address_line}}', { template_catalog_item: { reference: SET } });
+    const spec = gcvSpec('{{steps.vars.address_line}}', { template_catalog_item: { reference: SET }, catalog_variables: { list: ['address_line'] } });
     const r = await call(f, 'snow_flow_plan', { spec, instance: 'otherdev' });
     expect(r.ok, JSON.stringify(r.errors)).toBe(true);
     expect(typesOf(r)).toEqual({ address_line: 'string' });
@@ -297,18 +300,24 @@ describe('B — Get Catalog Variables outputs typed from the catalog item', () =
 
   it('build and verify use the same typing (label_cache in the loaded document); verify reports an unknown name as spec_errors', async () => {
     const f = newFake();
-    await call(f, 'snow_flow_build', { spec: gcvSpec('{{steps.vars.urgent}}'), instance: 'otherdev', update_set: { sys_id: 'a'.repeat(32) } });
+    const sel = { catalog_variables: { list: ['urgent'] } };
+    await call(f, 'snow_flow_build', { spec: gcvSpec('{{steps.vars.urgent}}', sel), instance: 'otherdev', update_set: { sys_id: 'a'.repeat(32) } });
     const [load] = f.state.calls.filter(c => c.method === 'postMultipart');
-    const flow = parseRecordUpdate(load.files![0].content).find(e => e.kind === 'row' && e.table === 'sys_hub_flow') as { fields: Row };
-    expect((JSON.parse(flow.fields.label_cache) as { name: string; type: string }[]).find(e => e.name.endsWith('.urgent'))?.type).toBe('boolean');
-    const v = await call(f, 'snow_flow_verify', { spec: gcvSpec('{{steps.vars.urgnt}}'), instance: 'otherdev' });
+    const doc = parseRecordUpdate(load.files![0].content);
+    const flow = doc.find(e => e.kind === 'row' && e.table === 'sys_hub_flow') as { fields: Row };
+    const urgent = (JSON.parse(flow.fields.label_cache) as { name: string; type: string; label: string; attributes?: Record<string, string> }[]).find(e => e.name.endsWith('.urgent'))!;
+    expect(urgent).toMatchObject({ type: 'boolean', label: '1 - Get Catalog Variables➛urgent', reference: '', reference_display: 'urgent', attributes: { catalogType: '7', catalogTypeLabel: 'CheckBox' } });
+    // a catalog flow carries its sys_flow_cat_variable_model row {id: <flow>, name: <flow name>} in the loaded document
+    const model = doc.find(e => e.kind === 'row' && e.table === 'sys_flow_cat_variable_model') as { fields: Row };
+    expect(model.fields).toMatchObject({ id: flow.fields.sys_id, name: 'GCV Test' });
+    const v = await call(f, 'snow_flow_verify', { spec: gcvSpec('{{steps.vars.urgnt}}', sel), instance: 'otherdev' });
     expect(v.ok).toBe(false);
-    expect(v.spec_errors.join('\n')).toMatch(/"urgnt" is not a variable of catalog item "Example Laptop"/);
+    expect(v.spec_errors.join('\n')).toMatch(/"urgnt" is not selected in catalog_variables of catalog item "Example Laptop"/);
   });
 
   it('offline plan: unchanged — the pill is typed string with a warning, nothing is read', async () => {
     const f = newFake();
-    const r = await call(f, 'snow_flow_plan', { spec: gcvSpec('{{steps.vars.urgent}}') });
+    const r = await call(f, 'snow_flow_plan', { spec: gcvSpec('{{steps.vars.urgent}}', { catalog_variables: { list: [vid(5)] } }) });
     expect(r.ok).toBe(true);
     expect(typesOf(r)).toEqual({ urgent: 'string' });
     expect(r.plan.warnings).toContain('pill steps.vars.urgent: step "vars" has no output "urgent"; typed as string');

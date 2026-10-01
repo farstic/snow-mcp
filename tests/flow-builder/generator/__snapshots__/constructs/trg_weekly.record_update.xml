@@ -13,7 +13,7 @@
     <flow_priority/>
     <generation_source>snow_mcp_flow_builder</generation_source>
     <internal_name>trigger_weekly</internal_name>
-    <label_cache>[{"name":"Weekly_1.run_start_date_time","label":"Trigger - Weekly➛Run Start Date/Time","type":"glide_date_time","base_type":"glide_date_time","usedInstances":{"f8f0adbb-1075-4605-5c09-3ea4fbff237c":["log_message"]},"attributes":{}}]</label_cache>
+    <label_cache>[{"name":"Weekly_1.run_start_date_time","label":"Trigger - Weekly➛Run Start Date/Time","reference_display":"Run Start Date/Time","type":"glide_date_time","base_type":"glide_date_time","usedInstances":{"f8f0adbb-1075-4605-5c09-3ea4fbff237c":["log_message"]},"attributes":{"test_input_hidden":"true"}}]</label_cache>
     <name>Trigger Weekly</name>
     <run_as>user</run_as>
     <run_with_roles/>
@@ -33,7 +33,7 @@
     <flow>ac559e8b1ce985ee9baf4f404ce4a170</flow>
     <name>Weekly</name>
     <trigger_definition>cf352104c32222002841b63b12d3ae1f</trigger_definition>
-    <trigger_inputs>H4sIAAAAAAAAA72RQWvCQBCF/4rMOYbEUkr3VhBBaE8VexAJY3aSDt3sLrujEsT/XmIsYpVSKvT6Znjz3nyLHUjguqYwtVHQlvTaxqkGBZCAwRUZUDDGduCqwRvRByTAVihYNLPWEyjQ2BauKrb9UJMnq8lK71C+Oy7pmaOAWiwTaNBqFBdaUBLWlIALmgKoPEvAYnPpt0Gz7tT7zpujN9jOj9IksMb2pE+YzDF4LAN7eSqFNwSqQhOpy8JGB7J9Eo8BG5Lu+A7kWpWrea6/BEUCr9ZCsXMjQw1ZKRr0nm1d+OA2fKgJpWvS2rCmtDJuW2iKXNsUS2FnU42C6cS47fggzzEwrgy9oPcUYL/fJ7+BNeOGLikdjhbSz/4M6UTp6PSFJ398yIZZPszywWik7jKVZZfAfly6nd5ZxfOY337zT7iWn4mO2JJdAwAA</trigger_inputs>
+    <trigger_inputs>H4sIAAAAAAAAA+1TwW7bMAz9lYBnN5CdtM18G1AEKLCtwFp0h6IwGIlOhMmSJtNJvSL/Psh20mzJim3ocUeRFPne4+PDM3DQyyWFa1szWkm3bX2tIAdIwOCCDORwhe3IlaMvRF8hAW2ZgkVz13qCHBS2hSuLTZ9U5Mkqstx3kCunJX3QNUP+8JhAhVYhu9BCzqGhBFxQFCBPRQIWq+N+azRNjJ7H3rr2Btv7ITQPWmH7Ep9rMgPwWgbt+b1kvSbISzQ1RSzaqEC2R+IxYEUchz//ktKxi7yYnWMqpnKSZVkmRDabpouLySLN1ARJTX4rz0kafEqrA+70xFE2tQd7JFQgVDfWtPuKld6JXOFTrb8T5FMR60oKZCX1uf2zGFQ63MuNZ+1sH2FcmOGPdKap7KeeR7fTEhvDO90hgaam4mDTA6LyduU2n3cD59p29IakcRLN/oXMQS8apjrKT4YqslxU6L22y8IHt9bdZ5CuGi+NVjQujdsUimq9tGOUEfhYIeN4btzmqgvfY9CRxUf0ngJsO/bFtybOhUNvFj3p7Tb5E/ff6YqObd+BKrjP/bPrX2w/dNr5PX13Kc5EeibSUZblE5ELcXwBrxa97Tng5fSVc0hnx3r9zItPqHaowtscQNfq/wX8xQU8/gAorCPyAQYAAA==</trigger_inputs>
     <trigger_outputs/>
     <trigger_type>weekly</trigger_type>
   </sys_hub_trigger_instance_v2>
@@ -54,7 +54,7 @@
     <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
     <ui_id>f8f0adbb-1075-4605-5c09-3ea4fbff237c</ui_id>
     <updation_source/>
-    <values>H4sIAAAAAAAAA5WOwQrCMBBEf0X2HASvvfkTehAJS7qti5s0ZLeFEvLvUrxYvOhxHjO8uVVIGAk6kGn0QgsJOFhQ5o1xGiZw0LNmwfWypxoKZzsH44WgG1CUHGQsGMmoQFfB1rz1w2PiQNCa28kiqeJIH7or0VPWQ5nTodZ38KdjmZNXw2K+RyNvHKm171f/jX8+r1Y4jdDa/QXQK2hXKwEAAA==</values>
+    <values>H4sIAAAAAAAAA+VUXY/aMBD8K2ifA0rg6PXyVkFPqnQfUpG4hxOKFnsDVh07tR04ivjvlYkJOQ5VIN1bH3c8K82sZ/d1C4JDCsM5S+aMfRkOkjgexPFgnif8LonviA2/3vJbiEBhQZCC1ItM0ookRLBCWXlMqFxDBFzYUuJmGtAfNcqWQnJDCtLXWQQlGizIkYF0e/J0qRCJc5KQwkNQcUaY25QeYkstGIX6IbSNDqA23MuII6A3R4oThzRHaSmCAhVHp82mQQwhf1byCCyFcpACePKbFX8I0pvY83IypBjVb02ZheHUcD5GhxNnKuYqE6i1WAvp67ax2O12nrSiTrfbmnZL+i46csO4T/4kMJM28wWNEmrRIq/RqCO53yZ/N0abFpVCHbiD3SwCTjlW0o2ud5Bc7KB/jYPBFQ5uvIN6+M+lE1pBConPDM7l4Wu0rAr1VOcMGr/Tk/jX6PjsFlSWMk6lj5nPTQhRPlnq9c9DRu6F2isKj1IzlE2Fzhkxr5yf7xZIUkHKZQWWpVCLrDR6JfbNwHTRW0jBqZdLvc44WbFQPWTeWo+jw9691OvxHp6iEd7mI5YlGdhFYDd2JNHao1lDefa78kpq68FDth/UvoUZUbpvzIkVBbl+/Pt17g/+tc40fL++BVmLC2r91QvRL7npmEp1ttu6yJKeqVRmHRqXcXSUOVHQbvfxAF3XfN2dusDYIX+PjauzVsOtss7UiW7fqskBPKzLp92q/nD4Ocfq3Pp/XKir9un/W5fZXzRrjuSIBwAA</values>
   </sys_hub_action_instance_v2>
   <sys_hub_alias_mapping action="delete_multiple" query="source_id=f8f0adbb107546055c093ea4fbff237c"/>
 </record_update>

@@ -4,13 +4,16 @@
  * writes must match what Workflow Studio stored — sys_ids of definitions, input names and their order,
  * value encodings, key order of the gzip+base64 `values` objects, the block / order / parent structure.
  *
- * Deliberate, documented differences (src/flow-builder/FORMAT-DECISIONS.md) are not asserted here: the
- * generator writes a minimal entry (no full `parameter` mirror, only the inputs that carry a value) that the
- * platform expands itself when the flow is activated (live loader runs).
+ * The stored form is asserted too: one values entry per definition input with the UI entry keys, the full
+ * `parameter` mirror (29-key action form, 24-key logic form, the trigger-descriptor form), the displayValue rules per
+ * type, the label_cache entry keys / labels / key order, and the sys_flow_cat_variable_model row of a catalog flow —
+ * each against the UI-built row that shows it. Deliberate, documented differences
+ * (src/flow-builder/FORMAT-DECISIONS.md) are not asserted.
  *
  * Owner: GENERATOR.
  */
 import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { generatePlan, maxLengthFor } from '../../../src/flow-builder/generator/index.js';
 import { parseSpec } from '../../../src/flow-builder/spec/schema.js';
@@ -18,7 +21,7 @@ import { decodeValues } from '../../../src/flow-builder/encode.js';
 import { findAction, actionTypeIds } from '../../../src/flow-builder/catalog/actions.js';
 import { findLogic } from '../../../src/flow-builder/catalog/logic.js';
 import type { FlowSpec, RecordPlan, RecordRow } from '../../../src/flow-builder/spec/types.js';
-import { loadSpec, pdiRows, planRows, readPdi, specNames, type DRow } from './plans.js';
+import { loadSpec, pdiRows, planRows, readPdi, specNames, PDI_DIR, type DRow } from './plans.js';
 import { planFor } from './context.js';
 
 type Entry = Record<string, unknown> & { name: string; value?: unknown; displayValue?: unknown; parameter?: Record<string, unknown> };
@@ -149,7 +152,9 @@ describe('flow logic against UI-built rows', () => {
     expect(waits.length).toBe(4);
     for (const ours of waits) {
       expect(ours.map(e => e.name)).toEqual(uiInputs.map(e => e.name));
-      expect(ours.map(e => e.id)).toEqual(uiInputs.map(e => e.parameter!.id));
+      expect(ours.map(e => e.parameter!.id)).toEqual(uiInputs.map(e => e.parameter!.id));
+      // the UI entry shape: no `id` key on a timer entry, the parameter mirror carries the definition
+      expect(ours.map(e => Object.keys(e))).toEqual(uiInputs.map(e => Object.keys(e)));
     }
     const explicit = waits[0];
     expect(explicit[0]).toMatchObject({ value: uiInputs[0].value, displayValue: uiInputs[0].displayValue }); // explicit_duration / Explicit duration
@@ -318,7 +323,9 @@ describe('actions against UI-built rows', () => {
     }
     const plan = await planFor('catalog_actions');
     const rows = [...actionRows(plan, 'getCatalogVariables'), ...actionRows(plan, 'createCatalogTask')];
-    const lists = rows.map(r => valuesOf(r).find(e => e.name === 'catalog_variables')).filter(Boolean);
+    // every row stores the input (UI form); the two steps that select variables carry the slushbucket list
+    expect(rows.map(r => valuesOf(r).some(e => e.name === 'catalog_variables'))).toEqual([true, true, true]);
+    const lists = rows.map(r => valuesOf(r).find(e => e.name === 'catalog_variables')).filter(e => e && e.value !== '');
     expect(lists.length).toBe(2);
     for (const e of lists) for (const item of String(e!.value).split(',')) expect(item).toMatch(slush);
   });
@@ -333,7 +340,7 @@ describe('actions against UI-built rows', () => {
         ah_fields: { template: { assignment_group: { reference: '0000000000000000000000000000d001', display: 'Hardware' }, description: 'Set up' } } } },
     ], { key: 't', type: 'catalog.service_catalog' }));
     expect(String(valuesOf(actionRows(plan, 'createCatalogTask')[0]).find(e => e.name === 'ah_fields')!.value))
-      .toBe('assignment_group={"display":"Hardware","value":"0000000000000000000000000000d001"}^description=Set up^EQ');
+      .toBe('assignment_group={"display":"Hardware","value":"0000000000000000000000000000d001"}^description=Set up');
   });
 
   it('step-output pills use the <ui_id>.<output> form and trigger pills the <definition name>_1 prefix (PDI-FACTS §7)', async () => {
@@ -481,6 +488,229 @@ describe('subflow calls, stages and trigger rows against UI-built rows', () => {
       const plan = await planFor(specName);
       expect(plan.trigger!.fields, specName).toMatchObject({ name: row.name, trigger_type: row.trigger_type, trigger_definition: row.trigger_definition });
     }
+  });
+});
+
+// ─── the stored form: values entries, parameter mirrors, displayValue, label_cache, catalog model ─────────────
+
+describe('values entries and parameter mirrors against UI-built rows', () => {
+  const uiRowsOf = (file: string, key: string) => pdiRows(file).filter(r => r.action_type === actionTypeIds(findAction(key)!).snapshot);
+  /** The parameter fields the definition fixes (compared value for value with the UI mirror). */
+  const FIXED = ['id', 'label', 'name', 'type', 'order', 'mandatory', 'readOnly', 'maxsize', 'reference', 'reference_display', 'defaultValue', 'use_dependent', 'dependent_on'] as const;
+  const pick = (p: Record<string, unknown>) => Object.fromEntries(FIXED.filter(k => k in p).map(k => [k, p[k]]));
+
+  it('an action values entry has the UI entry keys and one entry per definition input, in the UI order (Get Catalog Variables sample)', async () => {
+    const [ui] = uiRowsOf('samples/get-catalog-variables-instances.json', 'getCatalogVariables');
+    const uiEntries = valuesOf(ui);
+    const plan = await planFor('catalog_actions');
+    const ours = valuesOf(actionRows(plan, 'getCatalogVariables')[0]);
+    expect(ours.map(e => e.name)).toEqual(uiEntries.map(e => e.name));
+    for (const [i, e] of ours.entries()) {
+      const u = uiEntries[i];
+      // the same keys (the UI also stamps the instance sys_id into older rows), the same snapshot input id
+      expect(Object.keys(e), e.name).toEqual(Object.keys(u).filter(k => k !== 'actionInstanceSysId'));
+      expect(e.id, e.name).toBe(u.id);
+      // the 29-key parameter form, key for key, with the definition's values
+      expect(Object.keys(e.parameter!), e.name).toEqual(Object.keys(u.parameter!));
+      expect(pick(e.parameter!), e.name).toEqual(pick(u.parameter!));
+      expect(e.parameter!.attributes, e.name).toEqual(u.parameter!.attributes);
+      expect(e.parameter!.typeLabel, e.name).toBe(u.parameter!.typeLabel);
+      if ('fSearchField' in u.parameter!) expect(e.parameter!.fSearchField, e.name).toBe(u.parameter!.fSearchField);
+    }
+  });
+
+  it('Ask For Approval: the parameter mirror of every input equals the UI mirror (ids, labels, types, maxsize, the read-only table, dependent_on); due_date displayValue is empty', async () => {
+    const [ui] = uiRowsOf('samples/ask-for-approval-instances.json', 'askForApproval');
+    const uiEntries = valuesOf(ui);
+    const plan = await generatePlan(spec(loadSpec('p1_incident_review')), { resolvePillType: async (_t, p) => (p === 'assignment_group' ? 'reference' : 'string') });
+    const ours = valuesOf(actionRows(plan, 'askForApproval')[0]);
+    for (const u of uiEntries) {
+      const o = ours.find(e => e.name === u.name)!;
+      expect(o, u.name).toBeDefined();
+      // the UI row mirrors the label its designer session saw ("Rules" on approval_conditions); the catalogue carries the
+      // definition's current label ("Approval Conditions", definitions/sys_hub_action_input-by-snapshot.json) — a label is not compared there
+      const { label: ourLabel, ...oursRest } = pick(o.parameter!);
+      const { label: uiLabel, ...uiRest } = pick(u.parameter!);
+      expect(oursRest, u.name).toEqual(uiRest);
+      if (u.name !== 'approval_conditions') expect(ourLabel, u.name).toBe(uiLabel);
+      expect(o.parameter!.typeLabel, u.name).toBe(u.parameter!.typeLabel);
+    }
+    expect(ours.find(e => e.name === 'table')!.parameter!.readOnly).toBe(true);
+    expect(ours.find(e => e.name === 'due_date')).toMatchObject({ displayValue: '' });
+    expect(uiEntries.find(e => e.name === 'due_date')).toMatchObject({ displayValue: '' });
+  });
+
+  it('displayValue per type as the UI stores it (leaver-flow): a read-only defaulted table keeps its name, a pill in a reference input shows nothing, a boolean is "1"/"true", a table_name shows the table label, a choice its label', async () => {
+    const uiTask = valuesOf(uiRowsOf('flows/leaver-flow/sys_hub_action_instance_v2.json', 'createCatalogTask')[0]);
+    const uiNotify = valuesOf(uiRowsOf('flows/leaver-flow/sys_hub_action_instance_v2.json', 'sendNotification')[0]);
+    const uiLog = valuesOf(uiRowsOf('flows/leaver-flow/sys_hub_action_instance_v2.json', 'log')[0]);
+    const byName = (l: Entry[]) => Object.fromEntries(l.map(e => [e.name, [e.value, e.displayValue]]));
+    const plan = await generatePlan(flowWith([
+      { kind: 'action', key: 'task', action: 'createCatalogTask', inputs: { ah_requested_item: { pill: 'trigger.request_item' }, ah_short_description: 'Prepare', ah_wait: true } },
+      { kind: 'action', key: 'n', action: 'sendNotification', inputs: { notification: { reference: '0000000000000000000000000000e001', display: 'Example notification' }, record: { pill: 'trigger.request_item' }, table_name: 'sc_req_item' } },
+      { kind: 'action', key: 'l', action: 'log', inputs: { log_level: 'info', log_message: 'x' } },
+    ], { key: 't', type: 'catalog.service_catalog' }));
+    const task = byName(valuesOf(actionRows(plan, 'createCatalogTask')[0]));
+    const notify = byName(valuesOf(actionRows(plan, 'sendNotification')[0]));
+    const log = byName(valuesOf(actionRows(plan, 'log')[0]));
+    for (const name of ['ah_table_name', 'ah_requested_item', 'ah_wait']) expect(task[name], name).toEqual(byName(uiTask)[name]);
+    expect(notify.table_name).toEqual(byName(uiNotify).table_name);
+    // the newer designer writes the trigger pill as {{trigger.request_item}} (PDI-FACTS §7); the display rule is the same: empty
+    expect(notify.record[1]).toEqual(byName(uiNotify).record[1]);
+    expect(log.log_level).toEqual(byName(uiLog).log_level);
+    expect(task.ah_table_name).toEqual(['sc_task', 'sc_task']);
+    expect(task.ah_wait).toEqual(['1', 'true']);
+    expect(notify.table_name).toEqual(['sc_req_item', 'Requested Item']);
+    expect(notify.record).toEqual(['{{Service Catalog_1.request_item}}', '']);
+  });
+
+  it('If: condition_name then condition with the UI parameter ids, maxsize, attributes and the 24-key logic form; the entry has no id key (leaver-flow)', async () => {
+    const ui = pdiRows('flows/leaver-flow/sys_hub_flow_logic_instance_v2.json').find(r => r.logic_definition === logicSysId('if') && 'type_label' in (valuesOf<LogicValues>(r).inputs[0].parameter ?? {}))!;
+    const uiInputs = valuesOf<LogicValues>(ui).inputs;
+    const plan = await planFor('incident_triage');
+    const ours = valuesOf<LogicValues>(logicRows(plan, 'if')[0]).inputs;
+    expect(ours.map(e => e.name)).toEqual(uiInputs.map(e => e.name));
+    for (const [i, e] of ours.entries()) {
+      const u = uiInputs[i];
+      expect(Object.keys(e), e.name).toEqual(Object.keys(u));
+      expect(Object.keys(e.parameter!), e.name).toEqual(Object.keys(u.parameter!));
+      expect(pick(e.parameter!), e.name).toEqual(pick(u.parameter!));
+      expect(e.parameter!.attributes, e.name).toEqual(u.parameter!.attributes);
+    }
+  });
+
+  it('record-trigger descriptors: the parameter mirror carries the UI input id and maxsize in the UI key order (record-trigger-published-flow)', async () => {
+    const ui = pdiRows('flows/record-trigger-published-flow/sys_hub_trigger_instance_v2.json')[0];
+    const uiEntries = ui.trigger_inputs_decoded as Entry[];
+    const plan = await planFor('trg_record_created_or_updated');
+    const ours = decodeValues(String(plan.trigger!.fields.trigger_inputs)) as Entry[];
+    for (const u of uiEntries) {
+      const o = ours.find(e => e.name === u.name)!;
+      expect(o.parameter!.id, u.name).toBe(u.parameter!.id);
+      expect(o.parameter!.maxsize, u.name).toBe(u.parameter!.maxsize);
+      // the same keys in the same order once the UI row's missing `hint` (older rows) is set aside
+      const strip = (keys: string[]) => keys.filter(k => k !== 'hint');
+      expect(strip(Object.keys(o.parameter!)), u.name).toEqual(strip(Object.keys(u.parameter!)));
+    }
+  });
+});
+
+describe('label_cache entries against UI-built rows', () => {
+  /** A dictionary double answering like the live sys_dictionary walk on the PDI (column labels, GUID for sys_id, the walked table, the referenced table). */
+  const dictionary = async (table: string, path: string) => {
+    const fields: Record<string, { type: string; label: string; reference?: string }> = {
+      number: { type: 'string', label: 'Number' }, sys_id: { type: 'GUID', label: 'Sys ID' }, assigned_to: { type: 'reference', label: 'Assigned to', reference: 'sys_user' },
+    };
+    const segs = path.split('.');
+    const f = fields[segs[segs.length - 1]];
+    if (!f) return undefined;
+    const walked = segs.length === 1 ? table : fields[segs[segs.length - 2]]?.reference ?? table;
+    return { type: f.type, labels: segs.map(s => fields[s]?.label ?? s), table: walked, ...(f.reference ? { reference: f.reference } : {}) };
+  };
+  const sameEntry = (ours: Record<string, unknown>, ui: Record<string, unknown>) => {
+    const strip = (e: Record<string, unknown>) => { const c = { ...e }; delete c.usedInstances; return c; };
+    expect(strip(ours), String(ui.name)).toEqual(strip(ui));
+    expect(Object.keys(ours), String(ui.name)).toEqual(Object.keys(ui));
+  };
+  const uiLabelCache = (file: string) => {
+    const row = pdiRows(file)[0];
+    return (typeof row.label_cache === 'string' ? JSON.parse(row.label_cache) : row.label_cache) as Record<string, unknown>[];
+  };
+
+  it('record-trigger pills: whole record, table, dot-walks (a GUID, a reference field, a two-hop walk) — every key, value and the key order of the UI entries (record-trigger-published-flow)', async () => {
+    const uiEntries = uiLabelCache('flows/record-trigger-published-flow/sys_hub_flow.json');
+    const plan = await generatePlan(flowWith([
+      { kind: 'action', key: 'l', action: 'log', inputs: { log_message: { text: '{{trigger.current.sys_id}} {{trigger.current.assigned_to.sys_id}} {{trigger.current.number}} {{trigger.table_name}} {{trigger.current.assigned_to}}' } } },
+      { kind: 'action', key: 'u', action: 'updateRecord', inputs: { table_name: 'incident', record: { pill: 'trigger.current' }, values: { template: { impact: '1' } } } },
+    ], { key: 't', type: 'record.created_or_updated', table: 'incident' }), { resolvePillField: dictionary });
+    const ours = plan.labelCache as Record<string, unknown>[];
+    let compared = 0;
+    for (const u of uiEntries.filter(e => String(e.name).startsWith('Created or Updated_1.') || String(e.name) === 'Updated_1.current.assigned_to.sys_id')) {
+      const o = ours.find(e => e.name === String(u.name).replace(/^Updated_1\./, 'Created or Updated_1.'))!;
+      expect(o, String(u.name)).toBeDefined();
+      sameEntry(o, { ...u, name: o.name, label: String(u.label).replace('Trigger - Record Updated', 'Trigger - Record Created or Updated') });
+      compared++;
+    }
+    expect(compared).toBe(6);
+  });
+
+  it('catalog-trigger pills and a whole-record step output (leaver-flow): reference / reference_display / parent_table_name / column_name as the UI stores them', async () => {
+    const uiEntries = uiLabelCache('flows/leaver-flow/sys_hub_flow.json');
+    const plan = await planFor('catalog_actions');
+    const ours = plan.labelCache as Record<string, unknown>[];
+    const uiNumber = uiEntries.find(e => e.name === 'Service Catalog_1.request_item.number')!;
+    const number = ours.find(e => e.name === 'Service Catalog_1.request_item.number')!;
+    expect(number).toMatchObject({ reference: uiNumber.reference, reference_display: uiNumber.reference_display, type: uiNumber.type, base_type: uiNumber.base_type, parent_table_name: uiNumber.parent_table_name, column_name: uiNumber.column_name });
+    expect(String(number.label).endsWith('➛Requested Item Record➛Number')).toBe(true);
+    expect(String(uiNumber.label).endsWith('➛Requested Item Record➛Number')).toBe(true);
+    // a step's whole-record output: '<n> - <Action name>➛<Table label> Record' with the table as reference (the UI: '5➛Requested Item Record', reference sc_req_item)
+    const uiRecord = uiEntries.find(e => String(e.name).endsWith('.record') && e.reference === 'sc_req_item')!;
+    const triage = await planFor('incident_triage');
+    const record = (triage.labelCache as Record<string, unknown>[]).find(e => String(e.name).endsWith('.Record'))!;
+    expect(record).toMatchObject({ label: '2 - Look Up Record➛Group Record', reference: 'sys_user_group', reference_display: 'Group', type: uiRecord.type, base_type: uiRecord.base_type });
+    expect(String(uiRecord.label)).toMatch(/➛Requested Item Record$/);
+  });
+
+  it('a step dot-walk on a choice field (dountil-timer-subflow: Look Up Record on sys_import_set → state): type / base_type choice and the sys_choice list in the UI shape — every key, value and the entry key order', async () => {
+    const ui = uiLabelCache('flows/dountil-timer-subflow/sys_hub_flow.json').find(e => String(e.name).endsWith('.Record.state'))!;
+    const uiChoices = ui.choices as { label: string; value: string; parameters: { name: string; dependent_values: string[] } }[];
+    // the UI names the list after the table whose sys_choice rows hold it (here the walked table itself) for the empty dependent value
+    expect(uiChoices.map(c => c.parameters)).toEqual(uiChoices.map(() => ({ name: 'sys_import_set', dependent_values: [''] })));
+    const plan = await generatePlan(flowWith([
+      { kind: 'action', key: 'set', action: 'lookUpRecord', inputs: { table: 'sys_import_set', conditions: 'state=loaded' } },
+      { kind: 'if', key: 'chk', condition: '{{steps.set.Record.state}}=loaded', then: [{ kind: 'action', key: 'l', action: 'log', inputs: { log_message: 'x' } }] },
+    ]), {
+      // the live dictionary walk: sys_import_set.state is a string with choice=1
+      resolvePillField: async (table, path) => (path === 'state' ? { type: 'string', labels: ['State'], table, choice: '1' } : undefined),
+      // the live sys_choice read: labels / values as the instance holds them (taken from the UI entry), in sequence order
+      resolveFieldChoices: async (table, element) => (table === 'sys_import_set' && element === 'state' ? { table, choices: uiChoices.map((c, i) => ({ label: c.label, value: c.value, sequence: i })) } : undefined),
+    });
+    const ours = (plan.labelCache as Record<string, unknown>[]).find(e => String(e.name).endsWith('.Record.state'))!;
+    sameEntry(ours, { ...ui, name: ours.name });
+    expect(ours.label).toBe('1➛Import Set Record➛State');
+    expect(ours).toMatchObject({ type: 'choice', base_type: 'choice', parent_table_name: 'sys_import_set', column_name: 'state' });
+    expect(plan.warnings).toEqual([]);
+  });
+
+  it('a catalog-trigger dot-walk on a task-inherited choice field (leaver-flow: request_item.approval): the list is named after the table whose sys_choice rows hold it (task), values / labels as the UI stores them', async () => {
+    const ui = uiLabelCache('flows/leaver-flow/sys_hub_flow.json').find(e => e.name === 'Service Catalog_1.request_item.approval')!;
+    const uiChoices = ui.choices as Record<string, unknown>[];
+    expect(new Set(uiChoices.map(c => (c.parameters as { name: string }).name))).toEqual(new Set(['task']));
+    const plan = await generatePlan(flowWith(
+      [{ kind: 'action', key: 'l', action: 'log', inputs: { log_message: { text: '{{trigger.request_item.approval}}' } } }],
+      { key: 't', type: 'catalog.service_catalog' },
+    ), {
+      resolvePillField: async (table, path) => (path === 'approval' ? { type: 'string', labels: ['Approval'], table, choice: '1' } : undefined),
+      resolveFieldChoices: async (_table, element) => (element === 'approval' ? { table: 'task', choices: uiChoices.map((c, i) => ({ label: String(c.label), value: String(c.value), sequence: i })) } : undefined),
+    });
+    const ours = (plan.labelCache as Record<string, unknown>[]).find(e => e.name === 'Service Catalog_1.request_item.approval')!;
+    // the UI row is a template-derived draft: usedInstances / attributes null and a label without the trigger name — every other key matches
+    const { label: _label, usedInstances: _used, attributes: _attrs, choices: _choices, ...uiRest } = ui;
+    expect(ours).toMatchObject(uiRest);
+    expect(ours).toMatchObject({ reference: '', reference_display: 'Approval', type: 'choice', base_type: 'choice', parent_table_name: 'sc_req_item', column_name: 'approval' });
+    expect(String(ours.label).endsWith('➛Requested Item Record➛Approval')).toBe(true);
+    expect(Object.keys(ours)).toEqual(Object.keys(ui).filter(k => k !== 'attributes'));
+    // the draft's choice objects carry two keys a designer-saved row does not (sequence, parameters.dependent_values_map); the rest is equal
+    const strip = (c: Record<string, unknown>) => { const { sequence: _s, parameters, ...rest } = c; const { dependent_values_map: _m, ...p } = parameters as Record<string, unknown>; return { ...rest, parameters: p }; };
+    expect(ours.choices).toEqual(uiChoices.map(strip));
+    expect(plan.warnings).toEqual([]);
+  });
+});
+
+describe('the catalog-variable model row of a catalog flow (leaver-flow capture)', () => {
+  const payload = readFileSync(join(PDI_DIR, 'flows', 'leaver-flow', 'sys_update_xml_payload.xml'), 'utf8');
+
+  it('exactly one sys_flow_cat_variable_model row {id: <flow>, name: <flow name>, sys_scope ""} on a catalog-triggered flow, none on other flows', async () => {
+    const m = /<sys_flow_cat_variable_model action="INSERT_OR_UPDATE">(.*?)<\/sys_flow_cat_variable_model>/.exec(payload)!;
+    const uiFields = [...m[1].matchAll(/<([a-z_]+)(?:\/>|>)/g)].map(x => x[1]).filter(k => !k.startsWith('sys_created') && !k.startsWith('sys_updated') && k !== 'sys_mod_count');
+    const flowId = /<sys_hub_flow action="INSERT_OR_UPDATE">.*?<sys_id>([0-9a-f]{32})<\/sys_id>/s.exec(payload)![1];
+    expect(m[1]).toContain(`<id>${flowId}</id>`);
+    const plan = await planFor('trg_service_catalog');
+    const rows = plan.variables.filter(r => r.table === 'sys_flow_cat_variable_model');
+    expect(rows).toHaveLength(1);
+    expect(rows[0].fields).toEqual({ sys_id: rows[0].sys_id, sys_scope: 'global', id: plan.flow.sys_id, name: plan.flow.fields.name });
+    expect(Object.keys(rows[0].fields).sort()).toEqual(uiFields.sort());
+    for (const name of ['trg_record_created', 'flow_logic', 'level_check_subflow']) expect((await planFor(name)).variables.some(r => r.table === 'sys_flow_cat_variable_model'), name).toBe(false);
   });
 });
 

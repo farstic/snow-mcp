@@ -10,6 +10,7 @@ import { makeFakeClient, type Row } from './writer/fake-client.js';
 import {
   makeSubflowResolver, makeCustomActionResolver, makeActionTypeResolver, clearActionTypeCache, instanceResolvers, fieldValue,
   isHiddenByAttributes, coreInternalName, makeInstanceTimeZoneResolver, makeCatalogVariablesResolver, DEFAULT_TZ_PROPERTY,
+  makeDictionaryPillFieldResolver, makeFieldChoicesResolver,
 } from '../../src/flow-builder/resolvers.js';
 import { generatePlan, type DefinitionInfo, type DefinitionError } from '../../src/flow-builder/generator/index.js';
 import { parseSpec } from '../../src/flow-builder/spec/schema.js';
@@ -383,6 +384,154 @@ function spec(input: unknown): FlowSpec {
   if ('errors' in r) throw new Error(JSON.stringify(r.errors));
   return r.spec;
 }
+
+// ─── choice-list fields: sys_dictionary choice + sys_choice (label_cache type 'choice' + choices) ──────────────
+
+const id = (n: number) => n.toString(16).padStart(32, '0');
+/** A choice row of sys_choice (defaults: en, active, no dependent value). */
+const choiceRow = (n: number, name: string, element: string, value: string, label: string, sequence: string, extra: Partial<Row> = {}): Row =>
+  ({ sys_id: id(n), name, element, value, label, sequence, language: 'en', inactive: 'false', dependent_value: '', ...extra });
+
+/**
+ * The dictionary side of a catalog task: sc_task → task; `state` (integer, choice=1) and `approval` (string, choice=1) are
+ * declared on task with their sys_choice rows on task; `number` is a plain string (choice=0) and `short_description` a
+ * suggestion field (choice=2). Rows the resolver must skip: inactive, another language, a dependent value, another element.
+ */
+function choiceTables(extra: Record<string, Row[]> = {}): Record<string, Row[]> {
+  return {
+    sys_db_object: [
+      { sys_id: id(0xd1), name: 'sc_task', label: 'Catalog Task', 'super_class.name': 'task' },
+      { sys_id: id(0xd2), name: 'task', label: 'Task', 'super_class.name': '' },
+    ],
+    sys_dictionary: [
+      { sys_id: id(0xe1), name: 'task', element: 'state', internal_type: 'integer', reference: '', column_label: 'State', choice: '1' },
+      { sys_id: id(0xe2), name: 'task', element: 'number', internal_type: 'string', reference: '', column_label: 'Number', choice: '0' },
+      { sys_id: id(0xe3), name: 'task', element: 'short_description', internal_type: 'string', reference: '', column_label: 'Short description', choice: '2' },
+      { sys_id: id(0xe4), name: 'task', element: 'approval', internal_type: 'string', reference: '', column_label: 'Approval', choice: '1' },
+    ],
+    sys_choice: [
+      choiceRow(0xc1, 'task', 'state', '3', 'Closed Complete', '30'),
+      choiceRow(0xc2, 'task', 'state', '-5', 'Pending', '0'),
+      choiceRow(0xc3, 'task', 'state', '1', 'Open', '10'),
+      choiceRow(0xc4, 'task', 'state', '9', 'Retired', '5', { inactive: 'true' }),
+      choiceRow(0xc5, 'task', 'state', '1', 'Offen', '10', { language: 'de' }),
+      choiceRow(0xc6, 'task', 'state', '8', 'Dependent', '1', { dependent_value: 'x' }),
+      choiceRow(0xc7, 'task', 'approval', 'approved', 'Approved', '2'),
+      choiceRow(0xc8, 'task', 'approval', 'not requested', 'Not Yet Requested', '0'),
+    ],
+    ...extra,
+  };
+}
+
+const UI_CHOICE = (table: string, label: string, value: string) =>
+  ({ used: false, label, image: '', reference: false, rawLabel: label, selected: false, missing: false, value, parameters: { name: table, dependent_values: [''] } });
+
+/** A catalog-task flow: Look Up Record → If on its state (the live defect: 'State is 3' instead of 'is Closed Complete') + trigger dot-walks. */
+const CHOICE_FLOW = () => spec({
+  spec_version: '1',
+  flow: { key: 'choices', name: 'Choices' },
+  trigger: { key: 't', type: 'record.created', table: 'sc_task' },
+  steps: [
+    { kind: 'action', key: 'task_read', action: 'lookUpRecord', inputs: { table: 'sc_task', conditions: 'number=SCTASK0010001' } },
+    { kind: 'if', key: 'chk', condition: '{{steps.task_read.Record.state}}=3', then: [
+      { kind: 'action', key: 'log', action: 'log', inputs: { log_level: 'info', log_message: { text: '{{trigger.current.state}} {{trigger.current.approval}} {{trigger.current.number}} {{trigger.current.short_description}}' } } },
+    ] },
+  ],
+});
+
+describe('makeFieldChoicesResolver (sys_choice list of a choice-list field)', () => {
+  it('walks sc_task → task, keeps only active en rows without a dependent value, orders by sequence, names the table the rows were found on; memoised; read-only', async () => {
+    const f = fake(choiceTables());
+    const resolve = makeFieldChoicesResolver(asClient(f));
+    expect(await resolve('sc_task', 'state')).toEqual({ table: 'task', choices: [{ label: 'Pending', value: '-5', sequence: 0 }, { label: 'Open', value: '1', sequence: 10 }, { label: 'Closed Complete', value: '3', sequence: 30 }] });
+    expect(f.state.calls.map(c => c.table)).toEqual(['sys_choice', 'sys_db_object', 'sys_choice']);
+    const reads = f.state.calls.length;
+    expect(await resolve('sc_task', 'state')).toMatchObject({ table: 'task' });
+    expect(f.state.calls.length).toBe(reads);
+    // the parent read is shared: a second field on the same table asks sys_db_object no more
+    expect(await resolve('sc_task', 'approval')).toEqual({ table: 'task', choices: [{ label: 'Not Yet Requested', value: 'not requested', sequence: 0 }, { label: 'Approved', value: 'approved', sequence: 2 }] });
+    expect(f.state.calls.slice(reads).map(c => c.table)).toEqual(['sys_choice', 'sys_choice']);
+    expect(writes(f)).toEqual([]);
+  });
+
+  it("a child table's own rows win over the parent's (as incident.state overrides task.state)", async () => {
+    const f = fake(choiceTables({ sys_choice: [...choiceTables().sys_choice, choiceRow(0xc9, 'sc_task', 'state', '3', 'Closed Complete', '20'), choiceRow(0xca, 'sc_task', 'state', '1', 'Open', '10')] }));
+    expect(await makeFieldChoicesResolver(asClient(f))('sc_task', 'state')).toEqual({ table: 'sc_task', choices: [{ label: 'Open', value: '1', sequence: 10 }, { label: 'Closed Complete', value: '3', sequence: 20 }] });
+    expect(f.state.calls.map(c => c.table)).toEqual(['sys_choice']);
+  });
+
+  it('no rows on the table or any parent → undefined; an unsafe name → undefined without a read', async () => {
+    const f = fake(choiceTables());
+    const resolve = makeFieldChoicesResolver(asClient(f));
+    expect(await resolve('sc_task', 'number')).toBeUndefined();
+    expect(f.state.calls.map(c => c.table)).toEqual(['sys_choice', 'sys_db_object', 'sys_choice', 'sys_db_object']);
+    const reads = f.state.calls.length;
+    expect(await resolve('sc_task', 'state^ORnameINsys_user')).toBeUndefined();
+    expect(f.state.calls.length).toBe(reads);
+  });
+
+  it('a failed read → an empty list + warning (the dictionary type is kept) and is not memoised', async () => {
+    const f = fake(choiceTables());
+    const resolve = makeFieldChoicesResolver(asClient(f));
+    f.fns.queryRecords.mockImplementationOnce(async () => { throw new ServiceNowError('ACL refused', 'INSUFFICIENT_PRIVILEGES'); });
+    expect(await resolve('sc_task', 'state')).toEqual({ table: 'sc_task', choices: [], warnings: ['the choice list of sc_task.state could not be read (ACL refused) — the field keeps its dictionary type without choices'] });
+    expect(await resolve('sc_task', 'state')).toMatchObject({ table: 'task' });
+  });
+});
+
+describe('makeDictionaryPillFieldResolver reports the dictionary choice attribute', () => {
+  it("choice '1' on a task-inherited state (walked table sc_task), '2' on a suggestion field, none on a plain string", async () => {
+    const resolve = makeDictionaryPillFieldResolver(asClient(fake(choiceTables())));
+    expect(await resolve('sc_task', 'state')).toEqual({ type: 'integer', labels: ['State'], table: 'sc_task', choice: '1' });
+    expect(await resolve('sc_task', 'short_description')).toEqual({ type: 'string', labels: ['Short description'], table: 'sc_task', choice: '2' });
+    expect(await resolve('sc_task', 'number')).toEqual({ type: 'string', labels: ['Number'], table: 'sc_task' });
+  });
+});
+
+describe('generatePlan with instanceResolvers: dot-walks on choice fields', () => {
+  it('a Look Up Record dot-walk and a trigger dot-walk on a choice field get the UI entry: type / base_type choice, the sys_choice list in the UI shape named after task', async () => {
+    const f = fake(choiceTables());
+    const c = asClient(f);
+    const plan = await generatePlan(CHOICE_FLOW(), { resolvePillField: makeDictionaryPillFieldResolver(c), ...instanceResolvers(c) });
+    const lc = plan.labelCache as Record<string, unknown>[];
+    const STATE = [UI_CHOICE('task', 'Pending', '-5'), UI_CHOICE('task', 'Open', '1'), UI_CHOICE('task', 'Closed Complete', '3')];
+    const step = lc.find(e => String(e.name).endsWith('.Record.state'))!;
+    expect(step).toEqual({
+      name: expect.stringMatching(/^[0-9a-f-]{36}\.Record\.state$/), label: '1➛Catalog Task Record➛State', reference: '', reference_display: 'State',
+      type: 'choice', base_type: 'choice', parent_table_name: 'sc_task', column_name: 'state', choices: STATE,
+      usedInstances: { [String(plan.instances.find(r => r.table === 'sys_hub_flow_logic_instance_v2')!.fields.ui_id)]: ['condition'] },
+    });
+    // the UI key order of a dot-walk entry (no attributes key) and of a choice object
+    expect(Object.keys(step)).toEqual(['name', 'label', 'reference', 'reference_display', 'type', 'base_type', 'parent_table_name', 'column_name', 'choices', 'usedInstances']);
+    expect(Object.keys((step.choices as object[])[0])).toEqual(['used', 'label', 'image', 'reference', 'rawLabel', 'selected', 'missing', 'value', 'parameters']);
+    expect(lc.find(e => e.name === 'Created_1.current.state')).toEqual({
+      name: 'Created_1.current.state', label: 'Trigger - Record Created➛Catalog Task Record➛State', reference: '', reference_display: 'State',
+      type: 'choice', base_type: 'choice', parent_table_name: 'sc_task', column_name: 'state', choices: STATE, usedInstances: expect.any(Object),
+    });
+    expect(Object.values((lc.find(e => e.name === 'Created_1.current.state') as { usedInstances: Record<string, string[]> }).usedInstances)).toEqual([['log_message']]);
+    expect(lc.find(e => e.name === 'Created_1.current.approval')).toMatchObject({ type: 'choice', base_type: 'choice', choices: [UI_CHOICE('task', 'Not Yet Requested', 'not requested'), UI_CHOICE('task', 'Approved', 'approved')] });
+    // a plain string and a suggestion field keep their dictionary type and carry no choices key
+    for (const name of ['Created_1.current.number', 'Created_1.current.short_description']) {
+      const e = lc.find(x => x.name === name)!;
+      expect(e).toMatchObject({ type: 'string', base_type: 'string', parent_table_name: 'sc_task' });
+      expect(e).not.toHaveProperty('choices');
+    }
+    expect(plan.pills.find(p => p.symbolic === 'steps.task_read.Record.state')?.type).toBe('choice');
+    expect(plan.warnings.filter(w => /choice/.test(w))).toEqual([]);
+    expect(f.state.calls.every(c => c.method === 'queryRecords')).toBe(true);
+  });
+
+  it('without a choice resolver (offline) the dictionary type stays and a warning names the field', async () => {
+    const plan = await generatePlan(CHOICE_FLOW(), { resolvePillField: makeDictionaryPillFieldResolver(asClient(fake(choiceTables()))) });
+    const lc = plan.labelCache as Record<string, unknown>[];
+    const step = lc.find(e => String(e.name).endsWith('.Record.state'))!;
+    expect(step).toMatchObject({ type: 'integer', base_type: 'integer', parent_table_name: 'sc_task', column_name: 'state' });
+    expect(step).not.toHaveProperty('choices');
+    expect(plan.warnings).toContain('pill steps.task_read.Record.state: sc_task.state is a choice field (sys_dictionary choice=1) but there is no choice resolver (offline plan / export); typed "integer" without its choice list — Workflow Studio shows the raw value instead of the choice label');
+    expect(plan.warnings).toContain('pill trigger.current.approval: sc_task.approval is a choice field (sys_dictionary choice=1) but there is no choice resolver (offline plan / export); typed "string" without its choice list — Workflow Studio shows the raw value instead of the choice label');
+    expect(plan.warnings.filter(w => /short_description|current\.number/.test(w))).toEqual([]);
+  });
+});
 const SUBFLOW_CALLER = (subflow: object, inputs: Record<string, unknown>) => spec({
   spec_version: '1',
   flow: { key: 'caller', name: 'Caller' },
@@ -407,7 +556,8 @@ describe('generatePlan with instanceResolvers', () => {
     const plan = await generatePlan(SUBFLOW_CALLER({ name: 'Notify Owner' }, { message: 'hi', owner: { pill: 'trigger.current.caller_id' } }), { ...instanceResolvers(asClient(f)), resolvePillType: async () => 'reference' });
     const row = plan.instances.find(r => r.table === 'sys_hub_sub_flow_instance_v2')!;
     expect(row.fields.subflow).toBe(SUB);
-    expect(decoded(plan, 'sys_hub_sub_flow_instance_v2', 'subflow_inputs').map(e => [e.name, (e.parameter as { type: string }).type])).toEqual([['owner', 'reference'], ['message', 'string']]);
+    // every declared (visible) input in definition order, as UI-built rows store them — an unset one with its default
+    expect(decoded(plan, 'sys_hub_sub_flow_instance_v2', 'subflow_inputs').map(e => [e.name, (e.parameter as { type: string }).type, e.value])).toEqual([['owner', 'reference', '{{Created_1.current.caller_id}}'], ['message', 'string', 'hi'], ['severity', 'integer', '3']]);
     expect(plan.pills.find(p => p.symbolic === 'steps.notify.ok')?.type).toBe('boolean');
     expect(plan.warnings.filter(w => /subflow/.test(w))).toEqual([]);
     expect(writes(f)).toEqual([]);
@@ -504,7 +654,8 @@ describe('hidden inputs (attributes visible=false / visible_in_fd=false)', () =>
   it('a hidden mandatory input without a default is NOT reported missing (no false spec error)', async () => {
     const plan = await generatePlan(caSpec({ record: { pill: 'trigger.current' } }), instanceResolvers(asClient(withHidden())));
     const entries = decoded(plan, 'sys_hub_action_instance_v2', 'values');
-    expect(entries.map(e => e.name)).toEqual(['record']);
+    // every visible input is stored (the unset `notify` empty); the hidden one is neither stored nor reported missing
+    expect(entries.map(e => [e.name, e.value])).toEqual([['record', '{{Created_1.current}}'], ['notify', '']]);
   });
 
   it('a value supplied for a hidden input is refused (as for a hidden catalogue input)', async () => {

@@ -18,6 +18,7 @@
      "mandatory": true,
      "order": 1,
      "maxLength": 80,
+     "sys_id": "cfca92e0c31322002841b63b12d3ae00",
      "attributes": {
       "filter_table_source": "RECORD_WATCHER_RESTRICTED"
      }
@@ -30,6 +31,7 @@
      "maxLength": 4000,
      "dependent": "table",
      "use_dependent": true,
+     "sys_id": "66aadea0c31322002841b63b12d3aebf",
      "attributes": {
       "modelDependent": "trigger_inputs",
       "wants_to_add_conditions": "true"
@@ -42,6 +44,8 @@
      "default": "false",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "11ffbef2072200103bf10705afd300c2",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -63,6 +67,8 @@
      "default": "any",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "3f1b9e4e0f103300b599bca2ff767e21",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -84,6 +90,7 @@
      "order": 100,
      "reference": "sys_user",
      "maxLength": 4000,
+     "sys_id": "f89c5177c7002300f4eba1425a976385",
      "attributes": {
       "advanced": "true"
      },
@@ -96,6 +103,8 @@
      "default": "both",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "1e4859f3c7002300f4eba1425a9763f9",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -121,6 +130,8 @@
      "default": "any",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "ed7a5537c7002300f4eba1425a976391",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -199,6 +210,7 @@
      "mandatory": true,
      "order": 1,
      "maxLength": 80,
+     "sys_id": "1dda12e0c31322002841b63b12d3aea8",
      "attributes": {
       "filter_table_source": "RECORD_WATCHER_RESTRICTED"
      }
@@ -211,6 +223,7 @@
      "maxLength": 4000,
      "dependent": "table",
      "use_dependent": true,
+     "sys_id": "bb9adea0c31322002841b63b12d3ae67",
      "attributes": {
       "extended_operators": "VALCHANGES;CHANGESFROM;CHANGESTO",
       "modelDependent": "trigger_inputs",
@@ -224,6 +237,8 @@
      "default": "false",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "6cd14b76072200103bf10705afd30093",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -245,6 +260,8 @@
      "default": "any",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "4ecd76460f103300b599bca2ff767e0d",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -266,6 +283,7 @@
      "order": 100,
      "reference": "sys_user",
      "maxLength": 4000,
+     "sys_id": "3f8d5577c7002300f4eba1425a9763e6",
      "attributes": {
       "advanced": "true"
      },
@@ -278,6 +296,8 @@
      "default": "both",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "48395df3c7002300f4eba1425a976372",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -303,6 +323,8 @@
      "default": "any",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "cf9bd937c7002300f4eba1425a976356",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -328,6 +350,8 @@
      "default": "once",
      "order": 101,
      "maxLength": 40,
+     "sys_id": "c19523d8c31932002841b63b12d3aea1",
+     "choice_option": "3",
      "choices": [
       {
        "value": "once",
@@ -425,6 +449,7 @@
      "mandatory": true,
      "order": 1,
      "maxLength": 80,
+     "sys_id": "cf1e1980c32222002841b63b12d3aea0",
      "attributes": {
       "filter_table_source": "RECORD_WATCHER_RESTRICTED"
      }
@@ -437,6 +462,7 @@
      "maxLength": 4000,
      "dependent": "table",
      "use_dependent": true,
+     "sys_id": "707dd180c32222002841b63b12d3aecb",
      "attributes": {
       "extended_operators": "VALCHANGES;CHANGESFROM;CHANGESTO",
       "modelDependent": "trigger_inputs",
@@ -450,6 +476,8 @@
      "default": "false",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "1c4203b6072200103bf10705afd300b8",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -471,6 +499,8 @@
      "default": "any",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "231e76460f103300b599bca2ff767e11",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -492,6 +522,7 @@
      "order": 100,
      "reference": "sys_user",
      "maxLength": 4000,
+     "sys_id": "cb9d5577c7002300f4eba1425a9763ef",
      "attributes": {
       "advanced": "true"
      },
@@ -504,6 +535,8 @@
      "default": "both",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "a22a9137c7002300f4eba1425a976376",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -529,6 +562,8 @@
      "default": "any",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "ed3c9d37c7002300f4eba1425a976347",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      },
@@ -554,6 +589,8 @@
      "default": "once",
      "order": 200,
      "maxLength": 40,
+     "sys_id": "2b9def50c31132002841b63b12d3ae5b",
+     "choice_option": "3",
      "choices": [
       {
        "value": "once",
@@ -651,6 +688,7 @@
      "mandatory": true,
      "order": 100,
      "maxLength": 100,
+     "sys_id": "3ad4edc0c32222002841b63b12d3aee5",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -696,6 +734,7 @@
      "mandatory": true,
      "order": 10,
      "maxLength": 40,
+     "sys_id": "c685a104c32222002841b63b12d3aed3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -707,6 +746,7 @@
      "mandatory": true,
      "order": 100,
      "maxLength": 100,
+     "sys_id": "a745a104c32222002841b63b12d3ae18",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -751,6 +791,7 @@
      "mandatory": true,
      "order": 10,
      "maxLength": 40,
+     "sys_id": "ab36a504c32222002841b63b12d3ae8a",
      "attributes": {
       "integer_type": "day_of_month",
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
@@ -763,6 +804,7 @@
      "mandatory": true,
      "order": 100,
      "maxLength": 100,
+     "sys_id": "b5d52504c32222002841b63b12d3aeaa",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -807,6 +849,7 @@
      "mandatory": true,
      "order": 100,
      "maxLength": 100,
+     "sys_id": "1c5f4d94c32222002841b63b12d3aeb3",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -851,6 +894,7 @@
      "mandatory": true,
      "order": 100,
      "maxLength": 100,
+     "sys_id": "92afcd94c32222002841b63b12d3aee8",
      "attributes": {
       "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
      }
@@ -895,6 +939,7 @@
      "order": 100,
      "reference": "sys_email",
      "maxLength": 4000,
+     "sys_id": "18010347c7312300f4eba1425a9763f7",
      "attributes": {
       "condition_builder": "v2"
      },
@@ -906,6 +951,7 @@
      "type": "integer",
      "order": 200,
      "maxLength": 40,
+     "sys_id": "60b307c7c7312300f4eba1425a97637e",
      "attributes": {
       "visible": "glide.hub.flow.inbound_email_trigger.show_advanced:false"
      },
@@ -918,6 +964,7 @@
      "default": true,
      "order": 300,
      "maxLength": 40,
+     "sys_id": "312487c7c7312300f4eba1425a9763fe",
      "attributes": {
       "visible": "glide.hub.flow.inbound_email_trigger.show_advanced:false"
      },
@@ -928,7 +975,8 @@
      "label": "Target table",
      "type": "table_name",
      "order": 400,
-     "maxLength": 80
+     "maxLength": 80,
+     "sys_id": "b914874853132300eb7c0a1806dc34b5"
     }
    ],
    "outputs": [
@@ -1020,6 +1068,8 @@
      "type": "choice",
      "order": 100,
      "maxLength": 40,
+     "sys_id": "6090c72977203300f5bfcfcc78106159",
+     "choice_option": "3",
      "attributes": {
       "advanced": "true"
      }
@@ -1174,6 +1224,7 @@
      "order": 100,
      "reference": "sys_script_vtable",
      "maxLength": 32,
+     "sys_id": "df446eeca3332110aba698e6d31e61e8",
      "reference_display": "Remote Table"
     }
    ],
