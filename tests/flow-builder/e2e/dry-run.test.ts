@@ -44,7 +44,7 @@ import { routeToolInvocation } from '../../../src/tools/index.js';
 import { runInToolInvocationContext } from '../../../src/utils/invocation-context.js';
 import { parseSpec } from '../../../src/flow-builder/spec/schema.js';
 import { generatePlan } from '../../../src/flow-builder/generator/index.js';
-import { plannedRows, CHILD_TABLES_BY_FLOW, CHILD_TABLES_BY_MODEL } from '../../../src/flow-builder/writer/index.js';
+import { plannedRows, CHILD_TABLES_BY_FLOW, CHILD_TABLES_BY_MODEL, CHILD_TABLES_BY_ID } from '../../../src/flow-builder/writer/index.js';
 import { LOADER_LOAD_PATH, LOADER_PREFERENCE_NOTE } from '../../../src/flow-builder/writer/loader.js';
 import { planToRecordUpdateXml } from '../../../src/flow-builder/xml/record-update.js';
 import { TABLE_API_TRANSPORT_WARNING } from '../../../src/tools/flow-builder.js';
@@ -78,6 +78,8 @@ const DICTIONARY: Record<string, Row[]> = {
   ],
 };
 const P1_TYPES: Record<string, string> = { number: 'string', urgency: 'integer', assignment_group: 'reference' };
+/** What the live dictionary walk adds for the P1 fields beyond the type (label_cache reference of a reference field). */
+const P1_REFS: Record<string, string> = { assignment_group: 'sys_user_group' };
 
 const fakeId = (seed: string) => createHash('sha256').update(seed).digest('hex').slice(0, 32);
 
@@ -176,10 +178,14 @@ const route = (client: ServiceNowClient, name: string, args: Record<string, unkn
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
-async function expectedPlan(spec: Record<string, unknown>, types: Record<string, string> = {}): Promise<RecordPlan> {
+async function expectedPlan(spec: Record<string, unknown>, types: Record<string, string> = {}, refs: Record<string, string> = {}): Promise<RecordPlan> {
   const r = parseSpec(spec);
   if ('errors' in r) throw new Error(JSON.stringify(r.errors));
-  return generatePlan(r.spec as FlowSpec, { resolvePillType: async (_t, p) => types[p] });
+  // the same answers the live dictionary walk gives on the fake instance: type, the walked table, a reference field's table
+  return generatePlan(r.spec as FlowSpec, {
+    resolvePillType: async (_t, p) => types[p],
+    resolvePillField: async (t, p) => (types[p] ? { type: types[p], table: t, ...(refs[p] ? { reference: refs[p] } : {}) } : undefined),
+  });
 }
 
 /** The row order a build writes, rebuilt from the decoded plan that snow_flow_plan returns. */
@@ -340,7 +346,7 @@ describe('dry run — P1 Incident Review (design reference spec)', () => {
 
   it('snow_flow_build (default transport = loader): reads → ONE loader POST of the plan XML → read-back verification; no preference, no Table-API write', async () => {
     const fake = newFake();
-    const expected = await expectedPlan(P1, P1_TYPES);
+    const expected = await expectedPlan(P1, P1_TYPES, P1_REFS);
     const rows = plannedRows(expected);
 
     const r = await route(fake.client, 'snow_flow_build', { spec: P1, instance: 'product', update_set: { name: US_NAME } });
@@ -353,7 +359,7 @@ describe('dry run — P1 Incident Review (design reference spec)', () => {
 
     // (b) the fixed sequence: update set → existence pre-check → child scan → ONE loader POST → read-back
     const planTables = [...new Set(rows.map(x => x.table))];
-    const childScan = [...CHILD_TABLES_BY_FLOW.map(t => `queryRecords:${t}`), ...CHILD_TABLES_BY_MODEL.map(t => `queryRecords:${t}`), 'queryRecords:sys_documentation'];
+    const childScan = [...CHILD_TABLES_BY_FLOW.map(t => `queryRecords:${t}`), ...CHILD_TABLES_BY_MODEL.map(t => `queryRecords:${t}`), ...CHILD_TABLES_BY_ID.map(t => `queryRecords:${t}`), 'queryRecords:sys_documentation'];
     const managedScan = ['queryRecords:sys_hub_flow_input', 'queryRecords:sys_documentation']; // P1 is record-triggered (PDI finding 2)
     expect(sig.slice(firstUs)).toEqual([
       'queryRecords:sys_update_set',                  // in progress, is_default=false, application = flow's
@@ -409,7 +415,7 @@ describe('dry run — P1 Incident Review (design reference spec)', () => {
 
   it('snow_flow_build transport:"table_api" (diagnostics only) keeps the §2.2 Table-API sequence and carries the version-1 warning', async () => {
     const fake = newFake();
-    const expected = await expectedPlan(P1, P1_TYPES);
+    const expected = await expectedPlan(P1, P1_TYPES, P1_REFS);
     const rows = plannedRows(expected);
 
     const r = await route(fake.client, 'snow_flow_build', { spec: P1, instance: 'product', update_set: { name: US_NAME }, transport: 'table_api' });
@@ -437,6 +443,7 @@ describe('dry run — P1 Incident Review (design reference spec)', () => {
       ...rows.map(x => `createRecord:${x.table}`),              // ordered POSTs
       ...CHILD_TABLES_BY_FLOW.map(t => `queryRecords:${t}`),    // STALE scan
       ...CHILD_TABLES_BY_MODEL.map(t => `queryRecords:${t}`),
+      ...CHILD_TABLES_BY_ID.map(t => `queryRecords:${t}`),
       'queryRecords:sys_documentation',
       'queryRecords:sys_update_xml',            // §2.2 step 5 — capture verification
     ]);

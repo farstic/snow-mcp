@@ -82,6 +82,7 @@ export interface FakeState {
 
 const FLOW_FAMILY = new Set([
   'sys_hub_flow', 'sys_hub_flow_variable', 'sys_hub_flow_input', 'sys_hub_flow_output', 'sys_documentation', 'sys_hub_flow_stage',
+  'sys_flow_cat_variable_model',
   'sys_hub_trigger_instance_v2', 'sys_hub_action_instance_v2', 'sys_hub_sub_flow_instance_v2', 'sys_hub_flow_logic_instance_v2',
 ]);
 
@@ -101,6 +102,8 @@ function matchTerm(row: Row, term: string): boolean {
   if ((m = /^([a-z0-9_.]+)NOT IN(.*)$/.exec(term))) return !m[2].split(',').includes(row[m[1]] ?? '');
   if ((m = /^([a-z0-9_.]+)IN(.*)$/.exec(term))) return m[2].split(',').includes(row[m[1]] ?? '');
   if ((m = /^([a-z0-9_.]+)STARTSWITH(.*)$/.exec(term))) return (row[m[1]] ?? '').startsWith(m[2]);
+  if ((m = /^([a-z0-9_.]+)ISEMPTY$/.exec(term))) return (row[m[1]] ?? '') === '';
+  if ((m = /^([a-z0-9_.]+)ISNOTEMPTY$/.exec(term))) return (row[m[1]] ?? '') !== '';
   if ((m = /^([a-z0-9_.]+)!=(.*)$/.exec(term))) return (row[m[1]] ?? '') !== m[2];
   if ((m = /^([a-z0-9_.]+)=(.*)$/.exec(term))) return (row[m[1]] ?? '') === m[2];
   throw new Error(`fake client: unsupported query term ${JSON.stringify(term)}`);
@@ -133,6 +136,7 @@ export function makeFakeClient(opts: FakeOptions = {}) {
     if (t === 'sys_hub_flow') return row.sys_id;
     if (row.flow) return row.flow;
     if (row.model) return row.model;
+    if (t === 'sys_flow_cat_variable_model') return row.id;
     if (t === 'sys_documentation') { const m = /_([0-9a-f]{32})$/.exec(row.name ?? ''); return m?.[1]; }
     return undefined;
   }

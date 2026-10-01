@@ -79,9 +79,10 @@ definition equal the UI rows for Daily, Repeat, Inbound Email, Service Catalog a
 | Id | Construct | Generator writes | Evidence |
 |---|---|---|---|
 | D6 | `action_type` / `action_type_parent` | the snapshot in `action_type`, its definition (`sys_hub_action_type_snapshot.parent_action`) in `action_type_parent` — for all 33 catalogue actions; with an instance `resolveActionType` (`resolvers.ts`) re-reads them (catalogue snapshot if it exists + its `parent_action`, else the definition's existing `latest_snapshot` with a warning, else the catalogue ids with a warning) | **PDI** §3: every UI row stores snapshot + definition (Log, Send Notification, Create Catalog Task, Wait For Condition, Ask For Approval, Get Catalog Variables, and the 13 actions of `samples/action-type-parent-pairs.json` — Send SMS, Get Attachments On Record, Look Up Email Attachments, Copy Attachment, Wait For Message, Associate Record To Email, Wait For Email Reply, SLA Percentage Timer, Create Or Update Record, Move Email Attachments To Record, Delete Attachment, Submit Catalog Item Request, Send Notification; no UI row stores the snapshot there — `pdi-conformance.test.ts`). **Metadata** for the actions without a UI row on the PDI. Get Catalog Variables uses snapshot `330ba3ab…` (the definition's `latest_snapshot` `a30ba3ab…` does not exist). |
-| — | `values` entries | a minimal entry `{name, value, displayValue, scriptActive:false, parameter:{type}}` for every input the spec sets **plus** every input with a non-empty default or hidden in Flow Designer (`catalog/actions.ts` `isAlwaysStored`; hidden and defaulted entries also carry `parameter.attributes` / `parameter.reference`) | **Metadata** (defaults, visibility). UI rows store every input with its input `id` and a full `parameter` mirror (**PDI** §6); **Live**: the minimal entry set ran, and activation rewrites the values into the full form. |
+| D19 | `values` entries | one entry per definition input in definition order — `{id, name, value, displayValue, children:[], parameter, scriptActive}` (+ `script`), `id` = the snapshot input sys_id (`catalog/source/sys_hub_action_input-supplement.json`, '' where the export has none); an input the spec does not set carries its definition default (booleans `"1"`/`"0"` + `"true"`/`"false"`, a choice's label as display) or the value UI-built rows store for a hidden input, else `''` / `''`; `parameter` = the 29-key mirror of the definition (`generator/parameter.ts` `actionParameter`: children, id, label, name, type, typeLabel, order, extended, mandatory, readOnly, hint, maxsize, reference, reference_display, fDataStructure, choices, defaultChoices, choiceOption, table, columnName, defaultValue, [defaultDisplayValue with a default], use_dependent, fShowReferenceFinder, local, [fSearchField on a reference input = the referenced table's display field], attributes, sysClassName, ref_qual, dependent_on) | **PDI** §3 / §6 (`samples/get-catalog-variables-instances.json`, `samples/ask-for-approval-instances.json`, `flows/leaver-flow`; `pdi-conformance.test.ts` compares key order, ids, labels, maxsize, readOnly, dependent_on, attributes). `table` / `columnName` stay `''` (a dictionary-backed choice source the definitions do not carry — the UI fills them for Send Notification `notification`); `fSearchField` only for the tables `catalog/data/tables.json` lists a display field for; choice lists `'-- None --'` first unless `choice` = 3 (**PDI** Log; the `defaultChoices` numbering is **Own**). Rows without a snapshot-input export (23 of the 33 actions) write `id: ''`. |
+| D20 | `displayValue` per input type | boolean `"true"`/`"false"` (value `"1"`/`"0"`); choice → the choice label; table_name → the table label (a live `sys_db_object` read, else `catalog/data/tables.json`, else the name), except a read-only defaulted table (`ah_table_name`) keeps the raw name; document_id / reference holding a pill → `''`; a `{reference}` sys_id → its `display`; schedule_date_time (`due_date`) → `''`; everything else (`string`, `template_value`, `conditions`, `approval_rules`, `slushbucket`, `field_name`, pills kept verbatim) → `displayValue == value` | **PDI** §6 (leaver-flow Create Catalog Task / Send Notification / Log, `samples/ask-for-approval-instances.json`; `pdi-conformance.test.ts`). Integers keep their JSON number (**Own**, no UI row observed). |
 | — | entry order | definition order (`sys_hub_action_input.order`, then name) | **PDI**: the UI order for Log, Create Catalog Task, Wait For Condition, Get Catalog Variables, Ask For Approval, and for Update Record, Look Up Record, Look Up Records, Send Email, Update Multiple Records, Wait For Email Reply, Move Email Attachments To Record (`samples/action-values-entry-order.json`; `pdi-conformance.test.ts`). Exceptions seen on UI rows: Send Notification stores `notification` (order 3) first; one Ask For Approval row stores `approval_reason` before `approval_field` (both order 2). |
-| — | booleans / integers | JSON `true`/`false`, JSON numbers | **Own**, accepted. UI rows store `"1"`/`"0"` with display `true`/`false` (**PDI** §6); activation rewrites them. |
+| — | booleans / integers | booleans `"1"`/`"0"` with display `"true"`/`"false"` (D20); integers JSON numbers | **PDI** §6 for booleans; integers **Own**, accepted (activation rewrites them). |
 | — | pills | `{{<definition name>_1.<output>…}}` for trigger outputs, `{{<ui_id>.<output>…}}` for step outputs, `{{flow_variable.<name>}}`, `{{subflow.<input>}}`, `{{static.<sys_id>}}`; no type suffix; mixed text allowed | **PDI** §7, `pdi-conformance.test.ts`. |
 | D9 | custom action by bare sys_id | input types from the instance definition (`resolveCustomAction` → `sys_hub_action_input.internal_type`); without a resolver inferred from the value form, with a warning | **Metadata** (the definition is authoritative). |
 | D11 | `{reference}` inside a `{template}` value | `field={"display":"<display>","value":"<sys_id>"}` | **PDI** §8 (leaver-flow Create Catalog Task `ah_fields`), `pdi-conformance.test.ts`; **Live** (Create Catalog Task with an assignment group). |
@@ -103,19 +104,27 @@ definition equal the UI rows for Daily, Repeat, Inbound Email, Service Catalog a
 dynamicInputs, workflowInputs` in that order on every logic row (**PDI**: the order of every UI row read,
 `pdi-conformance.test.ts`). An empty values object (End, Break, Continue, Try, Catch, Do In Parallel, Parallel
 Branch, Else) has the byte-identical deflate stream of the UI blob — only the gzip OS header byte differs (`encode.ts`
-writes `03`, UI rows `ff`). Logic input entries: `{id, name, value, displayValue, children:[], parameter:{}, scriptActive}`
-(**Own** minimal form, accepted; UI entries carry the full `parameter`). Logic definition sys_ids: **Metadata**, equal to
+writes `03`, UI rows `ff`). Logic input entries: `{name, value, displayValue, children:[], parameter, scriptActive}` — no `id`
+key on If / Else If / Do Until / For Each / Wait entries; `id` = the `sys_hub_flow_variable` / `sys_hub_flow_output` sys_id on
+Set Flow Variables / Append / Assign Subflow Outputs entries. `parameter` = the 24-key logic mirror of the definition
+(`generator/parameter.ts` `logicParameter`: children, type_label, id, label, name, type, order, extended, mandatory, readOnly,
+hint, maxsize, reference, reference_display, [choices, defaultChoices on a choice input], choiceOption, table, columnName,
+defaultValue, use_dependent, fShowReferenceFinder, local, attributes, ref_qual, dependent_on; maxsize / attributes from
+`catalog/source/sys_hub_flow_logic_input-supplement.json`), or — on a variable entry — the variable's own mirror
+(`variableParameter`: uiType / uiTypeLabel / element_mapping_provider / uiUniqueId attributes) — **PDI** §6
+(`flows/leaver-flow`, `flows/dountil-timer-subflow`, `samples/for-each-instances.json`, `samples/set-flow-variables-instances.json`,
+`samples/assign-subflow-outputs-instances.json`; `pdi-conformance.test.ts`). Logic definition sys_ids: **Metadata**, equal to
 the UI rows for Break, Continue, Do Until, Wait, Do In Parallel, Parallel Branch (**PDI**).
 
 | Id | Logic | Generator writes | Evidence |
 |---|---|---|---|
 | — | If / Else If / Else / End | condition = encoded query with pills in `inputs` (`condition`) | **PDI** §6; **Live**. |
-| D14 | condition label (`condition_name`) on If / Else If / Do Until | written first when the step carries `label` | **PDI** §6 (UI rows always carry it). FlowSpec `label` is optional. |
-| — | For Each | `inputs:[{id:'', name:'items', value, displayValue}]`, value == displayValue (`{{<ui_id>.Records}}` or `{{flow_variable.<name>}}`) | **PDI** (`samples/for-each-instances.json`: same name and pill forms, `pdi-conformance.test.ts`); the UI entry also carries `children` / `parameter` / `scriptActive`. **Live**. |
+| D14 | condition label (`condition_name`) on If / Else If / Do Until | always written first — the step's `label`, `''` when none | **PDI** §6 (UI rows always carry both inputs). FlowSpec `label` is optional. |
+| — | For Each | `inputs:[{name:'items', value, displayValue, children:[], parameter (records, id 19df9109…), scriptActive}]`, value == displayValue (`{{<ui_id>.Records}}` or `{{flow_variable.<name>}}`) | **PDI** (`samples/for-each-instances.json`, `pdi-conformance.test.ts`). **Live**. |
 | — | Exit Loop / Skip Iteration | empty values, nested under the loop | **PDI** (`samples/break-continue-instances.json`); **Live**. |
 | — | Set Flow Variables | `variables[]` and `inputs[]` list the assigned variables in assignment order (`variables[].id` = the `sys_hub_flow_variable` sys_id; scalars stringified; `inputs[].displayValue` `''`); `flow_variables_assigned` = the names | **PDI** §6 (`samples/set-flow-variables-instances.json`, `pdi-conformance.test.ts`); **Live**. |
 | D15 | Append To Flow Variables | `variables` + `inputs`; value = JSON string `{"version":"1.0","complexObjectSchema":<schema of the array variable>,"complexObject":{"name$":"FD<co sys_id>","$COCollectionField":<object or array>},"serializationFormat":"JSON"}`; several objects (`{list:[{template}…]}`) add one `item` descriptor per element in `children` | **Own**, **unverified** — the PDI has no Append To row (PDI-FACTS §10) and no live run used it. FlowSpec accepts `{template}` items inside `{list}` only here. |
-| — | Assign Subflow Outputs | `outputsToAssign[]` entries, `inputs:[]`; `outputs_assigned` = the names | **PDI** (`samples/assign-subflow-outputs-instances.json`, `pdi-conformance.test.ts`); UI entries carry the `sys_hub_flow_output` sys_id as `id`, ours `''`. **Live** (subflow outputs used by the caller). |
+| — | Assign Subflow Outputs | `outputsToAssign[]` entries (`id` = the `sys_hub_flow_output` sys_id, `parameter` = the output's mirror), `inputs:[]`; `outputs_assigned` = the names | **PDI** (`samples/assign-subflow-outputs-instances.json`, `pdi-conformance.test.ts`). **Live** (subflow outputs used by the caller). |
 | — | Wait for a duration | the seven timer inputs in the UI order with the UI input ids (`duration_type` `explicit_duration` / `relative_duration` / `percentage_duration`, `timer_duration` in glide_duration form, …) | **PDI** (`flows/dountil-timer-subflow`, `pdi-conformance.test.ts`); **Live** (5-second explicit wait). |
 | — | Do Until | `condition_name` (label, optional) + `condition` | **PDI** §6; **Live**. |
 | — | Do In Parallel / Parallel Branch | empty values; order rule of §2 | **PDI** §10; **Live**. |
@@ -124,24 +133,30 @@ the UI rows for Break, Continue, Do Until, Wait, Do In Parallel, Parallel Branch
 
 ## 7. Subflow calls (`sys_hub_sub_flow_instance_v2`)
 
-`subflow`, `subflow_inputs` (gzip + base64 JSON array, one entry `{name, value, displayValue, parameter:{type}}` per input,
-in the callee's input order, typed from its `sys_hub_flow_input.internal_type`), `wait_for_completion` (`true`/`false`),
+`subflow`, `subflow_inputs` (gzip + base64 JSON array, one entry `{id, name, value, displayValue, parameter, scriptActive}` per
+declared visible input of the callee — `id` = its `sys_hub_flow_input` sys_id, `parameter` the 29-key mirror (D19), an unset
+input with its default — in the callee's input order, typed from its `sys_hub_flow_input.internal_type`), `wait_for_completion` (`true`/`false`),
 `show_stages` `false`, `order`, `parent_ui_id`, `ui_id`, `comment`, empty `attributes` / `display_text` / `generation_source`.
 **PDI** (`flows/parallel-change-implement-snapshot`: same fields and values; every key of our entries is a key of the UI
 entry, which also carries `subFlowInstanceId` / `id` and the full `parameter`; `pdi-conformance.test.ts`). **Live**.
 
 ## 8. `label_cache` (`labels.ts`)
 
-A JSON array on `sys_hub_flow`: one entry per distinct pill in first-use order, `{name, label, type, base_type, usedInstances, attributes}`
-(+ `column_name` for records pills and array variables, `reference_table` / `reference_display` `null` for flow-variable and
-subflow-input pills). It is a cache: Workflow Studio rewrites it on save and activation completes it (**Live**). UI entries carry
-more keys (PDI-FACTS §6).
+A JSON array on `sys_hub_flow`: one entry per distinct pill in first-use order, in the UI key order
+`{name, label, reference?, reference_display?, type, base_type, parent_table_name?, column_name?, choices?, usedInstances, attributes?}`
+— which optional keys an entry carries depends on the pill kind (below). It is a cache: Workflow Studio rewrites it on save and
+activation completes it (**Live**). Table labels come from a live `sys_db_object` read (`resolveTableLabel`), else
+`catalog/data/tables.json`, else the title-cased table name; field labels / the walked table / the referenced table of a dot-walk
+from the live dictionary walk (`resolvePillField`), else title-cased element names (single-hop walks still get
+`parent_table_name` / `column_name`).
 
 | Id | Rule | Evidence |
 |---|---|---|
-| — | labels: trigger pills `<label prefix>➛<table> Record➛<Field>…`; step outputs `<ui_id>➛<Output>[➛field]`; for-each items `<n> - For Each - ➛item[➛<Field>]`; flow variables `Flow Variables➛<Label>`; subflow inputs `Input➛<Label>` | **Own** text; the prefixes are **PDI** (`Trigger - Service Catalog`, `Trigger - Record Created or Updated`, … — the label prefixes observed on UI-built flows, `catalog/source/manifest.json`); `Flow Variables➛…` and `Input➛…` are **PDI** §6. The UI labels step outputs by step number (`4.1➛…`). |
-| D4 | UI keys after the base keys: `reference` (table of a whole-record pill), `parent_table_name` + `column_name` (single-hop field pill), `reference:''` + `reference_display:'<field label>'` (error status pill) | **PDI** §6. Not derived (needs dictionary labels): `reference_display` of record fields, multi-hop `parent_table_name`, `choices`. |
-| D7 | a dot-walk on a non-record trigger output (`Service Catalog_1.request_item.number`) appends the walk (`…➛Request Item➛Number`) with the dictionary type | **PDI** §6 (`Trigger➛Requested Item Record➛Number`, type `string`). |
+| D21 | trigger whole-record pill (`Created_1.current`, `Service Catalog_1.request_item`): `<label prefix>➛<Table label> Record`, `reference` = the table, `reference_display` = its label, `attributes` = the output's attributes (`{}` / `{default_search_field:"number"}`); trigger `table_name`: `…➛<Table label> Table`, `reference` = the table, `attributes {test_input_hidden:"true"}`; any other trigger output: `…➛<Output label>`, `reference_display` = that label, no `reference` key | **PDI** §6 (`flows/record-trigger-published-flow`, `flows/leaver-flow`, `pdi-conformance.test.ts`). A catalog flow's `table_name` is `sc_req_item` (**Own**). |
+| D22 | dot-walk (trigger record, step record, loop item, flow variable): `<base>➛<Field label>…`, `reference` = the referenced table of a reference field (else `''`), `reference_display` = its label (else the field label), `parent_table_name` = the table the last field is reached on (the walked table, not the super class declaring the column), `column_name` = the last element, no `attributes` key; `sys_id` walks are type `GUID` (from the dictionary). A walk that ends on a **choice-list field** (`sys_dictionary.choice` 1 or 3 — not 2, a suggestion) is typed `choice` / `base_type` `choice` regardless of its dictionary internal_type (integer / string) and carries `choices`: the field's `sys_choice` rows (language en, active, no dependent value, sequence order) looked up on the walked table, then up its super_class chain, each as `{used:false, label, image:'', reference:false, rawLabel, selected:false, missing:false, value, parameters:{name:<the table whose rows were found>, dependent_values:['']}}`; without a live choice read (offline) or without rows the dictionary type is kept, no `choices`, and a warning says Workflow Studio will show the raw value (`'State is 3'` instead of `'is Closed Complete'`) | **PDI** §6 (`Updated_1.current.assigned_to` → `sys_user` / `User`; `…assigned_to.sys_id` → `parent_table_name sys_user`, `GUID`; choice fields: `Service Catalog_1.request_item.approval` → `choice`, list named `task`, `flows/leaver-flow`; `<uuid>.Record.state` on `sys_import_set` → `choice`, list named `sys_import_set`, `flows/dountil-timer-subflow`; `pdi-conformance.test.ts`). The key order inside a choice object differs between the two captures (**Own**: the order of the 29 Sep 2026 UI-built entry); which table the UI names for a list a child table overrides is UNVERIFIED (child-first is **Own**). |
+| D23 | step whole output: `<n> - <Action name>➛<Output label>` (a `Record` output of a known table `<Table label> Record`, a table output `<Table label> Table`), `reference_display` = that label, `reference` + `reference_display` = the table for record / table / records outputs, `attributes` = the output's definition attributes; step dot-walk: `<n>➛<Output label>➛<Field label>` (no action name); Get Catalog Variables outputs: `<n> - Get Catalog Variables➛<variable name>`, `reference` `''` (the table of a reference variable), `reference_display` = the name, `choices` (question_choice, `'-- None --'` first), `attributes {catalogType, catalogTypeLabel}`; dot-walk `<n>➛<variable>➛<Field label>` | **PDI** §6 (`"22 - Ask For Approval➛Approval State"`, `"8 - Wait For Condition➛State"`, `"1 - Get Catalog Variables➛request_type"`, `"1➛department➛Sys ID"`, `"5➛Requested Item Record"`, `"7➛8➛Context"` — older rows number without the action name; the nested `4.1` / parallel `2➛3` numbering is not reproduced: **Own**, flat order). Output `choices` need a choice export the catalogue lacks (`sys_hub_action_output` choices) — not written. |
+| D24 | flow variable: `Flow Variables➛<label>`, `reference` = its table or `''`, `reference_display` = the table label or `''`, `column_name` `''` (the name for array variables), `attributes {uiType, uiTypeLabel, element_mapping_provider, uiUniqueId, sourceUiUniqueId:"", sourceType:"", sourceId:""}`; subflow input: `Input➛<label>`, `reference` / `reference_display` / `column_name` `''`, the same attributes; static reference: name `{{static.<sys_id>}}` (braces kept), label = the `display` the spec gave (else the sys_id + warning), `reference` / `reference_display` = the `table` and its label, no attributes; error status: `1 - Error Handler➛Error Status➛<Field>`, `reference ''`, `reference_display` the field label, `attributes {}` | **PDI** §6 (`Flow Variables➛…`, `Input➛…`, `{{static.<sys_id>}}` entries, `flows/error-handler-subflow-snapshot`). `uiUniqueId` = the uuid form of the variable row sys_id (**Own**; the UI writes a random uuid). |
+| D7 | a dot-walk on a non-record trigger output (`Service Catalog_1.request_item.number`) appends the walk (`…➛Requested Item Record➛Number`) with the dictionary type | **PDI** §6 (`Trigger➛Requested Item Record➛Number`, type `string`). |
 | D8 | step-output pills take the catalogue output type (`waitForCondition.state` = `choice`, `recordProducer.table` = `table_name`) | **Metadata**; the UI types Wait For Condition `state` as `choice` (**PDI**, parallel-change-implement snapshot). |
 
 ## 9. Flow variables, subflow inputs / outputs, documentation (`sys_hub_flow_variable` / `_input` / `_output`)
@@ -159,6 +174,17 @@ object variable carries the complex-object attributes (`co_type_name=FD<sys_id>,
 the schema JSON) — **PDI** (`samples/sys_hub_flow_output.json`: `co_type_name`, 65000), the `sys_complex_object` row is **Own**, accepted.
 Every row has a `sys_documentation` row: `name` = the same `var__m_…` name, `element`, `label`, `hint` `''`, `language` `en`,
 `plural` `''` — **PDI** (`samples/sys_documentation-for-variables.json`, Capture).
+
+A **catalog-triggered flow** (type `flow`, trigger `catalog.service_catalog`) also carries exactly one `sys_flow_cat_variable_model`
+row `{id: <flow sys_id>, name: <flow name>, sys_scope: ''}` (deterministic sys_id `ELEMENT_KEYS.catVariableModel`, kept in
+`plan.variables`), which the `<record_update>` document places after the stages with its `id=<flow>^sys_idNOT IN<row>` cleanup and
+the `sys_flow_cat_variable flow_catalog_model=<row>` cleanup right after the row — **Capture** (PDI-FACTS §2 / §5). The loader
+accepts both deletes as the flow's own (writer/loader.ts); the writer's stale scan reads the table by `id=<flow>`.
+
+A Get Catalog Variables step whose outputs are used as pills anywhere must select them in `catalog_variables`: an empty
+selection is a spec error (the step then outputs nothing and activation fails with "Action [undefined] references catalog
+variables that don't exist or are inactive" — **Live**, 28 Sep 2026); live, a pill outside the selection is the D18 error; offline a
+sys_id selection cannot be matched to the pill names and is only noted.
 
 ## 10. Stages (`sys_hub_flow_stage`)
 
@@ -190,6 +216,10 @@ These parts of the output changed since the last live run, or were never covered
    inputs and outputs.
 4. Never live-tested: Append To Flow Variables (§6 D15), a `{script}` template sub-field (§5), the glide_time zone conversion
    (§4), a scoped flow through the loader, the user-zone-over-system-zone precedence for `run_in` (D17).
+6. The stored form of D19–D24 (full `parameter` mirrors, displayValue rules, the UI label_cache entries, the
+   `sys_flow_cat_variable_model` row of a catalog flow — §9) was built against the UI-built rows and the capture; a live loader
+   run with a catalog flow (Get Catalog Variables + pills on its variables, activation) is the proof that Workflow Studio shows
+   the step labels and that activation no longer reports "Action [undefined] references catalog variables".
 5. Candidates to align with the UI once a re-run is due: drop `active` / `category` (§1), write `parent_ui_id:''` on top-level logic
    rows, booleans as `"1"`/`"0"` in action values.
 

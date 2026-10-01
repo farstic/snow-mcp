@@ -146,15 +146,61 @@ describe('pill typing', () => {
     expect(offline.pills.map(p => p.platform)).toEqual(['Created_1.current.priority', 'Created_1.current.nope']);
   });
 
+  it('a dot-walk ending on a choice-list field (dictionary choice=1) is typed choice with the sys_choice list in the UI entry shape; a suggestion field (choice=2) is not asked; without resolveFieldChoices or without rows the dictionary type stays, with a warning', async () => {
+    const s = flowWith([{ kind: 'action', key: 'l', action: 'log', inputs: { log_message: { text: '{{trigger.current.state}} {{trigger.current.short_description}}' } } }]);
+    const fields: Record<string, { type: string; choice: string; label: string }> = { state: { type: 'integer', choice: '1', label: 'State' }, short_description: { type: 'string', choice: '2', label: 'Short description' } };
+    const resolvePillField = async (table: string, path: string) => (fields[path] ? { type: fields[path].type, choice: fields[path].choice, labels: [fields[path].label], table } : undefined);
+    const asked: string[] = [];
+    const resolveFieldChoices = async (table: string, element: string) => {
+      asked.push(`${table}.${element}`);
+      // invented list, as the live resolver returns it: found on the parent table (task), in sequence order
+      return { table: 'task', choices: [{ label: 'Pending', value: '-5', sequence: 0 }, { label: 'Closed Complete', value: '3', sequence: 30 }] };
+    };
+    const plan = await generatePlan(s, { resolvePillField, resolveFieldChoices });
+    const lc = plan.labelCache as Record<string, unknown>[];
+    const choice = (label: string, value: string) => ({ used: false, label, image: '', reference: false, rawLabel: label, selected: false, missing: false, value, parameters: { name: 'task', dependent_values: [''] } });
+    expect(lc.find(e => e.name === 'Created_1.current.state')).toEqual({
+      name: 'Created_1.current.state', label: 'Trigger - Record Created➛Incident Record➛State', reference: '', reference_display: 'State',
+      type: 'choice', base_type: 'choice', parent_table_name: 'incident', column_name: 'state',
+      choices: [choice('Pending', '-5'), choice('Closed Complete', '3')],
+      usedInstances: { [String(plan.instances[0].fields.ui_id)]: ['log_message'] },
+    });
+    expect(asked).toEqual(['incident.state']);
+    const suggestion = lc.find(e => e.name === 'Created_1.current.short_description')!;
+    expect(suggestion).toMatchObject({ type: 'string', base_type: 'string' });
+    expect(suggestion).not.toHaveProperty('choices');
+    expect(plan.pills.find(p => p.symbolic === 'trigger.current.state')?.type).toBe('choice');
+    expect(plan.warnings).toEqual([]);
+    // no choice resolver (an offline plan / export): the dictionary type, no choices key, one warning naming the field
+    const offline = await generatePlan(s, { resolvePillField });
+    const kept = (offline.labelCache as Record<string, unknown>[]).find(e => e.name === 'Created_1.current.state')!;
+    expect(kept).toMatchObject({ type: 'integer', base_type: 'integer', parent_table_name: 'incident', column_name: 'state' });
+    expect(kept).not.toHaveProperty('choices');
+    expect(offline.warnings).toEqual(['pill trigger.current.state: incident.state is a choice field (sys_dictionary choice=1) but there is no choice resolver (offline plan / export); typed "integer" without its choice list — Workflow Studio shows the raw value instead of the choice label']);
+    // a resolver that finds no rows anywhere: the same fallback, the warning names the table chain
+    const none = await generatePlan(s, { resolvePillField, resolveFieldChoices: async () => undefined });
+    expect((none.labelCache as Record<string, unknown>[]).find(e => e.name === 'Created_1.current.state')).toMatchObject({ type: 'integer' });
+    expect(none.warnings).toEqual(['pill trigger.current.state: incident.state is a choice field (sys_dictionary choice=1) but no active sys_choice rows (language en, no dependent value) exist on incident or its parent tables; typed "integer" without its choice list — Workflow Studio shows the raw value instead of the choice label']);
+    // a failed read reported by the resolver: its warning is forwarded with the pill name, nothing else is added
+    const failed = await generatePlan(s, { resolvePillField, resolveFieldChoices: async () => ({ table: 'incident', choices: [], warnings: ['the choice list of incident.state could not be read (ACL refused) — the field keeps its dictionary type without choices'] }) });
+    expect(failed.warnings).toEqual(['pill trigger.current.state: the choice list of incident.state could not be read (ACL refused) — the field keeps its dictionary type without choices']);
+  });
+
   it('flow-variable types come from the spec; label_cache base keys stay first and the UI keys follow', async () => {
     const plan = await generatePlan(flowWith(
       [{ kind: 'action', key: 'l', action: 'log', inputs: { log_message: { text: '{{vars.count}}' } } }, { kind: 'action', key: 'u', action: 'updateRecord', inputs: { table_name: 'incident', record: { pill: 'trigger.current' }, values: { template: { impact: '1' } } } }],
       { variables: [{ name: 'count', type: 'integer' }] },
     ));
     const lc = plan.labelCache as Record<string, unknown>[];
-    expect(lc[0]).toEqual({ name: 'flow_variable.count', label: 'Flow Variables➛Count', type: 'integer', base_type: 'integer', usedInstances: { [String(plan.instances[0].fields.ui_id)]: ['log_message'] }, attributes: {}, reference_table: null, reference_display: null });
-    expect(Object.keys(lc[1])).toEqual(['name', 'label', 'type', 'base_type', 'usedInstances', 'attributes', 'reference']);
-    expect(lc[1].reference).toBe('incident');
+    // the UI entry of a flow variable (PDI-FACTS §6): reference '' / reference_display '' / column_name '' and the uiType attribute set
+    expect(lc[0]).toEqual({
+      name: 'flow_variable.count', label: 'Flow Variables➛Count', reference: '', reference_display: '', type: 'integer', base_type: 'integer', column_name: '',
+      usedInstances: { [String(plan.instances[0].fields.ui_id)]: ['log_message'] },
+      attributes: { uiType: 'integer', uiTypeLabel: 'Integer', element_mapping_provider: 'com.glide.flow_design.action.data.FlowDesignVariableMapper', uiUniqueId: expect.stringMatching(/^[0-9a-f-]{36}$/), sourceUiUniqueId: '', sourceType: '', sourceId: '' },
+    });
+    // a whole-record trigger pill: reference + the table label, in the UI key order
+    expect(Object.keys(lc[1])).toEqual(['name', 'label', 'reference', 'reference_display', 'type', 'base_type', 'usedInstances', 'attributes']);
+    expect(lc[1]).toMatchObject({ label: 'Trigger - Record Created➛Incident Record', reference: 'incident', reference_display: 'Incident' });
   });
 });
 
@@ -250,7 +296,7 @@ describe('structure, stages and determinism', () => {
     expect(ap.find(e => e.name === 'approval_conditions')!.value).toBe('ApprovesAnyG[{{Created_1.current.assignment_group}}]');
     expect(plan.flow.fields).toMatchObject({ run_as: 'system', status: 'draft', active: 'false', version: '2', internal_name: 'p1_incident_review', flow_priority: '' });
     const tpl = decodeValues(String(plan.instances[1].fields.values)) as { name: string; value: string }[];
-    expect(tpl.find(e => e.name === 'values')!.value).toBe('impact=1^work_notes=Auto-tagged by P1 review flow ({{Created_1.current.number}})^EQ');
+    expect(tpl.find(e => e.name === 'values')!.value).toBe('impact=1^work_notes=Auto-tagged by P1 review flow ({{Created_1.current.number}})');
   });
 
   it('is deterministic, honours flow.sys_id and derives every id from the flow key', async () => {
@@ -356,7 +402,8 @@ describe('dont_fail_on_error spec name and its earlier alias', () => {
   it('dont_fail_on_error and dont_fail_flow_on_error both set the stored __snc_dont_fail_on_error input and produce the same row', async () => {
     const canonical = await stored({ dont_fail_on_error: true });
     const alias = await stored({ dont_fail_flow_on_error: true });
-    expect(canonical).toMatchObject({ name: '__snc_dont_fail_on_error', value: true });
+    // booleans are stored as "1"/"0" with the display "true"/"false" (PDI-FACTS §6)
+    expect(canonical).toMatchObject({ name: '__snc_dont_fail_on_error', value: '1', displayValue: 'true' });
     expect(alias).toEqual(canonical);
   });
 
@@ -366,7 +413,7 @@ describe('dont_fail_on_error spec name and its earlier alias', () => {
     ]), contextOptions());
     const row = plan.instances.find(r => r.table === 'sys_hub_action_instance_v2')!;
     const entries = decodeValues(String(row.fields.values)) as { name: string; value: unknown }[];
-    expect(entries.filter(e => /snc_dont_fail_on_error$/.test(e.name))).toEqual([expect.objectContaining({ name: '_snc_dont_fail_on_error', value: true })]);
+    expect(entries.filter(e => /snc_dont_fail_on_error$/.test(e.name))).toEqual([expect.objectContaining({ name: '_snc_dont_fail_on_error', value: '1', displayValue: 'true' })]);
   });
 
   it('setting both names on one step is a spec error', async () => {

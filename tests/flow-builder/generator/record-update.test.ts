@@ -38,6 +38,7 @@ const EXTRA_FIELDS: Record<string, string[]> = {
   sys_hub_flow_logic_instance_v2: ['sys_update_name'],
   sys_hub_sub_flow_instance_v2: ['sys_update_name'],
   sys_hub_flow_stage: ['sys_update_name'],
+  sys_flow_cat_variable_model: ['sys_update_name'],
 };
 
 /** The key a child table's delete_multiple uses, as the platform wrote it. */
@@ -69,8 +70,16 @@ describe('planToRecordUpdateXml — against the platform capture of a UI-built f
       const plan = await planFor(name);
       const doc = parseRecordUpdate(planToRecordUpdateXml(plan));
       const flowId = plan.flow.sys_id;
+      // the catalog-variable cleanup hangs on the model row (flow_catalog_model=<row>), right after it — as in the capture
+      for (const d of deletes(doc).filter(x => x.table === 'sys_flow_cat_variable')) {
+        const modelIds = rows(doc).filter(r => r.table === 'sys_flow_cat_variable_model').map(r => String(r.fields.sys_id));
+        expect(uiCleanupKey('sys_flow_cat_variable')).toBe('flow_catalog_model');
+        expect(modelIds).toContain(d.query.replace('flow_catalog_model=', ''));
+        const i = doc.indexOf(d);
+        expect(doc[i - 1]).toMatchObject({ kind: 'row', table: 'sys_flow_cat_variable_model' });
+      }
       for (const d of deletes(doc)) {
-        if (d.table === 'sys_hub_alias_mapping') continue;
+        if (d.table === 'sys_hub_alias_mapping' || d.table === 'sys_flow_cat_variable') continue;
         const [key, rest] = d.query.split('=');
         const uiKey = uiCleanupKey(d.table) ?? (d.table === 'sys_hub_flow_variable' || d.table === 'sys_hub_flow_output' ? 'model' : undefined);
         expect(key, d.table).toBe(uiKey);

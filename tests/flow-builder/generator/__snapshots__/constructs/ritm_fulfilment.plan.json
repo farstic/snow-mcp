@@ -19,7 +19,9 @@
         "label_cache": [
           {
             "name": "Updated_1.current",
-            "label": "Trigger - Record Updated➛sc_req_item Record",
+            "label": "Trigger - Record Updated➛Requested Item Record",
+            "reference": "sc_req_item",
+            "reference_display": "Requested Item",
             "type": "reference",
             "base_type": "reference",
             "usedInstances": {
@@ -27,22 +29,22 @@
                 "ah_requested_item"
               ]
             },
-            "attributes": {},
-            "reference": "sc_req_item"
+            "attributes": {}
           },
           {
             "name": "Updated_1.current.state",
-            "label": "Trigger - Record Updated➛sc_req_item Record➛State",
+            "label": "Trigger - Record Updated➛Requested Item Record➛State",
+            "reference": "",
+            "reference_display": "State",
             "type": "integer",
             "base_type": "integer",
+            "parent_table_name": "sc_req_item",
+            "column_name": "state",
             "usedInstances": {
               "e43c8a32-3f3f-c226-62ac-3bbad185dfa1": [
                 "condition"
               ]
-            },
-            "attributes": {},
-            "parent_table_name": "sc_req_item",
-            "column_name": "state"
+            }
           }
         ],
         "name": "RITM Fulfilment",
@@ -82,12 +84,31 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "table_name",
-              "name": "table",
+              "children": [],
+              "id": "1dda12e0c31322002841b63b12d3aea8",
               "label": "Table",
+              "name": "table",
+              "type": "table_name",
+              "order": 1,
+              "extended": false,
+              "mandatory": true,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 80,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "filter_table_source": "RECORD_WATCHER_RESTRICTED"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -105,16 +126,33 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "conditions",
-              "name": "condition",
+              "children": [],
+              "id": "bb9adea0c31322002841b63b12d3ae67",
               "label": "Condition",
+              "name": "condition",
+              "type": "conditions",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 4000,
+              "reference": "",
+              "reference_display": "",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": true,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "extended_operators": "VALCHANGES;CHANGESFROM;CHANGESTO",
                 "modelDependent": "trigger_inputs",
                 "wants_to_add_conditions": "true"
               },
-              "dependent_on": "table",
-              "use_dependent": true
+              "ref_qual": "",
+              "dependent_on": "table"
             }
           },
           {
@@ -149,12 +187,56 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
-              "name": "run_on_extended",
+              "children": [],
+              "id": "6cd14b76072200103bf10705afd30093",
               "label": "Run On Extended Tables",
+              "name": "run_on_extended",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Run only on current table",
+                  "value": "false",
+                  "order": 0
+                },
+                {
+                  "label": "Run on current and extended tables",
+                  "value": "true",
+                  "order": 1
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Run only on current table",
+                  "value": "false",
+                  "order": 1
+                },
+                {
+                  "label": "Run on current and extended tables",
+                  "value": "true",
+                  "order": 2
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "false",
+              "defaultDisplayValue": "Run only on current table",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -189,12 +271,56 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
-              "name": "run_flow_in",
+              "children": [],
+              "id": "4ecd76460f103300b599bca2ff767e0d",
               "label": "Run flow In",
+              "name": "run_flow_in",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Run flow in background (default)",
+                  "value": "background",
+                  "order": 0
+                },
+                {
+                  "label": "Run flow in foreground",
+                  "value": "foreground",
+                  "order": 1
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Run flow in background (default)",
+                  "value": "background",
+                  "order": 1
+                },
+                {
+                  "label": "Run flow in foreground",
+                  "value": "foreground",
+                  "order": 2
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "any",
+              "defaultDisplayValue": "any",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -213,14 +339,31 @@
             "valueSysId": "",
             "children": [],
             "parameter": {
-              "type": "glide_list",
-              "name": "run_when_user_list",
+              "children": [],
+              "id": "3f8d5577c7002300f4eba1425a9763e6",
               "label": "Run When User List",
+              "name": "run_when_user_list",
+              "type": "glide_list",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 4000,
               "reference": "sys_user",
               "reference_display": "User",
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -263,12 +406,66 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
-              "name": "run_when_setting",
+              "children": [],
+              "id": "48395df3c7002300f4eba1425a976372",
               "label": "Run When Session Setting",
+              "name": "run_when_setting",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Only Run for Non-Interactive Session",
+                  "value": "non_interactive",
+                  "order": 0
+                },
+                {
+                  "label": "Only Run for User Interactive Session",
+                  "value": "interactive",
+                  "order": 1
+                },
+                {
+                  "label": "Run for Both Interactive and Non-Interactive Sessions",
+                  "value": "both",
+                  "order": 2
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Only Run for Non-Interactive Session",
+                  "value": "non_interactive",
+                  "order": 1
+                },
+                {
+                  "label": "Only Run for User Interactive Session",
+                  "value": "interactive",
+                  "order": 2
+                },
+                {
+                  "label": "Run for Both Interactive and Non-Interactive Sessions",
+                  "value": "both",
+                  "order": 3
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "both",
+              "defaultDisplayValue": "Run for Both Interactive and Non-Interactive Sessions",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -311,12 +508,66 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
-              "name": "run_when_user_setting",
+              "children": [],
+              "id": "cf9bd937c7002300f4eba1425a976356",
               "label": "Run When User Setting",
+              "name": "run_when_user_setting",
+              "type": "choice",
+              "order": 100,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Do not run if triggered by the following users",
+                  "value": "not_one_of",
+                  "order": 0
+                },
+                {
+                  "label": "Only Run if triggered by the following users",
+                  "value": "one_of",
+                  "order": 1
+                },
+                {
+                  "label": "Run for any user",
+                  "value": "any",
+                  "order": 2
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Do not run if triggered by the following users",
+                  "value": "not_one_of",
+                  "order": 1
+                },
+                {
+                  "label": "Only Run if triggered by the following users",
+                  "value": "one_of",
+                  "order": 2
+                },
+                {
+                  "label": "Run for any user",
+                  "value": "any",
+                  "order": 3
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "any",
+              "defaultDisplayValue": "Run for any user",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
               "attributes": {
                 "advanced": "true"
-              }
+              },
+              "ref_qual": "",
+              "dependent_on": ""
             }
           },
           {
@@ -367,9 +618,74 @@
             "scriptActive": false,
             "children": [],
             "parameter": {
-              "type": "choice",
+              "children": [],
+              "id": "c19523d8c31932002841b63b12d3aea1",
+              "label": "Run Trigger",
               "name": "trigger_strategy",
-              "label": "Run Trigger"
+              "type": "choice",
+              "order": 101,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "choices": [
+                {
+                  "label": "Once",
+                  "value": "once",
+                  "order": 0
+                },
+                {
+                  "label": "For each unique change",
+                  "value": "unique_changes",
+                  "order": 1
+                },
+                {
+                  "label": "Only if not currently running",
+                  "value": "always",
+                  "order": 2
+                },
+                {
+                  "label": "For every update",
+                  "value": "every",
+                  "order": 3
+                }
+              ],
+              "defaultChoices": [
+                {
+                  "label": "Once",
+                  "value": "once",
+                  "order": 1
+                },
+                {
+                  "label": "For each unique change",
+                  "value": "unique_changes",
+                  "order": 2
+                },
+                {
+                  "label": "Only if not currently running",
+                  "value": "always",
+                  "order": 3
+                },
+                {
+                  "label": "For every update",
+                  "value": "every",
+                  "order": 4
+                }
+              ],
+              "choiceOption": "3",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "once",
+              "defaultDisplayValue": "Once",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {},
+              "ref_qual": "",
+              "dependent_on": ""
             }
           }
         ],
@@ -397,49 +713,297 @@
         "updation_source": "",
         "values": [
           {
+            "id": "af51fd0e73141300612c273ffff6a788",
             "name": "ah_table_name",
             "value": "sc_task",
             "displayValue": "sc_task",
-            "scriptActive": false,
+            "children": [],
             "parameter": {
-              "type": "table_name"
-            }
+              "children": [],
+              "id": "af51fd0e73141300612c273ffff6a788",
+              "label": "Table Name",
+              "name": "ah_table_name",
+              "type": "table_name",
+              "typeLabel": "Table Name",
+              "order": 0,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": true,
+              "hint": "",
+              "maxsize": 80,
+              "reference": "",
+              "reference_display": "",
+              "fDataStructure": "",
+              "choices": [],
+              "defaultChoices": [],
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "sc_task",
+              "defaultDisplayValue": "sc_task",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "allow_sc_tables": "true",
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                "is_scriptable": "false"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
           },
           {
+            "id": "7351fd0e73141300612c273ffff6a7a0",
             "name": "ah_requested_item",
             "value": "{{Updated_1.current}}",
-            "displayValue": "{{Updated_1.current}}",
-            "scriptActive": false,
+            "displayValue": "",
+            "children": [],
             "parameter": {
-              "type": "reference"
-            }
+              "children": [],
+              "id": "7351fd0e73141300612c273ffff6a7a0",
+              "label": "Requested Item",
+              "name": "ah_requested_item",
+              "type": "reference",
+              "typeLabel": "Reference",
+              "order": 1,
+              "extended": false,
+              "mandatory": true,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 32,
+              "reference": "sc_req_item",
+              "reference_display": "Requested Item",
+              "fDataStructure": "",
+              "choices": [],
+              "defaultChoices": [],
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "fSearchField": "number",
+              "attributes": {
+                "only_droppable": "true",
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
           },
           {
+            "id": "3751fd0e73141300612c273ffff6a7a6",
             "name": "ah_short_description",
             "value": "Prepare the requested equipment",
             "displayValue": "Prepare the requested equipment",
-            "scriptActive": false,
+            "children": [],
             "parameter": {
-              "type": "string"
-            }
+              "children": [],
+              "id": "3751fd0e73141300612c273ffff6a7a6",
+              "label": "Short Description",
+              "name": "ah_short_description",
+              "type": "string",
+              "typeLabel": "String",
+              "order": 2,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 12000,
+              "reference": "",
+              "reference_display": "",
+              "fDataStructure": "",
+              "choices": [],
+              "defaultChoices": [],
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
           },
           {
+            "id": "7751fd0e73141300612c273ffff6a7ac",
             "name": "ah_fields",
-            "value": "assignment_group=Hardware^EQ",
-            "displayValue": "assignment_group=Hardware^EQ",
-            "scriptActive": false,
+            "value": "assignment_group=Hardware",
+            "displayValue": "assignment_group=Hardware",
+            "children": [],
             "parameter": {
-              "type": "template_value"
-            }
+              "children": [],
+              "id": "7751fd0e73141300612c273ffff6a7ac",
+              "label": "Fields",
+              "name": "ah_fields",
+              "type": "template_value",
+              "typeLabel": "Template Value",
+              "order": 3,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 65000,
+              "reference": "sc_task",
+              "reference_display": "Catalog Task",
+              "fDataStructure": "",
+              "choices": [],
+              "defaultChoices": [],
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": true,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": "inputs.ah_table_name"
+            },
+            "scriptActive": false
           },
           {
+            "id": "f751fd0e73141300612c273ffff6a7b2",
             "name": "ah_wait",
-            "value": false,
-            "displayValue": false,
-            "scriptActive": false,
+            "value": "0",
+            "displayValue": "false",
+            "children": [],
             "parameter": {
-              "type": "boolean"
-            }
+              "children": [],
+              "id": "f751fd0e73141300612c273ffff6a7b2",
+              "label": "Wait",
+              "name": "ah_wait",
+              "type": "boolean",
+              "typeLabel": "True/False",
+              "order": 4,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 40,
+              "reference": "",
+              "reference_display": "",
+              "fDataStructure": "",
+              "choices": [],
+              "defaultChoices": [],
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "true",
+              "defaultDisplayValue": "true",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
+          },
+          {
+            "id": "f751fd0e73141300612c273ffff6a7b8",
+            "name": "template_catalog_item",
+            "value": "",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "f751fd0e73141300612c273ffff6a7b8",
+              "label": "Template Catalog Item",
+              "name": "template_catalog_item",
+              "type": "reference",
+              "typeLabel": "Reference",
+              "order": 5,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 32,
+              "reference": "sc_cat_item",
+              "reference_display": "Catalog Item",
+              "fDataStructure": "",
+              "choices": [],
+              "defaultChoices": [],
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "fSearchField": "name",
+              "attributes": {
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                "show_search": "true"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
+          },
+          {
+            "id": "7b51fd0e73141300612c273ffff6a7be",
+            "name": "catalog_variables",
+            "value": "",
+            "displayValue": "",
+            "children": [],
+            "parameter": {
+              "children": [],
+              "id": "7b51fd0e73141300612c273ffff6a7be",
+              "label": "Catalog Variables",
+              "name": "catalog_variables",
+              "type": "slushbucket",
+              "typeLabel": "Slush Bucket",
+              "order": 6,
+              "extended": false,
+              "mandatory": false,
+              "readOnly": false,
+              "hint": "",
+              "maxsize": 12000,
+              "reference": "",
+              "reference_display": "",
+              "fDataStructure": "",
+              "choices": [],
+              "defaultChoices": [],
+              "choiceOption": "",
+              "table": "",
+              "columnName": "",
+              "defaultValue": "",
+              "use_dependent": false,
+              "fShowReferenceFinder": false,
+              "local": false,
+              "attributes": {
+                "source_table": "item_option_new",
+                "use_flow_designer_wrapper": "true",
+                "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                "include_multirow_variablesets": "true",
+                "is_flatten_variables_needed": "false",
+                "script": "wf_variables()"
+              },
+              "sysClassName": "",
+              "ref_qual": "",
+              "dependent_on": ""
+            },
+            "scriptActive": false
           }
         ]
       }
@@ -459,12 +1023,75 @@
           "outputsToAssign": [],
           "inputs": [
             {
-              "id": "",
+              "name": "condition_name",
+              "value": "",
+              "displayValue": "",
+              "children": [],
+              "parameter": {
+                "children": [],
+                "type_label": "String",
+                "id": "f0af19c1c32632002841b63b12d3aea3",
+                "label": "Condition Label",
+                "name": "condition_name",
+                "type": "string",
+                "order": 10,
+                "extended": false,
+                "mandatory": false,
+                "readOnly": false,
+                "hint": "",
+                "maxsize": 255,
+                "reference": "",
+                "reference_display": "",
+                "choiceOption": "",
+                "table": "",
+                "columnName": "",
+                "defaultValue": "",
+                "use_dependent": false,
+                "fShowReferenceFinder": false,
+                "local": false,
+                "attributes": {
+                  "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                  "use_basic_input": "true"
+                },
+                "ref_qual": "",
+                "dependent_on": ""
+              },
+              "scriptActive": false
+            },
+            {
               "name": "condition",
               "value": "{{Updated_1.current.state}}=4",
               "displayValue": "{{Updated_1.current.state}}=4",
               "children": [],
-              "parameter": {},
+              "parameter": {
+                "children": [],
+                "type_label": "String",
+                "id": "9a5f5105c32632002841b63b12d3ae46",
+                "label": "Condition",
+                "name": "condition",
+                "type": "string",
+                "order": 20,
+                "extended": false,
+                "mandatory": true,
+                "readOnly": false,
+                "hint": "",
+                "maxsize": 2000,
+                "reference": "",
+                "reference_display": "",
+                "choiceOption": "",
+                "table": "",
+                "columnName": "",
+                "defaultValue": "",
+                "use_dependent": false,
+                "fShowReferenceFinder": false,
+                "local": false,
+                "attributes": {
+                  "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+                  "is_scriptable": "false"
+                },
+                "ref_qual": "",
+                "dependent_on": ""
+              },
               "scriptActive": false
             }
           ],

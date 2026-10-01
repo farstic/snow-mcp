@@ -13,7 +13,7 @@
     <flow_priority/>
     <generation_source>snow_mcp_flow_builder</generation_source>
     <internal_name>trigger_inbound_email</internal_name>
-    <label_cache>[{"name":"Inbound Email_1.subject","label":"Trigger - Inbound Email➛Subject","type":"string","base_type":"string","usedInstances":{"c7a98aff-ea19-7a05-4d76-e29660c62848":["log_message"]},"attributes":{}},{"name":"Inbound Email_1.from_address","label":"Trigger - Inbound Email➛From address","type":"string","base_type":"string","usedInstances":{"c7a98aff-ea19-7a05-4d76-e29660c62848":["log_message"]},"attributes":{}},{"name":"Inbound Email_1.user.name","label":"Trigger - Inbound Email➛User➛Name","type":"string","base_type":"string","usedInstances":{"c7a98aff-ea19-7a05-4d76-e29660c62848":["log_message"]},"attributes":{}}]</label_cache>
+    <label_cache>[{"name":"Inbound Email_1.subject","label":"Trigger - Inbound Email➛Subject","reference_display":"Subject","type":"string","base_type":"string","usedInstances":{"c7a98aff-ea19-7a05-4d76-e29660c62848":["log_message"]},"attributes":{"test_input_hidden":"true"}},{"name":"Inbound Email_1.from_address","label":"Trigger - Inbound Email➛From address","reference_display":"From address","type":"string","base_type":"string","usedInstances":{"c7a98aff-ea19-7a05-4d76-e29660c62848":["log_message"]},"attributes":{"test_input_hidden":"true"}},{"name":"Inbound Email_1.user.name","label":"Trigger - Inbound Email➛User Record➛Name","reference":"","reference_display":"Name","type":"string","base_type":"string","parent_table_name":"sys_user","column_name":"name","usedInstances":{"c7a98aff-ea19-7a05-4d76-e29660c62848":["log_message"]}}]</label_cache>
     <name>Trigger Inbound Email</name>
     <run_as>user</run_as>
     <run_with_roles/>
@@ -54,7 +54,7 @@
     <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
     <ui_id>c7a98aff-ea19-7a05-4d76-e29660c62848</ui_id>
     <updation_source/>
-    <values>H4sIAAAAAAAAA72QvQqDQBAGX+XYKgER0tqlSJEXSBODrOdqLtyP3N4JIvvuwVQRm1Rph4H5du8LeHQEFdgwNJYmslDAhDavzPg+QAGd4dHifNtS1tGM6ayTmQiqHi1TASNGdJQoQrVAmsfV189gNIFIsYk5YsaBvnIXh8aqGpbl6tuQfac+pDmVnNsX6SRSg+pjcGqvrLjBrovELKIOeyMzxXIdIHLcX/Xf+M/P4xSNH0Dk8Qb4TEDMqwEAAA==</values>
+    <values>H4sIAAAAAAAAA+VUXWvbMBT9K+E+beAEO2m21W+jH1DoB6zQPbTFXEvXiYYseZKcNAv+70O2knhNGA2UvexRx0f4nKN77uMaBIcUpjlLcsY+TSdJHE/ieJIXCT9N4lNi0y+f+WeIQGFJkILUs0zSgiREsEBZe0yoQkMEXNhK4uohoFcdyuZCckMK0sfnCCo0WJIjA+n61ae3CpGYk4QUroOKA8LcqvIQm2vBKJyvw7WzDagN9zLiCOjFkeLEIS1QWoqgRMXRabPaIoaQ3ym5A+ZCOUgBPPnFil8E6UnseQUZUoy6b9tjFsLp4OIcHd47UzNXm0DtxFpIH9dbi8Ph4FYrGgyHvbR70ptoxw1xv3qTwEz6zO9olFCzHnmJRu3I4z75whhtelQK58CdNM8RcCqwlu7seAfJmx2Mj3EwOcLBiXfQhX9XOaEVpJD4mcFcbp5Gy7pUt92cwdbvw6vx79Dzgy2oLWWcKj9mfm7CEBX3c738tpmRS6FaReGj1Azl9oTOGZHXzue7BpJUknJZiVUl1CyrjF6I9jIwXY5mUnAaFVIvM05WzNQImbc24uhwdCn18ryFH9AIb/MGq4oMNBHYlT2TaO3OrKEi+1l7JZ314CFrg2qvMCMq95U5saAg18ff1nk8+VudafpnfUuyFmfUe6uLEoUcPMF6faVyXSs+aJEsGdk6/0HMNc0TDAqjy8E+xcMZcm7I2qYZfNhn1JbMyAtomo/7C+zf/vy4PfmGYDfzf7NN9WDUYVdaZ7pG9Xfl/Qbc1PXdduV4On2fZXlo/ewX+qg+/391ff4Nk4uJHggIAAA=</values>
   </sys_hub_action_instance_v2>
   <sys_hub_alias_mapping action="delete_multiple" query="source_id=c7a98affea197a054d76e29660c62848"/>
 </record_update>

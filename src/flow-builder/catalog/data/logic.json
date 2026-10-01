@@ -21,7 +21,13 @@
      "name": "condition_name",
      "label": "Condition Label",
      "type": "string",
-     "order": 10
+     "order": 10,
+     "maxLength": 255,
+     "sys_id": "f0af19c1c32632002841b63b12d3aea3",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "use_basic_input": "true"
+     }
     },
     {
      "id": "9a5f5105c32632002841b63b12d3ae46",
@@ -29,7 +35,13 @@
      "label": "Condition",
      "type": "string",
      "mandatory": true,
-     "order": 20
+     "order": 20,
+     "maxLength": 2000,
+     "sys_id": "9a5f5105c32632002841b63b12d3ae46",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "is_scriptable": "false"
+     }
     }
    ],
    "outputs": []
@@ -45,7 +57,8 @@
      "name": "condition_name",
      "label": "Condition Label",
      "type": "string",
-     "order": 10
+     "order": 10,
+     "sys_id": "f0af19c1c32632002841b63b12d3aea2"
     },
     {
      "id": "f0af19c1c32632002841b63b12d3aea1",
@@ -53,7 +66,8 @@
      "label": "Condition",
      "type": "string",
      "mandatory": true,
-     "order": 20
+     "order": 20,
+     "sys_id": "f0af19c1c32632002841b63b12d3aea1"
     }
    ],
    "outputs": []
@@ -78,7 +92,12 @@
      "label": "Items",
      "type": "records",
      "mandatory": true,
-     "order": 20
+     "order": 20,
+     "maxLength": 100,
+     "sys_id": "19df9109c32632002841b63b12d3aed6",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
     }
    ],
    "outputs": [
@@ -87,6 +106,7 @@
      "label": "Item",
      "type": "document_id",
      "order": 100,
+     "sys_id": "5efe198dc3e232002841b63b12d3ae9c",
      "attributes": {
       "pills_draggable_outside_block": "false",
       "pills_draggable_inside_block": "true"
@@ -155,6 +175,11 @@
      "type": "choice",
      "default": "explicit_duration",
      "order": 100,
+     "maxLength": 40,
+     "sys_id": "4973581473031300b61e66476bf6a785",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     },
      "choices": [
       {
        "value": "explicit_duration",
@@ -175,21 +200,39 @@
      "name": "percentage_timer_input_datetime",
      "label": "Percentage timer input date time",
      "type": "glide_date_time",
-     "order": 100
+     "order": 100,
+     "maxLength": 100,
+     "sys_id": "bf1d6161b736230034c6ce69ee11a920",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "is_scriptable": "false"
+     }
     },
     {
      "id": "8033309c5376230034c6ddeeff7b12e1",
      "name": "timer_percentage",
      "label": "Percentage",
      "type": "integer",
-     "order": 100
+     "order": 100,
+     "maxLength": 100,
+     "sys_id": "8033309c5376230034c6ddeeff7b12e1",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "is_scriptable": "false"
+     }
     },
     {
      "id": "ef145c1473031300b61e66476bf6a7be",
      "name": "timer_duration",
      "label": "Duration",
      "type": "glide_duration",
-     "order": 200
+     "order": 200,
+     "maxLength": 40,
+     "sys_id": "ef145c1473031300b61e66476bf6a7be",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "is_scriptable": "false"
+     }
     },
     {
      "id": "dca4105473031300b61e66476bf6a726",
@@ -198,6 +241,13 @@
      "type": "choice",
      "default": "after",
      "order": 300,
+     "maxLength": 40,
+     "sys_id": "dca4105473031300b61e66476bf6a726",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "dependency_value": "relative_duration",
+      "dependency_type": "mandatory"
+     },
      "choices": [
       {
        "value": "after",
@@ -214,14 +264,27 @@
      "name": "timer_relative_duration_datetime",
      "label": "Timer relative date time",
      "type": "glide_date_time",
-     "order": 400
+     "order": 400,
+     "maxLength": 40,
+     "sys_id": "1f25d05473031300b61e66476bf6a773",
+     "attributes": {
+      "is_scriptable": "false",
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "dependency_value": "relative_duration",
+      "dependency_type": "mandatory"
+     }
     },
     {
      "id": "fb55145473031300b61e66476bf6a762",
      "name": "timer_schedule",
      "label": "During the following schedule",
      "type": "reference",
-     "order": 500
+     "order": 500,
+     "maxLength": 32,
+     "sys_id": "fb55145473031300b61e66476bf6a762",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
     }
    ],
    "outputs": [
@@ -230,6 +293,7 @@
      "label": "Total Duration",
      "type": "glide_duration",
      "order": 100,
+     "sys_id": "2c72debc73031300b61e66476bf6a74b",
      "attributes": {
       "pills_draggable_outside_block": "true",
       "pills_draggable_inside_block": "false"
@@ -240,6 +304,7 @@
      "label": "Scheduled End date/time",
      "type": "glide_date_time",
      "order": 200,
+     "sys_id": "bdc212fc73031300b61e66476bf6a7f6",
      "attributes": {
       "pills_draggable_outside_block": "true",
       "pills_draggable_inside_block": "false"
@@ -266,7 +331,8 @@
      "name": "__status__",
      "label": "Error Status",
      "type": "string",
-     "order": 100
+     "order": 100,
+     "sys_id": "c78d433e5bdb2010b61ea2013781c7f0"
     },
     {
      "id": "dd70187cc36e20105553b740ad40dddb",
@@ -274,7 +340,8 @@
      "label": "enabled",
      "type": "boolean",
      "default": true,
-     "order": 100
+     "order": 100,
+     "sys_id": "dd70187cc36e20105553b740ad40dddb"
     }
    ],
    "outputs": []
@@ -306,7 +373,12 @@
      "name": "condition_name",
      "label": "Condition Label",
      "type": "string",
-     "order": 100
+     "order": 100,
+     "maxLength": 255,
+     "sys_id": "bda2cb0473031300612c273ffff6a750",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper"
+     }
     },
     {
      "id": "d7138f0473031300612c273ffff6a78c",
@@ -314,7 +386,13 @@
      "label": "Condition",
      "type": "string",
      "mandatory": true,
-     "order": 200
+     "order": 200,
+     "maxLength": 2000,
+     "sys_id": "d7138f0473031300612c273ffff6a78c",
+     "attributes": {
+      "element_mapping_provider": "com.glide.flow_design.action.data.FlowDesignVariableMapper",
+      "is_scriptable": "false"
+     }
     }
    ],
    "outputs": []

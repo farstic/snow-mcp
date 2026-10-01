@@ -28,14 +28,26 @@
  *                             differing zones (and an unreadable user row) are warnings.
  *   resolveCatalogVariables(item)  Get Catalog Variables outputs: item_option_new (active) of the catalog item and of
  *                             its variable sets (io_set_item), or of the variable set itself, typed by question type
- *                             (catalogVariableType); neither an item nor a set → {error}.
+ *                             (catalogVariableType), with the question-type label (sys_choice item_option_new.type) and
+ *                             the choices of choice variables (question_choice) for label_cache; neither an item nor a
+ *                             set → {error}.
+ *   resolveTableLabel(table)  sys_db_object.label of a table (table_name displayValue, label_cache '<Table> Record').
+ *   resolvePillField(table, path)  a sys_dictionary walk (super_class for inherited fields, reference for dotted walks)
+ *                             returning the last field's internal_type and `choice` attribute plus every segment's column
+ *                             label, the owning table, and the referenced table with its label — the keys of a dot-walk
+ *                             label_cache entry.
+ *   resolveFieldChoices(table, element)  the sys_choice list of a choice-list field (language en, active, no dependent
+ *                             value, in sequence order) looked up on the walked table, then up its super_class chain —
+ *                             the first table with rows is the list's `parameters.name` (task for a task-inherited field
+ *                             whose child table has no rows of its own). No rows anywhere → undefined; a failed read →
+ *                             an empty list + warning (kept out of the memo, so the next plan asks again).
  *
  * Owner: WRITER (tool wiring).
  */
 import type { ServiceNowClient } from '../servicenow/client.js';
 import type { DefinitionRef } from './spec/types.js';
 import { findAction, storedInputName } from './catalog/actions.js';
-import type { ActionTypeResolution, CatalogVariable, CatalogVariablesInfo, DefinitionError, DefinitionInfo, DefinitionVariable, GeneratorExtras, InstanceTimeZone } from './generator/index.js';
+import type { ActionTypeResolution, CatalogVariable, CatalogVariablesInfo, DefinitionError, DefinitionInfo, DefinitionVariable, FieldChoice, FieldChoicesInfo, FieldChoicesResolver, GeneratorExtras, InstanceTimeZone, PillFieldInfo } from './generator/index.js';
 import { isKnownTimeZone } from './generator/values.js';
 import { SYS_ID_RE } from './spec/schema.js';
 
@@ -53,7 +65,18 @@ const NAME_MATCH_LIMIT = 10;
 /** Upper bound for declared inputs / outputs of one definition. */
 const VARIABLE_LIMIT = 1000;
 
-const VARIABLE_FIELDS = 'sys_id,element,label,internal_type,mandatory,order,default_value,reference,attributes';
+const VARIABLE_FIELDS = 'sys_id,element,label,internal_type,mandatory,order,default_value,reference,attributes,max_length';
+
+/** The comma list `key=value,…` of an attributes column as a map (empty parts dropped). */
+export function parseAttributes(raw: unknown): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const part of fieldValue(raw).split(',')) {
+    const i = part.indexOf('=');
+    const k = (i < 0 ? part : part.slice(0, i)).trim();
+    if (k) out[k] = i < 0 ? '' : part.slice(i + 1).trim();
+  }
+  return out;
+}
 
 /**
  * The comma list `key=value,key=value` of a sys_hub_*_input attributes column (a plain object is accepted
@@ -111,6 +134,8 @@ async function readVariables(client: ServiceNowClient, table: string, model: str
     if (Number.isFinite(order) && fieldValue(row.order) !== '') v.order = order;
     const def = fieldValue(row.default_value); if (def) v.default = def;
     if (isHiddenByAttributes(row.attributes)) v.hidden = true;
+    const maxLength = Number(fieldValue(row.max_length)); if (fieldValue(row.max_length) !== '' && Number.isFinite(maxLength)) v.maxLength = maxLength;
+    const attributes = parseAttributes(row.attributes); if (Object.keys(attributes).length) v.attributes = attributes;
     return v;
   }).filter(v => v.name);
   // definition order (the order column), then element name — the Table API order is not guaranteed
@@ -385,6 +410,8 @@ const CATALOG_VARIABLE_FIELDS = 'sys_id,name,question_text,type,reference,order,
 /** Upper bound for variables per item / set and for an item's variable sets. */
 const CATALOG_LIMIT = 1000;
 const SET_FIELDS = 'sys_id,name,internal_name,title,type';
+/** The order of the '-- None --' entry a UI-built label_cache choice list of a catalog variable starts with. */
+const NONE_CHOICE_ORDER = 100;
 
 function toCatalogVariable(row: Rec, variableSet?: string): CatalogVariable | undefined {
   const name = fieldValue(row.name).trim();
@@ -399,7 +426,40 @@ function toCatalogVariable(row: Rec, variableSet?: string): CatalogVariable | un
 
 const byOrder = (a: Rec, b: Rec) => (Number(fieldValue(a.order)) || 0) - (Number(fieldValue(b.order)) || 0);
 
+/**
+ * label_cache decorations of the variables (read once per item): the question-type labels (sys_choice
+ * item_option_new.type) and, for choice variables, their question_choice rows as `{label, value, order}` after the
+ * UI's '-- None --' entry. A failed read leaves the variables undecorated (a warning), never a spec error.
+ */
+async function decorateCatalogVariables(client: ServiceNowClient, vars: CatalogVariable[], warnings: string[]): Promise<void> {
+  if (!vars.length) return;
+  try {
+    const types = await client.queryRecords({ table: 'sys_choice', query: 'name=item_option_new^element=type^language=en^inactive=false', fields: 'value,label', limit: 200 });
+    const labels = new Map((types.records as Rec[]).map(r => [fieldValue(r.value), fieldValue(r.label)]));
+    for (const v of vars) { const l = labels.get(v.type_code ?? ''); if (l) v.type_label = l; }
+    const choiceVars = vars.filter(v => v.type === 'choice' && !v.variable_set || (v.type === 'choice' && v.variable_set !== v.sys_id));
+    if (choiceVars.length) {
+      const rows = await client.queryRecords({ table: 'question_choice', query: `questionIN${choiceVars.map(v => v.sys_id).join(',')}^inactive=false`, fields: 'question,text,value,order', limit: CATALOG_LIMIT });
+      for (const v of choiceVars) {
+        const own = (rows.records as Rec[]).filter(r => fieldValue(r.question) === v.sys_id).sort(byOrder);
+        if (!own.length) continue;
+        v.choices = [{ label: '-- None --', value: '', order: NONE_CHOICE_ORDER }, ...own.map(r => ({ label: fieldValue(r.text), value: fieldValue(r.value), order: Number(fieldValue(r.order)) || 0 }))];
+      }
+    }
+  } catch (e) {
+    warnings.push(`question-type labels / choices could not be read (${(e as Error).message}) — label_cache entries of the variables carry no catalogTypeLabel / choices`);
+  }
+}
+
 async function readCatalogVariables(client: ServiceNowClient, item: string): Promise<CatalogVariablesInfo | DefinitionError> {
+  const r = await readCatalogVariablesRaw(client, item);
+  if ('error' in r) return r;
+  const warnings = [...(r.warnings ?? [])];
+  await decorateCatalogVariables(client, r.variables, warnings);
+  return { ...r, ...(warnings.length ? { warnings } : {}) };
+}
+
+async function readCatalogVariablesRaw(client: ServiceNowClient, item: string): Promise<CatalogVariablesInfo | DefinitionError> {
   if (!SYS_ID_RE.test(item)) return { error: `template_catalog_item "${item}" is not a sys_id` };
   const warnings: string[] = [];
   const vars: CatalogVariable[] = [];
@@ -456,13 +516,159 @@ export function makeCatalogVariablesResolver(client: ServiceNowClient): (item: s
   };
 }
 
+// ─── table labels and dictionary fields (label_cache / displayValue) ──────────
+
+/** resolveTableLabel for the generator: sys_db_object.label by table name (read-only, memoised per resolver; '' / missing → undefined). */
+export function makeTableLabelResolver(client: ServiceNowClient): (table: string) => Promise<string | undefined> {
+  const memo = new Map<string, Promise<string | undefined>>();
+  return table => {
+    if (!/^[a-z][a-z0-9_]*$/.test(table)) return Promise.resolve(undefined);
+    if (!memo.has(table)) {
+      memo.set(table, (async () => {
+        const r = await client.queryRecords({ table: 'sys_db_object', query: `name=${table}`, fields: 'name,label', limit: 1 });
+        return fieldValue((r.records[0] as Rec | undefined)?.label) || undefined;
+      })());
+    }
+    return memo.get(table)!;
+  };
+}
+
+interface DictionaryField { type: string; reference: string; label: string; table: string; choice: string }
+
+/** Table / element names that can go into an encoded query unchanged. */
+const SAFE_NAME = /^[a-zA-Z0-9_.]+$/;
+/** Upper bound of the super_class chain a walk follows (task → … → the root). */
+const SUPER_CLASS_HOPS = 16;
+
+/** The super_class of a table (sys_db_object super_class.name; '' for a root or unknown table), memoised per resolver. */
+function makeParentTableReader(client: ServiceNowClient): (table: string) => Promise<string> {
+  const memo = new Map<string, Promise<string>>();
+  return table => {
+    if (!memo.has(table)) {
+      memo.set(table, (async () => {
+        const p = await client.queryRecords({ table: 'sys_db_object', query: `name=${table}`, fields: 'super_class.name', limit: 1 });
+        return p.count > 0 ? fieldValue((p.records[0] as Rec)['super_class.name']) : '';
+      })());
+    }
+    return memo.get(table)!;
+  };
+}
+
+/**
+ * resolvePillField for the generator: walk `table` + dotted `path` through sys_dictionary (super_class for inherited
+ * fields, `reference` for dotted walks) and return the last field's internal_type and `choice` attribute, every
+ * segment's column label, the table the last field lives on and — for a reference field — the referenced table and its
+ * sys_db_object label. Read-only, memoised per field; undefined when any segment cannot be resolved.
+ */
+export function makeDictionaryPillFieldResolver(client: ServiceNowClient): (table: string, path: string) => Promise<PillFieldInfo | undefined> {
+  const cache = new Map<string, Promise<DictionaryField | undefined>>();
+  const tableLabel = makeTableLabelResolver(client);
+  const parentOf = makeParentTableReader(client);
+  const safe = (s: string) => SAFE_NAME.test(s);
+
+  function fieldOf(table: string, field: string): Promise<DictionaryField | undefined> {
+    const key = `${table}.${field}`;
+    if (!cache.has(key)) {
+      cache.set(key, (async () => {
+        let t = table;
+        for (let hop = 0; hop < SUPER_CLASS_HOPS && t; hop++) {
+          const r = await client.queryRecords({ table: 'sys_dictionary', query: `name=${t}^element=${field}`, fields: 'internal_type,reference,column_label,choice', limit: 1 });
+          if (r.count > 0) {
+            const rec = r.records[0] as Rec;
+            return { type: fieldValue(rec.internal_type), reference: fieldValue(rec.reference), label: fieldValue(rec.column_label), table: t, choice: fieldValue(rec.choice).trim() };
+          }
+          t = await parentOf(t);
+        }
+        return undefined;
+      })());
+    }
+    return cache.get(key)!;
+  }
+
+  return async (table, path) => {
+    const segs = path.split('.').filter(Boolean);
+    if (!segs.length || !safe(table) || !segs.every(safe)) return undefined;
+    let t = table;
+    // the table the last field is reached on (the walked table, e.g. incident — not the super class that declares the
+    // column, e.g. task: UI entries store parent_table_name "incident" for Updated_1.current.number, PDI-FACTS §6)
+    let walked = table;
+    const labels: string[] = [];
+    let last: DictionaryField | undefined;
+    for (const seg of segs) {
+      last = await fieldOf(t, seg);
+      if (!last) return undefined;
+      labels.push(last.label);
+      walked = t;
+      t = last.reference;
+    }
+    // labels only when every segment has a column_label (else the generator title-cases the element names)
+    const info: PillFieldInfo = { type: last!.type, ...(labels.every(Boolean) ? { labels } : {}), table: walked };
+    if (last!.reference) {
+      info.reference = last!.reference;
+      const l = await tableLabel(last!.reference);
+      if (l) info.reference_label = l;
+    }
+    if (last!.choice && last!.choice !== '0') info.choice = last!.choice;
+    return info;
+  };
+}
+
+/** Upper bound for the sys_choice rows of one field's list. */
+const CHOICE_LIMIT = 1000;
+
+/**
+ * resolveFieldChoices for the generator: the choice list of `table`.`element` as Workflow Studio resolves it — the
+ * sys_choice rows (language en, active, no dependent value) of the walked table, else of its super_class, and so on up
+ * the chain; the first table with rows owns the list (its name is the entries' `parameters.name`: `task` for a
+ * task-inherited field whose child table declares no rows of its own, the child itself where it does, e.g. incident.state).
+ * Rows are ordered by sequence (then value: the Table API order is not guaranteed). No rows anywhere → undefined.
+ * A read that throws → `{choices: [], warnings}` (the dictionary type is kept) and is not memoised.
+ */
+export function makeFieldChoicesResolver(client: ServiceNowClient): FieldChoicesResolver {
+  const memo = new Map<string, Promise<FieldChoicesInfo | undefined>>();
+  const parentOf = makeParentTableReader(client);
+  const read = async (table: string, element: string): Promise<FieldChoicesInfo | undefined> => {
+    let t = table;
+    for (let hop = 0; hop < SUPER_CLASS_HOPS && t; hop++) {
+      const r = await client.queryRecords({
+        table: 'sys_choice', query: `name=${t}^element=${element}^language=en^inactive=false^dependent_valueISEMPTY`,
+        fields: 'name,element,value,label,sequence', limit: CHOICE_LIMIT,
+      });
+      const rows = (r.records as Rec[]).map((row): FieldChoice => {
+        const seq = Number(fieldValue(row.sequence));
+        return { label: fieldValue(row.label), value: fieldValue(row.value), ...(fieldValue(row.sequence) !== '' && Number.isFinite(seq) ? { sequence: seq } : {}) };
+      });
+      if (rows.length) {
+        rows.sort((a, b) => (a.sequence ?? Number.MAX_SAFE_INTEGER) - (b.sequence ?? Number.MAX_SAFE_INTEGER) || a.value.localeCompare(b.value));
+        return { table: t, choices: rows };
+      }
+      t = await parentOf(t);
+    }
+    return undefined;
+  };
+  return (table, element) => {
+    if (!SAFE_NAME.test(table) || !SAFE_NAME.test(element)) return Promise.resolve(undefined);
+    const key = `${table}.${element}`;
+    if (!memo.has(key)) {
+      const p = read(table, element).catch((e: unknown): FieldChoicesInfo => {
+        if (memo.get(key) === p) memo.delete(key);
+        return { table, choices: [], warnings: [`the choice list of ${key} could not be read (${(e as Error).message}) — the field keeps its dictionary type without choices`] };
+      });
+      memo.set(key, p);
+    }
+    return memo.get(key)!;
+  };
+}
+
 /** Every instance resolver the generator takes (pill typing is supplied by the caller). */
-export function instanceResolvers(client: ServiceNowClient): Required<Pick<GeneratorExtras, 'resolveSubflow' | 'resolveCustomAction' | 'resolveActionType' | 'resolveInstanceTimeZone' | 'resolveCatalogVariables'>> {
+export function instanceResolvers(client: ServiceNowClient): Required<Pick<GeneratorExtras, 'resolveSubflow' | 'resolveCustomAction' | 'resolveActionType' | 'resolveInstanceTimeZone' | 'resolveCatalogVariables' | 'resolveTableLabel' | 'resolveFieldChoices'>> {
   return {
     resolveSubflow: makeSubflowResolver(client),
     resolveCustomAction: makeCustomActionResolver(client),
     resolveActionType: makeActionTypeResolver(client),
     resolveInstanceTimeZone: makeInstanceTimeZoneResolver(client),
     resolveCatalogVariables: makeCatalogVariablesResolver(client),
+    resolveTableLabel: makeTableLabelResolver(client),
+    resolveFieldChoices: makeFieldChoicesResolver(client),
   };
 }

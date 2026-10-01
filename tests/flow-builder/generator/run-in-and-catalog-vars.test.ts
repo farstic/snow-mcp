@@ -232,8 +232,10 @@ describe('Get Catalog Variables outputs (D18)', () => {
     });
   });
 
+  const ALL = { catalog_variables: { list: ['1'.repeat(32), '2'.repeat(32), '3'.repeat(32), '4'.repeat(32)] } };
+
   it('live: pills on the variables are typed from the resolved definition (reference walks through its table)', async () => {
-    const plan = await generatePlan(gcvFlow('{{steps.vars.laptop_type}} {{steps.vars.requested_for}} {{steps.vars.requested_for.email}} {{steps.vars.needed_by}} {{steps.vars.address_line}}'), {
+    const plan = await generatePlan(gcvFlow('{{steps.vars.laptop_type}} {{steps.vars.requested_for}} {{steps.vars.requested_for.email}} {{steps.vars.needed_by}} {{steps.vars.address_line}}', ALL), {
       resolveCatalogVariables: async item => (item === ITEM ? VARS : { error: 'unexpected' }),
       resolvePillType: async (t, p) => (t === 'sys_user' && p === 'email' ? 'email' : undefined),
     });
@@ -246,9 +248,47 @@ describe('Get Catalog Variables outputs (D18)', () => {
     expect(lc.find(e => e.name.endsWith('.requested_for'))?.reference).toBe('sys_user');
   });
 
+  it('live: a dot-walk through a reference variable that ends on a choice field is typed choice with the sys_choice list of that field (the same walk as trigger / step dot-walks)', async () => {
+    const onTask: CatalogVariablesInfo = { ...VARS, variables: VARS.variables.map(v => (v.name === 'requested_for' ? { ...v, reference: 'sc_task' } : v)) };
+    const plan = await generatePlan(gcvFlow('{{steps.vars.requested_for.state}}', ALL), {
+      resolveCatalogVariables: async item => (item === ITEM ? onTask : { error: 'unexpected' }),
+      resolvePillField: async (table, path) => (table === 'sc_task' && path === 'state' ? { type: 'integer', labels: ['State'], table, choice: '1' } : undefined),
+      resolveFieldChoices: async (table, element) => (table === 'sc_task' && element === 'state' ? { table: 'task', choices: [{ label: 'Pending', value: '-5', sequence: 0 }, { label: 'Closed Complete', value: '3', sequence: 30 }] } : undefined),
+    });
+    expect(plan.pills.find(p => p.symbolic === 'steps.vars.requested_for.state')?.type).toBe('choice');
+    const e = (plan.labelCache as Record<string, unknown>[]).find(x => String(x.name).endsWith('.requested_for.state'))!;
+    expect(e).toMatchObject({ label: '1➛requested_for➛State', reference: '', reference_display: 'State', type: 'choice', base_type: 'choice', parent_table_name: 'sc_task', column_name: 'state' });
+    expect((e.choices as { value: string; label: string; parameters: { name: string } }[]).map(c => [c.value, c.label, c.parameters.name])).toEqual([['-5', 'Pending', 'task'], ['3', 'Closed Complete', 'task']]);
+    expect(plan.warnings).toEqual([]);
+  });
+
   it('live: a name that is not a variable of the item is a spec error listing the valid names', async () => {
     const errors = await errorsOf(generatePlan(gcvFlow('{{steps.vars.laptop_typ}}'), { resolveCatalogVariables: async () => VARS }));
-    expect(errors).toEqual([`pill steps.vars.laptop_typ: "laptop_typ" is not a variable of catalog item "Example Laptop" (${ITEM}) — valid outputs of step "vars": laptop_type, requested_for, needed_by, address_line`]);
+    expect(errors).toEqual([
+      `pill steps.vars.laptop_typ: "laptop_typ" is not a variable of catalog item "Example Laptop" (${ITEM}) — valid outputs of step "vars": laptop_type, requested_for, needed_by, address_line`,
+      'step "vars" (getCatalogVariables): output "laptop_typ" is used as a pill but catalog_variables selects nothing — the step then outputs no variable and activation fails with "Action [undefined] references catalog variables that don\'t exist or are inactive"; list it in catalog_variables (by sys_id, or by name on a live plan / build)',
+    ]);
+  });
+
+  it('a Get Catalog Variables step whose outputs are used as pills must select them: an empty selection is a spec error, no output use stays valid', async () => {
+    // no pills on the step: no selection needed
+    expect((await generatePlan(gcvFlow('x'), { resolveCatalogVariables: async () => VARS })).warnings).toEqual([]);
+    // pills + no selection: refused (live and offline alike)
+    for (const opts of [{ resolveCatalogVariables: async () => VARS }, {}]) {
+      const errors = await errorsOf(generatePlan(gcvFlow('{{steps.vars.laptop_type}} {{steps.vars.needed_by}}'), opts));
+      expect(errors.join('\n')).toMatch(/step "vars" \(getCatalogVariables\): outputs "laptop_type", "needed_by" are used as pills but catalog_variables selects nothing/);
+    }
+    // pills + a selection that covers them (live: by name, checked): valid, and label_cache carries the UI entry of a catalog variable
+    const plan = await generatePlan(gcvFlow('{{steps.vars.laptop_type}}', { catalog_variables: { list: ['laptop_type'] } }), { resolveCatalogVariables: async () => VARS });
+    expect(plan.warnings).toEqual([]);
+    const lc = plan.labelCache as Record<string, unknown>[];
+    expect(lc.find(e => String(e.name).endsWith('.laptop_type'))).toEqual(expect.objectContaining({
+      label: '1 - Get Catalog Variables➛laptop_type', reference: '', reference_display: 'laptop_type', type: 'choice', base_type: 'choice',
+      attributes: { catalogType: '5', catalogTypeLabel: 'Select Box' },
+    }));
+    // offline with a sys_id selection: cannot be matched to the pill names — a warning, not an error
+    const offline = await generatePlan(gcvFlow('{{steps.vars.laptop_type}}', { catalog_variables: { list: ['1'.repeat(32)] } }));
+    expect(offline.warnings.join('\n')).toMatch(/whether catalog_variables covers the pill "laptop_type" cannot be checked offline/);
   });
 
   it('live: catalog_variables restricts the outputs (a variable, or a whole variable set); an item outside the variables is an error', async () => {
@@ -310,7 +350,7 @@ describe('Get Catalog Variables outputs (D18)', () => {
   it('live: an item the resolver does not find is a spec error; a pill item or a failed read falls back with a warning', async () => {
     expect((await errorsOf(generatePlan(gcvFlow('x'), { resolveCatalogVariables: async () => ({ error: `template_catalog_item ${ITEM} is neither a catalog item (sc_cat_item) nor a variable set (item_option_new_set) on the instance` }) }))).join('\n'))
       .toMatch(/step "vars" \(getCatalogVariables\): template_catalog_item c{32} is neither a catalog item/);
-    const thrown = await generatePlan(gcvFlow('{{steps.vars.laptop_type}}'), { resolveCatalogVariables: async () => { throw new Error('read refused'); } });
+    const thrown = await generatePlan(gcvFlow('{{steps.vars.laptop_type}}', { catalog_variables: { list: ['1'.repeat(32)] } }), { resolveCatalogVariables: async () => { throw new Error('read refused'); } });
     expect(thrown.warnings.join('\n')).toMatch(/could not be read \(read refused\)/);
     expect(thrown.pills.find(p => p.symbolic === 'steps.vars.laptop_type')?.type).toBe('string');
   });
@@ -334,7 +374,7 @@ describe('Get Catalog Variables outputs (D18)', () => {
   });
 
   it('offline: unchanged — the pill is typed string with a warning', async () => {
-    const plan = await generatePlan(gcvFlow('{{steps.vars.laptop_type}}'));
+    const plan = await generatePlan(gcvFlow('{{steps.vars.laptop_type}}', { catalog_variables: { list: ['1'.repeat(32)] } }));
     expect(plan.pills.find(p => p.symbolic === 'steps.vars.laptop_type')?.type).toBe('string');
     expect(plan.warnings).toContain('pill steps.vars.laptop_type: step "vars" has no output "laptop_type"; typed as string');
   });

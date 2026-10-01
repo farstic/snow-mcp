@@ -22,7 +22,7 @@ import { requireFlowBuilder, requireFlowBuilderActivate, requireDirectMcpInvocat
 import { parseSpec } from '../flow-builder/spec/schema.js';
 import type { FlowSpec, GenerateOptions, RecordPlan, RecordRow, Step, WriteOptions } from '../flow-builder/spec/types.js';
 import { generatePlan, readCatalog, type GeneratorExtras } from '../flow-builder/generator/index.js';
-import { instanceResolvers } from '../flow-builder/resolvers.js';
+import { instanceResolvers, makeDictionaryPillFieldResolver } from '../flow-builder/resolvers.js';
 import { findAction, findActionInput } from '../flow-builder/catalog/actions.js';
 import { planToRecordUpdateXml } from '../flow-builder/xml/record-update.js';
 import { planToUnloadXml, listDeleteMultiples } from '../flow-builder/xml/unload.js';
@@ -209,7 +209,7 @@ export function makeDictionaryPillTypeResolver(client: ServiceNowClient): (table
  * variables of a Get Catalog Variables step (D18). See src/flow-builder/resolvers.ts.
  */
 export function liveGeneratorOptions(client: ServiceNowClient): GenerateOptions & GeneratorExtras {
-  return { resolvePillType: makeDictionaryPillTypeResolver(client), ...instanceResolvers(client) };
+  return { resolvePillType: makeDictionaryPillTypeResolver(client), resolvePillField: makeDictionaryPillFieldResolver(client), ...instanceResolvers(client) };
 }
 
 /** Every step of a spec, depth-first (blocks, branches and the error handler included). */
@@ -405,6 +405,9 @@ export async function runLiveChecks(client: ServiceNowClient, spec: FlowSpec, pl
       const rows = await client.queryRecords({ table: t, query: `flow=${plan.flow.sys_id}`, fields: 'sys_id', limit: 1000 });
       for (const r of rows.records) { const id = fieldStr((r as Record<string, unknown>).sys_id); if (!planned.has(id)) out.stale.push({ table: t, sys_id: id }); }
     }
+    // the catalog-variable model row of a catalog flow is keyed by id=<flow>
+    const models = await client.queryRecords({ table: 'sys_flow_cat_variable_model', query: `id=${plan.flow.sys_id}`, fields: 'sys_id', limit: 10 });
+    for (const r of models.records) { const id = fieldStr((r as Record<string, unknown>).sys_id); if (!planned.has(id)) out.stale.push({ table: 'sys_flow_cat_variable_model', sys_id: id }); }
     // Record-triggered flows: the platform owns the sys_hub_flow_input rows current / table_name
     // (same exemption as the loader build path) — they are not stale.
     const platformManaged = isRecordTriggeredFlow(plan) ? new Set<string>(PLATFORM_MANAGED_INPUT_ELEMENTS) : new Set<string>();

@@ -13,7 +13,7 @@
     <flow_priority/>
     <generation_source>snow_mcp_flow_builder</generation_source>
     <internal_name>trigger_remote_table_query</internal_name>
-    <label_cache>[{"name":"Remote Table Query_1.query_id","label":"Trigger - Remote Table Query➛Query ID","type":"string","base_type":"string","usedInstances":{"02434e07-884d-316f-6296-35eabd0b3f74":["log_message"]},"attributes":{}},{"name":"Remote Table Query_1.table_name","label":"Trigger - Remote Table Query➛Table Name","type":"table_name","base_type":"table_name","usedInstances":{"02434e07-884d-316f-6296-35eabd0b3f74":["log_message"]},"attributes":{}}]</label_cache>
+    <label_cache>[{"name":"Remote Table Query_1.query_id","label":"Trigger - Remote Table Query➛Query ID","reference_display":"Query ID","type":"string","base_type":"string","usedInstances":{"02434e07-884d-316f-6296-35eabd0b3f74":["log_message"]},"attributes":{"visible":"false"}},{"name":"Remote Table Query_1.table_name","label":"Trigger - Remote Table Query➛Table Name","reference_display":"Table Name","type":"table_name","base_type":"table_name","usedInstances":{"02434e07-884d-316f-6296-35eabd0b3f74":["log_message"]},"attributes":{}}]</label_cache>
     <name>Trigger Remote Table Query</name>
     <run_as>user</run_as>
     <run_with_roles/>
@@ -33,7 +33,7 @@
     <flow>b713cebed090596673fed23eab8f5449</flow>
     <name>Remote Table Query</name>
     <trigger_definition>778cf3bf37232110aba6473174924b7c</trigger_definition>
-    <trigger_inputs>H4sIAAAAAAAAA4WQsWoDMRBEfyVsfYXTqksTMKRKTBpjxFoa2wJJJ1brI8L438OdjhROIO3M7szb3d9IJZzPkG2uytnho9WtJ0M0UOQjIhna8TGCBgpZIZnjrhWQIZ1lmznNnkdB9sjaV91lDA5voSqZ/WGgxNmzjtLInDhWDDSKh5B53mwGWjIMXa2uTRPHa1fwxalEWEEadSkKtURun/9OvAbE9ZDqJBR9cRom/AC4S4hekDtgYeEEnZFupH8c+Ivx8TuCEwTZzVO1VdtL7aSPvl0BydD7wvzUI+73wzfttt7NjwEAAA==</trigger_inputs>
+    <trigger_inputs>H4sIAAAAAAAAA4WSTWvCQBCG/0qZcw7GiNi99SIIpYJKLyLLuDvRhc0m3Z1YU/G/l2QTK7XQ487Hvs+8M9sLsDeHA/mFC4xO0boJCw0CIAGLe7IgYIN7S5CAcUzeod00FYEAbsPSYdHmNFXkNDmOrepYGkWvJjCI7S6BAp1GLn0DIkcbKIHSa/Ig0tEoge4PAbXkXumEto4ROmNRWZKeipI7IRMqi837vxVzQ7YfJChvKn5RbE50A1BHY7UnFwEr9FgQt0iXXynT/qLzyWRKpDDLsnGajnCP0+cZTXWW0jSl2R92PUzFf/h2bwOdufVQ3xAfXfOEeunsT+BoBssLPAfzRSCycVuXkyenWr3QBBkdkKcB5ZaXvVsgYNUZ+DTgxxUuKzaliwqxOe63tHXh3uKE3fpzrC0PW4EE6kDy7ih63Hx9LD9Xg/jcuG76PmlLhfb2QmZv9jVTAHG5dsjyo24L4P7eZKS7Xnffy2MbZcwCAAA=</trigger_inputs>
     <trigger_outputs/>
     <trigger_type>remote_table_query</trigger_type>
   </sys_hub_trigger_instance_v2>
@@ -54,7 +54,7 @@
     <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
     <ui_id>02434e07-884d-316f-6296-35eabd0b3f74</ui_id>
     <updation_source/>
-    <values>H4sIAAAAAAAAA7WQywrCMBBFfyXMOghuu/MTFHEjEsZ0WgN5maSFEubfJeLCIoIbl/fMhXOZcwWPjqADG0ZlaSYLEma0U2PGDwEk9CZHi8tpTbNOJpadLmYm6Aa0mSRETOioUIKuQlli6+tbMJqAWa5kjnLGkd50B3KhkLhPlBZR6yse8WpJ7BtU283zqEzPLIL/ViotqeZi/tz/L83PD8klGT8C8+UBeD+OAH8BAAA=</values>
+    <values>H4sIAAAAAAAAA+VUXW/aMBT9K+g+B5RAWde8TbBKk/qhtVP7gKroYt+AJcdObQfKUP775MRA1rKpSN3THu/xsXzO8b13tgXBIYXxnCVzxj6NR0kcj+J4NM8TfpHEF8TGn8/5OUSgsCBIQepFJmlFEiJYoaw8JlSuIQIubClx8xDQby3KlkJyQwrS2VMEJRosyJGBdPvq6L1CJM5JQgpXQcURYW5TeogttWAU6qtwbbIDteFeRhwBvThSnDikOUpLERSoODptNnvEEPJbJQ/AUigHKYAnv1jxkyA9iz0vJ0OKUXu2L7MQTgvnU3R470zFXGUCtRVrIZ1t9xb7/d6NVtTr9ztpd6TX0YEb4n71J4GZdJmPaJRQiw55jUYdyMMu+asx2nSoFOrAHdVPEXDKsZJucrqD5N0Ohqc4GJ3g4Mw7aMO/LZ3QClJIfM/gXO6+RsuqUDdtn8He78Or9m/R6dEpqCxlnErfZr5vQhPl90u9vtv1yKVQjaJwKDVDua/QOSPmlfP5boEkFaRcVmBZCrXISqNXorkMTBeDhRScBrnU64yTFQs1QOatDTg6HFxKvZ428AMa4W1eY1mSgToCu7ETidYezBrKs+fKK2mtBw9ZE1RzhRlRui/MiRUFuT7+ZpyHo7+NM41/H9+CrMUFdf7qjgrtqPdckdn0tttQ/vCae989mCWD5jATvK57Wv2J1Pxm5t+q67er6l89c9rue0dYu56+3id1NL6w/6wz7ZR099/9DtyN4Iftv+F4/DEL8NhKeTukJ83o/zeCT78AWjeD9twHAAA=</values>
   </sys_hub_action_instance_v2>
   <sys_hub_alias_mapping action="delete_multiple" query="source_id=02434e07884d316f629635eabd0b3f74"/>
 </record_update>

@@ -15,12 +15,14 @@
  * UI-built trigger rows (catalog/ui-descriptors.ts). Every other trigger gets a descriptor built generically from
  * its input definitions (descriptorTemplate below): one entry per active input in catalogue order (definition order,
  * or for the record triggers the entry order UI-built rows store — manifest `input_order`), the definition's
- * label / type / mandatory / order / default, its choices as the choice list, and a parameter object carrying
- * type, name, label, the referenced table and its label, attributes and the dependent field.
+ * label / type / mandatory / order / default, its choices as the choice list, and the full parameter mirror of the
+ * definition in the trigger-descriptor form UI-built rows store (generator/parameter.ts triggerParameter: id, maxsize,
+ * reference + table label, choices, attributes, dependent field, …).
  *
  * Owner: GENERATOR.
  */
 import { catalogData, type CatalogInputRaw, type TriggerDef, type TriggerDescriptorEntry } from './load.js';
+import { triggerParameter } from '../generator/parameter.js';
 
 export type { TriggerDef, TriggerDescriptorEntry };
 
@@ -40,19 +42,10 @@ export function isRecordTrigger(t: TriggerDef): boolean {
   return t.key.startsWith('record.');
 }
 
-/** One `trigger_inputs` entry built from an input definition (value = the definition default). */
+/** One `trigger_inputs` entry built from an input definition (value = the definition default; parameter = the full definition mirror). */
 function descriptorEntry(i: CatalogInputRaw): TriggerDescriptorEntry {
   const value = i.default === undefined ? '' : String(i.default);
-  const parameter: Record<string, unknown> = { type: i.type, name: i.name, label: i.label };
-  if (i.reference) {
-    parameter.reference = i.reference;
-    if (i.reference_display !== undefined) parameter.reference_display = i.reference_display;
-  }
-  if (i.attributes && Object.keys(i.attributes).length) parameter.attributes = { ...i.attributes };
-  if (i.dependent) {
-    parameter.dependent_on = i.dependent;
-    parameter.use_dependent = Boolean(i.use_dependent);
-  }
+  const parameter = triggerParameter(i);
   const entry: TriggerDescriptorEntry = {
     triggerInstanceSysId: '',
     label: i.label,

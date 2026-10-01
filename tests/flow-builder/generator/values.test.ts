@@ -29,20 +29,20 @@ describe('durations and times', () => {
 });
 
 describe('template_value', () => {
-  it('encodes f=v^…^EQ with pills, stringified scalars and texts', () => {
+  it('encodes f=v^… with pills, stringified scalars and texts', () => {
     const enc = V.encodeTemplate({ impact: '1', state: 7, active: false, assignment_group: { pill: 'steps.l.Record' }, work_notes: { text: 'by {{trigger.current.number}}' } }, pill, text);
-    expect(enc.value).toBe('impact=1^state=7^active=false^assignment_group={{P:steps.l.Record}}^work_notes=by {{P:trigger.current.number}}^EQ');
+    expect(enc.value).toBe('impact=1^state=7^active=false^assignment_group={{P:steps.l.Record}}^work_notes=by {{P:trigger.current.number}}');
     expect(enc.scripts).toEqual({});
   });
 
   it('writes a static {reference} in the UI-built form field={"display","value"} (PDI-FACTS §8, FORMAT-DECISIONS D11)', () => {
     const enc = V.encodeTemplate({ assignment_group: { reference: '8a4cb6d4c61122780043b1642efcd52b', display: 'Procurement' }, description: 'x' }, pill, text);
-    expect(enc.value).toBe('assignment_group={"display":"Procurement","value":"8a4cb6d4c61122780043b1642efcd52b"}^description=x^EQ');
+    expect(enc.value).toBe('assignment_group={"display":"Procurement","value":"8a4cb6d4c61122780043b1642efcd52b"}^description=x');
   });
 
   it('an inline {script} sub-field writes the fd-scripted placeholder and a script map', () => {
     const enc = V.encodeTemplate({ work_notes: { script: 'return 1;' }, impact: '2' }, pill, text);
-    expect(enc.value).toBe('work_notes=fd-scripted^impact=2^EQ');
+    expect(enc.value).toBe('work_notes=fd-scripted^impact=2');
     expect(enc.scripts).toEqual({ work_notes: 'return 1;' });
   });
 

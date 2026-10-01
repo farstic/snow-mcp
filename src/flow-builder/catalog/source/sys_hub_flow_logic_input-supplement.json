@@ -1,0 +1,80 @@
+{
+  "table": "sys_hub_flow_logic_input",
+  "query": "sys_idIN<logic input sys_ids> (the parameter mirrors of UI-built logic rows: tests/flow-builder/fixtures/pdi flows/leaver-flow, flows/dountil-timer-subflow, samples/for-each-instances)",
+  "fields": "sys_id,element,max_length,attributes",
+  "note": "Supplement to sys_hub_flow_logic_input.json: max_length and attributes of the logic inputs, as the parameter.maxsize / parameter.attributes of UI-built logic rows carry them. Joined by sys_id.",
+  "result": [
+    {
+      "sys_id": "19df9109c32632002841b63b12d3aed6",
+      "element": "items",
+      "max_length": "100",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper"
+    },
+    {
+      "sys_id": "1f25d05473031300b61e66476bf6a773",
+      "element": "timer_relative_duration_datetime",
+      "max_length": "40",
+      "attributes": "is_scriptable=false,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,dependency_value=relative_duration,dependency_type=mandatory"
+    },
+    {
+      "sys_id": "4973581473031300b61e66476bf6a785",
+      "element": "duration_type",
+      "max_length": "40",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper"
+    },
+    {
+      "sys_id": "8033309c5376230034c6ddeeff7b12e1",
+      "element": "timer_percentage",
+      "max_length": "100",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,is_scriptable=false"
+    },
+    {
+      "sys_id": "9a5f5105c32632002841b63b12d3ae46",
+      "element": "condition",
+      "max_length": "2000",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,is_scriptable=false"
+    },
+    {
+      "sys_id": "bda2cb0473031300612c273ffff6a750",
+      "element": "condition_name",
+      "max_length": "255",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper"
+    },
+    {
+      "sys_id": "bf1d6161b736230034c6ce69ee11a920",
+      "element": "percentage_timer_input_datetime",
+      "max_length": "100",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,is_scriptable=false"
+    },
+    {
+      "sys_id": "d7138f0473031300612c273ffff6a78c",
+      "element": "condition",
+      "max_length": "2000",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,is_scriptable=false"
+    },
+    {
+      "sys_id": "dca4105473031300b61e66476bf6a726",
+      "element": "timer_relative_duration_operator",
+      "max_length": "40",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,dependency_value=relative_duration,dependency_type=mandatory"
+    },
+    {
+      "sys_id": "ef145c1473031300b61e66476bf6a7be",
+      "element": "timer_duration",
+      "max_length": "40",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,is_scriptable=false"
+    },
+    {
+      "sys_id": "f0af19c1c32632002841b63b12d3aea3",
+      "element": "condition_name",
+      "max_length": "255",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,use_basic_input=true"
+    },
+    {
+      "sys_id": "fb55145473031300b61e66476bf6a762",
+      "element": "timer_schedule",
+      "max_length": "32",
+      "attributes": "element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper"
+    }
+  ]
+}

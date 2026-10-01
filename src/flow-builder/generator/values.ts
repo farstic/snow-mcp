@@ -5,7 +5,7 @@
  *   time + timezone   glide_time      '1970-01-01 HH:MM:SS' converted to UTC (offset of the zone on 1970-01-01)
  *   run_in            glide_date_time 'YYYY-MM-DD HH:MM:SS' INSTANCE-LOCAL wall time (never UTC); an ISO-8601 instant is
  *                                     converted with wallTimeIn(<instance zone>, instant) — FORMAT-DECISIONS D17
- *   {template}        template_value  'f1=v1^f2=v2^EQ'; pills allowed; a {reference} sub-value is written in the
+ *   {template}        template_value  'f1=v1^f2=v2'; pills allowed; a {reference} sub-value is written in the
  *                                     UI form field={"display":"<label>","value":"<sys_id>"} (PDI-FACTS §8, FORMAT-DECISIONS.md);
  *                                     a {script} sub-value writes the placeholder `fd-scripted` and a script map
  *   {approval_rules}  approval_rules  ruleSets 'Or' / rules '&' / conditions '|' / Any|All|Res|n#|n% [+M] U[..] G[..]
@@ -155,7 +155,7 @@ export interface TemplateEncoding {
 }
 
 /**
- * Encode a {template} object: 'f1=v1^f2=v2^EQ'. `renderPill` rewrites a symbolic pill;
+ * Encode a {template} object: 'f1=v1^f2=v2' (no trailing ^EQ, as the UI writes it). `renderPill` rewrites a symbolic pill;
  * `renderText` rewrites the {{...}} tokens of a text.
  */
 export function encodeTemplate(
@@ -189,7 +189,7 @@ export function encodeTemplate(
         throw new ServiceNowError(`template field "${field}": unsupported value form ${valueKind(v)}`, 'FLOW_BUILDER_INVALID_SPEC');
     }
   }
-  parts.push('EQ');
+  // UI-built rows carry no trailing '^EQ' (PDI-FACTS §8; live 28 Sep 2026: the suffix renders as an empty 'Select a field' row in Workflow Studio).
   return { value: parts.join('^'), scripts };
 }
 

@@ -95,7 +95,7 @@ describe('label on if / else_if / do_until', () => {
     expect(bad(withSteps([{ kind: 'for_each', key: 'fe', label: 'x', items: { pill: 'trigger.current' }, steps: [] }]))).toMatch(/Unrecognized key|label/);
   });
 
-  it('the generator writes condition_name before condition; unlabelled blocks keep the single condition input', async () => {
+  it('the generator writes condition_name before condition; unlabelled blocks carry an empty condition_name (UI rows always store both)', async () => {
     const plan = await generatePlan(ok(withSteps([IF, UNTIL])), { resolvePillType: async () => 'string' });
     const logic = plan.instances.map((r, i) => ({ r, i })).filter(x => x.r.table === 'sys_hub_flow_logic_instance_v2');
     const inputsOf = (i: number) => (values(plan, i).inputs as { name: string; value: unknown }[]).map(e => [e.name, e.value]);
@@ -107,7 +107,7 @@ describe('label on if / else_if / do_until', () => {
     expect(inputsOf(logic[3].i)).toEqual([['condition_name', 'Poll until resolved'], ['condition', expect.stringMatching(/=6$/)]]);
 
     const plain = await generatePlan(ok(withSteps([{ ...IF, label: undefined, else_if: undefined, else: undefined }])), { resolvePillType: async () => 'string' });
-    expect((values(plain, 0).inputs as { name: string }[]).map(e => e.name)).toEqual(['condition']);
+    expect((values(plain, 0).inputs as { name: string; value: unknown }[]).map(e => [e.name, e.value])).toEqual([['condition_name', ''], ['condition', expect.stringMatching(/=1$/)]]);
   });
 });
 
